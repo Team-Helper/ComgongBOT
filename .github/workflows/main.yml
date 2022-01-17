@@ -28,7 +28,7 @@ jobs:
         npm install
     # Deploying the functions to firebase
     - name:  Deploy to Firebase
-      uses: w9jds/firebase-action@main
+      uses: w9jds/firebase-action@master
       with:
           args: deploy --only functions
       env:
