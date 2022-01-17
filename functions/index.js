@@ -7,6 +7,6 @@ exports.helloWorld = functions
     .onRequest((request, response) => {
         functions
             .logger
-            .info("Hello logs!", {structuredData: true});
+            .info("Hello logs!!!", {structuredData: true});
         response.send("Hello from Firebase!");
     });
