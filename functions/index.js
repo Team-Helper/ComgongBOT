@@ -5,7 +5,7 @@ const cors = require('cors');
 admin.initializeApp();
 const app = express();
 
-const HW = require('./scripts/HelloWorld')
+const HW = require('./router/HelloWorld')
 
 app.use(cors());
 app.use('/hw', HW);
