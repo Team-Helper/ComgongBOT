@@ -1,12 +1,16 @@
-const functions = require("firebase-functions");
+const functions = require('firebase-functions');
+const admin = require('firebase-admin')
+const express = require('express');
+const cors = require('cors');
+admin.initializeApp();
+const app = express();
 
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
-exports.helloWorld = functions
+const HW = require('./scripts/HelloWorld')
+
+app.use(cors());
+app.use('/hw', HW);
+
+exports.middleWare = functions
+    .region('asia-northeast1')
     .https
-    .onRequest((request, response) => {
-        functions
-            .logger
-            .info("Hello logs!!!", {structuredData: true});
-        response.send("Hello from Firebase!");
-    });
+    .onRequest(app);
