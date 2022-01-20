@@ -10,9 +10,9 @@ const HelloWorld = require('./router/HelloWorld');
 app.use(cors());
 app.use('/', HelloWorld);
 
-exports.middleWare = functions
-    .region('asia-northeast1')
-    .https
-    .onRequest(app);
+// exports.middleWare = functions
+//     .region('asia-northeast1')
+//     .https
+//     .onRequest(app);
 
-// module.exports = app;
+module.exports = app;
