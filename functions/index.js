@@ -13,10 +13,10 @@ app.use('/', HelloWorld);
 app.use('/public',publicHub);
 
 
-// exports.middleWare = functions
-//     .region('asia-northeast1')
-//     .https
-//     .onRequest(app);
+exports.middleWare = functions
+    .region('asia-northeast1')
+    .https
+    .onRequest(app);
 
 
-module.exports = app;
+// module.exports = app;
