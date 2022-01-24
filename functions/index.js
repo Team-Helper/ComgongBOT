@@ -5,14 +5,14 @@ const cors = require('cors');
 admin.initializeApp();
 const app = express();
 
-const HelloWorld = require('./router/helloworld');
+// const HelloWorld = require('./router/helloworld');
 const publicHub = require('./router/public/public_hub');
 const privateHub = require('./router/private/private_hub');
 const personalHub = require('./router/personal/personal_hub');
-const setting = require('./router/setting');
+const setting = require('./router/setting/setting_hub');
 
 app.use(cors());
-app.use('/', HelloWorld);
+// app.use('/', HelloWorld);
 app.use('/public', publicHub);
 app.use('/private', privateHub);
 app.use('/personal', personalHub);
