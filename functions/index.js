@@ -11,6 +11,8 @@ const privateHub = require('./router/private/private_hub');
 const personalHub = require('./router/personal/personal_hub');
 const setting = require('./router/setting/setting_hub');
 
+const publicService = require('./router/public/public_service');
+
 app.use(cors());
 app.use('/', helloWorld);
 app.use('/public', publicHub);
@@ -23,4 +25,6 @@ exports.middleWare = functions
     .https
     .onRequest(app);
 
-// module.exports = app;
+exports.public_service = publicService.public_service;
+
+//module.exports = app;

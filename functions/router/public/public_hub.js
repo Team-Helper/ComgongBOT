@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', function (req, res) {
-    console.log(req.headers.key);
+    // console.log(req.headers.key);
     const responseBody = {
         version: "2.0",
         template: {
@@ -25,7 +25,7 @@ router.post('/', function (req, res) {
                     "blockId": req.headers.key,
                     "label": "새소식"
                 }, {
-                    "messageText": "자유게시판 게시판을 조회해줘",
+                    "messageText": "자유게시판을 조회해줘",
                     "action": "block",
                     "blockId": req.headers.key,
                     "label": "자유게시판"
