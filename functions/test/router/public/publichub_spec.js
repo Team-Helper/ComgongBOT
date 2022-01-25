@@ -26,7 +26,16 @@ describe('POST /public', () => {
             .expect(201)
             .then(res => {
                 // console.log(res.body);
-                const array = ['학과', '공학', '전공', '교수진']
+                const array = [
+                    '공지사항',
+                    '새소식',
+                    '자유게시판',
+                    '외부IT',
+                    '공학인증',
+                    '교과과정',
+                    '이수체계도',
+                    '교수진'
+                ]
                 for (let index = 0; index < res.body.template.quickReplies.length; index++) {
                     const element = res
                         .body

@@ -15,20 +15,40 @@ router.post('/', function (req, res) {
             ],
             quickReplies: [
                 {
-                    "messageText": "학과광장 게시판을 조회해줘",
+                    "messageText": "공지사항 게시판을 조회해줘",
                     "action": "block",
                     "blockId": req.headers.key,
-                    "label": "학과광장"
+                    "label": "공지사항"
                 }, {
-                    "messageText": "공학인증 게시판을 조회해줘",
+                    "messageText": "새소식 게시판을 조회해줘",
                     "action": "block",
                     "blockId": req.headers.key,
-                    "label": "공학인증"
+                    "label": "새소식"
                 }, {
-                    "messageText": "전공안내 게시판을 조회해줘",
+                    "messageText": "자유게시판 게시판을 조회해줘",
                     "action": "block",
                     "blockId": req.headers.key,
-                    "label": "전공안내"
+                    "label": "자유게시판"
+                }, {
+                    "messageText": "외부IT행사 및 교육 게시판을 조회해줘",
+                    "action": "block",
+                    "blockId": req.headers.key,
+                    "label": "외부IT행사 및 교육"
+                }, {
+                    "messageText": "공학인증자료실 게시판을 조회해줘",
+                    "action": "block",
+                    "blockId": req.headers.key,
+                    "label": "공학인증자료실"
+                }, {
+                    "messageText": "교과과정 게시판을 조회해줘",
+                    "action": "block",
+                    "blockId": req.headers.key,
+                    "label": "교과과정"
+                }, {
+                    "messageText": "이수체계도 게시판을 조회해줘",
+                    "action": "block",
+                    "blockId": req.headers.key,
+                    "label": "이수체계도"
                 }, {
                     "messageText": "교수진소개 게시판을 조회해줘",
                     "action": "block",
