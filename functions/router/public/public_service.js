@@ -37,7 +37,7 @@ exports.public_service = functions
                     }
                 }
                 break;
-            case "자유게시판 게시판을 조회해줘":
+            case "자유게시판을 조회해줘":
                 responseBody = {
                     version: "2.0",
                     template: {
@@ -100,7 +100,7 @@ exports.public_service = functions
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "이수체계도을 조회했어요!"
+                                    text: "이수체계도를 조회했어요!"
                                 }
                             }
                         ]
