@@ -114,7 +114,7 @@ exports.public_service = functions
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "교수진소개을 조회했어요!"
+                                    text: "교수진소개를 조회했어요!"
                                 }
                             }
                         ]
