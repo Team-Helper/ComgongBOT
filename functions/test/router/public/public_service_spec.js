@@ -7,7 +7,7 @@ describe('POST /public_service', () => {
             utterance: "공지사항 게시판을 조회해줘"
         };
 
-        request('')
+        request('http://localhost:5000/comgong-bot/asia-northeast1')
             .post(
                 '/public_service'
             )
@@ -38,7 +38,7 @@ describe('POST /public_service', () => {
             utterance: "새소식 게시판을 조회해줘"
         };
 
-        request('')
+        request('http://localhost:5000/comgong-bot/asia-northeast1')
             .post(
                 '/public_service'
             )
@@ -69,7 +69,7 @@ describe('POST /public_service', () => {
             utterance: "자유게시판을 조회해줘"
         };
 
-        request('')
+        request('http://localhost:5000/comgong-bot/asia-northeast1')
             .post(
                 '/public_service'
             )
@@ -100,7 +100,7 @@ describe('POST /public_service', () => {
             utterance: "외부IT행사 및 교육 게시판을 조회해줘"
         };
 
-        request('')
+        request('http://localhost:5000/comgong-bot/asia-northeast1')
             .post(
                 '/public_service'
             )
@@ -131,7 +131,7 @@ describe('POST /public_service', () => {
             utterance: "공학인증자료실 게시판을 조회해줘"
         };
 
-        request('')
+        request('http://localhost:5000/comgong-bot/asia-northeast1')
             .post(
                 '/public_service'
             )
@@ -162,7 +162,7 @@ describe('POST /public_service', () => {
             utterance: "교과과정 게시판을 조회해줘"
         };
 
-        request('')
+        request('http://localhost:5000/comgong-bot/asia-northeast1')
             .post(
                 '/public_service'
             )
@@ -193,7 +193,7 @@ describe('POST /public_service', () => {
             utterance: "이수체계도 게시판을 조회해줘"
         };
 
-        request('')
+        request('http://localhost:5000/comgong-bot/asia-northeast1')
             .post(
                 '/public_service'
             )
@@ -224,7 +224,7 @@ describe('POST /public_service', () => {
             utterance: "교수진소개 게시판을 조회해줘"
         };
 
-        request('')
+        request('http://localhost:5000/comgong-bot/asia-northeast1')
             .post(
                 '/public_service'
             )
