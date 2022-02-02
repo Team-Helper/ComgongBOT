@@ -42,6 +42,14 @@ exports.public_service = functions
                                     text: "새소식을 조회했어요!"
                                 }
                             }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "뒤로 돌아갈래",
+                                "action": "block",
+                                "blockId": req.headers.back_key,
+                                "label": "🔙 뒤로가기"
+                            }
                         ]
                     }
                 }
@@ -55,6 +63,14 @@ exports.public_service = functions
                                 simpleText: {
                                     text: "자유게시판을 조회했어요!"
                                 }
+                            }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "뒤로 돌아갈래",
+                                "action": "block",
+                                "blockId": req.headers.back_key,
+                                "label": "🔙 뒤로가기"
                             }
                         ]
                     }
@@ -70,6 +86,14 @@ exports.public_service = functions
                                     text: "외부IT행사 및 교육을 조회했어요!"
                                 }
                             }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "뒤로 돌아갈래",
+                                "action": "block",
+                                "blockId": req.headers.back_key,
+                                "label": "🔙 뒤로가기"
+                            }
                         ]
                     }
                 }
@@ -83,6 +107,14 @@ exports.public_service = functions
                                 simpleText: {
                                     text: "공학인증자료실을 조회했어요!"
                                 }
+                            }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "뒤로 돌아갈래",
+                                "action": "block",
+                                "blockId": req.headers.back_key,
+                                "label": "🔙 뒤로가기"
                             }
                         ]
                     }
@@ -98,6 +130,14 @@ exports.public_service = functions
                                     text: "교과과정을 조회했어요!"
                                 }
                             }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "뒤로 돌아갈래",
+                                "action": "block",
+                                "blockId": req.headers.back_key,
+                                "label": "🔙 뒤로가기"
+                            }
                         ]
                     }
                 }
@@ -112,6 +152,14 @@ exports.public_service = functions
                                     text: "이수체계도를 조회했어요!"
                                 }
                             }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "뒤로 돌아갈래",
+                                "action": "block",
+                                "blockId": req.headers.back_key,
+                                "label": "🔙 뒤로가기"
+                            }
                         ]
                     }
                 }
@@ -125,6 +173,14 @@ exports.public_service = functions
                                 simpleText: {
                                     text: "교수진소개를 조회했어요!"
                                 }
+                            }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "뒤로 돌아갈래",
+                                "action": "block",
+                                "blockId": req.headers.back_key,
+                                "label": "🔙 뒤로가기"
                             }
                         ]
                     }
