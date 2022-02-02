@@ -1,10 +1,9 @@
 const request = require('supertest');
 const {expect} = require('chai');
-const app = require('../../../index');
 
 describe('POST /public', () => {
     it('responds type object', done => {
-        request(app)
+        request('http://localhost:5000/comgong-bot/asia-northeast1/middleWare')
             .post('/public')
             .expect(201)
             .then(res => {
@@ -21,7 +20,7 @@ describe('POST /public', () => {
             })
         });
     it('responds correct label', done => {
-        request(app)
+        request('http://localhost:5000/comgong-bot/asia-northeast1/middleWare')
             .post('/public')
             .expect(201)
             .then(res => {

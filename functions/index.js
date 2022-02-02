@@ -7,15 +7,17 @@ const app = express();
 
 const helloWorld = require('./router/helloworld');
 const publicHub = require('./router/public/public_hub');
+const publicService = require('./router/public/public_service');
 const privateHub = require('./router/private/private_hub');
 const personalHub = require('./router/personal/personal_hub');
 const setting = require('./router/setting/setting_hub');
 
-const publicService = require('./router/public/public_service');
+const notice = require('./crawling/notice');
 
 app.use(cors());
 app.use('/', helloWorld);
 app.use('/public', publicHub);
+app.use('/public/public_service', publicService);
 app.use('/private', privateHub);
 app.use('/personal', personalHub);
 app.use('/setting', setting);
@@ -25,6 +27,8 @@ exports.middleWare = functions
     .https
     .onRequest(app);
 
-exports.public_service = publicService.public_service;
+// exports.public_service = publicService.public_service;
+
+exports.notice = notice.notice;
 
 //module.exports = app;
