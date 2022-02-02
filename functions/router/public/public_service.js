@@ -4,6 +4,7 @@ exports.public_service = functions
     .region('asia-northeast1')
     .https
     .onRequest(async (req, res) => {
+        // console.log(req.headers.back_key);
         const userRequest = req.body.userRequest;
         const check = userRequest.utterance;
         let responseBody;
@@ -18,6 +19,14 @@ exports.public_service = functions
                                 simpleText: {
                                     text: "공지사항을 조회했어요!"
                                 }
+                            }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "뒤로 돌아갈래",
+                                "action": "block",
+                                "blockId": req.headers.back_key,
+                                "label": "🔙 뒤로가기"
                             }
                         ]
                     }
