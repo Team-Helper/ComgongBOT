@@ -242,7 +242,7 @@ describe('POST /public_service', () => {
                 // console.log(element);
                 expect(element)
                     .to
-                    .equal('교수진소개을 조회했어요!');
+                    .equal('교수진소개를 조회했어요!');
                 done();
             })
             .catch(err => {
