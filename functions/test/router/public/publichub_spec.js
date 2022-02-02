@@ -1,9 +1,10 @@
 const request = require('supertest');
 const {expect} = require('chai');
+require('dotenv').config();
 
 describe('POST /public', () => {
     it('responds type object', done => {
-        request('http://localhost:5000/comgong-bot/asia-northeast1/middleWare')
+        request(process.env.appUrl)
             .post('/public')
             .expect(201)
             .then(res => {
@@ -20,7 +21,7 @@ describe('POST /public', () => {
             })
         });
     it('responds correct label', done => {
-        request('http://localhost:5000/comgong-bot/asia-northeast1/middleWare')
+        request(process.env.appUrl)
             .post('/public')
             .expect(201)
             .then(res => {
