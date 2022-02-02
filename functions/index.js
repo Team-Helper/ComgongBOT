@@ -12,7 +12,7 @@ const privateHub = require('./router/private/private_hub');
 const personalHub = require('./router/personal/personal_hub');
 const setting = require('./router/setting/setting_hub');
 
-// const notice = require('./crawling/notice');
+const notice = require('./crawling/notice');
 
 app.use(cors());
 app.use('/', helloWorld);
@@ -27,4 +27,4 @@ exports.middleWare = functions
     .https
     .onRequest(app);
 
-// exports.notice = notice.notice;
+exports.notice = notice.notice;
