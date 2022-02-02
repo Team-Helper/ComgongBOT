@@ -16,7 +16,7 @@ describe('POST /personal', () => {
                 done();
             })
             .catch(err => {
-                console.error("######Error >>", err);
+                console.error("Error >>", err);
                 done(err);
             })
         });
@@ -40,7 +40,7 @@ describe('POST /personal', () => {
                 done();
             })
             .catch(err => {
-                console.error("######Error >>", err);
+                console.error("Error >>", err);
                 done(err);
             })
         });
