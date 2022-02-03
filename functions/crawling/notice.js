@@ -52,6 +52,7 @@ exports.notice = functions
                 res
                     .status(201)
                     .end();
+                    //.json(result);
             })
             .catch(error => {
                 console.error('Error from notice : ', error);

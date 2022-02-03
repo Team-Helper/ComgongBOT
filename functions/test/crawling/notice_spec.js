@@ -6,7 +6,7 @@ describe('GET /notice', () => {
     it('responds crawling type', done => {
         request(process.env.crawlingUrl)
             .get('/notice')
-            .expect(200)
+            .expect(201)
             .then(res => {
                 // console.log(res.body);
                 expect(res.body)
@@ -23,7 +23,7 @@ describe('GET /notice', () => {
     it('responds crawling length', done => {
         request(process.env.crawlingUrl)
             .get('/notice')
-            .expect(200)
+            .expect(201)
             .then(res => {
                 // console.log(res.body);
                 expect(Object.keys(res.body).length)
@@ -39,7 +39,7 @@ describe('GET /notice', () => {
     it('responds crawling all right keys', done => {
         request(process.env.crawlingUrl)
             .get('/notice')
-            .expect(200)
+            .expect(201)
             .then(res => {
                 // console.log(Object.keys(res.body));
                 for (let index = 1; index <= Object.keys(res.body).length; index++) {
@@ -59,7 +59,7 @@ describe('GET /notice', () => {
     it('responds crawling values type of the key', done => {
         request(process.env.crawlingUrl)
             .get('/notice')
-            .expect(200)
+            .expect(201)
             .then(res => {
                 for (let index = 1; index <= Object.keys(res.body).length; index++) {
                     // console.log(typeof res.body[index].title);
