@@ -1,9 +1,16 @@
+const express = require('express');
+const app = express();
+const cors = require('cors');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const express = require('express');
-const cors = require('cors');
-admin.initializeApp();
-const app = express();
+let serviceAccount = require("./path/to/comgong-bot-firebase-adminsdk-sitob-56ccb1add8.json");
+require('dotenv').config();
+admin.initializeApp({
+    credential: admin
+        .credential
+        .cert(serviceAccount),
+    databaseURL: process.env.realtimeDB
+});
 
 const helloWorld = require('./router/helloworld');
 const publicHub = require('./router/public/public_hub');
@@ -21,7 +28,6 @@ app.use('/public/public_service', publicService);
 app.use('/private', privateHub);
 app.use('/personal', personalHub);
 app.use('/setting', setting);
-
 exports.middleWare = functions
     .region('asia-northeast1')
     .https

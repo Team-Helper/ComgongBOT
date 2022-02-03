@@ -40,9 +40,16 @@ exports.notice = functions
 
                 }
                 // console.log(tableCrawling);
-                res
-                    .status(200)
-                    .json(tableCrawling);
+                return tableCrawling;
+            })
+            .then(async (result) => {
+                // console.log(result);
+                await admin
+                    .database()
+                    .ref('notice/')
+                    .set(result);
+                console.log('notice DB input Success');
+                res.end();
             })
             .catch(error => {
                 console.error('Error from notice : ', error);
