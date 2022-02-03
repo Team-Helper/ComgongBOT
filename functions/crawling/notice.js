@@ -49,7 +49,9 @@ exports.notice = functions
                     .ref('notice/')
                     .set(result);
                 console.log('notice DB input Success');
-                res.end();
+                res
+                    .status(201)
+                    .end();
             })
             .catch(error => {
                 console.error('Error from notice : ', error);

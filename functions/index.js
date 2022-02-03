@@ -1,19 +1,9 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-require('dotenv').config();
-admin.initializeApp({
-    credential: admin
-        .credential
-        .cert({
-            projectId: process.env.project_id,
-            privateKey: process.env.private_key?.replace(/\\n/g, '\n'),
-            clientEmail: process.env.client_email,
-        }),
-    databaseURL: process.env.realtimeDB
-});
+const express = require('express');
+const cors = require('cors');
+admin.initializeApp();
+const app = express();
 
 const helloWorld = require('./router/helloworld');
 const publicHub = require('./router/public/public_hub');
@@ -31,6 +21,7 @@ app.use('/public/public_service', publicService);
 app.use('/private', privateHub);
 app.use('/personal', personalHub);
 app.use('/setting', setting);
+
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
