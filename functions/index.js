@@ -8,9 +8,9 @@ admin.initializeApp({
     credential: admin
         .credential
         .cert({
-            projectId: process.env.projectId,
-            privateKey: process.env.privateKey?.replace(/\\n/g, '\n'),
-            clientEmail: process.env.clientEmail,
+            projectId: process.env.project_id,
+            privateKey: process.env.private_key?.replace(/\\n/g, '\n'),
+            clientEmail: process.env.client_email,
         }),
     databaseURL: process.env.realtimeDB
 });
