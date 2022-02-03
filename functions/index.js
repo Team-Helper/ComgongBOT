@@ -3,7 +3,6 @@ const app = express();
 const cors = require('cors');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-let serviceAccount = require("./path/to/comgong-bot-firebase-adminsdk-sitob-56ccb1add8.json");
 require('dotenv').config();
 admin.initializeApp({
     credential: admin
