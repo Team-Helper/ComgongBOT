@@ -3,18 +3,18 @@ const admin = require('firebase-admin');
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-exports.notice = functions
+exports.notice = functions // 크롤링 함수 이름
     .region('asia-northeast1')
     .https
     .onRequest((req, res) => {
         axios
-            .get('https://www.sungkyul.ac.kr/computer/4101/subview.do')
+            .get('https://www.sungkyul.ac.kr/computer/4101/subview.do') // 크롤링 할 웹 주소
             .then(html => {
                 const tableCrawling = new Object();
                 const $ = cheerio.load(html.data);
                 const tableSize = $(
                     '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody> tr'
-                ).length - 4;
+                ).length - 4; // 전체 게시물 갯수 카운트
                 // console.log(tableSize);
                 for (let index = 1; index < tableSize; index++) {
                     tableCrawling[index] = {
@@ -23,19 +23,19 @@ exports.notice = functions
                             'r:nth-child(' + index + ') > td.td-subject'
                         )
                             .text()
-                            .trim(),
+                            .trim(), // 게시물 제목 DOM selector
                         'date': $(
                             '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
                             'r:nth-child(' + index + ') > td.td-date'
                         )
                             .text()
-                            .trim(),
+                            .trim(), // 게시물 업로드 날짜 DOM selector
                         'url': $(
                             '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
                             'r:nth-child(' + index + ') > td.td-subject > a'
                         )
                             .attr('href')
-                            .replace(/^/, 'https://www.sungkyul.ac.kr')
+                            .replace(/^/, 'https://www.sungkyul.ac.kr') // 게시물 웹 주소 DOM selector
                     }
 
                 }
@@ -46,7 +46,7 @@ exports.notice = functions
                 // console.log(result);
                 await admin
                     .database()
-                    .ref('notice/')
+                    .ref('notice/') // DB key 값 input
                     .set(result);
                 console.log('notice DB input Success');
                 res

@@ -3,7 +3,7 @@ const {expect} = require('chai');
 require('dotenv').config();
 
 describe('POST /public_service', () => {
-    it('responds simple text', done => {
+    it('responds simple text', done => { // 응답 텍스트 값 확인
         const userRequest = {
             utterance: "공지사항 게시판을 조회해줘"
         };
