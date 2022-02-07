@@ -13,6 +13,7 @@ const personalHub = require('./router/personal/personal_hub');
 const setting = require('./router/setting/setting_hub');
 
 const notice = require('./crawling/notice');
+const new_news = require('./crawling/new_news');
 
 app.use(cors());
 app.use('/', helloWorld);
@@ -28,3 +29,4 @@ exports.middleWare = functions
     .onRequest(app); // comgongbot 기본 루트 미들웨어
 
 exports.notice = notice.notice; // 공지사항 크롤링 함수 미들웨어
+exports.new_news = new_news.new_news;
