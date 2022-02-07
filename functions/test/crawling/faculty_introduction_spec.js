@@ -2,10 +2,10 @@ const request = require('supertest');
 const {expect} = require('chai');
 require('dotenv').config();
 
-describe('GET /newNews', () => {
+describe('GET /facultyIntroduction', () => {
     it('responds crawling type', done => {
         request(process.env.crawlingUrl)
-            .get('/newNews')
+            .get('/facultyIntroduction')
             .expect(201)
             .then(res => {
                 expect(res.body)
@@ -21,12 +21,12 @@ describe('GET /newNews', () => {
         });
     it('responds crawling length', done => {
         request(process.env.crawlingUrl)
-            .get('/newNews')
+            .get('/facultyIntroduction')
             .expect(201)
             .then(res => {
                 expect(Object.keys(res.body).length)
                     .to
-                    .equal(5)
+                    .equal(10)
                 done();
             })
             .catch(err => {
@@ -36,7 +36,7 @@ describe('GET /newNews', () => {
         });
     it('responds crawling all right keys and values', done => {
         request(process.env.crawlingUrl)
-            .get('/newNews')
+            .get('/facultyIntroduction')
             .expect(201)
             .then(res => {
                 for (let index = 1; index <= Object.keys(res.body).length; index++) {
@@ -44,16 +44,16 @@ describe('GET /newNews', () => {
                         .to
                         .have
                         .all
-                        .keys('title', 'date', 'url')
-                    expect(res.body[index].title)
+                        .keys('img', 'name', 'info')
+                    expect(res.body[index].img)
                         .to
                         .be
                         .a('string')
-                    expect(res.body[index].date)
+                    expect(res.body[index].name)
                         .to
                         .be
                         .a('string')
-                    expect(res.body[index].url)
+                    expect(res.body[index].info)
                         .to
                         .be
                         .a('string')

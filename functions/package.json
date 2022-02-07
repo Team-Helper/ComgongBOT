@@ -7,7 +7,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "mocha test/crawling/new_news_spec -t 5000"
+    "test": "mocha test/crawling/faculty_introduction_spec -t 5000"
   },
   "engines": {
     "node": "16"

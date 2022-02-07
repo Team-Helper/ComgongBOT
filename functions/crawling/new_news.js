@@ -53,6 +53,6 @@ exports.newNews = functions
                     .json(result);
             })
             .catch(error => {
-                console.error('Error from new_news : ', error);
+                console.error('Error from newNews : ', error);
             });
     });
