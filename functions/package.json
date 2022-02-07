@@ -14,6 +14,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "express": "^4.17.2",
     "axios": "^0.25.0",
     "cheerio": "^1.0.0-rc.10",
     "dotenv": "^15.0.0",
@@ -21,6 +22,7 @@
     "firebase-functions": "^3.14.1"
   },
   "devDependencies": {
+    "nodemon": "^2.0.15",
     "chai": "^4.3.4",
     "firebase-functions-test": "^0.2.0",
     "mocha": "^9.1.4",
