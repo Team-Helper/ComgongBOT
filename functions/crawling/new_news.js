@@ -24,7 +24,7 @@ exports.new_news = functions
                         )
                             .text()
                             .trim(),
-                        'data': $(
+                        'date': $(
                            '#menu4102_obj257 > div._fnctWrap > form:nth-child(2) > div > table > tbody > ' +
                             'tr:nth-child(' + index + ') > td.td-date'
                         )
@@ -45,7 +45,7 @@ exports.new_news = functions
             .then(async (result) => {
                 await admin
                     .database()
-                    .ref('notice/')
+                    .ref('new_news/')
                     .set(result);
                 console.log('new_news DB input Success');
                 res
