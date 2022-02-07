@@ -15,7 +15,6 @@ const setting = require('./router/setting/setting_hub');
 const notice = require('./crawling/notice');
 const newNews = require('./crawling/new_news');
 const facultyIntroduction = require('./crawling/faculty_introduction');
-const freeBoard = require('./crawling/free_board');
 
 app.use(cors());
 app.use('/', helloWorld);
@@ -33,4 +32,3 @@ exports.middleWare = functions
 exports.notice = notice.notice; // 공지사항 크롤링 함수 미들웨어
 exports.newNews = newNews.newNews;
 exports.facultyIntroduction = facultyIntroduction.facultyIntroduction;
-exports.freeBoard = freeBoard.freeBoard;
