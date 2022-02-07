@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-exports.new_news = functions
+exports.newNews = functions
     .region('asia-northeast1')
     .https
     .onRequest((req, res) => {
@@ -45,9 +45,9 @@ exports.new_news = functions
             .then(async (result) => {
                 await admin
                     .database()
-                    .ref('new_news/')
+                    .ref('newNews/')
                     .set(result);
-                console.log('new_news DB input Success');
+                console.log('newNews DB input Success');
                 res
                     .status(201)
                     .json(result);

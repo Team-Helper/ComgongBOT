@@ -2,10 +2,10 @@ const request = require('supertest');
 const {expect} = require('chai');
 require('dotenv').config();
 
-describe('GET /new_news', () => {
+describe('GET /newNews', () => {
     it('responds crawling type', done => {
         request(process.env.crawlingUrl)
-            .get('/new_news')
+            .get('/newNews')
             .expect(201)
             .then(res => {
                 expect(res.body)
@@ -21,7 +21,7 @@ describe('GET /new_news', () => {
         });
     it('responds crawling length', done => {
         request(process.env.crawlingUrl)
-            .get('/new_news')
+            .get('/newNews')
             .expect(201)
             .then(res => {
                 expect(Object.keys(res.body).length)
@@ -36,7 +36,7 @@ describe('GET /new_news', () => {
         });
     it('responds crawling all right keys', done => {
         request(process.env.crawlingUrl)
-            .get('/new_news')
+            .get('/newNews')
             .expect(201)
             .then(res => {
                 for (let index = 1; index <= Object.keys(res.body).length; index++) {
@@ -55,7 +55,7 @@ describe('GET /new_news', () => {
         });
     it('responds crawling values type of the key', done => {
         request(process.env.crawlingUrl)
-            .get('/new_news')
+            .get('/newNews')
             .expect(201)
             .then(res => {
                 for (let index = 1; index <= Object.keys(res.body).length; index++) {
