@@ -55,7 +55,7 @@ describe('GET /new_news', () => {
         });
     it('responds crawling values type of the key', done => {
         request(process.env.crawlingUrl)
-            .get('/new_news')
+            .get('new_news')
             .expect(201)
             .then(res => {
                 for (let index = 1; index <= Object.keys(res.body).length; index++) {

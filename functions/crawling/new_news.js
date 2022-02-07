@@ -24,7 +24,7 @@ exports.new_news = functions
                         )
                             .text()
                             .trim(),
-                        'date': $(
+                        'data': $(
                            '#menu4102_obj257 > div._fnctWrap > form:nth-child(2) > div > table > tbody > ' +
                             'tr:nth-child(' + index + ') > td.td-date'
                         )
