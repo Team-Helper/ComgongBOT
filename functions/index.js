@@ -25,6 +25,6 @@ app.use('/setting', setting);
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
-    .onRequest(app);
+    .onRequest(app); // comgongbot 기본 루트 미들웨어
 
-exports.notice = notice.notice;
+exports.notice = notice.notice; // 공지사항 크롤링 함수 미들웨어

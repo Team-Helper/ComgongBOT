@@ -3,9 +3,9 @@ const {expect} = require('chai');
 require('dotenv').config();
 
 describe('GET /notice', () => {
-    it('responds crawling type', done => {
+    it('responds crawling type', done => { // 크롤링 반환 타입 확인
         request(process.env.crawlingUrl)
-            .get('/notice')
+            .get('/notice') // 크롤링 함수 주소
             .expect(201)
             .then(res => {
                 // console.log(res.body);
@@ -20,7 +20,7 @@ describe('GET /notice', () => {
                 done(err);
             })
         });
-    it('responds crawling length', done => {
+    it('responds crawling length', done => { // 크롤링 된 갯수 확인
         request(process.env.crawlingUrl)
             .get('/notice')
             .expect(201)
@@ -36,7 +36,7 @@ describe('GET /notice', () => {
                 done(err);
             })
         });
-    it('responds crawling all right keys', done => {
+    it('responds crawling all right keys', done => { // 크롤링 반환 값인 오브젝트 key 값 확인
         request(process.env.crawlingUrl)
             .get('/notice')
             .expect(201)
@@ -56,7 +56,7 @@ describe('GET /notice', () => {
                 done(err);
             })
         });
-    it('responds crawling values type of the key', done => {
+    it('responds crawling values type of the key', done => { // 크롤링 반환 값 오브젝트 value 값 확인
         request(process.env.crawlingUrl)
             .get('/notice')
             .expect(201)

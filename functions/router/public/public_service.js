@@ -3,8 +3,8 @@ const router = express.Router();
 
 router.post('/', function (req, res) {
     const userRequest = req.body.userRequest;
-    const check = userRequest.utterance;
-    let responseBody;
+    const check = userRequest.utterance; // 사용자 요청문 인식
+    let responseBody; // 응답 구조
 
     switch (check) {
         case "공지사항 게시판을 조회해줘":

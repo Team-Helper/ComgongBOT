@@ -8,12 +8,12 @@ router.post('/', function (req, res) {
         template: {
             outputs: [
                 {
-                    simpleText: {
+                    simpleText: { // comgongbot 질문 텍스트
                         text: "💬 원하시는 학과 메뉴를 선택해주세요"
                     }
                 }
             ],
-            quickReplies: [
+            quickReplies: [ // 바로가기 버튼 그룹
                 {
                     "messageText": "공지사항 게시판을 조회해줘",
                     "action": "block",
