@@ -1,10 +1,10 @@
 const request = require('supertest');
 const {expect} = require('chai');
-require('dotenv').config();
+const functions = require('firebase-functions');
 
 describe('GET /education', () => {
     it('responds crawling type', done => {
-        request(process.env.crawlingUrl)
+        request(functions.config().service_url.crawling)
             .get('/education')
             .expect(201)
             .then(res => {
@@ -20,7 +20,7 @@ describe('GET /education', () => {
             })
         });
     it('responds crawling length', done => {
-        request(process.env.crawlingUrl)
+        request(functions.config().service_url.crawling)
             .get('/education')
             .expect(201)
             .then(res => {
@@ -35,7 +35,7 @@ describe('GET /education', () => {
             })
         });
     it('responds crawling all right keys and values', done => {
-        request(process.env.crawlingUrl)
+        request(functions.config().service_url.crawling)
             .get('/education')
             .expect(201)
             .then(res => {

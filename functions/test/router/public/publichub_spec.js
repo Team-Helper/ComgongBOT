@@ -1,10 +1,10 @@
 const request = require('supertest');
 const {expect} = require('chai');
-require('dotenv').config();
+const functions = require('firebase-functions');
 
 describe('POST /public', () => {
     it('responds type object', done => { // 응답 구조 타입 확인
-        request(process.env.appUrl)
+        request(functions.config().service_url.app)
             .post('/public')
             .expect(201)
             .then(res => {
@@ -21,7 +21,7 @@ describe('POST /public', () => {
             })
         });
     it('responds correct label', done => { // 응답 모델 레이블 값 확인
-        request(process.env.appUrl)
+        request(functions.config().service_url.app)
             .post('/public')
             .expect(201)
             .then(res => {

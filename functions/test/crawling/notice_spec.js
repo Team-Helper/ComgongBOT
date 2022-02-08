@@ -1,10 +1,10 @@
 const request = require('supertest');
 const {expect} = require('chai');
-require('dotenv').config();
+const functions = require('firebase-functions');
 
 describe('GET /notice', () => {
     it('responds crawling type', done => { // 크롤링 반환 타입 확인
-        request(process.env.crawlingUrl)
+        request(functions.config().service_url.crawling)
             .get('/notice') // 크롤링 함수 주소
             .expect(201)
             .then(res => {
@@ -21,7 +21,7 @@ describe('GET /notice', () => {
             })
         });
     it('responds crawling length', done => { // 크롤링 된 갯수 확인
-        request(process.env.crawlingUrl)
+        request(functions.config().service_url.crawling)
             .get('/notice')
             .expect(201)
             .then(res => {
@@ -39,7 +39,7 @@ describe('GET /notice', () => {
     it(
         'responds crawling all right keys and values',
         done => { // 크롤링 반환 값인 오브젝트 key 값 확인
-            request(process.env.crawlingUrl)
+            request(functions.config().service_url.crawling)
                 .get('/notice')
                 .expect(201)
                 .then(res => {
