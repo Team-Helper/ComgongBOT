@@ -18,6 +18,7 @@ const facultyIntroduction = require('./crawling/faculty_introduction');
 const freeBoard = require('./crawling/free_board');
 const education = require('./crawling/education');
 const curriculum = require('./crawling/curriculum');
+const engineering = require('./crawling/engineering');
 
 app.use(cors());
 app.use('/', helloWorld);
@@ -38,3 +39,4 @@ exports.facultyIntroduction = facultyIntroduction.facultyIntroduction;
 exports.freeBoard = freeBoard.freeBoard;
 exports.education = education.education;
 exports.curriculum = curriculum.curriculum;
+exports.engineering = engineering.engineering;
