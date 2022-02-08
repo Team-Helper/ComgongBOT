@@ -50,6 +50,6 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
                     .json(result);
             })
             .catch(error => {
-                console.error('Error from notice : ', error);
+                console.error('Error from facultyIntroduction : ', error);
             });
     });
