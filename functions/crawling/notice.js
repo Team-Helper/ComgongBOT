@@ -20,7 +20,7 @@ exports.notice = functions // 크롤링 함수 이름
                     tableCrawling[index] = {
                         'title': $(
                             '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
-                            'r:nth-child(' + index + ') > td.td-subject'
+                            'r:nth-child(' + index + ') > td.td-subject > a > strong'
                         )
                             .text()
                             .trim(), // 게시물 제목 DOM selector
