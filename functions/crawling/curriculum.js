@@ -26,14 +26,20 @@ exports.curriculum = functions // 크롤링 함수 이름
             console.log('iframe is ready. Loading iframe content');
             const element = await page.$('#menu4093_obj250 > div._fnctWrap > iframe');
             const frame = await element.contentFrame();
-            const info = await frame.$eval(
+            const imgUrl = await frame.$eval(
                 'body > #wrap > #container > #contents > #contents-area > #page-area0 > img',
                 e => e.getAttribute("src")
             );
-            console.log(info);
+            // console.log(imgUrl);
             await browser.close();
-            console.log('Crawling success');
-            res.end();
+            await admin
+                .database()
+                .ref('curriculum/')
+                .set({imgUrl: imgUrl});
+            console.log('Crawling and curriculum DB input Success');
+            res
+                .status(201)
+                .send(imgUrl);
         } catch (error) {
             console.error('Error from curriculum : ', error);
         }
