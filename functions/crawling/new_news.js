@@ -20,7 +20,7 @@ exports.newNews = functions
                     tableCrawling[index] = {
                         'title': $(
                             '#menu4102_obj257 > div._fnctWrap > form:nth-child(2) > div > table > tbody > ' +
-                            'tr:nth-child(' + index +') > td.td-subject'
+                            'tr:nth-child(' + index + ') > td.td-subject > a > strong'
                         )
                             .text()
                             .trim(),

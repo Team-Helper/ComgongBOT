@@ -20,7 +20,7 @@ exports.engineering = functions
                     tableCrawling[index] = {
                         'title': $(
                             '#menu4100_obj255 > div._fnctWrap > form:nth-child(2) > div > table > tbody > ' +
-                            'tr:nth-child(' + index + ') > td.td-subject'
+                            'tr:nth-child(' + index + ') > td.td-subject > a > strong'
                         )
                             .text()
                             .trim(),
