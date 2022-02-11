@@ -79,13 +79,56 @@ router.post('/', async function (req, res) {
             };
             break;
         case "새소식 게시판을 조회해줘":
+            [titleResult, dateResult, urlResult] = await getData('newNews');
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs: [
+                    outputs:  [
                         {
-                            simpleText: {
-                                text: "새소식을 조회했어요!"
+                            "listCard": {
+                                "header": {
+                                    "title": "학과 새소식" // 리스트 뷰 상단 문자열 작성
+                                },
+                                "items": [
+                                    {
+                                        "title": titleResult[0],
+                                        "description": dateResult[0],
+                                        "link": {
+                                            "web": urlResult[0]
+                                        }
+                                    }, {
+                                        "title": titleResult[1],
+                                        "description": dateResult[1],
+                                        "link": {
+                                            "web": urlResult[1]
+                                        }
+                                    }, {
+                                        "title": titleResult[2],
+                                        "description": dateResult[2],
+                                        "link": {
+                                            "web": urlResult[2]
+                                        }
+                                    }, {
+                                        "title": titleResult[3],
+                                        "description": dateResult[3],
+                                        "link": {
+                                            "web": urlResult[3]
+                                        }
+                                    }, {
+                                        "title": titleResult[4],
+                                        "description": dateResult[4],
+                                        "link": {
+                                            "web": urlResult[4]
+                                        }
+                                    }
+                                ],
+                                "buttons": [
+                                    { // 하단 버튼 생성
+                                        "label": "학과 새소식 페이지",
+                                        "action": "webLink",
+                                        "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4102/subview.do"
+                                    }
+                                ]
                             }
                         }
                     ],
@@ -101,13 +144,56 @@ router.post('/', async function (req, res) {
             }
             break;
         case "자유게시판을 조회해줘":
+            [titleResult, dateResult, urlResult] = await getData('freeBoard');
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs: [
+                    outputs:  [
                         {
-                            simpleText: {
-                                text: "자유게시판을 조회했어요!"
+                            "listCard": {
+                                "header": {
+                                    "title": "학과 자유게시판" // 리스트 뷰 상단 문자열 작성
+                                },
+                                "items": [
+                                    {
+                                        "title": titleResult[0],
+                                        "description": dateResult[0],
+                                        "link": {
+                                            "web": urlResult[0]
+                                        }
+                                    }, {
+                                        "title": titleResult[1],
+                                        "description": dateResult[1],
+                                        "link": {
+                                            "web": urlResult[1]
+                                        }
+                                    }, {
+                                        "title": titleResult[2],
+                                        "description": dateResult[2],
+                                        "link": {
+                                            "web": urlResult[2]
+                                        }
+                                    }, {
+                                        "title": titleResult[3],
+                                        "description": dateResult[3],
+                                        "link": {
+                                            "web": urlResult[3]
+                                        }
+                                    }, {
+                                        "title": titleResult[4],
+                                        "description": dateResult[4],
+                                        "link": {
+                                            "web": urlResult[4]
+                                        }
+                                    }
+                                ],
+                                "buttons": [
+                                    { // 하단 버튼 생성
+                                        "label": "학과 자유게시판 페이지",
+                                        "action": "webLink",
+                                        "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4108/subview.do"
+                                    }
+                                ]
                             }
                         }
                     ],
@@ -123,13 +209,56 @@ router.post('/', async function (req, res) {
             }
             break;
         case "외부IT행사 및 교육 게시판을 조회해줘":
+            [titleResult, dateResult, urlResult] = await getData('education');
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs: [
+                    outputs:  [
                         {
-                            simpleText: {
-                                text: "외부IT행사 및 교육을 조회했어요!"
+                            "listCard": {
+                                "header": {
+                                    "title": "외부IT행사 및 교육" // 리스트 뷰 상단 문자열 작성
+                                },
+                                "items": [
+                                    {
+                                        "title": titleResult[0],
+                                        "description": dateResult[0],
+                                        "link": {
+                                            "web": urlResult[0]
+                                        }
+                                    }, {
+                                        "title": titleResult[1],
+                                        "description": dateResult[1],
+                                        "link": {
+                                            "web": urlResult[1]
+                                        }
+                                    }, {
+                                        "title": titleResult[2],
+                                        "description": dateResult[2],
+                                        "link": {
+                                            "web": urlResult[2]
+                                        }
+                                    }, {
+                                        "title": titleResult[3],
+                                        "description": dateResult[3],
+                                        "link": {
+                                            "web": urlResult[3]
+                                        }
+                                    }, {
+                                        "title": titleResult[4],
+                                        "description": dateResult[4],
+                                        "link": {
+                                            "web": urlResult[4]
+                                        }
+                                    }
+                                ],
+                                "buttons": [
+                                    { // 하단 버튼 생성
+                                        "label": "외부IT행사 및 교육 페이지",
+                                        "action": "webLink",
+                                        "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4104/subview.do"
+                                    }
+                                ]
                             }
                         }
                     ],
@@ -145,13 +274,56 @@ router.post('/', async function (req, res) {
             }
             break;
         case "공학인증자료실 게시판을 조회해줘":
+            [titleResult, dateResult, urlResult] = await getData('engineering');
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs: [
+                    outputs:  [
                         {
-                            simpleText: {
-                                text: "공학인증자료실을 조회했어요!"
+                            "listCard": {
+                                "header": {
+                                    "title": "학과 공학인증자료실" // 리스트 뷰 상단 문자열 작성
+                                },
+                                "items": [
+                                    {
+                                        "title": titleResult[0],
+                                        "description": dateResult[0],
+                                        "link": {
+                                            "web": urlResult[0]
+                                        }
+                                    }, {
+                                        "title": titleResult[1],
+                                        "description": dateResult[1],
+                                        "link": {
+                                            "web": urlResult[1]
+                                        }
+                                    }, {
+                                        "title": titleResult[2],
+                                        "description": dateResult[2],
+                                        "link": {
+                                            "web": urlResult[2]
+                                        }
+                                    }, {
+                                        "title": titleResult[3],
+                                        "description": dateResult[3],
+                                        "link": {
+                                            "web": urlResult[3]
+                                        }
+                                    }, {
+                                        "title": titleResult[4],
+                                        "description": dateResult[4],
+                                        "link": {
+                                            "web": urlResult[4]
+                                        }
+                                    }
+                                ],
+                                "buttons": [
+                                    { // 하단 버튼 생성
+                                        "label": "학과 공학인증자료실 페이지",
+                                        "action": "webLink",
+                                        "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4100/subview.do"
+                                    }
+                                ]
                             }
                         }
                     ],
