@@ -40,12 +40,12 @@ router.post('/', function (req, res) {
                     "blockId": req.headers.key,
                     "label": "공학인증자료실"
                 }, {
-                    "messageText": "교과과정 게시판을 조회해줘",
+                    "messageText": "교과과정을 조회해줘",
                     "action": "block",
                     "blockId": req.headers.key,
                     "label": "교과과정"
                 }, {
-                    "messageText": "이수체계도 게시판을 조회해줘",
+                    "messageText": "올해 이수체계도를 조회해줘",
                     "action": "block",
                     "blockId": req.headers.key,
                     "label": "이수체계도"

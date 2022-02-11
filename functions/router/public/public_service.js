@@ -6,9 +6,10 @@ router.post('/', async function (req, res) {
     const userRequest = req.body.userRequest;
     const check = userRequest.utterance; // 사용자 요청문 인식
     let responseBody; // 응답 구조
-    let titleResult,
+    let titleResult, // 각 DB별 key 값 저장
         dateResult,
         urlResult;
+    let image; // 이미지 링크 저장
 
     switch (check) {
         case "공지사항 게시판을 조회해줘":
@@ -165,15 +166,15 @@ router.post('/', async function (req, res) {
                 }
             }
             break;
-        case "교과과정 게시판을 조회해줘":
-            const image = await admin
+        case "교과과정을 조회해줘":
+            image = await admin
                 .database()
                 .ref('curriculum')
                 .child('imgUrl')
                 .once('value')
                 .then(snapshot => {
                     return snapshot.val();
-                })
+                });
             // console.log(image);
             responseBody = {
                 version: "2.0",
@@ -197,14 +198,23 @@ router.post('/', async function (req, res) {
                 }
             }
             break;
-        case "이수체계도 게시판을 조회해줘":
+        case "올해 이수체계도를 조회해줘":
+            image = await admin
+                .database()
+                .ref('completionSystem')
+                .child('imgUrl')
+                .once('value')
+                .then(snapshot => {
+                    return snapshot.val();
+                });
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
-                            simpleText: {
-                                text: "이수체계도를 조회했어요!"
+                            "simpleImage": {
+                                "imageUrl": image,
+                                "altText": "올해 이수체계도 이미지"
                             }
                         }
                     ],
