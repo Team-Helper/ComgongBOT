@@ -166,13 +166,23 @@ router.post('/', async function (req, res) {
             }
             break;
         case "교과과정 게시판을 조회해줘":
+            const image = await admin
+                .database()
+                .ref('curriculum')
+                .child('imgUrl')
+                .once('value')
+                .then(snapshot => {
+                    return snapshot.val();
+                })
+            // console.log(image);
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
-                            simpleText: {
-                                text: "교과과정을 조회했어요!"
+                            "simpleImage": {
+                                "imageUrl": image,
+                                "altText": "교과과정 이미지"
                             }
                         }
                     ],

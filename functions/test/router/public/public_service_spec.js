@@ -71,6 +71,21 @@ describe('POST /public_service', () => {
                     .to
                     .be
                     .a('string');
+
+                const backElement = res
+                    .body
+                    .template
+                    .quickReplies[0];
+                // console.log(backElement);
+                expect(backElement.messageText)
+                    .to
+                    .equal('뒤로 돌아갈래');
+                expect(backElement.action)
+                    .to
+                    .equal('block');
+                expect(backElement.label)
+                    .to
+                    .include('뒤로가기');
                 done();
             })
             .catch(err => {
@@ -194,35 +209,52 @@ describe('POST /public_service', () => {
     //             done(err);
     //         })
     //     });
-    // it('responds simple text6', done => {
-    //     const userRequest = {
-    //         utterance: "교과과정 게시판을 조회해줘"
-    //     };
+    it('responds checkOut6', done => {
+        const userRequest = {
+            utterance: "교과과정 게시판을 조회해줘"
+        };
 
-    //     request(functions.config().service_url.app)
-    //         .post('/public/public_service')
-    //         .set('Accept', 'application/json')
-    //         .type('application/json')
-    //         .send({userRequest})
-    //         .expect(201)
-    //         .then(res => {
-    //             const element = res
-    //                 .body
-    //                 .template
-    //                 .outputs[0]
-    //                 .simpleText
-    //                 .text;
-    //             // console.log(element);
-    //             expect(element)
-    //                 .to
-    //                 .equal('교과과정을 조회했어요!');
-    //             done();
-    //         })
-    //         .catch(err => {
-    //             console.error("Error >>", err);
-    //             done(err);
-    //         })
-    //     });
+        request(functions.config().service_url.app)
+            .post('/public/public_service')
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .simpleImage;
+                // console.log(element);
+                expect(element.imageUrl)
+                    .to
+                    .include('png');
+                expect(element.altText)
+                    .to
+                    .include('교과과정');
+                    
+                const backElement = res
+                    .body
+                    .template
+                    .quickReplies[0];
+                // console.log(backElement);
+                expect(backElement.messageText)
+                    .to
+                    .equal('뒤로 돌아갈래');
+                expect(backElement.action)
+                    .to
+                    .equal('block');
+                expect(backElement.label)
+                    .to
+                    .include('뒤로가기');
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            })
+        });
     // it('responds simple text7', done => {
     //     const userRequest = {
     //         utterance: "이수체계도 게시판을 조회해줘"
