@@ -67,7 +67,7 @@ describe('POST /public_service', () => {
                 expect(button.action)
                     .to
                     .equal('webLink');
-                expect(headerString)
+                expect(button.webLinkUrl)
                     .to
                     .be
                     .a('string');
