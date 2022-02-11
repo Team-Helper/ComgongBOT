@@ -1,33 +1,73 @@
 const express = require('express');
 const router = express.Router();
+const admin = require('firebase-admin');
 
-router.post('/', function (req, res) {
+router.post('/', async function (req, res) {
     const userRequest = req.body.userRequest;
     const check = userRequest.utterance; // 사용자 요청문 인식
     let responseBody; // 응답 구조
+    let titleResult,
+        dateResult,
+        urlResult;
 
     switch (check) {
         case "공지사항 게시판을 조회해줘":
+            [titleResult, dateResult, urlResult] = await getData('notice'); // DB로 부터 해당 Key 값의 values 받기
+            // console.log(titleResult, dateResult, urlResult);
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
-                            simpleText: {
-                                text: "공지사항을 조회했어요!"
+                            "listCard": {
+                                "header": {
+                                    "title": "학과 공지사항" // 리스트 뷰 상단 문자열 작성
+                                },
+                                "items": [
+                                    {
+                                        "title": titleResult[0],
+                                        "description": dateResult[0],
+                                        "link": {
+                                            "web": urlResult[0]
+                                        }
+                                    }, {
+                                        "title": titleResult[1],
+                                        "description": dateResult[1],
+                                        "link": {
+                                            "web": urlResult[1]
+                                        }
+                                    }, {
+                                        "title": titleResult[2],
+                                        "description": dateResult[2],
+                                        "link": {
+                                            "web": urlResult[2]
+                                        }
+                                    }, {
+                                        "title": titleResult[3],
+                                        "description": dateResult[3],
+                                        "link": {
+                                            "web": urlResult[3]
+                                        }
+                                    }, {
+                                        "title": titleResult[4],
+                                        "description": dateResult[4],
+                                        "link": {
+                                            "web": urlResult[4]
+                                        }
+                                    }
+                                ],
+                                "buttons": [ // 하단 버튼 생성
+                                    {
+                                        "label": "학과 공지사항 페이지",
+                                        "action": "webLink",
+                                        "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4101/subview.do"
+                                    }
+                                ]
                             }
-                        }
-                    ],
-                    quickReplies: [
-                        {
-                            "messageText": "뒤로 돌아갈래",
-                            "action": "block",
-                            "blockId": req.headers.back_key,
-                            "label": "🔙 뒤로가기"
                         }
                     ]
                 }
-            }
+            };
             break;
         case "새소식 게시판을 조회해줘":
             responseBody = {
@@ -186,6 +226,29 @@ router.post('/', function (req, res) {
         default:
             break;
     }
+
+    async function getData(str) {
+        let title = new Array();
+        let date = new Array();
+        let url = new Array();
+
+        for (let index = 1; index <= 5; index++) {
+            await admin
+                .database()
+                .ref(str)
+                .child(index)
+                .once('value')
+                .then(snapshot => {
+                    title.push(snapshot.val().title);
+                    date.push(snapshot.val().date);
+                    url.push(snapshot.val().url);
+                })
+                .catch(e => {
+                    console.log('Error from public_service :', e);
+                })
+            }
+        return [title, date, url];
+    };
 
     res
         .status(201)
