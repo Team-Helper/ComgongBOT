@@ -56,14 +56,22 @@ router.post('/', async function (req, res) {
                                         }
                                     }
                                 ],
-                                "buttons": [ // 하단 버튼 생성
-                                    {
+                                "buttons": [
+                                    { // 하단 버튼 생성
                                         "label": "학과 공지사항 페이지",
                                         "action": "webLink",
                                         "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4101/subview.do"
                                     }
                                 ]
                             }
+                        }
+                    ],
+                    quickReplies: [
+                        {
+                            "messageText": "뒤로 돌아갈래",
+                            "action": "block",
+                            "blockId": req.headers.back_key,
+                            "label": "🔙 뒤로가기"
                         }
                     ]
                 }
