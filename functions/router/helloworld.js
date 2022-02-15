@@ -1,57 +1,71 @@
-const functions = require('firebase-functions');
 const express = require('express');
 const router = express.Router();
+const admin = require('firebase-admin');
 
-router.post('/', function (req, res) {
-    const responseBody = {
-        version: "2.0",
-        template: {
-            outputs: [
-                {
-                    itemCard: {
-                        "head": {
-                            "title": "누락된 설정이 있습니다."
-                        },
-                        "itemList": [
-                            {
-                                "title": "Flight",
-                                "description": "KE0605"
-                            }, {
-                                "title": "Boards",
-                                "description": "8:50 AM"
-                            }, {
-                                "title": "Departs",
-                                "description": "9:50 AM"
-                            }, {
-                                "title": "Terminal",
-                                "description": "1"
-                            }, {
-                                "title": "Gate",
-                                "description": "C24"
+router.post('/', async function (req, res) {
+    const responseReuslt = await admin
+        .auth()
+        .getUserByEmail('test@test.com')
+        .then((userRecord) => {
+            // See the UserRecord reference doc for the contents of userRecord.
+            console.log('Sign in!');
+            return 'Sign in!';
+        })
+        .catch((error) => {
+            // console.log('Error fetching user data:', error);
+            const responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            itemCard: {
+                                "head": {
+                                    "title": "누락된 설정이 있습니다."
+                                },
+                                "itemList": [
+                                    {
+                                        "title": "이메일 인증* ",
+                                        "description": "O/X"
+                                    }, {
+                                        "title": "학년/학번 입력* ",
+                                        "description": "O/X"
+                                    }, {
+                                        "title": "학점 입력* ",
+                                        "description": "O/X"
+                                    }
+                                ],
+                                "title": "컴공봇 이용을 위해 이메일 인증과 학년/학번 그리고 학점 입력은 필수 입니다."
                             }
-                        ],
-                        "itemListAlignment": "left"
-                    }
+                        }
+                    ],
+                    quickReplies: [
+                        {
+                            "messageText": "이메일 인증할게",
+                            "action": "block",
+                            "blockId": req.headers.key,
+                            "label": "이메일 인증"
+                        }, {
+                            "messageText": "나의 학년/학번을 입력할게",
+                            "action": "block",
+                            "blockId": req.headers.key,
+                            "label": "학년/학번 입력"
+                        }, {
+                            "messageText": "나의 학점을 입력할게",
+                            "action": "block",
+                            "blockId": req.headers.key,
+                            "label": "학점 입력"
+                        }
+                    ]
                 }
-            ],
-            quickReplies: [
-                {
-                    "messageText": "이메일 인증할게",
-                    "action": "block",
-                    "blockId": req.headers.key,
-                    "label": "이메일 인증"
-                }, {
-                    "messageText": "나의 학년/학번을 입력할게",
-                    "action": "block",
-                    "blockId": req.headers.key,
-                    "label": "학년/학번 입력"
-                }
-            ]
-        }
-    };
+            };
+            return responseBody;
+        });
+
+    // console.log(responseReuslt);
     res
         .status(200)
-        .send(responseBody);
+        .send(responseReuslt);
+
 });
 
 module.exports = router;
