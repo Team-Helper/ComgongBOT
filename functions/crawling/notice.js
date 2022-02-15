@@ -12,11 +12,8 @@ exports.notice = functions // 크롤링 함수 이름
             .then(html => {
                 const tableCrawling = new Object();
                 const $ = cheerio.load(html.data);
-                const tableSize = $(
-                    '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody> tr'
-                ).length - 4; // 전체 게시물 갯수 카운트
-                // console.log(tableSize);
-                for (let index = 1; index < tableSize; index++) {
+
+                for (let index = 1; index <= 5; index++) {
                     tableCrawling[index] = {
                         'title': $(
                             '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +

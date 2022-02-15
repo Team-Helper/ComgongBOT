@@ -12,11 +12,8 @@ exports.freeBoard = functions
             .then(html => {
                 const tableCrawling = new Object();
                 const $ = cheerio.load(html.data);
-                const tableSize = $(
-                    '#menu4108_obj261 > div._fnctWrap > form:nth-child(2) > div > table > tbody > tr'
-                ).length - 4;
 
-                for (let index = 1; index < tableSize; index++) {
+                for (let index = 1; index <= 5; index++) {
                     tableCrawling[index] = {
                         'title': $(
                             '#menu4108_obj261 > div._fnctWrap > form:nth-child(2) > div > table > tbody > ' +
