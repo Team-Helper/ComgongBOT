@@ -22,7 +22,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            "listCard": {
+                            listCard: {
                                 "header": {
                                     "title": "학과 공지사항" // 리스트 뷰 상단 문자열 작성
                                 },
@@ -87,7 +87,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            "listCard": {
+                            listCard: {
                                 "header": {
                                     "title": "학과 새소식" // 리스트 뷰 상단 문자열 작성
                                 },
@@ -152,7 +152,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            "listCard": {
+                            listCard: {
                                 "header": {
                                     "title": "학과 자유게시판" // 리스트 뷰 상단 문자열 작성
                                 },
@@ -217,7 +217,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            "listCard": {
+                            listCard: {
                                 "header": {
                                     "title": "외부IT행사 및 교육" // 리스트 뷰 상단 문자열 작성
                                 },
@@ -282,7 +282,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            "listCard": {
+                            listCard: {
                                 "header": {
                                     "title": "학과 공학인증자료실" // 리스트 뷰 상단 문자열 작성
                                 },
@@ -355,7 +355,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            "simpleImage": {
+                            simpleImage: {
                                 "imageUrl": image,
                                 "altText": "교과과정 이미지"
                             }
@@ -386,7 +386,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            "simpleImage": {
+                            simpleImage: {
                                 "imageUrl": image,
                                 "altText": "올해 이수체계도 이미지"
                             }
@@ -428,7 +428,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            "carousel": {
+                            carousel: {
                                 "type": "basicCard",
                                 "items": [
                                     {
