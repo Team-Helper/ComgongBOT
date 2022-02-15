@@ -459,6 +459,118 @@ router.post('/', async function (req, res) {
                                                 "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
                                             }
                                         ]
+                                    }, {
+                                        "title": name[2],
+                                        "description": info[2],
+                                        "thumbnail": {
+                                            "imageUrl": image[2],
+                                            "fixedRatio" : true
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "webLink",
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                                            }
+                                        ]
+                                    }, {
+                                        "title": name[3],
+                                        "description": info[3],
+                                        "thumbnail": {
+                                            "imageUrl": image[3],
+                                            "fixedRatio" : true
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "webLink",
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                                            }
+                                        ]
+                                    }, {
+                                        "title": name[4],
+                                        "description": info[4],
+                                        "thumbnail": {
+                                            "imageUrl": image[4],
+                                            "fixedRatio" : true
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "webLink",
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                                            }
+                                        ]
+                                    }, {
+                                        "title": name[5],
+                                        "description": info[5],
+                                        "thumbnail": {
+                                            "imageUrl": image[5],
+                                            "fixedRatio" : true
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "webLink",
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                                            }
+                                        ]
+                                    }, {
+                                        "title": name[6],
+                                        "description": info[6],
+                                        "thumbnail": {
+                                            "imageUrl": image[6],
+                                            "fixedRatio" : true
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "webLink",
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                                            }
+                                        ]
+                                    }, {
+                                        "title": name[7],
+                                        "description": info[7],
+                                        "thumbnail": {
+                                            "imageUrl": image[7],
+                                            "fixedRatio" : true
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "webLink",
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                                            }
+                                        ]
+                                    }, {
+                                        "title": name[8],
+                                        "description": info[8],
+                                        "thumbnail": {
+                                            "imageUrl": image[8],
+                                            "fixedRatio" : true
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "webLink",
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                                            }
+                                        ]
+                                    }, {
+                                        "title": name[9],
+                                        "description": info[9],
+                                        "thumbnail": {
+                                            "imageUrl": image[9],
+                                            "fixedRatio" : true
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "webLink",
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                                            }
+                                        ]
                                     }
                                 ]
                             }

@@ -541,7 +541,7 @@ describe('POST /public_service', () => {
                 done(err);
             })
         });
-    it('responds simple text8', done => {
+    it('responds checkOut8', done => {
         const userRequest = {
             utterance: "교수진소개 게시판을 조회해줘"
         };
