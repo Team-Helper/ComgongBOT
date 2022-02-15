@@ -10,6 +10,8 @@ router.post('/', async function (req, res) {
         dateResult,
         urlResult;
     let image; // 이미지 링크 저장
+    let info,
+        name // 교수진 소개 정보와 이름 저장
 
     switch (check) {
         case "공지사항 게시판을 조회해줘":
@@ -83,7 +85,7 @@ router.post('/', async function (req, res) {
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs:  [
+                    outputs: [
                         {
                             "listCard": {
                                 "header": {
@@ -148,7 +150,7 @@ router.post('/', async function (req, res) {
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs:  [
+                    outputs: [
                         {
                             "listCard": {
                                 "header": {
@@ -213,7 +215,7 @@ router.post('/', async function (req, res) {
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs:  [
+                    outputs: [
                         {
                             "listCard": {
                                 "header": {
@@ -278,7 +280,7 @@ router.post('/', async function (req, res) {
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs:  [
+                    outputs: [
                         {
                             "listCard": {
                                 "header": {
@@ -402,13 +404,69 @@ router.post('/', async function (req, res) {
             }
             break;
         case "교수진소개 게시판을 조회해줘":
+            image = new Array();
+            info = new Array();
+            name = new Array();
+            for (let index = 1; index <= 10; index++) {
+                await admin
+                    .database()
+                    .ref('facultyIntroduction')
+                    .child(index)
+                    .once('value')
+                    .then(snapshot => {
+                        image.push(snapshot.val().img);
+                        info.push(snapshot.val().info);
+                        name.push(snapshot.val().name);
+                    })
+                    .catch(e => {
+                        console.log('Error from public_service facultyIntroduction :', e);
+                    })
+                }
+            // console.log(name, info, image);
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
-                            simpleText: {
-                                text: "교수진소개를 조회했어요!"
+                            "carousel": {
+                                "type": "basicCard",
+                                "items": [
+                                    {
+                                        "title": name[0],
+                                        "description": info[0],
+                                        "thumbnail": {
+                                            "imageUrl": image[0]
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "message",
+                                                "label": "열어보기",
+                                                "messageText": "짜잔! 우리가 찾던 보물입니다"
+                                            }, {
+                                                "action": "webLink",
+                                                "label": "구경하기",
+                                                "webLinkUrl": "https://e.kakao.com/t/hello-ryan"
+                                            }
+                                        ]
+                                    }, {
+                                        "title": name[1],
+                                        "description": info[1],
+                                        "thumbnail": {
+                                            "imageUrl": image[1]
+                                        },
+                                        "buttons": [
+                                            {
+                                                "action": "message",
+                                                "label": "열어보기",
+                                                "messageText": "짜잔! 우리가 찾던 보물입니다"
+                                            }, {
+                                                "action": "webLink",
+                                                "label": "구경하기",
+                                                "webLinkUrl": "https://e.kakao.com/t/hello-ryan"
+                                            }
+                                        ]
+                                    },
+                                ]
                             }
                         }
                     ],
@@ -444,7 +502,7 @@ router.post('/', async function (req, res) {
                     url.push(snapshot.val().url);
                 })
                 .catch(e => {
-                    console.log('Error from public_service :', e);
+                    console.log('Error from public_service getData :', e);
                 })
             }
         return [title, date, url];
