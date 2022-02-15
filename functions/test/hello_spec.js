@@ -8,7 +8,16 @@ describe('GET /', () => {
             .post('/')
             .expect(200)
             .then(res => {
-                console.log(res.text);
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .simpleText
+                    .text;
+                //console.log(element);
+                expect(element)
+                    .to
+                    .equal('인증 성공!');
                 done();
             })
             .catch(err => {

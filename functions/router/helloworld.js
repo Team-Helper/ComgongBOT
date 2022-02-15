@@ -8,8 +8,20 @@ router.post('/', async function (req, res) {
         .getUserByEmail('test@test.com')
         .then((userRecord) => {
             // See the UserRecord reference doc for the contents of userRecord.
-            console.log('Sign in!');
-            return 'Sign in!';
+            // console.log('Sign in!');
+            const responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            simpleText: {
+                                text: "인증 성공!"
+                            }
+                        }
+                    ]
+                }
+            };
+            return responseBody;
         })
         .catch((error) => {
             // console.log('Error fetching user data:', error);
@@ -24,13 +36,13 @@ router.post('/', async function (req, res) {
                                 },
                                 "itemList": [
                                     {
-                                        "title": "이메일 인증* ",
+                                        "title": "이메일",
                                         "description": "O/X"
                                     }, {
-                                        "title": "학년/학번 입력* ",
+                                        "title": "학년/학번",
                                         "description": "O/X"
                                     }, {
-                                        "title": "학점 입력* ",
+                                        "title": "학점",
                                         "description": "O/X"
                                     }
                                 ],
