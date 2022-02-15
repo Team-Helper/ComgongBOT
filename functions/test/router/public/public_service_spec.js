@@ -541,33 +541,87 @@ describe('POST /public_service', () => {
                 done(err);
             })
         });
-    // it('responds simple text8', done => {
-    //     const userRequest = {
-    //         utterance: "교수진소개 게시판을 조회해줘"
-    //     };
+    it('responds simple text8', done => {
+        const userRequest = {
+            utterance: "교수진소개 게시판을 조회해줘"
+        };
 
-    //     request(functions.config().service_url.app)
-    //         .post('/public/public_service')
-    //         .set('Accept', 'application/json')
-    //         .type('application/json')
-    //         .send({userRequest})
-    //         .expect(201)
-    //         .then(res => {
-    //             const element = res
-    //                 .body
-    //                 .template
-    //                 .outputs[0]
-    //                 .simpleText
-    //                 .text;
-    //             // console.log(element);
-    //             expect(element)
-    //                 .to
-    //                 .equal('교수진소개를 조회했어요!');
-    //             done();
-    //         })
-    //         .catch(err => {
-    //             console.error("Error >>", err);
-    //             done(err);
-    //         })
-    //     });
+        request(functions.config().service_url.app)
+            .post('/public/public_service')
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .carousel;
+                // console.log(element);
+                expect(element.type)
+                    .to
+                    .equal('basicCard');
+
+                const items = element.items;
+                // console.log(items.length);
+                expect(items.length)
+                    .to
+                    .equal(10);
+                for (let index = 0; index < items.length; index++) {
+                    const itemTitle = items[index].title;
+                    const itemDescription = items[index].description;
+                    const itemImg = items[index].thumbnail;
+                    const itemBtn = items[index].buttons;
+                    // console.log(itemImg.imageUrl);
+                    // console.log(itemBtn[0].label);
+
+                    expect(itemTitle)
+                        .to
+                        .be
+                        .a('string');
+                    expect(itemDescription)
+                        .to
+                        .be
+                        .a('string');
+                    expect(itemDescription)
+                        .to
+                        .include('직위')
+                    expect(itemDescription)
+                        .to
+                        .include('연락처')
+                    expect(typeof itemImg.imageUrl)
+                        .to
+                        .be
+                        .an('string');
+                    expect(itemBtn[0].label)
+                        .to
+                        .be
+                        .an('string');
+                    expect(itemBtn[0].action)
+                        .to
+                        .equal('webLink')
+                }
+
+                const backElement = res
+                    .body
+                    .template
+                    .quickReplies[0];
+                // console.log(backElement);
+                expect(backElement.messageText)
+                    .to
+                    .equal('뒤로 돌아갈래');
+                expect(backElement.action)
+                    .to
+                    .equal('block');
+                expect(backElement.label)
+                    .to
+                    .include('뒤로가기');
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            })
+        });
 });

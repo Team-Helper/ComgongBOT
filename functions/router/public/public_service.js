@@ -435,37 +435,31 @@ router.post('/', async function (req, res) {
                                         "title": name[0],
                                         "description": info[0],
                                         "thumbnail": {
-                                            "imageUrl": image[0]
+                                            "imageUrl": image[0],
+                                            "fixedRatio" : true
                                         },
                                         "buttons": [
                                             {
-                                                "action": "message",
-                                                "label": "열어보기",
-                                                "messageText": "짜잔! 우리가 찾던 보물입니다"
-                                            }, {
                                                 "action": "webLink",
-                                                "label": "구경하기",
-                                                "webLinkUrl": "https://e.kakao.com/t/hello-ryan"
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
                                             }
                                         ]
                                     }, {
                                         "title": name[1],
                                         "description": info[1],
                                         "thumbnail": {
-                                            "imageUrl": image[1]
+                                            "imageUrl": image[1],
+                                            "fixedRatio" : true
                                         },
                                         "buttons": [
                                             {
-                                                "action": "message",
-                                                "label": "열어보기",
-                                                "messageText": "짜잔! 우리가 찾던 보물입니다"
-                                            }, {
                                                 "action": "webLink",
-                                                "label": "구경하기",
-                                                "webLinkUrl": "https://e.kakao.com/t/hello-ryan"
+                                                "label": "상세보기",
+                                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
                                             }
                                         ]
-                                    },
+                                    }
                                 ]
                             }
                         }
