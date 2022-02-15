@@ -28,10 +28,25 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
                             .trim(),
                         'info': $(
                             '#menu4123_obj242 > div.profile._fnctWrap > form > ul > li:nth-child(' +
-                            index + ') > div.info'
+                            index + ') > div.info > dl:nth-child(2)'
                         )
                             .text()
+                            .trim()
+                            .replace(/\t/g, "") + $(
+                            '#menu4123_obj242 > div.profile._fnctWrap > form > ul > li:nth-child(' +
+                            index + ') > div.info > dl:nth-child(3)'
+                        )
+                            .text()
+                            .trim()
                             .replace(/\t/g, "")
+                            .replace(/^/, '\n') + $(
+                            '#menu4123_obj242 > div.profile._fnctWrap > form > ul > li:nth-child(' +
+                            index + ') > div.info > dl:nth-child(4)'
+                        )
+                            .text()
+                            .trim()
+                            .replace(/\t/g, "")
+                            .replace(/^/, '\n')
                     }
 
                 }
