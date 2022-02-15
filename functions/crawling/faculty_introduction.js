@@ -31,21 +31,16 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
                             index + ') > div.info > dl:nth-child(2)'
                         )
                             .text()
-                            .trim()
-                            .replace(/\t/g, "") + $(
+                            .replace(/\s/g, "")
+                            .split('위')
+                            .join('위: ') + $(
                             '#menu4123_obj242 > div.profile._fnctWrap > form > ul > li:nth-child(' +
                             index + ') > div.info > dl:nth-child(3)'
                         )
                             .text()
-                            .trim()
-                            .replace(/\t/g, "")
-                            .replace(/^/, '\n') + $(
-                            '#menu4123_obj242 > div.profile._fnctWrap > form > ul > li:nth-child(' +
-                            index + ') > div.info > dl:nth-child(4)'
-                        )
-                            .text()
-                            .trim()
-                            .replace(/\t/g, "")
+                            .replace(/\s/g, "")
+                            .split('처')
+                            .join('처: ')
                             .replace(/^/, '\n')
                     }
 
