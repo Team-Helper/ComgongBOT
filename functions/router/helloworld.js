@@ -76,7 +76,7 @@ async function checkAuth(req) {
                         {
                             "messageText": "이메일 인증할게",
                             "action": "block",
-                            "blockId": req,
+                            "blockId": "NAN",
                             "label": "이메일 인증"
                         }
                     ]
