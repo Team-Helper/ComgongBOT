@@ -123,13 +123,8 @@ describe('POST /public', () => {
                         '이수체계도',
                         '교수진'
                     ]
-                    for (let index = 0; index < res.body.template.quickReplies.length; index++) {
-                        const element = res
-                            .body
-                            .template
-                            .quickReplies[index]
-                            .label;
-                        expect(element)
+                    for (let index = 0; index < element.length; index++) {
+                        expect(element[index].label)
                             .to
                             .include(array[index]);
                     }

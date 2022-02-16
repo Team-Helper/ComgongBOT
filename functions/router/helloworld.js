@@ -1,4 +1,3 @@
-const express = require('express');
 const admin = require('firebase-admin');
 
 async function checkAuth(req) {
@@ -55,18 +54,18 @@ async function checkAuth(req) {
                         {
                             itemCard: {
                                 "head": {
-                                    "title": "누락된 설정이 있습니다."
+                                    "title": "⚠ 누락된 설정이 있습니다."
                                 },
                                 "itemList": [
                                     {
                                         "title": "이메일",
-                                        "description": "X"
+                                        "description": "❌ 미설정"
                                     }, {
                                         "title": "학년/학번",
-                                        "description": "X"
+                                        "description": "❌ 미설정"
                                     }, {
                                         "title": "학점",
-                                        "description": "X"
+                                        "description": "❌ 미설정"
                                     }
                                 ],
                                 "title": "컴공봇 이용을 위해 이메일 인증과 학년/학번 그리고 학점 입력은 필수 입니다."
