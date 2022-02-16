@@ -3,6 +3,7 @@ const router = express.Router();
 const startAuth = require('../helloworld');
 
 router.post('/', async function (req, res) {
+    console.log(req);
     // console.log(req.headers.key);
     const check = await startAuth(req.headers.key);
     // console.log(check);
