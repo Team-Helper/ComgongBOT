@@ -11,7 +11,7 @@ describe('POST /setting', () => {
             }
         }
     };
-    it('responds about isFriend is false', done => {
+    it('responds about isFriend is undefined', done => {
         request(functions.config().service_url.app)
             .post('/setting')
             .set({

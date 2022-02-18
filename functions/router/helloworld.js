@@ -5,7 +5,7 @@ async function checkAuth(req) {
     // console.log(req);
     let responseBody;
 
-    if (req.isFriend == false) {
+    if (req.isFriend == undefined) {
         responseBody = {
             version: "2.0",
             template: {
