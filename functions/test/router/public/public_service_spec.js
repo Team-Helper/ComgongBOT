@@ -330,7 +330,7 @@ describe('POST /public_service', () => {
                 // console.log(button.label);
                 expect(button.label)
                     .to
-                    .equal('외부IT행사 및 교육 페이지');
+                    .equal('외부IT행사&교육 페이지');
                 expect(button.action)
                     .to
                     .equal('webLink');

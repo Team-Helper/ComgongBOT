@@ -5,16 +5,16 @@ async function checkAuth(req) {
     // console.log(req);
     const result = await admin
         .auth()
-        .getUserByEmail('test@test.com') // 생성된 메일 주소 대조
+        .getUserByProviderUid(req) // 생성된 메일 주소 대조
         .then(async (userRecord) => {
-            console.log(userRecord);
+            console.log('user Info: ', userRecord);
             return true; // 있을 경우 true 값을 리턴
         })
         .catch(async (error) => { // 없을 경우 누락 설정 블록 작성
             // console.log('Error fetching user data:', error);
-            // await admin
-            //     .auth()
-            //     .createUser({email: 'test@test.com'}); // 테스트 유저 등록
+            await admin
+                .auth()
+                .createUser({email: 'test@test.com', uid: req}); // 테스트 유저 등록
 
             const title = ["이메일", "학년/학번", "학점"];
             const description = "❌ 미설정";
@@ -41,7 +41,10 @@ async function checkAuth(req) {
                         {
                             "messageText": "이메일 인증할게",
                             "action": "block",
-                            "blockId": functions.config().service_url.email_key,
+                            "blockId": functions
+                                .config()
+                                .service_url
+                                .email_key,
                             "label": "이메일 인증"
                         }
                     ]

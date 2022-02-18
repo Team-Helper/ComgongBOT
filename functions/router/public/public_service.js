@@ -4,6 +4,7 @@ const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
+    // console.log(req.body.userRequest.user.id);
     const userRequest = req.body.userRequest.utterance; // 사용자 요청문
     let responseBody; // 응답 블록 구조
     let titleResult, // 각 DB별 값 저장
@@ -159,7 +160,7 @@ router.post('/', async function (req, res) {
                                 "items": items,
                                 "buttons": [
                                     {
-                                        "label": "외부IT행사 및 교육 페이지",
+                                        "label": "외부IT행사&교육 페이지",
                                         "action": "webLink",
                                         "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4104/subview.do"
                                     }
