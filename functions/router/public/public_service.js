@@ -273,7 +273,7 @@ router.post('/', async function (req, res) {
                     "buttons": [
                         {
                             "action": "webLink",
-                            "label": "상세보기 및 더 많은 교수소개",
+                            "label": "상세보기",
                             "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
                         }
                     ]
