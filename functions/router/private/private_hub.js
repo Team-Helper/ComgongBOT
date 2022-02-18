@@ -4,11 +4,11 @@ const startAuth = require('../helloworld');
 
 router.post('/', async function (req, res) {
     // console.log(req.headers.key);
-    const check = await startAuth(req.headers.key);
+    const checkAuth = true;
     // console.log(check);
     let responseBody;
 
-    if (check == true) {
+    if (checkAuth == true) {
         responseBody = {
             version: "2.0",
             template: {
