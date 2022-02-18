@@ -3,7 +3,15 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /public', () => {
-    it('responds fail auth type object and content', done => { // 응답 구조 타입 확인
+    const userRequest = {
+        user: {
+            "properties": {
+                "plusfriendUserKey": "some-id",
+                "isFriend": true
+            }
+        }
+    };
+    it('responds auth fail about isFriend is false', done => {
         request(functions.config().service_url.app)
             .post('/public')
             .set({
@@ -12,6 +20,39 @@ describe('POST /public', () => {
                     .service_url
                     .public_key
             })
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .simpleText;
+                // console.log(element);
+                expect(element.text)
+                    .to
+                    .include("컴공봇 채널 추가부터");
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            })
+        });
+    it('responds auth fail type object and content', done => {
+        request(functions.config().service_url.app)
+            .post('/public')
+            .set({
+                key: functions
+                    .config()
+                    .service_url
+                    .public_key
+            })
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
             .expect(201)
             .then(res => {
                 const element = res
@@ -51,7 +92,7 @@ describe('POST /public', () => {
                 done(err);
             })
         });
-    it('responds fail auth quickReplies correct label', done => { // 응답 모델 레이블 값 확인
+    it('responds auth fail quickReplies correct label', done => {
         request(functions.config().service_url.app)
             .post('/public')
             .set({
@@ -60,6 +101,9 @@ describe('POST /public', () => {
                     .service_url
                     .public_key
             })
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
             .expect(201)
             .then(res => {
                 const element = res
@@ -81,7 +125,7 @@ describe('POST /public', () => {
             })
         });
 
-    it('responds success auth type object and content', done => { // 응답 구조 타입 확인
+    it('responds auth success type object and content', done => {
         request(functions.config().service_url.app)
             .post('/public')
             .set({
@@ -90,6 +134,9 @@ describe('POST /public', () => {
                     .service_url
                     .public_key
             })
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
             .expect(201)
             .then(res => {
                 const element = res
@@ -112,42 +159,42 @@ describe('POST /public', () => {
                 done(err);
             })
         });
-    it(
-        'responds success auth quickReplies correct label',
-        done => { // 응답 모델 레이블 값 확인
-            request(functions.config().service_url.app)
-                .post('/public')
-                .set({
-                    key: functions
-                        .config()
-                        .service_url
-                        .public_key
-                })
-                .expect(201)
-                .then(res => {
-                    const element = res.body.template.quickReplies;
-                    // console.log(element);
-                    const array = [
-                        '공지사항',
-                        '새소식',
-                        '자유게시판',
-                        '외부IT',
-                        '공학인증',
-                        '교과과정',
-                        '이수체계도',
-                        '교수진'
-                    ]
-                    for (let index = 0; index < element.length; index++) {
-                        expect(element[index].label)
-                            .to
-                            .include(array[index]);
-                    }
-                    done();
-                })
-                .catch(err => {
-                    console.error("Error >>", err);
-                    done(err);
-                })
-            }
-    );
+    it('responds auth success quickReplies correct label', done => {
+        request(functions.config().service_url.app)
+            .post('/public')
+            .set({
+                key: functions
+                    .config()
+                    .service_url
+                    .public_key
+            })
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res.body.template.quickReplies;
+                // console.log(element);
+                const array = [
+                    '공지사항',
+                    '새소식',
+                    '자유게시판',
+                    '외부IT',
+                    '공학인증',
+                    '교과과정',
+                    '이수체계도',
+                    '교수진'
+                ]
+                for (let index = 0; index < element.length; index++) {
+                    expect(element[index].label)
+                        .to
+                        .include(array[index]);
+                }
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            })
+        });
 });

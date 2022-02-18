@@ -4,8 +4,11 @@ const startAuth = require('../helloworld');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    // console.log(req.body.userRequest.user.id);
-    const checkAuth = await startAuth(req.body.userRequest.user.id); // 이메일 인증 등의 프로필 설정 확인하기
+    // const userAbout = req.body.userRequest.user.properties;
+    // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
+    // const checkAuth = await startAuth(userAbout); // 이메일 인증 등의 프로필 설정 확인하기
+
+    const checkAuth = true;
     // console.log(checkAuth);
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
