@@ -30,6 +30,20 @@ describe('POST /public', () => {
                 expect(element.title)
                     .to
                     .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 그리고 학점 입력은 필수 입니다.')
+
+                const elementItems = element.itemList;
+                const title = ['이메일', '학년/학번', '학점'];
+                for (let index = 0; index < elementItems.length; index++) {
+                    const itemTitle = elementItems[index].title;
+                    const itemDescription = elementItems[index].description;
+
+                    expect(itemTitle)
+                        .to
+                        .equal(title[index]);
+                    expect(itemDescription)
+                        .to
+                        .include('미설정');
+                }
                 done();
             })
             .catch(err => {

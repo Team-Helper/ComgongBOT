@@ -11,6 +11,7 @@ const publicService = require('./router/public/public_service');
 const privateHub = require('./router/private/private_hub');
 const personalHub = require('./router/personal/personal_hub');
 const setting = require('./router/setting/setting_hub');
+const emailSet = require('./router/setting/emil_auth');
 
 const notice = require('./crawling/notice');
 const newNews = require('./crawling/new_news');
@@ -28,17 +29,18 @@ app.use('/public/public_service', publicService);
 app.use('/private', privateHub);
 app.use('/personal', personalHub);
 app.use('/setting', setting);
+app.use('/setting/email', emailSet);
 
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
-    .onRequest(app); // comgongbot 기본 루트 미들웨어
+    .onRequest(app); // comgongbot 기본 주소 미들웨어
 
-exports.notice = notice.notice; // 공지사항 크롤링 함수 미들웨어
-exports.newNews = newNews.newNews;
-exports.facultyIntroduction = facultyIntroduction.facultyIntroduction;
-exports.freeBoard = freeBoard.freeBoard;
-exports.education = education.education;
-exports.curriculum = curriculum.curriculum;
-exports.engineering = engineering.engineering;
-exports.completionSystem = completionSystem.completionSystem;
+exports.notice = notice.notice; // 공지사항 크롤링 미들웨어
+exports.newNews = newNews.newNews; // 새소식 크롤링 미들웨어
+exports.facultyIntroduction = facultyIntroduction.facultyIntroduction; // 교수진소개 크롤링 미들웨어
+exports.freeBoard = freeBoard.freeBoard; // 자유게시판 크롤링 미들웨어
+exports.education = education.education; // 외부 IT행사 및 교육 크롤링 미들웨어
+exports.curriculum = curriculum.curriculum; // 교과과정 크롤링 미들웨어
+exports.engineering = engineering.engineering; // 공학인증자료실 크롤링 미들웨어
+exports.completionSystem = completionSystem.completionSystem; // 이수체계도 크롤링 미들웨어
