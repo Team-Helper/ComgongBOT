@@ -12,7 +12,7 @@ async function checkAuth(req) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "‼ 컴공봇 채널 추가부터 하셔야 이용이 가능해요!" // 채널 추가 유/무 알림 텍스트
+                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요!" // 채널 추가 유/무 알림 텍스트
                         }
                     }
                 ]
