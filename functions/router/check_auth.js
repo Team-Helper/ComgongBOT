@@ -24,6 +24,7 @@ async function checkAuth(req) {
             .collection('users')
             .doc(req.plusfriendUserKey);
         const testData = await testSelect.get();
+        // console.log(testData.data());
 
         if (!testData.exists) {
             console.log('No such user!');
@@ -62,7 +63,7 @@ async function checkAuth(req) {
                 }
             };
         } else {
-            console.log('Document data:', testData.data());
+            console.log('user data:', testData.data());
             return true;
         }
     }
