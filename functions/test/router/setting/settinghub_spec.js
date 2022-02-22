@@ -105,4 +105,51 @@ describe('POST /setting', () => {
                 done(err);
             })
         });
+
+    it(
+        'responds about auth success object type & content and quickReplies',
+        done => {
+            request(functions.config().service_url.app)
+                .post('/setting')
+                .set({
+                    key: functions
+                        .config()
+                        .service_url
+                        .setting_key
+                })
+                .set('Accept', 'application/json')
+                .type('application/json')
+                .send({userRequest})
+                .expect(201)
+                .then(res => {
+                    const element = res
+                        .body
+                        .template
+                        .outputs[0]
+                        .simpleText;
+                    // console.log(element);
+                    expect(element.text)
+                        .to
+                        .be
+                        .an('string');
+                    expect(element.text)
+                        .to
+                        .include('원하시는 메뉴를 선택해주세요')
+
+                    const elementQuick = res.body.template.quickReplies;
+                    // console.log(element);
+                    const array = ['학점 수정', '학번 변경', '학적상태 변경']
+                    for (let index = 0; index < elementQuick.length; index++) {
+                        expect(elementQuick[index].label)
+                            .to
+                            .equal(array[index]);
+                    }
+                    done();
+                })
+                .catch(err => {
+                    console.error("Error >>", err);
+                    done(err);
+                })
+            }
+    );
 });

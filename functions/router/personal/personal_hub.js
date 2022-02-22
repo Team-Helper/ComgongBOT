@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const startAuth = require('../helloworld');
+const startAuth = require('../check_auth');
+const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
