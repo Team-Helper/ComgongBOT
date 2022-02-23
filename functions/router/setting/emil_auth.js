@@ -8,26 +8,27 @@ router.post('/', async function (req, res) {
     const userRequest = req.body.action.params;
     console.log(
         userRequest.email,
-        userRequest.grade[0].amount,
-        userRequest.studentID[0].amount
+        userRequest.grade['amount'],
+        userRequest.studentID['amount']
     );
 
     await admin
         .auth()
-        .createUser({email: userRequest.email});
+        .createUser({email: userRequest.email})
+        .catch(e => {
+            console.error('Error from auth to createUser:', e);
+        });
     const firestore = admin.firestore();
     const docRef = firestore
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
-    await docRef.set({
-        email: userRequest.email,
-        grade: userRequest
-            .grade[0]
-            .amount,
-        studentID: userRequest
-            .studentID[0]
-            .amount
-    });
+    await docRef
+        .set(
+            {email: userRequest.email, grade: userRequest.grade['amount'], studentID: userRequest.studentID['amount']}
+        )
+        .catch(e => {
+            console.error('Error from set DB:', e);
+        });
 
     const responseBody = {
         version: "2.0",
