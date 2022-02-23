@@ -20,13 +20,13 @@ async function checkAuth(req) {
         };
     } else {
         const firestore = admin.firestore();
-        const testSelect = firestore
+        const userSelect = firestore
             .collection('users')
             .doc(req.plusfriendUserKey);
-        const testData = await testSelect.get();
-        // console.log(testData.data());
+        const userData = await userSelect.get();
+        // console.log(userData.data());
 
-        if (!testData.exists) {
+        if (!userData.exists) {
             console.log('No such user!');
             const title = ["이메일", "학년/학번", "학점"];
             const description = "❌ 미설정";
@@ -63,7 +63,7 @@ async function checkAuth(req) {
                 }
             };
         } else {
-            console.log('user data:', testData.data());
+            // console.log('user data:', userData.data());
             return true;
         }
     }

@@ -3,62 +3,47 @@ const router = express.Router();
 const admin = require('firebase-admin');
 
 router.post('/', function (req, res) {
+    const userAbout = req.body.userRequest.user.properties;
+    // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.params;
-    console.log(userRequest);
-    res.send(201).end();
-    // await admin.auth().createUser({
-    //     email : 'test@test.com'
-    // });
-    // await admin
-    //         .auth()
-    //         .getUserByEmail('test@test.com') // 생성된 메일 주소 대조
-    //         .then(async (userRecord) => {
-    //             console.log('user Info: ', userRecord);
-    //             return true; // 있을 경우 true 값을 리턴
-    //         })
-    //         .catch(async (error) => { // 없을 경우 누락 설정 블록 작성
-    //             console.log('Error fetching user data:', error);
-    //         });
-    // const responseBody = {
-    //     version: "2.0",
-    //     context: {
-    //         "values": [
-    //           {
-    //             "name": "email",
-    //             "lifeSpan": 10,
-    //             "params": {
-    //               "key1": "val1",
-    //               "key2": "val2"
-    //             }
-    //           },
-    //           {
-    //             "name": "def",
-    //             "lifeSpan": 5,
-    //             "params": {
-    //               "key3": "1",
-    //               "key4": "true",
-    //               "key5": "{\"jsonKey\": \"jsonVal\"}"
-    //             }
-    //           },
-    //           {
-    //             "name": "ghi",
-    //             "lifeSpan": 0
-    //           }
-    //         ]
-    //       },
-    //     template: {
-    //         outputs: [
-    //             {
-    //                 simpleText: {
-    //                     text: userRequest.utterance
-    //                 }
-    //             }
-    //         ],
-    //     }
-    // };
-    // res
-    //     .status(201)
-    //     .send(responseBody);
+    console.log(
+        userRequest.email,
+        userRequest.grade[0].amount,
+        userRequest.studentID[0].amount
+    );
+
+    await admin
+        .auth()
+        .createUser({email: userRequest.email});
+    const firestore = admin.firestore();
+    const docRef = firestore
+        .collection('users')
+        .doc(userAbout.plusfriendUserKey);
+    await docRef.set({
+        email: userRequest.email,
+        grade: userRequest
+            .grade[0]
+            .amount,
+        studentID: userRequest
+            .studentID[0]
+            .amount
+    });
+
+    const responseBody = {
+        version: "2.0",
+        template: {
+            outputs: [
+                {
+                    simpleText: {
+                        text: "프로필 생성이 완료되었습니다. 이제 컴공봇을 자유롭게 이용하시기 바랍니다!"
+                    }
+                }
+            ]
+        }
+    };
+    res
+        .status(201)
+        .send(responseBody);
 });
 
 module.exports = router;

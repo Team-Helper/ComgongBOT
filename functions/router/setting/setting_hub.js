@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
-    console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
+    // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const checkAuth = await startAuth(userAbout); // 이메일 인증 등의 프로필 설정 확인하기
     
     let responseBody; // 응답 블록 구조
