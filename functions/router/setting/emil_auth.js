@@ -6,11 +6,9 @@ router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.params;
-    console.log(
-        userRequest.email,
-        userRequest.grade['amount'],
-        userRequest.studentID['amount']
-    );
+    const grade = JSON.parse(userRequest.grade);
+    const studentID = JSON.parse(userRequest.studentID)
+    // console.log(userRequest.email, grade.amount, studentID.amount);
 
     await admin
         .auth()
@@ -24,7 +22,7 @@ router.post('/', async function (req, res) {
         .doc(userAbout.plusfriendUserKey);
     await docRef
         .set(
-            {email: userRequest.email, grade: userRequest.grade['amount'], studentID: userRequest.studentID['amount']}
+            {email: userRequest.email, grade: grade.amount, studentID: studentID.amount}
         )
         .catch(e => {
             console.error('Error from set DB:', e);

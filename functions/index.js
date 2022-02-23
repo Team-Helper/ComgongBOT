@@ -22,6 +22,7 @@ const engineering = require('./crawling/engineering');
 const completionSystem = require('./crawling/completion_system');
 
 app.use(cors());
+app.use(express.json());
 app.use('/public', publicHub);
 app.use('/public/public_service', publicService);
 app.use('/private', privateHub);
