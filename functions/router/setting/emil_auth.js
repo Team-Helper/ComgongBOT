@@ -16,6 +16,17 @@ router.post('/', async function (req, res) {
         .catch(e => {
             console.error('Error from auth to createUser:', e);
         });
+
+    // await admin
+    //     .auth()
+    //     .generateEmailVerificationLink(userRequest.email)
+    //     .then(async (result) => {
+    //         console.log(result);
+    //     })
+    //     .catch(e => {
+    //         console.error('Error from auth to generateEmailVerificationLink:', e);
+    //     });
+
     const firestore = admin.firestore();
     const docRef = firestore
         .collection('users')

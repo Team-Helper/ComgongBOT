@@ -24,7 +24,6 @@ async function checkAuth(req) {
             .collection('users')
             .doc(req.plusfriendUserKey);
         const userData = await userSelect.get();
-        // console.log(userData.data());
 
         if (!userData.exists) {
             console.log('No such user!');
