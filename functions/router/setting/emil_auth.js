@@ -5,10 +5,10 @@ const admin = require('firebase-admin');
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const userRequest = req.body.action;
-    const email = userRequest.params.email;
+    const userRequest = req.body.action.detailParams;
+    const email = userRequest.email['origin'];
     const grade = userRequest.grade['origin'];
-    const studentID = userRequest.studentID['origin']
+    const studentID = userRequest.studentID['origin'];
     // console.log(email, grade, studentID);
 
     await admin

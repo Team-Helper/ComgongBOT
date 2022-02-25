@@ -12,18 +12,22 @@ describe('POST /setting/email_auth', () => {
         }
     };
     const action = {
-        params: {
-            "email": "psj9702@sungkyul.ac.kr"
-        },
-        grade: {
-            'groupName': '',
-            'origin': '4',
-            'value': '번호'
-        },
-        studentID: {
-            'groupName': '',
-            'origin': '16',
-            'value': '번호'
+        detailParams: {
+            email: {
+                'groupName': '',
+                'origin': 'test@sungkyul.ac.kr',
+                'value': 'test@sungkyul.ac.kr'
+            },
+            grade: {
+                'groupName': '',
+                'origin': '4',
+                'value': '번호'
+            },
+            studentID: {
+                'groupName': '',
+                'origin': '16',
+                'value': '번호'
+            }
         }
     }
 
