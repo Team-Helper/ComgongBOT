@@ -5,14 +5,15 @@ const admin = require('firebase-admin');
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const userRequest = req.body.action.params;
-    const grade = JSON.parse(userRequest.grade);
-    const studentID = JSON.parse(userRequest.studentID)
-    // console.log(userRequest.email, grade.amount, studentID.amount);
+    const userRequest = req.body.action;
+    const email = userRequest.params.email;
+    const grade = userRequest.grade['origin'];
+    const studentID = userRequest.studentID['origin']
+    // console.log(email, grade, studentID);
 
     await admin
         .auth()
-        .createUser({email: userRequest.email})
+        .createUser({email: email})
         .catch(e => {
             console.error('Error from auth to createUser:', e);
         });
@@ -32,9 +33,7 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     await docRef
-        .set(
-            {email: userRequest.email, grade: grade.amount, studentID: studentID.amount}
-        )
+        .set({email: email, grade: grade, studentID: studentID})
         .catch(e => {
             console.error('Error from set DB:', e);
         });
