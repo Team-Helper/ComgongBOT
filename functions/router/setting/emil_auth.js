@@ -44,8 +44,19 @@ router.post('/', async function (req, res) {
             outputs: [
                 {
                     simpleText: {
-                        text: "프로필 생성이 완료되었습니다. 이제 컴공봇을 자유롭게 이용하시기 바랍니다!"
+                        text: "프로필 생성이 완료되었습니다. 하단의 버튼을 통해 본인의 학점도 바로 입력해주세요!"
                     }
+                }
+            ],
+            quickReplies: [
+                {
+                    "messageText": "학점 입력할게",
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .credit_key,
+                    "label": "학점 입력"
                 }
             ]
         }

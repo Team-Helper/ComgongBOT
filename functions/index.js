@@ -11,6 +11,7 @@ const privateHub = require('./router/private/private_hub');
 const personalHub = require('./router/personal/personal_hub');
 const setting = require('./router/setting/setting_hub');
 const emailAuth = require('./router/setting/emil_auth');
+const creditInput = require('./router/setting/credit_input');
 
 const notice = require('./crawling/notice');
 const newNews = require('./crawling/new_news');
@@ -29,6 +30,7 @@ app.use('/private', privateHub);
 app.use('/personal', personalHub);
 app.use('/setting', setting);
 app.use('/setting/email_auth', emailAuth);
+app.use('/setting/credit_input', creditInput);
 
 exports.middleWare = functions
     .region('asia-northeast1')
