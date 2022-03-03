@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const startAuth = require('../check_auth');
+const startAuth = require('../start_auth');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const checkAuth = await startAuth(userAbout); // 이메일 인증 등의 프로필 설정 확인하기
-    
+    // console.log(checkAuth);
+
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
     const messageText = ["나의 학점을 수정할게", "나의 학번을 변경할게", "나의 학적상태를 변경할게"];
