@@ -91,7 +91,7 @@ describe('POST /setting', () => {
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(element);
+                // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
                     .equal('이메일 인증할게');
@@ -138,7 +138,7 @@ describe('POST /setting', () => {
 
                     const elementQuick = res.body.template.quickReplies;
                     // console.log(element);
-                    const array = ['학점 수정', '학번 변경', '학적상태 변경']
+                    const array = ['학점 수정', '학번 변경', '학적상태 변경', '설정 초기화']
                     for (let index = 0; index < elementQuick.length; index++) {
                         expect(elementQuick[index].label)
                             .to

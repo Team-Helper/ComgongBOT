@@ -19,11 +19,6 @@ router.post('/', async function (req, res) {
             console.error('Error from auth to createUser:', e);
         });
 
-    // await admin     .auth()     .generateEmailVerificationLink(userRequest.email)
-    // .then(async (result) => {         console.log(result);     })     .catch(e =>
-    // {         console.error('Error from auth to generateEmailVerificationLink:',
-    // e);     });
-
     const firestore = admin.firestore();
     const docRef = firestore
         .collection('users')
@@ -37,7 +32,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "프로필 생성이 완료되었습니다. 하단의 버튼을 통해 본인의 학점도 바로 입력해주세요!"
+                                text: "프로필 생성이 완료되었습니다. 하단의 버튼을 통해 본인의 학점도 바로 입력해보세요!"
                             }
                         }
                     ],
