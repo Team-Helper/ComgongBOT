@@ -6,7 +6,14 @@ router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams;
-    console.log(userRequest);
+    const requestObject = JSON.parse(userRequest);
+    console.log(
+        requestObject.majorA,
+        requestObject.majorB,
+        requestObject.geA,
+        requestObject.geB,
+        requestObject.total
+    );
 
     res.send(200);
 });
