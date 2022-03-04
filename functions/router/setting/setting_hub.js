@@ -11,8 +11,8 @@ router.post('/', async function (req, res) {
 
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
-    const messageText = ["나의 학점을 수정할게", "나의 학번을 변경할게", "나의 학적상태를 변경할게", "설정을 초기화 해줘"];
-    const label = ["학점 수정", "학번 변경", "학적상태 변경", "설정 초기화"];
+    const messageText = ["나의 학점을 수정할게", "나의 학년을 변경할게", "나의 학번을 변경할게", "나의 학적상태를 변경할게", "설정을 초기화 해줘"];
+    const label = ["학점 수정", "학년 변경", "학번 변경", "학적상태 변경", "설정 초기화"];
 
     if (checkAuth == true) {
         label.forEach((value, index) => {

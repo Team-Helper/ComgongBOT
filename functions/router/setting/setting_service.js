@@ -33,6 +33,8 @@ router.post('/', async function (req, res) {
     switch (userRequest) {
         case "나의 학점을 수정할게":
             break;
+        case "나의 학년을 변경할게":
+            break;
         case "나의 학번을 변경할게":
             break;
         case "나의 학적상태를 변경할게":

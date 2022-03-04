@@ -21,7 +21,7 @@ router.post('/', async function (req, res) {
 
     await userSelect
         .update({
-            'point': {
+            'credits': {
                 'majorA': majorA.amount,
                 'majorB': majorB.amount,
                 'geA': geA.amount,
