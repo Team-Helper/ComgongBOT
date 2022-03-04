@@ -54,7 +54,7 @@ router.post('/', async function (req, res) {
                 .send(responseBody);
         })
         .catch(e => {
-            console.error('Error from set DB:', e);
+            console.error('Error from set profile DB:', e);
         });
 });
 
