@@ -50,7 +50,7 @@ router.post('/', async function (req, res) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "💬 원하시는 학과 메뉴를 선택해주세요" // 학과 공용 서비스 첫 질문 텍스트
+                            text: "💬 원하시는 학과 메뉴를 선택해주세요." // 학과 공용 서비스 첫 질문 텍스트
                         }
                     }
                 ],

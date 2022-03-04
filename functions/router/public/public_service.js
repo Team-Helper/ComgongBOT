@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     // console.log(req.body.userRequest.user.id);
-    const userRequest = req.body.userRequest.utterance; // 사용자 요청문
+    const userRequest = req.body.userRequest.utterance; // 사용자 요.청문
     let responseBody; // 응답 블록 구조
     let titleResult, // 각 DB별 값 저장
         dateResult,

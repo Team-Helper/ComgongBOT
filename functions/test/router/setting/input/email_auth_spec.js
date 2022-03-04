@@ -31,7 +31,7 @@ describe('POST /setting/email_auth', () => {
         }
     }
 
-    it('responds about success input profile DB', done => {
+    it('responds success input profile DB', done => {
         request(functions.config().service_url.app)
             .post('/setting/email_auth')
             .set('Accept', 'application/json')
@@ -47,7 +47,7 @@ describe('POST /setting/email_auth', () => {
                     .simpleText;
                 expect(element.text)
                     .to
-                    .equal('프로필 생성이 완료되었습니다. 하단의 버튼을 통해 본인의 학점도 바로 입력해보세요!');
+                    .equal('프로필 생성이 완료되었습니다. 하단의 버튼을 통해 본인의 학점도 바로 입력해보세요.!');
 
                 const elementQuick = res
                     .body

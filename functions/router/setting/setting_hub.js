@@ -32,7 +32,7 @@ router.post('/', async function (req, res) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "💬 원하시는 메뉴를 선택해주세요"
+                            text: "💬 원하시는 메뉴를 선택해주세요."
                         }
                     }
                 ],

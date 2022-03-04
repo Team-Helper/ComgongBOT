@@ -151,7 +151,7 @@ describe('POST /public', () => {
                     .an('string');
                 expect(element.text)
                     .to
-                    .include('원하시는 학과 메뉴를 선택해주세요')
+                    .include('원하시는 학과 메뉴를 선택해주세요.')
                 done();
             })
             .catch(err => {

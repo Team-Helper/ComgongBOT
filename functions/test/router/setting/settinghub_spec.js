@@ -134,7 +134,7 @@ describe('POST /setting', () => {
                         .an('string');
                     expect(element.text)
                         .to
-                        .include('원하시는 메뉴를 선택해주세요')
+                        .include('원하시는 메뉴를 선택해주세요.')
 
                     const elementQuick = res.body.template.quickReplies;
                     // console.log(element);

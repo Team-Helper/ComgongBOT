@@ -7,7 +7,7 @@ router.post('/', async function (req, res) {
     // console.log(req.body.userRequest.user.id);
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout);
-    const userRequest = req.body.userRequest.utterance; // 사용자 요청문
+    const userRequest = req.body.userRequest.utterance; // 사용자 요.청문
     // console.log(userRequest);
     let responseBody; // 응답 블록 구조
     let titleResult, // 각 DB별 값 저장
@@ -44,7 +44,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "‼ 전체 설정이 초기화 됩니다. 진행을 원하시나요?"
+                                text: "‼ 전체 설정이 초기화 됩니다. 진행을 원하시나요.?"
                             }
                         }
                     ],
@@ -94,8 +94,20 @@ router.post('/', async function (req, res) {
                 .auth()
                 .deleteUser(userUid)
                 .then(() => {
-                    await userSelect.delete();
+                    userSelect.delete();
                     console.log('Successfully deleted user');
+                    responseBody = {
+                        version: "2.0",
+                        template: {
+                            outputs: [
+                                {
+                                    simpleText: {
+                                        text: "🗑 전체 설정이 초기화 되었습니다."
+                                    }
+                                }
+                            ]
+                        }
+                    }
                 })
                 .catch((e) => {
                     console.log('Error deleting user:', e);
