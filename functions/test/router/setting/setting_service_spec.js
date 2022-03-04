@@ -2,7 +2,7 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /setting_service', () => {
+describe('POST /setting/setting_service', () => {
     it('responds delete user', done => {
         const userRequest = {
             user: {

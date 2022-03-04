@@ -24,7 +24,7 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     await docRef
-        .set({email: email, grade: grade, studentID: studentID})
+        .set({email: email, grade: grade, studentID: studentID, })
         .then(() => {
             const responseBody = {
                 version: "2.0",

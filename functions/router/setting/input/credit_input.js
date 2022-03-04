@@ -12,8 +12,7 @@ router.post('/', async function (req, res) {
     const geA = JSON.parse(userRequest.geA.value);
     const geB = JSON.parse(userRequest.geB.value);
     const total = JSON.parse(userRequest.total.value);
-    // console.log(majorA.amount, majorB.amount, geA.amount, geB.amount,
-    // total.amount);
+    // console.log(majorA.amount, majorB.amount, geA.amount, geB.amount, total.amount);
 
     const firestore = admin.firestore();
     const userSelect = firestore
@@ -21,9 +20,15 @@ router.post('/', async function (req, res) {
         .doc(userAbout.plusfriendUserKey);
 
     await userSelect
-        .update(
-            {'majorA': majorA.amount, 'majorB': majorB.amount, 'geA': geA.amount, 'geB': geB.amount, 'total': total.amount}
-        )
+        .update({
+            'point': {
+                'majorA': majorA.amount,
+                'majorB': majorB.amount,
+                'geA': geA.amount,
+                'geB': geB.amount,
+                'total': total.amount
+            }
+        })
         .then(() => {
             const responseBody = {
                 version: "2.0",

@@ -2,7 +2,7 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /public_service', () => {
+describe('POST /public/public_service', () => {
     it('responds checkOut1', done => { // 응답 텍스트 값 확인
         const userRequest = {
             utterance: "공지사항 게시판을 조회해줘" // 사용자 요.청 발화문
