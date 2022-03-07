@@ -33,10 +33,10 @@ describe('POST /personal/personal_service', () => {
                     .an('string');
                 expect(element.head.title)
                     .to
-                    .include('누적 학점 조회')
+                    .include('누적 학점 조회');
                 expect(element.title)
                     .to
-                    .equal('학점은 설정을 통해 언제든지 수정이 가능합니다.')
+                    .equal('학점은 설정을 통해 언제든지 수정이 가능합니다.');
 
                 const elementItems = element.itemList;
                 const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];

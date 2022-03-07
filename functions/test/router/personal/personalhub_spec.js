@@ -104,4 +104,67 @@ describe('POST /personal', () => {
                 done(err);
             })
         });
+        it('responds credits DB fail', done => {
+        request(functions.config().service_url.app)
+            .post('/personal')
+            .set({
+                key: functions
+                    .config()
+                    .service_url
+                    .personal_key
+            })
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .itemCard;
+                // console.log(element);
+                expect(element.head.title)
+                    .to
+                    .be
+                    .an('string');
+                expect(element.head.title)
+                    .to
+                    .include('누락된 설정이 있습니다.')
+                expect(element.title)
+                    .to
+                    .equal('학과 개인 서비스는 학점 입력이 완료되어야 이용이 가능해집니다.')
+
+                const elementItems = element.itemList;
+                const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
+                for (let index = 0; index < elementItems.length; index++) {
+                    const itemTitle = elementItems[index].title;
+                    const itemDescription = elementItems[index].description;
+
+                    expect(itemTitle)
+                        .to
+                        .equal(title[index]);
+                    expect(itemDescription)
+                        .to
+                        .include('미설정');
+                }
+
+                const elementQuick = res
+                    .body
+                    .template
+                    .quickReplies[0];
+                // console.log(element);
+                expect(elementQuick.messageText)
+                    .to
+                    .equal('학점 입력할게');
+                expect(elementQuick.label)
+                    .to
+                    .equal('학점 입력');
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            })
+        });
 });

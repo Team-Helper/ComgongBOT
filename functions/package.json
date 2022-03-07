@@ -7,7 +7,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "mocha test/router/personal/personal_service_spec -t 10000"
+    "test": "mocha test/router/personal/personalhub_spec -t 10000"
   },
   "engines": {
     "node": "16"
