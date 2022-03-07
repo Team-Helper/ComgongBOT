@@ -7,12 +7,12 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams;
     // console.log(userRequest);
-    const majorA = JSON.parse(userRequest.majorA.value);
-    const majorB = JSON.parse(userRequest.majorB.value);
-    const geA = JSON.parse(userRequest.geA.value);
-    const geB = JSON.parse(userRequest.geB.value);
-    const total = JSON.parse(userRequest.total.value);
-    // console.log(majorA.amount, majorB.amount, geA.amount, geB.amount, total.amount);
+    const majorA = userRequest.majorA.value;
+    const majorB = userRequest.majorB.value;
+    const geA = userRequest.geA.value;
+    const geB = userRequest.geB.value;
+    const total = userRequest.total.value;
+    // console.log(majorA, majorB, geA, geB, total);
 
     const firestore = admin.firestore();
     const userSelect = firestore
@@ -22,11 +22,11 @@ router.post('/', async function (req, res) {
     await userSelect
         .update({
             'credits': {
-                'majorA': majorA.amount,
-                'majorB': majorB.amount,
-                'geA': geA.amount,
-                'geB': geB.amount,
-                'total': total.amount
+                'majorA': majorA,
+                'majorB': majorB,
+                'geA': geA,
+                'geB': geB,
+                'total': total
             }
         })
         .then(() => {

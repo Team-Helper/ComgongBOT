@@ -16,19 +16,29 @@ describe('POST /setting/credit_input', () => {
         const action = {
             detailParams: {
                 majorA: {
-                    value: '{"amount": 1}'
+                    groupName: '',
+                    origin: '1',
+                    value: '1'
                 },
                 majorB: {
-                    value: '{"amount": 2}'
+                    groupName: '',
+                    origin: '2',
+                    value: '2'
                 },
                 geA: {
-                    value: '{"amount": 3}'
+                    groupName: '',
+                    origin: '3',
+                    value: '3'
                 },
                 geB: {
-                    value: '{"amount": 4}'
+                    groupName: '',
+                    origin: '4',
+                    value: '4'
                 },
                 total: {
-                    value: '{"amount": 5}'
+                    groupName: '',
+                    origin: '15',
+                    value: '15'
                 }
             }
         }
