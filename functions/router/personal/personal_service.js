@@ -8,7 +8,7 @@ router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout);
     const userRequest = req.body.userRequest.utterance; // 사용자 요.청문
-    console.log(userRequest);
+    // console.log(userRequest);
     let responseBody; // 응답 블록 구조
     const quickReplies = [
         {
@@ -35,19 +35,24 @@ router.post('/', async function (req, res) {
             const description = [
                 userData
                     .data()
-                    .credits['majorA'],
+                    .credits
+                    .majorA,
                 userData
                     .data()
-                    .credits['majorB'],
+                    .credits
+                    .majorB,
                 userData
                     .data()
-                    .credits['geA'],
+                    .credits
+                    .geA,
                 userData
                     .data()
-                    .credits['geB'],
+                    .credits
+                    .geB,
                 userData
                     .data()
-                    .credits['total']
+                    .credits
+                    .total
             ];
             const itemList = [];
 
