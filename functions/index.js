@@ -23,6 +23,7 @@ const education = require('./crawling/education');
 const curriculum = require('./crawling/curriculum');
 const engineering = require('./crawling/engineering');
 const completionSystem = require('./crawling/completion_system');
+const coldBreak = require('./cold_break');
 
 app.use(cors());
 app.use(express.json());
@@ -49,3 +50,4 @@ exports.education = education.education; // 외부 IT행사 및 교육 크롤링
 exports.curriculum = curriculum.curriculum; // 교과과정 크롤링 미들웨어
 exports.engineering = engineering.engineering; // 공학인증자료실 크롤링 미들웨어
 exports.completionSystem = completionSystem.completionSystem; // 이수체계도 크롤링 미들웨어
+exports.coldBreak = coldBreak.coldBreak;
