@@ -35,24 +35,19 @@ router.post('/', async function (req, res) {
             const description = [
                 userData
                     .data()
-                    .credits[0]
-                    .majorA,
+                    .credits['majorA'],
                 userData
                     .data()
-                    .credits[0]
-                    .majorB,
+                    .credits['majorB'],
                 userData
                     .data()
-                    .credits[0]
-                    .geA,
+                    .credits['geA'],
                 userData
                     .data()
-                    .credits[0]
-                    .geB,
+                    .credits['geB'],
                 userData
                     .data()
-                    .credits[0]
-                    .total
+                    .credits['total']
             ];
             const itemList = [];
 
