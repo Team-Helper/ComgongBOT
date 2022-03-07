@@ -10,7 +10,7 @@ router.post('/', async function (req, res) {
 
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
-    const messageText = ["나의 누적 학점을 알려줘", "졸업까지 남은 학점을 계산해줘", "교과목별 최저이수 요.구학점을 알려줘"];
+    const messageText = ["나의 누적 학점을 알려줘", "졸업까지 남은 학점을 계산해줘", "교과목별 최저이수 요구학점을 알려줘"];
     const label = ["학점 조회", "졸업학점 계산", "졸업이수 조건 확인"];
 
     if (checkAuth == true) {

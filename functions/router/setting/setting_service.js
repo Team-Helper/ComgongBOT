@@ -10,13 +10,6 @@ router.post('/', async function (req, res) {
     const userRequest = req.body.userRequest.utterance; // 사용자 요.청문
     // console.log(userRequest);
     let responseBody; // 응답 블록 구조
-    let titleResult, // 각 DB별 값 저장
-        dateResult,
-        urlResult;
-    let image; // 이미지 링크 저장
-    let info,
-        name // 교수진 소개 정보와 이름 저장
-    let items = []; // 게시판 별 value 저장
     const quickReplies = [
         {
             // 바로가기 버튼 저장
@@ -25,7 +18,7 @@ router.post('/', async function (req, res) {
             "blockId": functions
                 .config()
                 .service_url
-                .back_key,
+                .settinghub_key,
             "label": "🔙 뒤로가기"
         }
     ];
