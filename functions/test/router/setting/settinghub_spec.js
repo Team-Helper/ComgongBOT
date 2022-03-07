@@ -74,7 +74,7 @@ describe('POST /setting', () => {
                     .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 그리고 학점 입력은 필수 입니다.')
 
                 const elementItems = element.itemList;
-                const title = ['이메일', '학년/학번', '학점'];
+                const title = ['이메일', '학년/학번'];
                 for (let index = 0; index < elementItems.length; index++) {
                     const itemTitle = elementItems[index].title;
                     const itemDescription = elementItems[index].description;
@@ -122,23 +122,36 @@ describe('POST /setting', () => {
                 .send({userRequest})
                 .expect(201)
                 .then(res => {
-                    const element = res
+                    const elementProfile = res
                         .body
                         .template
                         .outputs[0]
-                        .simpleText;
-                    // console.log(element);
-                    expect(element.text)
+                        .itemCard;
+                    // console.log(elementProfile);
+
+                    expect(elementProfile.imageTitle.title)
                         .to
-                        .be
-                        .an('string');
-                    expect(element.text)
+                        .equal('프로필 설정');
+                    expect(elementProfile.imageTitle.imageUrl)
                         .to
-                        .include('원하시는 메뉴를 선택해주세요.')
+                        .include('png');
+                    const itemLength = elementProfile.itemList.length;
+                    // console.log(itemLength);
+                    const items = ["이메일", "학년/학번", "학적상태"];
+                    const type = ['string', 'string', 'boolean'];
+                    for (let index = 0; index < itemLength; index++) {
+                        expect(elementProfile.itemList[index].title)
+                            .to
+                            .equal(items[index]);
+                        expect(elementProfile.itemList[index].description)
+                            .to
+                            .be
+                            .a(type[index]);
+                    }
 
                     const elementQuick = res.body.template.quickReplies;
                     // console.log(element);
-                    const array = ['학점 수정', '학번 변경', '학적상태 변경', '설정 초기화']
+                    const array = ['학점 수정', '학년 변경', '학번 변경', '학적상태 변경', '설정 초기화']
                     for (let index = 0; index < elementQuick.length; index++) {
                         expect(elementQuick[index].label)
                             .to

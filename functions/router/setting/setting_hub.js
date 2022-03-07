@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const startAuth = require('../start_auth');
+const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
@@ -26,13 +27,45 @@ router.post('/', async function (req, res) {
                 "label": value
             }); // 바로가기 그룹 작성
         });
+        const firestore = admin.firestore();
+        const userSelect = firestore
+            .collection('users')
+            .doc(userAbout.plusfriendUserKey);
+        const userData = await userSelect.get();
+        const title = ["이메일", "학년/학번", "학적상태"];
+        const description = [
+            userData
+                .data()
+                .email,
+            userData
+                .data()
+                .grade + '/' + userData
+                .data()
+                .studentID,
+            userData
+                .data()
+                .status
+        ]
+        const itemList = [];
+
+        title.forEach((value, index) => {
+            itemList.push({"title": value, "description": description[index]});
+        });
+        // console.log(itemList);
+
         responseBody = {
             version: "2.0",
             template: {
                 outputs: [
                     {
-                        simpleText: {
-                            text: "💬 원하시는 메뉴를 선택해주세요."
+                        itemCard: {
+                            imageTitle: {
+                                "title": "프로필 설정",
+                                "imageUrl": "https://pixabay.com/get/g52adf5f3d0c49d960af25a1881181b38ae144f96c845ec34874db" +
+                                    "53ef268324954a49df11f8e954aa36312663fb8a91affa2bd50adf637897eadb6a98fb15ecf1b1" +
+                                    "0dfe05fe18a44d0cb7994276c6a90_640.png"
+                            },
+                            itemList: itemList
                         }
                     }
                 ],

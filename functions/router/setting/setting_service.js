@@ -46,7 +46,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "‼ 전체 설정이 초기화 됩니다. 진행을 원하시나요.?"
+                                text: "‼ 전체 설정이 초기화 됩니다. 정말 진행을 원하시나요?"
                             }
                         }
                     ],
