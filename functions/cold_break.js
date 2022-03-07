@@ -7,50 +7,54 @@ exports.coldBreak = functions
     .schedule('*/5 * * * *')
     .timeZone('Asia/Seoul')
     .onRun(async () => {
-        // const userRequest = {
-        //     user: {
-        //         "properties": {
-        //             "plusfriendUserKey": "ByCRcJlK1TSyZAIP5Gjk",
-        //             "isFriend": true
-        //         }
-        //     }
-        // };
+        const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": "ByCRcJlK1TSyZAIP5Gjk",
+                    "isFriend": true
+                }
+            }
+        };
         await axios
             .post(
-                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/public'
+                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/public',
+                {userRequest}
             )
             .then(result => {
-                console.log(result);
+                console.log(result.status);
             })
             .catch(error => {
                 console.error('Error from coldBreak : ', error);
             });
         await axios
             .post(
-                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/private'
+                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/private',
+                {userRequest}
             )
             .then(result => {
-                console.log(result);
+                console.log(result.status);
             })
             .catch(error => {
                 console.error('Error from coldBreak : ', error);
             });
         await axios
             .post(
-                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/personal'
+                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/personal',
+                {userRequest}
             )
             .then(result => {
-                console.log(result);
+                console.log(result.status);
             })
             .catch(error => {
                 console.error('Error from coldBreak : ', error);
             });
         await axios
             .post(
-                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/setting'
+                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/setting',
+                {userRequest}
             )
             .then(result => {
-                console.log(result);
+                console.log(result.status);
             })
             .catch(error => {
                 console.error('Error from coldBreak : ', error);
