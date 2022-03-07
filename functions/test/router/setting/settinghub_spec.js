@@ -138,7 +138,7 @@ describe('POST /setting', () => {
                     const itemLength = elementProfile.itemList.length;
                     // console.log(itemLength);
                     const items = ["이메일", "학년/학번", "학적상태"];
-                    const type = ['string', 'string', 'boolean'];
+                    const type = ['string', 'string', 'string'];
                     for (let index = 0; index < itemLength; index++) {
                         expect(elementProfile.itemList[index].title)
                             .to

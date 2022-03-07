@@ -46,6 +46,11 @@ router.post('/', async function (req, res) {
                 .data()
                 .status
         ]
+        description[description.length - 1] = (
+            description[description.length - 1] === true
+        )
+            ? '재학'
+            : '휴학';
         const itemList = [];
 
         title.forEach((value, index) => {
