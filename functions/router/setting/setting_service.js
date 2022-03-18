@@ -113,7 +113,7 @@ router.post('/', async function (req, res) {
             break;
         case "휴학해요":
             userData = await userSelect.get();
-            items = ['뒤로 돌아갈래'];
+            items = ['나의 학적상태를 변경할게'];
             label = ['🔙 뒤로가기'];
             items.forEach((value, index) => {
                 quickReplies.push({
@@ -122,7 +122,7 @@ router.post('/', async function (req, res) {
                     "blockId": functions
                         .config()
                         .service_url
-                        .settinghub_key,
+                        .setting_key,
                     "label": label[index]
                 });
             });
@@ -159,7 +159,7 @@ router.post('/', async function (req, res) {
             break;
         case "재학해요":
             userData = await userSelect.get();
-            items = ['뒤로 돌아갈래'];
+            items = ['나의 학적상태를 변경할게'];
             label = ['🔙 뒤로가기'];
             items.forEach((value, index) => {
                 quickReplies.push({
@@ -168,7 +168,7 @@ router.post('/', async function (req, res) {
                     "blockId": functions
                         .config()
                         .service_url
-                        .settinghub_key,
+                        .setting_key,
                     "label": label[index]
                 });
             });
