@@ -10,7 +10,7 @@ exports.coldBreak = functions
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "ByCRcJlK1TSyZAIP5Gjk",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             }

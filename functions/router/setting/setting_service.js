@@ -11,7 +11,7 @@ router.post('/', async function (req, res) {
     // console.log(userRequest);
     let responseBody;
     let quickReplies = [];
-    let items = [];
+    let items;
     let label;
     let firestore = admin.firestore();
     let userSelect = firestore
@@ -21,7 +21,7 @@ router.post('/', async function (req, res) {
 
     switch (userRequest) {
         case "나의 학점을 수정할게":
-            items.push(['전공필수', '전공선택', '교양필수', '교양선택', '총 학점']);
+            items = ['전공필수', '전공선택', '교양필수', '교양선택', '총 학점'];
             items.forEach((value) => {
                 quickReplies.push({
                     "messageText": value,
@@ -72,42 +72,31 @@ router.post('/', async function (req, res) {
             break;
 
         case "나의 학적상태를 변경할게":
-            console.log('check come on');
-            items.push(['휴학해요', '자퇴해요', '재학해요', '뒤로 돌아갈래']);
+            items = ['휴학해요', '자퇴해요', '재학해요', '뒤로 돌아갈래'];
             label = ['휴학해요', '자퇴해요', '재학해요', '🔙 뒤로가기'];
             items.forEach((value, index) => {
-                quickReplies.push({
-                    "messageText": value,
-                    "action": "block",
-                    "blockId": functions
-                        .config()
-                        .service_url
-                        .setting_key,
-                    "label": label[index]
-                });
-                // if (index == items.length - 1) {
-                //     quickReplies.push({
-                //         "messageText": value,
-                //         "action": "block",
-                //         "blockId": functions
-                //             .config()
-                //             .service_url
-                //             .settinghub_key,
-                //         "label": label[index]
-                //     });
-                // } else {
-                //     quickReplies.push({
-                //         "messageText": value,
-                //         "action": "block",
-                //         "blockId": functions
-                //             .config()
-                //             .service_url
-                //             .setting_key,
-                //         "label": label[index]
-                //     });
-                // }
+                if (index == items.length - 1) {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .settinghub_key,
+                        "label": label[index]
+                    });
+                } else {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .setting_key,
+                        "label": label[index]
+                    });
+                }
             });
-            console.log(quickReplies);
             responseBody = {
                 version: "2.0",
                 template: {
@@ -124,7 +113,7 @@ router.post('/', async function (req, res) {
             break;
         case "휴학해요":
             userData = await userSelect.get();
-            items.push(['뒤로 돌아갈래']);
+            items = ['뒤로 돌아갈래'];
             label = ['🔙 뒤로가기'];
             items.forEach((value, index) => {
                 quickReplies.push({
@@ -170,7 +159,7 @@ router.post('/', async function (req, res) {
             break;
         case "재학해요":
             userData = await userSelect.get();
-            items.push(['뒤로 돌아갈래']);
+            items = ['뒤로 돌아갈래'];
             label = ['🔙 뒤로가기'];
             items.forEach((value, index) => {
                 quickReplies.push({
