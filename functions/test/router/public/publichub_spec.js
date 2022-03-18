@@ -184,7 +184,7 @@ describe('POST /public', () => {
                     '교과과정',
                     '이수체계도',
                     '교수진'
-                ]
+                ];
                 for (let index = 0; index < element.length; index++) {
                     expect(element[index].label)
                         .to
