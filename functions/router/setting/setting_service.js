@@ -64,17 +64,30 @@ router.post('/', async function (req, res) {
             break;
 
         case "나의 학년을 변경할게":
-            items = ['1학년', '2학년', '3학년', '4학년'];
-            items.forEach((value) => {
-                quickReplies.push({
-                    "messageText": value,
-                    "action": "block",
-                    "blockId": functions
-                        .config()
-                        .service_url
-                        .setting_key,
-                    "label": value
-                });
+            items = ['1학년', '2학년', '3학년', '4학년', '뒤로 돌아갈래'];
+            label = ['1학년', '2학년', '3학년', '4학년', '🔙 뒤로가기'];
+            items.forEach((value, index) => {
+                if (index == items.length - 1) {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .settinghub_key,
+                        "label": label[index]
+                    });
+                } else {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .setting_key,
+                        "label": label[index]
+                    });
+                }
             });
             responseBody = {
                 version: "2.0",
@@ -146,8 +159,8 @@ router.post('/', async function (req, res) {
             break;
 
         case "나의 학적상태를 변경할게":
-            items = ['휴학해요', '자퇴해요', '재학해요', '뒤로 돌아갈래'];
-            label = ['휴학해요', '자퇴해요', '재학해요', '🔙 뒤로가기'];
+            items = ['휴학해요', '재학해요', '자퇴해요', '뒤로 돌아갈래'];
+            label = ['휴학해요', '재학해요', '자퇴해요', '🔙 뒤로가기'];
             items.forEach((value, index) => {
                 if (index == items.length - 1) {
                     quickReplies.push({
