@@ -64,8 +64,65 @@ router.post('/', async function (req, res) {
             break;
 
         case "나의 학년을 변경할게":
-            await userSelect.update({grade: 'change!'});
+            items = ['1학년', '2학년', '3학년', '4학년'];
+            items.forEach((value) => {
+                quickReplies.push({
+                    "messageText": value,
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .setting_key,
+                    "label": value
+                });
+            });
+            responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            simpleText: {
+                                text: "변경하고자 하는 학년으로 선택해주세요."
+                            }
+                        }
+                    ],
+                    quickReplies: quickReplies
+                }
+            }
             break;
+        case "1학년":
+        case "2학년":
+        case "3학년":
+        case "4학년":
+            items = ['나의 학년을 변경할게'];
+            label = ['🔙 뒤로가기'];
+            items.forEach((value, index) => {
+                quickReplies.push({
+                    "messageText": value,
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .setting_key,
+                    "label": label[index]
+                });
+            });
+            const gradeNumber = userRequest.replace("학년", "");
+            await userSelect.update({grade: `${gradeNumber}`});
+            responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            simpleText: {
+                                text: "🔄 선택하신 학년으로 변경이 완료되었습니다."
+                            }
+                        }
+                    ],
+                    quickReplies: quickReplies
+                }
+            }
+            break
 
         case "나의 학번을 변경할게":
             await userSelect.update({studentID: 'change!'});
@@ -148,7 +205,7 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "🔄 학적상태를 휴학으로 변경완료 하였습니다!"
+                                    text: "🔄 학적상태를 휴학으로 변경완료 하였습니다."
                                 }
                             }
                         ],
@@ -194,7 +251,7 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "🔄 학적상태를 재학으로 변경완료 하였습니다!"
+                                    text: "🔄 학적상태를 재학으로 변경완료 하였습니다."
                                 }
                             }
                         ],
