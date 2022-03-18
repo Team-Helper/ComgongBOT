@@ -11,7 +11,7 @@ describe('POST /public', () => {
             }
         }
     };
-    it('responds auth fail about isFriend is false', done => {
+    it('responds isFriend is false', done => {
         request(functions.config().service_url.app)
             .post('/public')
             .set({
@@ -85,36 +85,16 @@ describe('POST /public', () => {
                         .to
                         .include('미설정');
                 }
-                done();
-            })
-            .catch(err => {
-                console.error("Error >>", err);
-                done(err);
-            })
-        });
-    it('responds auth fail quickReplies correct label', done => {
-        request(functions.config().service_url.app)
-            .post('/public')
-            .set({
-                key: functions
-                    .config()
-                    .service_url
-                    .public_key
-            })
-            .set('Accept', 'application/json')
-            .type('application/json')
-            .send({userRequest})
-            .expect(201)
-            .then(res => {
-                const element = res
+
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
                 // console.log(element);
-                expect(element.messageText)
+                expect(elementQuick.messageText)
                     .to
                     .equal('이메일 인증할게');
-                expect(element.label)
+                expect(elementQuick.label)
                     .to
                     .equal('이메일 인증');
                 done();
@@ -151,29 +131,9 @@ describe('POST /public', () => {
                     .an('string');
                 expect(element.text)
                     .to
-                    .include('원하시는 학과 메뉴를 선택해주세요.')
-                done();
-            })
-            .catch(err => {
-                console.error("Error >>", err);
-                done(err);
-            })
-        });
-    it('responds auth success quickReplies correct label', done => {
-        request(functions.config().service_url.app)
-            .post('/public')
-            .set({
-                key: functions
-                    .config()
-                    .service_url
-                    .public_key
-            })
-            .set('Accept', 'application/json')
-            .type('application/json')
-            .send({userRequest})
-            .expect(201)
-            .then(res => {
-                const element = res.body.template.quickReplies;
+                    .include('원하시는 학과 메뉴를 선택해주세요.');
+
+                const elementQuick = res.body.template.quickReplies;
                 // console.log(element);
                 const array = [
                     '공지사항',
@@ -185,8 +145,8 @@ describe('POST /public', () => {
                     '이수체계도',
                     '교수진'
                 ];
-                for (let index = 0; index < element.length; index++) {
-                    expect(element[index].label)
+                for (let index = 0; index < elementQuick.length; index++) {
+                    expect(elementQuick[index].label)
                         .to
                         .include(array[index]);
                 }
