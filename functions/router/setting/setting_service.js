@@ -94,6 +94,7 @@ router.post('/', async function (req, res) {
         case "2학년":
         case "3학년":
         case "4학년":
+            userData = await userSelect.get();
             items = ['나의 학년을 변경할게'];
             label = ['🔙 뒤로가기'];
             items.forEach((value, index) => {
