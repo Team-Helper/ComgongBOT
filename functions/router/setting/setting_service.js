@@ -72,31 +72,42 @@ router.post('/', async function (req, res) {
             break;
 
         case "나의 학적상태를 변경할게":
+            console.log('check come on');
             items.push(['휴학해요', '자퇴해요', '재학해요', '뒤로 돌아갈래']);
             label = ['휴학해요', '자퇴해요', '재학해요', '🔙 뒤로가기'];
             items.forEach((value, index) => {
-                if (index == items.length - 1) {
-                    quickReplies.push({
-                        "messageText": value,
-                        "action": "block",
-                        "blockId": functions
-                            .config()
-                            .service_url
-                            .settinghub_key,
-                        "label": label[index]
-                    });
-                } else {
-                    quickReplies.push({
-                        "messageText": value,
-                        "action": "block",
-                        "blockId": functions
-                            .config()
-                            .service_url
-                            .setting_key,
-                        "label": label[index]
-                    });
-                }
+                quickReplies.push({
+                    "messageText": value,
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .setting_key,
+                    "label": label[index]
+                });
+                // if (index == items.length - 1) {
+                //     quickReplies.push({
+                //         "messageText": value,
+                //         "action": "block",
+                //         "blockId": functions
+                //             .config()
+                //             .service_url
+                //             .settinghub_key,
+                //         "label": label[index]
+                //     });
+                // } else {
+                //     quickReplies.push({
+                //         "messageText": value,
+                //         "action": "block",
+                //         "blockId": functions
+                //             .config()
+                //             .service_url
+                //             .setting_key,
+                //         "label": label[index]
+                //     });
+                // }
             });
+            console.log(quickReplies);
             responseBody = {
                 version: "2.0",
                 template: {
