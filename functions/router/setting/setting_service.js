@@ -108,18 +108,34 @@ router.post('/', async function (req, res) {
                 });
             });
             const gradeNumber = userRequest.replace("학년", "");
-            await userSelect.update({grade: `${gradeNumber}`});
-            responseBody = {
-                version: "2.0",
-                template: {
-                    outputs: [
-                        {
-                            simpleText: {
-                                text: "🔄 선택하신 학년으로 변경이 완료되었습니다."
+            if (userData.data().grade === gradeNumber) {
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "🚫 이미 같은 학년 이예요!"
+                                }
                             }
-                        }
-                    ],
-                    quickReplies: quickReplies
+                        ],
+                        quickReplies: quickReplies
+                    }
+                }
+            } else {
+                await userSelect.update({grade: `${gradeNumber}`});
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "🔄 선택하신 학년으로 변경이 완료되었습니다."
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
                 }
             }
             break
@@ -190,7 +206,7 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "이미 학적상태가 휴학중 이예요!"
+                                    text: "🚫 이미 학적상태가 휴학중 이예요!"
                                 }
                             }
                         ],
@@ -236,7 +252,7 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "이미 학적상태가 재학중 이예요!"
+                                    text: "🚫 이미 학적상태가 재학중 이예요!"
                                 }
                             }
                         ],
