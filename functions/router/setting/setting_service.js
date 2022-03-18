@@ -7,31 +7,203 @@ router.post('/', async function (req, res) {
     // console.log(req.body.userRequest.user.id);
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout);
-    const userRequest = req.body.userRequest.utterance; // 사용자 요.청문
+    const userRequest = req.body.userRequest.utterance;
     // console.log(userRequest);
-    let responseBody; // 응답 블록 구조
-    const quickReplies = [
-        {
-            // 바로가기 버튼 저장
-            "messageText": "뒤로 돌아갈래",
-            "action": "block",
-            "blockId": functions
-                .config()
-                .service_url
-                .settinghub_key,
-            "label": "🔙 뒤로가기"
-        }
-    ];
+    let responseBody;
+    let quickReplies = [];
+    let items = [];
+    let label;
+    let firestore = admin.firestore();
+    let userSelect = firestore
+        .collection('users')
+        .doc(userAbout.plusfriendUserKey);
+    let userData;
 
     switch (userRequest) {
         case "나의 학점을 수정할게":
+            items.push(['전공필수', '전공선택', '교양필수', '교양선택', '총 학점']);
+            items.forEach((value) => {
+                quickReplies.push({
+                    "messageText": value,
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .setting_key,
+                    "label": value
+                });
+            });
+            responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            simpleText: {
+                                text: "수정하고자 하는 학점을 선택해주세요"
+                            }
+                        }
+                    ],
+                    quickReplies: quickReplies
+                }
+            }
             break;
+        case "전공필수":
+            changeCredit('majorA');
+            break;
+        case "전공선택":
+            changeCredit('majorB');
+            break;
+        case "교양필수":
+            changeCredit('geA');
+            break;
+        case "교양선택":
+            changeCredit('geB');
+            break;
+        case "총 학점":
+            changeCredit('total');
+            break;
+
         case "나의 학년을 변경할게":
+            await userSelect.update({grade: 'change!'});
             break;
+
         case "나의 학번을 변경할게":
+            await userSelect.update({studentID: 'change!'});
             break;
+
         case "나의 학적상태를 변경할게":
+            items.push(['휴학해요', '자퇴해요', '재학해요', '뒤로 돌아갈래']);
+            label = ['휴학해요', '자퇴해요', '재학해요', '🔙 뒤로가기'];
+            items.forEach((value, index) => {
+                if (index == items.length - 1) {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .settinghub_key,
+                        "label": label[index]
+                    });
+                } else {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .setting_key,
+                        "label": label[index]
+                    });
+                }
+            });
+            responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            simpleText: {
+                                text: "변경하고자 하는 학적상태를 클릭해주세요. (자퇴해요 클릭 시 설정이 초기화 됩니다.)"
+                            }
+                        }
+                    ],
+                    quickReplies: quickReplies
+                }
+            }
             break;
+        case "휴학해요":
+            userData = await userSelect.get();
+            items.push(['뒤로 돌아갈래']);
+            label = ['🔙 뒤로가기'];
+            items.forEach((value, index) => {
+                quickReplies.push({
+                    "messageText": value,
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .settinghub_key,
+                    "label": label[index]
+                });
+            });
+            if (userData.data().status === false) {
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "이미 학적상태가 휴학중 이예요!"
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                }
+            } else {
+                await userSelect.update({status: false});
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "🔄 학적상태를 휴학으로 변경완료 하였습니다!"
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                }
+            }
+            break;
+        case "재학해요":
+            userData = await userSelect.get();
+            items.push(['뒤로 돌아갈래']);
+            label = ['🔙 뒤로가기'];
+            items.forEach((value, index) => {
+                quickReplies.push({
+                    "messageText": value,
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .settinghub_key,
+                    "label": label[index]
+                });
+            });
+            if (userData.data().status === true) {
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "이미 학적상태가 재학중 이예요!"
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                }
+            } else {
+                await userSelect.update({status: true});
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "🔄 학적상태를 재학으로 변경완료 하였습니다!"
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                }
+            }
+            break;
+
         case "설정을 초기화 해줘":
             responseBody = {
                 version: "2.0",
@@ -66,11 +238,8 @@ router.post('/', async function (req, res) {
             }
             break;
         case "네":
-            const firestore = admin.firestore();
-            const userSelect = firestore
-                .collection('users')
-                .doc(userAbout.plusfriendUserKey);
-            const userData = await userSelect.get();
+        case "자퇴해요":
+            userData = await userSelect.get();
             const getEmail = userData
                 .data()
                 .email;
@@ -90,7 +259,7 @@ router.post('/', async function (req, res) {
                 .deleteUser(userUid)
                 .then(() => {
                     userSelect.delete();
-                    console.log('Successfully deleted user');
+                    // console.log('Successfully deleted user');
                     responseBody = {
                         version: "2.0",
                         template: {
@@ -110,6 +279,11 @@ router.post('/', async function (req, res) {
             break
         default:
             break;
+    }
+
+    async function changeCredit(params) {
+        console.log(params);
+        // await userSelect.update({params: false});
     }
     res
         .status(201)
