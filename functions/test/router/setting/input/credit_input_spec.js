@@ -3,7 +3,7 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /setting/credit_input', () => {
-    it('responds delete user', done => {
+    it('responds success input credits to profile DB', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -16,32 +16,32 @@ describe('POST /setting/credit_input', () => {
         const action = {
             detailParams: {
                 majorA: {
-                    groupName: '',
-                    origin: '1',
-                    value: '1'
+                    'groupName': '',
+                    'origin': '1',
+                    'value': '1'
                 },
                 majorB: {
-                    groupName: '',
-                    origin: '2',
-                    value: '2'
+                    'groupName': '',
+                    'origin': '2',
+                    'value': '2'
                 },
                 geA: {
-                    groupName: '',
-                    origin: '3',
-                    value: '3'
+                    'groupName': '',
+                    'origin': '3',
+                    'value': '3'
                 },
                 geB: {
-                    groupName: '',
-                    origin: '4',
-                    value: '4'
+                    'groupName': '',
+                    'origin': '4',
+                    'value': '4'
                 },
                 total: {
-                    groupName: '',
-                    origin: '15',
-                    value: '15'
+                    'groupName': '',
+                    'origin': '15',
+                    'value': '15'
                 }
             }
-        }
+        };
 
         request(functions.config().service_url.app)
             .post('/setting/credit_input')

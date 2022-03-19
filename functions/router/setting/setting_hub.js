@@ -17,15 +17,27 @@ router.post('/', async function (req, res) {
 
     if (checkAuth == true) {
         label.forEach((value, index) => {
-            quickReplies.push({
-                "messageText": messageText[index],
-                "action": "block",
-                "blockId": functions
-                    .config()
-                    .service_url
-                    .setting_key,
-                "label": value
-            }); // 바로가기 그룹 작성
+            if (index == 2) {
+                quickReplies.push({
+                    "messageText": messageText[index],
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .studentid_modify_key,
+                    "label": value
+                }); // 바로가기 그룹 작성
+            } else {
+                quickReplies.push({
+                    "messageText": messageText[index],
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .setting_key,
+                    "label": value
+                }); // 바로가기 그룹 작성
+            }
         });
         const firestore = admin.firestore();
         const userSelect = firestore
