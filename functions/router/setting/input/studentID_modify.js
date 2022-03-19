@@ -10,11 +10,13 @@ router.post('/', async function (req, res) {
     // console.log(userRequest);
     const studentID = userRequest.studentID_modify['origin'];
     // console.log(studentID);
+
     const firestore = admin.firestore();
     const userSelect = firestore
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
+    
     const quickReplies = [];
     const items = ['나의 학번을 변경할게'];
     const label = ['🔙 뒤로가기'];

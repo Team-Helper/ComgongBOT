@@ -8,31 +8,31 @@ exports.notice = functions // 크롤링 함수 이름
     .https
     .onRequest((req, res) => {
         axios
-            .get('https://www.sungkyul.ac.kr/computer/4101/subview.do') // 크롤링 할 웹 주소
+            .get('https://www.sungkyul.ac.kr/computer/4101/subview.do') // 공지사항 페이지 주소
             .then(html => {
                 const tableCrawling = new Object();
                 const $ = cheerio.load(html.data);
 
-                for (let index = 1; index <= 5; index++) {
+                for (let index = 1; index <= 5; index++) { // 게시물의 이름, 날짜, 주소를 각각 추출 및 오브젝트 변수에 저장
                     tableCrawling[index] = {
                         'title': $(
                             '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
                             'r:nth-child(' + index + ') > td.td-subject > a > strong'
                         )
                             .text()
-                            .trim(), // 게시물 제목 DOM selector
+                            .trim(),
                         'date': $(
                             '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
                             'r:nth-child(' + index + ') > td.td-date'
                         )
                             .text()
-                            .trim(), // 게시물 업로드 날짜 DOM selector
+                            .trim(),
                         'url': $(
                             '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
                             'r:nth-child(' + index + ') > td.td-subject > a'
                         )
                             .attr('href')
-                            .replace(/^/, 'https://www.sungkyul.ac.kr') // 게시물 웹 주소 DOM selector
+                            .replace(/^/, 'https://www.sungkyul.ac.kr')
                     }
 
                 }
@@ -43,7 +43,7 @@ exports.notice = functions // 크롤링 함수 이름
                 // console.log(result);
                 await admin
                     .database()
-                    .ref('notice/') // DB key 값 input
+                    .ref('notice/') // 오브젝트 변수를 DB에 저장
                     .set(result);
                 console.log('notice DB input Success');
                 res

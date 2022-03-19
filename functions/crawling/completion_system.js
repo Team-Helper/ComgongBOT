@@ -21,7 +21,7 @@ exports.completionSystem = functions // 크롤링 함수 이름
             await page.goto(
                 'https://www.sungkyul.ac.kr/sites/computer/index.do',
                 {waitUntil: "domcontentloaded"}
-            );
+            ); // 이수체계도 주소로 이동
             await page.click('#menu4053_obj37 > div > a.a_2');
             await page.waitForSelector('#pagetitle2 > button');
             await page.click('#pagetitle2 > button');
@@ -31,14 +31,14 @@ exports.completionSystem = functions // 크롤링 함수 이름
             const getUrl = await page.$eval(
                 '#menu5563_obj326 > div:nth-child(1) > img',
                 e => e.getAttribute("src")
-            );
-            const imgUrl = getUrl.replace(/^/, 'https://www.sungkyul.ac.kr');
+            ); // 이미지 주소 추출
+            const imgUrl = getUrl.replace(/^/, 'https://www.sungkyul.ac.kr'); // 추출 주소 앞부분에 성결 도메인 추가
             // console.log(imgUrl);
             await browser.close();
             admin
                 .database()
                 .ref('completionSystem/')
-                .set({imgUrl: imgUrl});
+                .set({imgUrl: imgUrl}); // 주소를 DB에 저장
             console.log('Crawling and completionSystem DB input Success');
             res
                 .status(201)

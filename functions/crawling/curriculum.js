@@ -21,19 +21,19 @@ exports.curriculum = functions // 크롤링 함수 이름
             await page.goto(
                 'https://www.sungkyul.ac.kr/computer/4093/subview.do',
                 {waitUntil: "domcontentloaded"}
-            );
+            ); // 교과과정 주소로 이동
             await page.waitForSelector('#menu4093_obj250 > div._fnctWrap > iframe');
             console.log('iframe is ready. Loading iframe content');
             const element = await page.$('#menu4093_obj250 > div._fnctWrap > iframe');
             const frame = await element.contentFrame();
             await frame.waitForSelector('#page0');
-            const imgUrl = await frame.$eval('#page0', e => e.getAttribute("src"));
+            const imgUrl = await frame.$eval('#page0', e => e.getAttribute("src")); // 이미지 주소 추출
             // console.log(imgUrl);
             await browser.close();
             admin
                 .database()
                 .ref('curriculum/')
-                .set({imgUrl: imgUrl});
+                .set({imgUrl: imgUrl}); // 주소를 DB에 저장
             console.log('Crawling and curriculum DB input Success');
             res
                 .status(201)

@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     // console.log(req.body.userRequest.user.id);
-    const userRequest = req.body.userRequest.utterance; // 사용자 요.청문
+    const userRequest = req.body.userRequest.utterance; // 사용자 요청문
     let responseBody; // 응답 블록 구조
     let titleResult, // 각 DB별 값 저장
         dateResult,
@@ -15,8 +15,7 @@ router.post('/', async function (req, res) {
         name // 교수진 소개 정보와 이름 저장
     let items = []; // 게시판 별 value 저장
     const quickReplies = [
-        {
-            // 바로가기 버튼 저장
+        { // 뒤로가기 버튼
             "messageText": "뒤로 돌아갈래",
             "action": "block",
             "blockId": functions
@@ -27,10 +26,10 @@ router.post('/', async function (req, res) {
         }
     ];
 
-    switch (userRequest) {
+    switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
         case "공지사항 게시판을 조회해줘":
             [titleResult, dateResult, urlResult] = await getData('notice'); // DB로 부터 해당 Key 값의 values 받기
-            titleResult.forEach((value, index) => {
+            titleResult.forEach((value, index) => { // 해당 게시판 뷰의 바로가기 그룹 작성
                 items.push({
                     "title": value,
                     "description": dateResult[index],
@@ -51,7 +50,7 @@ router.post('/', async function (req, res) {
                                 },
                                 "items": items,
                                 "buttons": [
-                                    { // 하단 버튼 생성
+                                    { // 해당 페이지 바로이동 관련 하단 버튼 생성
                                         "label": "학과 공지사항 페이지",
                                         "action": "webLink",
                                         "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4101/subview.do"

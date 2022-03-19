@@ -6,12 +6,12 @@ const functions = require('firebase-functions');
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const checkAuth = await startAuth(userAbout); // 이메일 인증 등의 프로필 설정 확인하기
+    const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
     // console.log(checkAuth);
     
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
-    const messageText = [
+    const messageText = [ // 바로가기 요청문
         "공지사항 게시판을 조회해줘",
         "새소식 게시판을 조회해줘",
         "자유게시판을 조회해줘",
@@ -21,7 +21,7 @@ router.post('/', async function (req, res) {
         "올해 이수체계도를 조회해줘",
         "교수진소개 게시판을 조회해줘"
     ];
-    const label = [
+    const label = [ // 바로가기 버튼명
         "공지사항",
         "새소식",
         "자유게시판",
@@ -32,7 +32,7 @@ router.post('/', async function (req, res) {
         "교수진소개"
     ];
 
-    if (checkAuth == true) { // 프로필 설정이 되어있다면
+    if (checkAuth == true) { // 사용자가 프로필 설정이 되어있다면
         label.forEach((value, index) => {
             quickReplies.push({
                 "messageText": messageText[index],
@@ -50,7 +50,7 @@ router.post('/', async function (req, res) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "💬 원하시는 학과 메뉴를 선택해주세요." // 학과 공용 서비스 첫 질문 텍스트
+                            text: "💬 원하시는 학과 메뉴를 선택해주세요." // 학과 공용 서비스 첫 질문
                         }
                     }
                 ],

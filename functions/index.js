@@ -54,4 +54,4 @@ exports.education = education.education; // 외부 IT행사 및 교육 크롤링
 exports.curriculum = curriculum.curriculum; // 교과과정 크롤링 미들웨어
 exports.engineering = engineering.engineering; // 공학인증자료실 크롤링 미들웨어
 exports.completionSystem = completionSystem.completionSystem; // 이수체계도 크롤링 미들웨어
-exports.coldBreak = coldBreak.coldBreak;
+exports.coldBreak = coldBreak.coldBreak; // cold start 이슈 개선을 위한 미들웨어

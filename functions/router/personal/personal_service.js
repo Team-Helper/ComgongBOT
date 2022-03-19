@@ -5,14 +5,14 @@ const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     // console.log(req.body.userRequest.user.id);
-    const userAbout = req.body.userRequest.user.properties;
+    const userAbout = req.body.userRequest.user.properties; // 사용자 정보
     // console.log(userAbout);
-    const userRequest = req.body.userRequest.utterance; // 사용자 요.청문
+    const userRequest = req.body.userRequest.utterance; // 사용자 요청문
     // console.log(userRequest);
     let responseBody; // 응답 블록 구조
     const quickReplies = [
         {
-            // 바로가기 버튼 저장
+            // 뒤로가기 버튼
             "messageText": "뒤로 돌아갈래",
             "action": "block",
             "blockId": functions
@@ -24,7 +24,7 @@ router.post('/', async function (req, res) {
     ];
     // console.log(itemList);
 
-    switch (userRequest) {
+    switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
         case "나의 누적 학점을 알려줘":
             const firestore = admin.firestore();
             const userSelect = firestore
@@ -57,14 +57,14 @@ router.post('/', async function (req, res) {
             const itemList = [];
 
             title.forEach((value, index) => {
-                itemList.push({"title": value, "description": description[index]});
+                itemList.push({"title": value, "description": description[index]}); // 학점 조회 뷰 바로가기 그룹 작성
             });
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
-                            itemCard: {
+                            itemCard: { // 아이템 카드 뷰로 사용자가 입력한 학점 총 출력
                                 "head": {
                                     "title": "☑ 누적 학점 조회"
                                 },
@@ -86,7 +86,7 @@ router.post('/', async function (req, res) {
     }
     res
         .status(201)
-        .send(responseBody);
+        .send(responseBody); // 응답 전송
 });
 
 module.exports = router;

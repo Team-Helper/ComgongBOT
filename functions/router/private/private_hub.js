@@ -6,14 +6,14 @@ const functions = require('firebase-functions');
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const checkAuth = await startAuth(userAbout); // 이메일 인증 등의 프로필 설정 확인하기
+    const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
 
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
-    const messageText = ["해당 키워드를 조회해줘", "해당 키워드를 조회해줘", "해당 키워드를 조회해줘"];
-    const label = ["키워드", "키워드2", "키워드3"];
+    const messageText = ["해당 키워드를 조회해줘", "해당 키워드를 조회해줘", "해당 키워드를 조회해줘"]; // 바로가기 요청문
+    const label = ["키워드", "키워드2", "키워드3"]; // 바로가리 버튼명
 
-    if (checkAuth == true) {
+    if (checkAuth == true) { // 프로필 설정이 되어있다면
         label.forEach((value, index) => {
             quickReplies.push({
                 "messageText": messageText[index],
@@ -31,7 +31,7 @@ router.post('/', async function (req, res) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "💬 원하시는 메뉴를 선택해주세요."
+                            text: "💬 원하시는 메뉴를 선택해주세요." // 학과 전용 서비스 첫 질문
                         }
                     }
                 ],
@@ -43,7 +43,7 @@ router.post('/', async function (req, res) {
     }
     res
         .status(201)
-        .send(responseBody);
+        .send(responseBody); // 응답 전송
 });
 
 module.exports = router;

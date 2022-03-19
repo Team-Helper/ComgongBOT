@@ -5,9 +5,9 @@ const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     // console.log(req.body.userRequest.user.id);
-    const userAbout = req.body.userRequest.user.properties;
+    const userAbout = req.body.userRequest.user.properties; // 사용자 정보
     // console.log(userAbout);
-    const userRequest = req.body.userRequest.utterance;
+    const userRequest = req.body.userRequest.utterance; // 사용자 요청문
     // console.log(userRequest);
     let responseBody;
     let quickReplies = [];
@@ -19,10 +19,10 @@ router.post('/', async function (req, res) {
         .doc(userAbout.plusfriendUserKey);
     let userData;
 
-    switch (userRequest) {
+    switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
         case "나의 학점을 수정할게":
             items = ['전공필수', '전공선택', '교양필수', '교양선택', '총 학점'];
-            items.forEach((value) => {
+            items.forEach((value) => { // 학점 수정 뷰 바로가기 그룹 작성
                 quickReplies.push({
                     "messageText": value,
                     "action": "block",
@@ -38,7 +38,7 @@ router.post('/', async function (req, res) {
                 template: {
                     outputs: [
                         {
-                            simpleText: {
+                            simpleText: { // 수정 전 사용자 입력 필요에 따른 관련 질문 작성
                                 text: "수정하고자 하는 학점을 선택해주세요"
                             }
                         }
@@ -67,7 +67,7 @@ router.post('/', async function (req, res) {
             items = ['1학년', '2학년', '3학년', '4학년', '뒤로 돌아갈래'];
             label = ['1학년', '2학년', '3학년', '4학년', '🔙 뒤로가기'];
             items.forEach((value, index) => {
-                if (index == items.length - 1) {
+                if (index == items.length - 1) { // 뒤로가기는 해당 내용의 블록 아이디 값으로
                     quickReplies.push({
                         "messageText": value,
                         "action": "block",
@@ -111,7 +111,7 @@ router.post('/', async function (req, res) {
             items = ['나의 학년을 변경할게'];
             label = ['🔙 뒤로가기'];
             items.forEach((value, index) => {
-                quickReplies.push({
+                quickReplies.push({ // 뒤로가기 버튼
                     "messageText": value,
                     "action": "block",
                     "blockId": functions
@@ -121,8 +121,8 @@ router.post('/', async function (req, res) {
                     "label": label[index]
                 });
             });
-            const gradeNumber = userRequest.replace("학년", "");
-            if (userData.data().grade === gradeNumber) {
+            const gradeNumber = userRequest.replace("학년", ""); // 사용자 입력 값에서 '학년' 글자는 자르기
+            if (userData.data().grade === gradeNumber) { // 입력한 학년이 기존의 학년 값과 같을 경우
                 responseBody = {
                     version: "2.0",
                     template: {
@@ -136,7 +136,7 @@ router.post('/', async function (req, res) {
                         quickReplies: quickReplies
                     }
                 }
-            } else {
+            } else { // 아닌 경우 사용자의 학년 데이터를 변경 및 알림
                 await userSelect.update({grade: `${gradeNumber}`});
                 responseBody = {
                     version: "2.0",
@@ -208,7 +208,7 @@ router.post('/', async function (req, res) {
                     "label": label[index]
                 });
             });
-            if (userData.data().status === false) {
+            if (userData.data().status === false) { // 이미 사용자가 휴학 상태이면
                 responseBody = {
                     version: "2.0",
                     template: {
@@ -222,7 +222,7 @@ router.post('/', async function (req, res) {
                         quickReplies: quickReplies
                     }
                 }
-            } else {
+            } else { // 아닌 경우 사용자의 학적상태를 휴학으로 변경 및 알림
                 await userSelect.update({status: false});
                 responseBody = {
                     version: "2.0",
@@ -253,7 +253,7 @@ router.post('/', async function (req, res) {
                     "label": label[index]
                 });
             });
-            if (userData.data().status === true) {
+            if (userData.data().status === true) { // 이미 사용자가 재학 상태이면
                 responseBody = {
                     version: "2.0",
                     template: {
@@ -267,7 +267,7 @@ router.post('/', async function (req, res) {
                         quickReplies: quickReplies
                     }
                 }
-            } else {
+            } else { // 아닌 경우 사용자의 학적상태를 재학으로 변경 및 알림
                 await userSelect.update({status: true});
                 responseBody = {
                     version: "2.0",
@@ -322,13 +322,13 @@ router.post('/', async function (req, res) {
             userData = await userSelect.get();
             const getEmail = userData
                 .data()
-                .email;
+                .email; // 사용자 AUTH의 이메일 주소
             const userUid = await admin
                 .auth()
                 .getUserByEmail(getEmail)
                 .then(userRecord => {
                     // console.log(userRecord);
-                    return userRecord.uid;
+                    return userRecord.uid; // 이메일 주소를 통한 사용자의 UID 값 얻기
                 })
                 .catch(e => {
                     console.error('Error get user uid:', e);
@@ -336,9 +336,9 @@ router.post('/', async function (req, res) {
             // console.log(userUid);
             await admin
                 .auth()
-                .deleteUser(userUid)
+                .deleteUser(userUid) // 해당 UID 값으로 사용자 AUTH 삭제
                 .then(() => {
-                    userSelect.delete();
+                    userSelect.delete(); // 마찬가지로 사용자 프로필 DB도 삭제 및 알림
                     // console.log('Successfully deleted user');
                     responseBody = {
                         version: "2.0",
@@ -367,7 +367,7 @@ router.post('/', async function (req, res) {
     }
     res
         .status(201)
-        .send(responseBody);
+        .send(responseBody); // 응답 전송
 });
 
 module.exports = router;

@@ -8,11 +8,11 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
     .https
     .onRequest((req, res) => {
         axios
-            .get('https://www.sungkyul.ac.kr/computer/4123/subview.do') // 크롤링 할 웹 주소
+            .get('https://www.sungkyul.ac.kr/computer/4123/subview.do') // 교수진 소개 페이지 주소
             .then(html => {
                 const tableCrawling = new Object();
                 const $ = cheerio.load(html.data);
-                for (let index = 1; index <= 10; index++) {
+                for (let index = 1; index <= 10; index++) { // 사진, 이름, 정보를 각각 추출 및 오브젝트 변수에 저장
                     tableCrawling[index] = {
                         'img': $(
                             '#menu4123_obj242 > div.profile._fnctWrap > form > ul > li:nth-child(' +
@@ -53,7 +53,7 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
                 await admin
                     .database()
                     .ref('facultyIntroduction/')
-                    .set(result);
+                    .set(result); // 오브젝트 변수를 DB에 저장
                 console.log('facultyIntroduction DB input Success');
                 res
                     .status(201)

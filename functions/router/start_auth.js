@@ -5,14 +5,14 @@ async function checkAuth(req) {
     // console.log(req);
     let responseBody;
 
-    if (req.isFriend == undefined) {
+    if (req.isFriend == undefined) { // 채널을 추가하지 않은 경우
         responseBody = {
             version: "2.0",
             template: {
                 outputs: [
                     {
                         simpleText: {
-                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요.!" // 채널 추가 유/무 알림 텍스트
+                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요.!"
                         }
                     }
                 ]
@@ -25,7 +25,7 @@ async function checkAuth(req) {
             .doc(req.plusfriendUserKey);
         const userData = await userSelect.get();
 
-        if (!userData.exists) {
+        if (!userData.exists) { // 채널은 추가 했으나 프로필 DB가 없는 사용자인 경우
             console.log('No such user!');
             const title = ["이메일", "학년/학번"];
             const description = "❌ 미설정";
@@ -61,12 +61,12 @@ async function checkAuth(req) {
                     ]
                 }
             };
-        } else {
+        } else { // 프로필 DB가 존재하는 사용자인 경우
             // console.log('user data:', userData.data());
             return true;
         }
     }
-    return responseBody; // 작성된 누락 설정 블록 리턴
+    return responseBody; // 작성된 누락 설정 관련 블록 리턴
 }
 
 module.exports = checkAuth;
