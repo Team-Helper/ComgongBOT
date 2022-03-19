@@ -7,30 +7,47 @@ exports.coldBreak = functions
     .schedule('*/5 * * * *')
     .timeZone('Asia/Seoul')
     .onRun(async () => {
-        let userRequest = {
-            user: {
-                "properties": {
-                    "plusfriendUserKey": "testID",
-                    "isFriend": true
+        let data = JSON.stringify({
+            "userRequest": {
+                "user": {
+                    "properties": {
+                        "plusfriendUserKey": "testID",
+                        "isFriend": true
+                    }
                 }
             }
+        });
+        let config = {
+            method: 'post',
+            url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/public',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
         };
-        await axios
-            .post(
-                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/public',
-                {userRequest}
-            )
+        await axios(config)
             .then(async (result) => {
                 console.log('public: ', result.status);
-                userRequest = {
-                    utterance: "공지사항 게시판을 조회해줘"
+                data = JSON.stringify({
+                    "userRequest": {
+                        "user": {
+                            "properties": {
+                                "plusfriendUserKey": "testID",
+                                "isFriend": true
+                            },
+                            "utterance": "공지사항 게시판을 조회해줘"
+                        }
+                    }
+                });
+                config = {
+                    method: 'post',
+                    url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/public',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data
                 };
-                await axios
-                    .post(
-                        'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/public/publi' +
-                                'c_service',
-                        {userRequest}
-                    )
+                await axios(config)
                     .then(result => {
                         console.log('public service: ', result.status);
                     })
@@ -42,34 +59,48 @@ exports.coldBreak = functions
                 console.error('Error from coldBreak public: ', error);
             });
 
-        // await axios
-        //     .post(
-        //         'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/private',
-        //         {userRequest}
-        //     )
-        //     .then(result => {
-        //         console.log(result.status);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error from coldBreak : ', error);
-        //     });
-
-        await axios
-            .post(
-                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/personal',
-                {userRequest}
-            )
+        let data2 = JSON.stringify({
+            "userRequest": {
+                "user": {
+                    "properties": {
+                        "plusfriendUserKey": "testID",
+                        "isFriend": true
+                    }
+                }
+            }
+        });
+        let config2 = {
+            method: 'post',
+            url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/personal',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+        await axios(config2)
             .then(async (result) => {
                 console.log('personal: ', result.status);
-                userRequest = {
-                    utterance: "나의 누적 학점을 알려줘"
+                data2 = JSON.stringify({
+                    "userRequest": {
+                        "user": {
+                            "properties": {
+                                "plusfriendUserKey": "testID",
+                                "isFriend": true
+                            }
+                        },
+                        "utterance": "나의 누적 학점을 알려줘"
+                    }
+                });
+                config2 = {
+                    method: 'post',
+                    url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/personal/per' +
+                            'sonal_service',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data2
                 };
-                await axios
-                    .post(
-                        'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/personal/per' +
-                                'sonal_service',
-                        {userRequest}
-                    )
+                await axios(config2)
                     .then(result => {
                         console.log('personal service: ', result.status);
                     })
@@ -81,22 +112,48 @@ exports.coldBreak = functions
                 console.error('Error from coldBreak personal: ', error);
             });
 
-        await axios
-            .post(
-                'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/setting',
-                {userRequest}
-            )
+        let data3 = JSON.stringify({
+            "userRequest": {
+                "user": {
+                    "properties": {
+                        "plusfriendUserKey": "testID",
+                        "isFriend": true
+                    }
+                }
+            }
+        });
+        let config3 = {
+            method: 'post',
+            url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/setting',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data3
+        };
+        await axios(config3)
             .then(async (result) => {
                 console.log('setting: ', result.status);
-                userRequest = {
-                    utterance: "설정을 초기화 해줘"
+                data3 = JSON.stringify({
+                    "userRequest": {
+                        "user": {
+                            "properties": {
+                                "plusfriendUserKey": "testID",
+                                "isFriend": true
+                            }
+                        },
+                        "utterance": "설정을 초기화 해줘"
+                    }
+                });
+                config3 = {
+                    method: 'post',
+                    url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/setting/sett' +
+                            'ing_service',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: data3
                 };
-                await axios
-                    .post(
-                        'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/setting/sett' +
-                                'ing_service',
-                        {userRequest}
-                    )
+                await axios(config3)
                     .then(result => {
                         console.log('setting service: ', result.status);
                     })
