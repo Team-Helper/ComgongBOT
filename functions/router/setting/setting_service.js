@@ -20,49 +20,6 @@ router.post('/', async function (req, res) {
     let userData;
 
     switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
-        case "나의 학점을 수정할게":
-            items = ['전공필수', '전공선택', '교양필수', '교양선택', '총 학점'];
-            items.forEach((value) => { // 학점 수정 뷰 바로가기 그룹 작성
-                quickReplies.push({
-                    "messageText": value,
-                    "action": "block",
-                    "blockId": functions
-                        .config()
-                        .service_url
-                        .credit_correction_key,
-                    "label": value
-                });
-            });
-            responseBody = {
-                version: "2.0",
-                template: {
-                    outputs: [
-                        {
-                            simpleText: { // 수정 전 사용자 입력 필요에 따른 관련 질문 작성
-                                text: "수정하고자 하는 학점을 선택해주세요"
-                            }
-                        }
-                    ],
-                    quickReplies: quickReplies
-                }
-            }
-            break;
-        case "전공필수":
-            changeCredit('majorA');
-            break;
-        case "전공선택":
-            changeCredit('majorB');
-            break;
-        case "교양필수":
-            changeCredit('geA');
-            break;
-        case "교양선택":
-            changeCredit('geB');
-            break;
-        case "총 학점":
-            changeCredit('total');
-            break;
-
         case "나의 학년을 변경할게":
             items = ['1학년', '2학년', '3학년', '4학년', '뒤로 돌아갈래'];
             label = ['1학년', '2학년', '3학년', '4학년', '🔙 뒤로가기'];
@@ -360,11 +317,7 @@ router.post('/', async function (req, res) {
         default:
             break;
     }
-
-    async function changeCredit(params) {
-        console.log(params);
-        // await userSelect.update({params: false});
-    }
+    
     res
         .status(201)
         .send(responseBody); // 응답 전송
