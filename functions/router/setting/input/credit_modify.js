@@ -31,7 +31,7 @@ router.post('/', async function (req, res) {
                 "blockId": functions
                     .config()
                     .service_url
-                    .settinghub_key,
+                    .credit_modify_key,
                 "label": label[index]
             });
         });
