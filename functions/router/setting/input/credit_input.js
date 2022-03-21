@@ -13,11 +13,11 @@ router.post('/', async function (req, res) {
     const geB = userRequest.geB.value; // 교양선택
     const total = userRequest.total.value; // 총 학점
     // console.log(majorA, majorB, geA, geB, total);
-
     const firestore = admin.firestore();
     const userSelect = firestore
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
+        
     await userSelect
         .update({
             'credits': { // 사용자 프로필 DB에 'credits' 라는 KEY 값의 학점 데이터 MAP 생성
