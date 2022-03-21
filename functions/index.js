@@ -39,7 +39,7 @@ app.use('/setting/setting_service', settingService);
 app.use('/setting/email_auth', emailAuth);
 app.use('/setting/credit_input', creditInput);
 app.use('/setting/credit_modify', creditModify);
-app.use('/setting/studentID_correction', studentIDModify);
+app.use('/setting/studentID_modify', studentIDModify);
 
 exports.middleWare = functions
     .region('asia-northeast1')

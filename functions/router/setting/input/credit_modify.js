@@ -10,16 +10,16 @@ router.post('/', async function (req, res) {
     // console.log(userRequest);
     const menuType = userRequest.menu.value; // 교과목
     const credit = userRequest.credit.value; // 학점 값
+    let responseBody;
+    let quickReplies = [];
+    let items;
+    let label;
     const firestore = admin.firestore();
     const userSelect = firestore
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
     // console.log(userData.data().credits[menuType]);
-    let responseBody;
-    let quickReplies = [];
-    let items;
-    let label;
 
     if (userData.data().credits[menuType] === credit) { // 입력한 학점이 기존의 학점 값과 같을 경우
         items = ['나의 학점을 수정할게'];
