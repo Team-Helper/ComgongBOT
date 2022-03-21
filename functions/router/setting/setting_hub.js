@@ -17,7 +17,18 @@ router.post('/', async function (req, res) {
 
     if (checkAuth == true) { // 사용자가 프로필 설정이 되어있다면
         label.forEach((value, index) => {
-            if (index == 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로
+            if (index == 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로
+                quickReplies.push({
+                    "messageText": messageText[index],
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .credit_modify_key,
+                    "label": value
+                });
+            }
+            else if (index == 2) { // 학번 변경 경우 역시 파라미터를 사용한 블록 주소로
                 quickReplies.push({
                     "messageText": messageText[index],
                     "action": "block",
