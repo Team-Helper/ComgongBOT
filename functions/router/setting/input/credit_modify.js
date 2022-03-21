@@ -31,7 +31,7 @@ router.post('/', async function (req, res) {
                 "blockId": functions
                     .config()
                     .service_url
-                    .setting_key,
+                    .settinghub_key,
                 "label": label[index]
             });
         });
