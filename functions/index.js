@@ -14,7 +14,7 @@ const setting = require('./router/setting/setting_hub');
 const settingService = require('./router/setting/setting_service');
 const emailAuth = require('./router/setting/input/emil_auth');
 const creditInput = require('./router/setting/input/credit_input');
-const creditCorrection = require('./router/setting/input/credit_correction');
+const creditModify = require('./router/setting/input/credit_modify');
 const studentIDModify = require('./router/setting/input/studentID_modify');
 
 const notice = require('./crawling/notice');
@@ -38,7 +38,7 @@ app.use('/setting', setting);
 app.use('/setting/setting_service', settingService);
 app.use('/setting/email_auth', emailAuth);
 app.use('/setting/credit_input', creditInput);
-app.use('/setting/credit_correction', creditCorrection);
+app.use('/setting/credit_modify', creditModify);
 app.use('/setting/studentID_correction', studentIDModify);
 
 exports.middleWare = functions

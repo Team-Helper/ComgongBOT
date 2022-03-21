@@ -5,8 +5,7 @@ const admin = require('firebase-admin');
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    // const userRequest = req.body.action.detailParams;
-    const userRequest = req.body.userRequest.utterance;
+    const userRequest = req.body.action.detailParams;
     console.log(userRequest);
     // const majorA = userRequest.majorA.value;
     // const majorB = userRequest.majorB.value;
