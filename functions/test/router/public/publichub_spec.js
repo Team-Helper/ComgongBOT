@@ -7,8 +7,8 @@ describe('POST /public', () => { // 테스트 수트
         const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id", // 사용자 카카오 아이디 값
-                    "isFriend": false // 채널 추가 상태 X
+                    "plusfriendUserKey": "some-id", // 사용자 카카오 채널 아이디 값
+                    "isFriend": false // 채널 추가 상태
                 }
             }
         };
@@ -76,10 +76,10 @@ describe('POST /public', () => { // 테스트 수트
                     .an('string'); // 아이템 카드 뷰의 제목이 문자열 타입인가
                 expect(element.head.title)
                     .to
-                    .include('누락된 설정이 있습니다.') // 아이템 카드 뷰의 제목 내용이 작성한 텍스트 내용을 포함하는가
+                    .include('누락된 설정이 있습니다.'); // 아이템 카드 뷰의 제목 내용이 작성한 텍스트 내용을 포함하는가
                 expect(element.title)
                     .to
-                    .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 그리고 학점 입력은 필수 입니다.') // 아이템 카드 뷰의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
+                    .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 아이템 카드 뷰의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const elementItems = element.itemList;
                 const title = ['이메일', '학년/학번', '학점'];
