@@ -591,11 +591,11 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     expect(typeof itemImg.imageUrl)
                         .to
                         .be
-                        .an('string');
+                        .a('string');
                     expect(itemBtn[0].label)
                         .to
                         .be
-                        .an('string');
+                        .a('string');
                     expect(itemBtn[0].action)
                         .to
                         .equal('webLink');

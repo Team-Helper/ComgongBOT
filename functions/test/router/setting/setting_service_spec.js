@@ -2,9 +2,9 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /setting/setting_service', () => {
-    it('responds delete user', done => {
-        const userRequest = {
+describe('POST /setting/setting_service', () => { // 테스트 수트
+    it('responds delete user', done => { // 테스트 단위(확인하고자 하는 내용을 명시)
+        const userRequest = { // 기본 사용자 정보 시나리오와 요청 발화문
             user: {
                 "properties": {
                     "plusfriendUserKey": "some-id",
@@ -14,22 +14,22 @@ describe('POST /setting/setting_service', () => {
             utterance: "네"
             // utterance: "자퇴해요"
         };
-        request(functions.config().service_url.app)
-            .post('/setting/setting_service')
+        request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+            .post('/setting/setting_service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
-            .expect(201)
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res
                     .body
                     .template
                     .outputs[0]
                     .simpleText;
-                console.log(element);
+                // console.log(element);
                 expect(element.text)
                     .to
-                    .include("전체 설정이 초기화");
+                    .include("전체 설정이 초기화"); // 응답 결과 값이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -73,7 +73,7 @@ describe('POST /setting/setting_service', () => {
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(element[index].label)
                         .to
-                        .include(array[index]);
+                        .include(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
                 }
                 done();
             })

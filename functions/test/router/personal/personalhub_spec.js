@@ -3,7 +3,7 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /personal', () => { // 테스트 수트
-    it('responds about isFriend is false', done => {
+    it('responds about isFriend is false', done => { //테스트 단위(확인하고자 하는 내용을 명시)
         const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
@@ -73,10 +73,10 @@ describe('POST /personal', () => { // 테스트 수트
                 expect(element.head.title)
                     .to
                     .be
-                    .an('string'); // 아이템 카드 뷰의 제목이 문자열 타입인가
+                    .a('string'); // 아이템 카드 뷰의 제목이 문자열 타입인가
                 expect(element.head.title)
                     .to
-                    .include('누락된 설정이 있습니다.'); // 아이템 카드 뷰의 제목 내용이 작성한 텍스트 내용을 포함하는가
+                    .include('누락된 설정이'); // 아이템 카드 뷰의 제목 내용이 작성한 텍스트 내용을 포함하는가
                 expect(element.title)
                     .to
                     .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 아이템 카드 뷰의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
@@ -144,10 +144,10 @@ describe('POST /personal', () => { // 테스트 수트
                 expect(element.head.title)
                     .to
                     .be
-                    .an('string');
+                    .a('string');
                 expect(element.head.title)
                     .to
-                    .include('누락된 설정이 있습니다.');
+                    .include('누락된 설정이');
                 expect(element.title)
                     .to
                     .equal('학과 개인 서비스는 학점 입력이 완료되어야 이용이 가능해집니다.');
@@ -215,7 +215,7 @@ describe('POST /personal', () => { // 테스트 수트
                 expect(element.text)
                     .to
                     .be
-                    .an('string'); // 응답 블록의 본문이 문자열 타입인가
+                    .a('string'); // 응답 블록의 본문이 문자열 타입인가
                 expect(element.text)
                     .to
                     .include('원하시는 학과 메뉴를 선택'); // 응답 블록의 본문이 작성한 텍스트 내용을 포함하는가

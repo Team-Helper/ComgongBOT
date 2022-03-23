@@ -35,7 +35,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                 expect(headTitle)
                     .to
                     .be
-                    .an('string'); // 아이템 카드 뷰의 제목이 문자열 타입인가
+                    .a('string'); // 아이템 카드 뷰의 제목이 문자열 타입인가
                 expect(headTitle)
                     .to
                     .include('누적 학점 조회'); // 아이템 카드 뷰의 제목 내용이 작성한 텍스트 내용을 포함하는가

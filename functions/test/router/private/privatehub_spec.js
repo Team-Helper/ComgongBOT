@@ -64,10 +64,10 @@ describe('POST /private', () => {
                 expect(element.head.title)
                     .to
                     .be
-                    .an('string');
+                    .a('string');
                 expect(element.head.title)
                     .to
-                    .include('누락된 설정이 있습니다.')
+                    .include('누락된 설정이')
                 expect(element.title)
                     .to
                     .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 그리고 학점 입력은 필수 입니다.')
