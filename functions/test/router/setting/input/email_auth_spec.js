@@ -2,43 +2,42 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /setting/email_auth', () => {
-    const userRequest = {
-        user: {
-            "properties": {
-                "plusfriendUserKey": "some-id",
-                "isFriend": true
+describe('POST /setting/email_auth', () => { // 테스트 수트
+    it('responds success input profile DB', done => { // 테스트 단위(확인하고자 하는 내용을 명시)
+        const userRequest = { // 인증하려는 사용자의 기본 정보 시나리오
+            user: {
+                "properties": {
+                    "plusfriendUserKey": "some-id", // 사용자 카카오 채널 아이디 값
+                    "isFriend": true // 채널 추가 상태
+                }
+            }
+        };
+        const action = {
+            detailParams: { // 사용자가 입력한 기본 데이터 시나리오 (이메일, 학년, 학번)
+                email: {
+                    'groupName': '',
+                    'origin': 'test@sungkyul.ac.kr',
+                    'value': 'test@sungkyul.ac.kr'
+                },
+                grade: {
+                    'groupName': '',
+                    'origin': '4',
+                    'value': 'grade'
+                },
+                studentID: {
+                    'groupName': '',
+                    'origin': '16',
+                    'value': 'studentID'
+                }
             }
         }
-    };
-    const action = {
-        detailParams: {
-            email: {
-                'groupName': '',
-                'origin': 'test@sungkyul.ac.kr',
-                'value': 'test@sungkyul.ac.kr'
-            },
-            grade: {
-                'groupName': '',
-                'origin': '4',
-                'value': '번호'
-            },
-            studentID: {
-                'groupName': '',
-                'origin': '16',
-                'value': '번호'
-            }
-        }
-    }
-
-    it('responds success input profile DB', done => {
-        request(functions.config().service_url.app)
-            .post('/setting/email_auth')
+        request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+            .post('/setting/email_auth') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
+            .send({userRequest}) // body 데이터 전송(하단 포함)
             .send({action})
-            .expect(201)
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res
                     .body
@@ -47,7 +46,7 @@ describe('POST /setting/email_auth', () => {
                     .simpleText;
                 expect(element.text)
                     .to
-                    .equal('프로필 생성이 완료되었습니다. 하단의 버튼을 통해 본인의 학점도 바로 입력해보세요.');
+                    .equal('프로필 생성이 완료되었습니다. 하단의 버튼을 통해 본인의 학점도 바로 입력해보세요.'); // 응답 결과가 작성한 텍스트의 내용과 완전 일치하는가
 
                 const elementQuick = res
                     .body
@@ -56,10 +55,10 @@ describe('POST /setting/email_auth', () => {
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .equal('학점 입력할게');
+                    .equal('학점 입력할게'); // 응답 블록의 바로가기 요청문이 작성한 텍스트의 내용과 완전 일치하는가
                 expect(elementQuick.label)
                     .to
-                    .equal('학점 입력');
+                    .equal('학점 입력'); // 응답 블록의 바로가기 버튼명이 작성한 텍스트의 내용과 완전 일치하는가
                 done();
             })
             .catch(err => {
