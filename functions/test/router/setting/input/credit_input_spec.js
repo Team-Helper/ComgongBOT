@@ -16,7 +16,7 @@ describe('POST /setting/credit_input', () => { // 테스트 수트
                 utterance: "네"
             };
             const action = {
-                detailParams: { // 사용자가 입력한 기본 학점 데이터 시나리오 (이메일, 학년, 학번)
+                detailParams: { // 사용자가 입력한 학점 데이터 시나리오 (이메일, 학년, 학번)
                     majorA: {
                         'groupName': '',
                         'origin': '1',

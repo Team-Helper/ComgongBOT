@@ -13,7 +13,7 @@ describe('POST /setting/email_auth', () => { // 테스트 수트
             }
         };
         const action = {
-            detailParams: { // 사용자가 입력한 기본 프로필 데이터 시나리오 (이메일, 학년, 학번)
+            detailParams: { // 사용자가 입력한 프로필 데이터 시나리오 (이메일, 학년, 학번)
                 email: {
                     'groupName': '',
                     'origin': 'test@sungkyul.ac.kr',
