@@ -7,13 +7,13 @@ describe('POST /setting/email_auth', () => { // 테스트 수트
         const userRequest = { // 인증하려는 사용자의 기본 정보 시나리오
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id", // 사용자 카카오 채널 아이디 값
+                    "plusfriendUserKey": "some-id", // 사용자 카카오 채널 아이디
                     "isFriend": true // 채널 추가 상태
                 }
             }
         };
         const action = {
-            detailParams: { // 사용자가 입력한 기본 데이터 시나리오 (이메일, 학년, 학번)
+            detailParams: { // 사용자가 입력한 기본 프로필 데이터 시나리오 (이메일, 학년, 학번)
                 email: {
                     'groupName': '',
                     'origin': 'test@sungkyul.ac.kr',
