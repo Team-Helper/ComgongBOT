@@ -3,6 +3,7 @@ const router = express.Router();
 const startAuth = require('../start_auth');
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+const { user } = require('firebase-functions/v1/auth');
 
 router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
@@ -55,7 +56,7 @@ router.post('/', async function (req, res) {
             .collection('users')
             .doc(userAbout.plusfriendUserKey); // 사용자 프로필 DB 조회
         const userData = await userSelect.get(); // DB 데이터 GET
-        const title = ["이메일", "학년/학번", "학적상태"];
+        const title = ["이메일", "학년/학번", "학적상태", "학점입력확인"];
         const description = [
             userData
                 .data()
@@ -67,7 +68,11 @@ router.post('/', async function (req, res) {
                 .studentID, // 학년과 학번은 하나의 문자로 처리
             userData
                 .data()
-                .status
+                .status,
+            userData
+                .data()
+                .credits
+            
         ]
         description[description.length - 1] = ( // 사용자 재학 상태 값을 T/F로 나누어 재학/휴학으로 처리
             description[description.length - 1] === true
@@ -78,6 +83,21 @@ router.post('/', async function (req, res) {
         title.forEach((value, index) => {
             itemList.push({"title": value, "description": description[index]});
         });
+
+        if (!userData.data().credits) { 
+            const description = " 미설정";
+            const itemList = [];
+            title.forEach((value, index) => {
+                itemList.push({"title": value, "description": description});
+            });
+        }
+        else {
+            const description = " 설정완료";
+            const itemList = [];
+            title.forEach((value, index) => {
+                itemList.push({"title": value, "description": description});
+            });
+        }
         // console.log(itemList);
 
         responseBody = {
