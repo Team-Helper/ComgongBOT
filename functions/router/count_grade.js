@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 exports.countGrade = functions // 크롤링 함수 이름
     .region('asia-northeast1')
     .pubsub
-    .schedule('0 0 1 3 *)
+    .schedule('0 0 1 3 *')
     .timeZone('Asia/Seoul')
     .onRun(async () => {
         const firestore = admin.firestore();
