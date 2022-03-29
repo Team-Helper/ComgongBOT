@@ -1,10 +1,10 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
 
-exports.coldBreak = functions
+exports.coldBreak = functions // 함수 이름
     .region('asia-northeast1')
     .pubsub
-    .schedule('*/5 * * * *')
+    .schedule('*/5 * * * *') // 5분 단위로 작동
     .timeZone('Asia/Seoul')
     .onRun(async () => {
         let data = JSON.stringify({
