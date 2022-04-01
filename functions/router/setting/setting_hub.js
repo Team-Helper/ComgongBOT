@@ -70,14 +70,13 @@ router.post('/', async function (req, res) {
             userData
                 .data()
                 .credits
-
         ]
         description[description.length - 2] = ( // 사용자 재학 상태 값을 T/F로 나누어 재학/휴학으로 처리
                 description[description.length - 2] === true)
             ? '재학'
             : '휴학';
         description[description.length - 1] = ( // 사용자 학점 입력 상태에 따른 미설정/설정으로 처리
-                !description[description.length - 1] )
+                !description[description.length - 1])
             ? '미설정'
             : '설정';
         const itemList = [];

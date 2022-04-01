@@ -8,7 +8,7 @@ describe('POST /setting', () => { // 테스트 수트
             user: {
                 "properties": {
                     "plusfriendUserKey": "some-id", // 사용자 카카오 채널 아이디
-                    "isFriend": false // 채널 추가 상태
+                    "isFriend": undefined // 채널 추가 상태
                 }
             }
         };
@@ -30,7 +30,7 @@ describe('POST /setting', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                console.log(element);
+                // console.log(element);
                 expect(element.text)
                     .to
                     .include("컴공봇 채널 추가부터"); // 응답 결과가 작성한 텍스트 내용을 포함하는가
@@ -153,7 +153,7 @@ describe('POST /setting', () => { // 테스트 수트
                 const items = ["이메일", "학년/학번", "학적상태", "학점입력"];
                 const type = ['string', 'string', 'string', 'string'];
                 for (let index = 0; index < itemLength; index++) {
-                    console.log(element.itemList[index].description)
+                    // console.log(element.itemList[index].description)
                     expect(element.itemList[index].title)
                         .to
                         .equal(items[index]); // 아이템 카드 뷰 본문의 제목이 지정한 배열의 내용과 완전 일치하는가

@@ -8,7 +8,7 @@ describe('POST /public', () => { // 테스트 수트
             user: {
                 "properties": {
                     "plusfriendUserKey": "some-id", // 사용자 카카오 채널 아이디
-                    "isFriend": false // 채널 추가 상태
+                    "isFriend": undefined // 채널 추가 상태
                 }
             }
         };
