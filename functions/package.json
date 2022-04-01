@@ -7,7 +7,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "mocha test/router/setting/setting_service_spec -t 10000"
+    "test": "mocha test/router/setting/settinghub_spec -t 10000"
   },
   "engines": {
     "node": "16"
@@ -23,10 +23,10 @@
     "puppeteer": "^13.2.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
     "chai": "^4.3.4",
     "firebase-functions-test": "^0.2.0",
     "mocha": "^9.1.4",
+    "nodemon": "^2.0.15",
     "supertest": "^6.2.2"
   },
   "private": true

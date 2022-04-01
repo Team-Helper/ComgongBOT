@@ -27,8 +27,7 @@ router.post('/', async function (req, res) {
                         .credit_modify_key,
                     "label": value
                 });
-            }
-            else if (index == 2) { // 학번 변경 경우 역시 파라미터를 사용한 블록 주소로
+            } else if (index == 2) { // 학번 변경 경우 역시 파라미터를 사용한 블록 주소로
                 quickReplies.push({
                     "messageText": messageText[index],
                     "action": "block",
@@ -47,7 +46,7 @@ router.post('/', async function (req, res) {
                         .service_url
                         .setting_key,
                     "label": value
-                }); 
+                });
             }
         });
         const firestore = admin.firestore();
@@ -55,7 +54,7 @@ router.post('/', async function (req, res) {
             .collection('users')
             .doc(userAbout.plusfriendUserKey); // 사용자 프로필 DB 조회
         const userData = await userSelect.get(); // DB 데이터 GET
-        const title = ["이메일", "학년/학번", "학적상태"];
+        const title = ["이메일", "학년/학번", "학적상태", "학점입력"];
         const description = [
             userData
                 .data()
@@ -67,17 +66,25 @@ router.post('/', async function (req, res) {
                 .studentID, // 학년과 학번은 하나의 문자로 처리
             userData
                 .data()
-                .status
+                .status,
+            userData
+                .data()
+                .credits
+
         ]
-        description[description.length - 1] = ( // 사용자 재학 상태 값을 T/F로 나누어 재학/휴학으로 처리
-            description[description.length - 1] === true
-        )
+        description[description.length - 2] = ( // 사용자 재학 상태 값을 T/F로 나누어 재학/휴학으로 처리
+                description[description.length - 2] === true)
             ? '재학'
             : '휴학';
+        description[description.length - 1] = ( // 사용자 학점 입력 상태에 따른 미설정/설정으로 처리
+                !description[description.length - 1] )
+            ? '미설정'
+            : '설정';
         const itemList = [];
         title.forEach((value, index) => {
             itemList.push({"title": value, "description": description[index]});
         });
+
         // console.log(itemList);
 
         responseBody = {
