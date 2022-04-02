@@ -6,7 +6,7 @@ exports.coldBreak = functions // 함수 이름
     .pubsub
     .schedule('*/5 * * * *') // 5분 단위로 작동
     .timeZone('Asia/Seoul')
-    .onRun(async () => {
+    .onRun(async (req, res) => {
         let data = JSON.stringify({
             "userRequest": {
                 "user": {
@@ -164,5 +164,5 @@ exports.coldBreak = functions // 함수 이름
             .catch(error => {
                 console.error('Error from coldBreak setting: ', error);
             });
-        return null;
+        res.send(201);
     });
