@@ -5,8 +5,10 @@ const cheerio = require("cheerio");
 
 exports.engineering = functions // 크롤링 함수 이름
     .region('asia-northeast1')
-    .https
-    .onRequest((req, res) => {
+    .pubsub
+    .schedule('0 0 1 * *') // 1달 단위로 작동
+    .timeZone('Asia/Seoul')
+    .onRun(async () => {
         axios
             .get('https://www.sungkyul.ac.kr/computer/4100/subview.do') // 공학인증 자료실 주소
             .then(html => {
@@ -16,25 +18,25 @@ exports.engineering = functions // 크롤링 함수 이름
                 for (let index = 1; index <= 5; index++) { // 게시물의 이름, 날짜, 주소를 각각 추출 및 오브젝트 변수에 저장
                     tableCrawling[index] = {
                         'title': $(
-                            '#menu4100_obj255 > div._fnctWrap > form:nth-child(2) > div > table > tbody > ' +
-                            'tr:nth-child(' + index + ') > td.td-subject > a > strong'
+                            '#menu4100_obj255 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
+                            'r:nth-child(' + index + ') > td.td-subject > a > strong'
                         )
                             .text()
                             .trim(),
                         'date': $(
-                           '#menu4100_obj255 > div._fnctWrap > form:nth-child(2) > div > table > tbody > ' +
-                           'tr:nth-child(' + index + ') > td.td-date'
+                            '#menu4100_obj255 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
+                            'r:nth-child(' + index + ') > td.td-date'
                         )
                             .text()
                             .trim(),
                         'url': $(
-                            '#menu4100_obj255 > div._fnctWrap > form:nth-child(2) > div > table > tbody > ' +
-                            'tr:nth-child(' + index + ') > td.td-subject > a'
+                            '#menu4100_obj255 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
+                            'r:nth-child(' + index + ') > td.td-subject > a'
                         )
                             .attr('href')
                             .replace(/^/, 'https://www.sungkyul.ac.kr')
                     }
-                
+
                 }
 
                 return tableCrawling;
@@ -45,11 +47,9 @@ exports.engineering = functions // 크롤링 함수 이름
                     .ref('engineering/')
                     .set(result); // 오브젝트 변수를 DB에 저장
                 console.log('engineering DB input Success');
-                res
-                    .status(201)
-                    .json(result);
             })
             .catch(error => {
                 console.error('Error from engineering : ', error);
             });
+        return null;
     });

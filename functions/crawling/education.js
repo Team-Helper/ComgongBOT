@@ -45,9 +45,7 @@ exports.education = functions // 크롤링 함수 이름
                     .ref('education/')
                     .set(result); // 오브젝트 변수를 DB에 저장
                 console.log('education DB input Success');
-                res
-                    .status(201)
-                    .json(result);
+                res.sendStatus(201);
             })
             .catch(error => {
                 console.error('Error from education : ', error);

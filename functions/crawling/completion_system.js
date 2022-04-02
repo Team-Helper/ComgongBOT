@@ -10,8 +10,10 @@ const option = {
 exports.completionSystem = functions // 크롤링 함수 이름
     .runWith(option)
     .region('asia-northeast1')
-    .https
-    .onRequest(async (req, res) => {
+    .pubsub
+    .schedule('0 0 1 * *') // 1달 단위로 작동
+    .timeZone('Asia/Seoul')
+    .onRun(async () => {
         try {
             const browser = await puppeteer.launch({
                 args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -40,10 +42,8 @@ exports.completionSystem = functions // 크롤링 함수 이름
                 .ref('completionSystem/')
                 .set({imgUrl: imgUrl}); // 주소를 DB에 저장
             console.log('Crawling and completionSystem DB input Success');
-            res
-                .status(201)
-                .send(imgUrl);
         } catch (error) {
             console.error('Error from completionSystem : ', error);
         }
+        return null;
     });

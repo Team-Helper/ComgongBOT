@@ -5,8 +5,10 @@ const cheerio = require("cheerio");
 
 exports.facultyIntroduction = functions // 크롤링 함수 이름
     .region('asia-northeast1')
-    .https
-    .onRequest((req, res) => {
+    .pubsub
+    .schedule('0 0 1 * *') // 1달 단위로 작동
+    .timeZone('Asia/Seoul')
+    .onRun(async () => {
         axios
             .get('https://www.sungkyul.ac.kr/computer/4123/subview.do') // 교수진 소개 페이지 주소
             .then(html => {
@@ -55,11 +57,9 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
                     .ref('facultyIntroduction/')
                     .set(result); // 오브젝트 변수를 DB에 저장
                 console.log('facultyIntroduction DB input Success');
-                res
-                    .status(201)
-                    .json(result);
             })
             .catch(error => {
                 console.error('Error from facultyIntroduction : ', error);
             });
+        return null;
     });
