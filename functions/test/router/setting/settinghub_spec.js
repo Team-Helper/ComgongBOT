@@ -113,7 +113,73 @@ describe('POST /setting', () => { // 테스트 수트
             })
         });
 
-    it('responds auth success ', done => {
+    it('responds not input credits', done => {
+        const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": "some-id",
+                    "isFriend": true
+                }
+            }
+        };
+        request(functions.config().service_url.app)
+            .post('/setting')
+            .set({
+                key: functions
+                    .config()
+                    .service_url
+                    .setting_key
+            })
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .itemCard;
+                // console.log(element);
+
+                expect(element.imageTitle.title)
+                    .to
+                    .equal('프로필 설정'); // 아이템 카드 뷰의 이미지 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
+                expect(element.imageTitle.imageUrl)
+                    .to
+                    .include('png'); // 아이템 카드 뷰 이미지 주소에 png 명칭이 포함하는가
+                const itemLength = element.itemList.length;
+                // console.log(itemLength);
+                const items = ["이메일", "학년/학번", "학적상태", "학점입력"];
+                const type = ['string', 'string', 'string', 'string'];
+                for (let index = 0; index < itemLength; index++) {
+                    // console.log(element.itemList[index].description)
+                    expect(element.itemList[index].title)
+                        .to
+                        .equal(items[index]); // 아이템 카드 뷰 본문의 제목이 지정한 배열의 내용과 완전 일치하는가
+                    expect(element.itemList[index].description)
+                        .to
+                        .be
+                        .a(type[index]); // 아이템 카드 뷰 본문의 내용이 문자열 타입인가
+                }
+
+                const elementQuick = res.body.template.quickReplies;
+                // console.log(element);
+                const array = ['학년 변경', '학번 변경', '학적상태 변경', '설정 초기화']
+                for (let index = 0; index < elementQuick.length; index++) {
+                    expect(elementQuick[index].label)
+                        .to
+                        .equal(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용과 완전 일치하는가
+                }
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            })
+        });
+
+    it('responds auth success', done => {
         const userRequest = {
             user: {
                 "properties": {

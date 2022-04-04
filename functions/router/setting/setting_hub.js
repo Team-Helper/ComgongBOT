@@ -9,51 +9,87 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
     // console.log(checkAuth);
-
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
-    const messageText = ["나의 학점을 수정할게", "나의 학년을 변경할게", "나의 학번을 변경할게", "나의 학적상태를 변경할게", "설정을 초기화 해줘"]; // 바로가기 요청문
-    const label = ["학점 수정", "학년 변경", "학번 변경", "학적상태 변경", "설정 초기화"]; // 바로가기 버튼명
+    let messageText = [];
+    let label = [];
 
     if (checkAuth == true) { // 사용자가 프로필 설정이 되어있다면
-        label.forEach((value, index) => {
-            if (index == 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로
-                quickReplies.push({
-                    "messageText": messageText[index],
-                    "action": "block",
-                    "blockId": functions
-                        .config()
-                        .service_url
-                        .credit_modify_key,
-                    "label": value
-                });
-            } else if (index == 2) { // 학번 변경 경우 역시 파라미터를 사용한 블록 주소로
-                quickReplies.push({
-                    "messageText": messageText[index],
-                    "action": "block",
-                    "blockId": functions
-                        .config()
-                        .service_url
-                        .studentid_modify_key,
-                    "label": value
-                });
-            } else {
-                quickReplies.push({
-                    "messageText": messageText[index],
-                    "action": "block",
-                    "blockId": functions
-                        .config()
-                        .service_url
-                        .setting_key,
-                    "label": value
-                });
-            }
-        });
         const firestore = admin.firestore();
         const userSelect = firestore
             .collection('users')
             .doc(userAbout.plusfriendUserKey); // 사용자 프로필 DB 조회
         const userData = await userSelect.get(); // DB 데이터 GET
+
+        if (!userData.data().credits) { // 학점 값이 없는 사용자 일 경우의 바로가기 작성
+            messageText.push("나의 학년을 변경할게", "나의 학번을 변경할게", "나의 학적상태를 변경할게", "설정을 초기화 해줘")
+            label.push("학년 변경", "학번 변경", "학적상태 변경", "설정 초기화");
+            label.forEach((value, index) => {
+                if (index == 2) { // 학번 변경 경우 역시 파라미터를 사용한 블록 주소로
+                    quickReplies.push({
+                        "messageText": messageText[index],
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .studentid_modify_key,
+                        "label": value
+                    });
+                } else {
+                    quickReplies.push({
+                        "messageText": messageText[index],
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .setting_key,
+                        "label": value
+                    });
+                }
+            });
+        } else { // 학점 값이 있는 사용자 경우
+            messageText.push(
+                "나의 학점을 수정할게",
+                "나의 학년을 변경할게",
+                "나의 학번을 변경할게",
+                "나의 학적상태를 변경할게",
+                "설정을 초기화 해줘"
+            );
+            label.push("학점 수정", "학년 변경", "학번 변경", "학적상태 변경", "설정 초기화");
+            label.forEach((value, index) => {
+                if (index == 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로
+                    quickReplies.push({
+                        "messageText": messageText[index],
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .credit_modify_key,
+                        "label": value
+                    });
+                } else if (index == 2) {
+                    quickReplies.push({
+                        "messageText": messageText[index],
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .studentid_modify_key,
+                        "label": value
+                    });
+                } else {
+                    quickReplies.push({
+                        "messageText": messageText[index],
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .setting_key,
+                        "label": value
+                    });
+                }
+            });
+        }
         const title = ["이메일", "학년/학번", "학적상태", "학점입력"];
         const description = [
             userData
@@ -77,15 +113,13 @@ router.post('/', async function (req, res) {
             : '휴학';
         description[description.length - 1] = ( // 사용자 학점 입력 상태에 따른 미설정/설정으로 처리
                 !description[description.length - 1])
-            ? '미설정'
-            : '설정';
+            ? '미입력'
+            : '입력';
         const itemList = [];
         title.forEach((value, index) => {
             itemList.push({"title": value, "description": description[index]});
         });
-
         // console.log(itemList);
-
         responseBody = {
             version: "2.0",
             template: {
