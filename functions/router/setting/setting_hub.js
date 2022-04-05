@@ -27,7 +27,7 @@ router.post('/', async function (req, res) {
             messageText.push("나의 학년을 변경할게", "나의 학번을 변경할게", "나의 학적상태를 변경할게", "설정을 초기화 해줘")
             label.push("학년 변경", "학번 변경", "학적상태 변경", "설정 초기화");
             label.forEach((value, index) => {
-                if (index == 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
+                if (index == 1) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
