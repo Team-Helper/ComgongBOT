@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 describe('POST /setting/credit_input', () => { // 테스트 수트
     it(
         'responds success input credits to profile DB',
-        done => { // 테스트 단위(확인하고자 하는 내용을 명시)
+        done => { // 테스트 단위 : 프로필 DB에 학점 데이터 입력을 성공했을 때
             const userRequest = { // 학점을 입력하려는 사용자의 기본 정보 시나리오와 요청 발화문
                 user: {
                     "properties": {

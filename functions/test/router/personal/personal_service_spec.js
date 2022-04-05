@@ -3,7 +3,7 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /personal/personal_service', () => { // 테스트 수트
-    it('responds check credits', done => { // 테스트 단위(확인하고자 하는 내용을 명시)
+    it('responds check credits', done => { // 테스트 단위 : 학점 입력이 되어있고 조회를 할 떄
         const userRequest = { // 기본 사용자 정보 시나리오와 요청 발화문
             user: {
                 "properties": {
