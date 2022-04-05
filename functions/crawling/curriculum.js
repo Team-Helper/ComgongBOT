@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 const option = {
     timeoutSeconds: 60,
     memory: '512MB'
-}
+} // puppteer를 쓰기 위한 HTTP functions 옵션 값 set
 
 exports.curriculum = functions // 크롤링 함수 이름
     .runWith(option)
@@ -16,7 +16,7 @@ exports.curriculum = functions // 크롤링 함수 이름
     .onRun(async () => {
         try {
             const browser = await puppeteer.launch({
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
+                args: ['--no-sandbox', '--disable-setuid-sandbox'] // Firebase cli 환경에서 돌아가기 위한 조건 설정
             });
             const page = await browser.newPage();
             await page.setDefaultNavigationTimeout(0);
@@ -32,6 +32,7 @@ exports.curriculum = functions // 크롤링 함수 이름
             const imgUrl = await frame.$eval('#page0', e => e.getAttribute("src")); // 이미지 주소 추출
             // console.log(imgUrl);
             await browser.close();
+
             admin
                 .database()
                 .ref('curriculum/')

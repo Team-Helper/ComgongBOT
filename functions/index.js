@@ -45,7 +45,7 @@ app.use('/setting/studentID_modify', studentIDModify);
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
-    .onRequest(app); // comgongbot 기본 주소 미들웨어
+    .onRequest(app); // 컴공봇 기본 주소 미들웨어
 
 exports.notice = notice.notice; // 공지사항 크롤링 미들웨어
 exports.newNews = newNews.newNews; // 새소식 크롤링 미들웨어

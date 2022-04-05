@@ -14,7 +14,8 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
             .then(html => {
                 const tableCrawling = new Object();
                 const $ = cheerio.load(html.data);
-                for (let index = 1; index <= 10; index++) { // 사진, 이름, 정보를 각각 추출 및 오브젝트 변수에 저장
+                /*사진, 이름, 정보를 각각 추출 및 오브젝트 변수에 저장*/
+                for (let index = 1; index <= 10; index++) {
                     tableCrawling[index] = {
                         'img': $(
                             '#menu4123_obj242 > div.profile._fnctWrap > form > ul > li:nth-child(' +
@@ -45,17 +46,16 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
                             .join('실: ')
                             .replace(/^/, '\n')
                     }
-
                 }
                 // console.log(tableCrawling);
-                return tableCrawling;
+                return tableCrawling; // 오브젝트 변수 반환
             })
             .then(async (result) => {
-                console.log(result);
+                // console.log(result);
                 await admin
                     .database()
                     .ref('facultyIntroduction/')
-                    .set(result); // 오브젝트 변수를 DB에 저장
+                    .set(result); // 반환된 변수를 DB에 저장
                 console.log('facultyIntroduction DB input Success');
             })
             .catch(error => {
