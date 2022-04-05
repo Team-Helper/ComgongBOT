@@ -5,14 +5,15 @@ const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     // console.log(req.body.userRequest.user.id);
-    const userAbout = req.body.userRequest.user.properties; // 사용자 정보
+    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
     // console.log(userAbout);
     const userRequest = req.body.userRequest.utterance; // 사용자 요청문
     // console.log(userRequest);
-    let responseBody;
-    let quickReplies = [];
-    let items;
-    let label;
+    let responseBody; // 응답 블록 구조
+    let quickReplies = []; // 바로가기 그룹
+    let items; // 바로가기 본문
+    let label; // 바로가기 버튼명
+    /* 사용자 프로필 DB 조회*/
     let firestore = admin.firestore();
     let userSelect = firestore
         .collection('users')
@@ -52,11 +53,11 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "변경하고자 하는 학년으로 선택해주세요."
+                                text: "변경하고자 하는 학년으로 선택해주세요." // 텍스트 뷰 블록으로 출력
                             }
                         }
                     ],
-                    quickReplies: quickReplies
+                    quickReplies: quickReplies // 바로가기 출력
                 }
             }
             break;
@@ -78,7 +79,7 @@ router.post('/', async function (req, res) {
                     "label": label[index]
                 });
             });
-            const gradeNumber = userRequest.replace("학년", ""); // 사용자 입력 값에서 '학년' 글자는 자르기
+            const gradeNumber = userRequest.replace("학년", ""); // 사용자 입력 값에서 '학년' 글자는 제거
             if (userData.data().grade === gradeNumber) { // 입력한 학년이 기존의 학년 값과 같을 경우
                 responseBody = {
                     version: "2.0",
@@ -93,7 +94,7 @@ router.post('/', async function (req, res) {
                         quickReplies: quickReplies
                     }
                 }
-            } else { // 아닌 경우 사용자의 학년 데이터를 변경 및 알림
+            } else { // 아닌 경우 사용자의 학년 데이터를 변경 및 응답 블록 출력
                 await userSelect.update({grade: `${gradeNumber}`});
                 responseBody = {
                     version: "2.0",
@@ -179,7 +180,7 @@ router.post('/', async function (req, res) {
                         quickReplies: quickReplies
                     }
                 }
-            } else { // 아닌 경우 사용자의 학적상태를 휴학으로 변경 및 알림
+            } else { // 아닌 경우 사용자의 학적상태를 휴학으로 변경 및 응답 블록 출력
                 await userSelect.update({status: false});
                 responseBody = {
                     version: "2.0",
@@ -224,7 +225,7 @@ router.post('/', async function (req, res) {
                         quickReplies: quickReplies
                     }
                 }
-            } else { // 아닌 경우 사용자의 학적상태를 재학으로 변경 및 알림
+            } else { // 아닌 경우 사용자의 학적상태를 재학으로 변경 및 응답 블록 출력
                 await userSelect.update({status: true});
                 responseBody = {
                     version: "2.0",
@@ -279,13 +280,13 @@ router.post('/', async function (req, res) {
             userData = await userSelect.get();
             const getEmail = userData
                 .data()
-                .email; // 사용자 AUTH의 이메일 주소
+                .email; // 사용자 AUTH의 이메일 주소 get
             const userUid = await admin
                 .auth()
                 .getUserByEmail(getEmail)
                 .then(userRecord => {
                     // console.log(userRecord);
-                    return userRecord.uid; // 이메일 주소를 통한 사용자의 UID 값 얻기
+                    return userRecord.uid; // 사용자 이메일 주소를 통한 사용자의 udi 값 get
                 })
                 .catch(e => {
                     console.error('Error get user uid:', e);
@@ -293,9 +294,9 @@ router.post('/', async function (req, res) {
             // console.log(userUid);
             await admin
                 .auth()
-                .deleteUser(userUid) // 해당 UID 값으로 사용자 AUTH 삭제
+                .deleteUser(userUid) // 해당 uid 값으로 사용자 AUTH 삭제
                 .then(() => {
-                    userSelect.delete(); // 마찬가지로 사용자 프로필 DB도 삭제 및 알림
+                    userSelect.delete(); // 마찬가지로 사용자 프로필 DB도 삭제 및 응답 블록 출력
                     // console.log('Successfully deleted user');
                     responseBody = {
                         version: "2.0",
@@ -314,13 +315,13 @@ router.post('/', async function (req, res) {
                     console.log('Error deleting user:', e);
                 });
             break;
+
         default:
             break;
     }
-    
     res
         .status(201)
-        .send(responseBody); // 응답 전송
+        .send(responseBody); // 응답 상태 코드와 내용 전송
 });
 
 module.exports = router;

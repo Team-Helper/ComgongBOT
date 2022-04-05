@@ -5,27 +5,29 @@ const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties;
+    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
     // console.log(checkAuth);
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
-    let messageText = [];
-    let label = [];
+    let messageText = []; // 바로가기 요청문
+    let label = []; // 바로가기 버튼명
 
     if (checkAuth == true) { // 사용자가 프로필 설정이 되어있다면
+        /*사용자 프로필 DB 조회*/
         const firestore = admin.firestore();
         const userSelect = firestore
             .collection('users')
-            .doc(userAbout.plusfriendUserKey); // 사용자 프로필 DB 조회
-        const userData = await userSelect.get(); // DB 데이터 GET
+            .doc(userAbout.plusfriendUserKey);
+        const userData = await userSelect.get();
 
-        if (!userData.data().credits) { // 학점 값이 없는 사용자 일 경우의 바로가기 작성
+        if (!userData.data().credits) { // 학점 값이 없는 사용자 일 경우
+            /*바로가기 작성*/
             messageText.push("나의 학년을 변경할게", "나의 학번을 변경할게", "나의 학적상태를 변경할게", "설정을 초기화 해줘")
             label.push("학년 변경", "학번 변경", "학적상태 변경", "설정 초기화");
             label.forEach((value, index) => {
-                if (index == 2) { // 학번 변경 경우 역시 파라미터를 사용한 블록 주소로
+                if (index == 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -57,7 +59,7 @@ router.post('/', async function (req, res) {
             );
             label.push("학점 수정", "학년 변경", "학번 변경", "학적상태 변경", "설정 초기화");
             label.forEach((value, index) => {
-                if (index == 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로
+                if (index == 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -90,6 +92,7 @@ router.post('/', async function (req, res) {
                 }
             });
         }
+        /*사용자 학점 입력 값 배열 처리*/
         const title = ["이메일", "학년/학번", "학적상태", "학점입력"];
         const description = [
             userData
@@ -115,6 +118,7 @@ router.post('/', async function (req, res) {
                 !description[description.length - 1])
             ? '미입력'
             : '입력';
+        /*아이템 카드 뷰 본문 작성*/
         const itemList = [];
         title.forEach((value, index) => {
             itemList.push({"title": value, "description": description[index]});
@@ -125,7 +129,7 @@ router.post('/', async function (req, res) {
             template: {
                 outputs: [
                     {
-                        itemCard: {
+                        itemCard: { // 아이템 카드 뷰 블록으로 출력
                             imageTitle: { // 설정 서비스 경우 사용자의 프로필을 첫번째로 출력
                                 "title": "프로필 설정",
                                 "imageUrl": "https://pixabay.com/get/g52adf5f3d0c49d960af25a1881181b38ae144f96c845ec34874db" +
@@ -136,7 +140,7 @@ router.post('/', async function (req, res) {
                         }
                     }
                 ],
-                quickReplies: quickReplies
+                quickReplies: quickReplies // 바로가기 출력
             }
         };
     } else {
@@ -144,7 +148,7 @@ router.post('/', async function (req, res) {
     }
     res
         .status(201)
-        .send(responseBody); // 응답 전송
+        .send(responseBody); // 응답 상태 코드와 내용 전송
 });
 
 module.exports = router;

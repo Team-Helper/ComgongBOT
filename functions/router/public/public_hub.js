@@ -4,7 +4,7 @@ const startAuth = require('../start_auth');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties;
+    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
     // console.log(checkAuth);
@@ -33,6 +33,7 @@ router.post('/', async function (req, res) {
     ];
 
     if (checkAuth == true) { // 사용자가 프로필 설정이 되어있다면
+        /*바로가기 작성*/
         label.forEach((value, index) => {
             quickReplies.push({
                 "messageText": messageText[index],
@@ -42,19 +43,20 @@ router.post('/', async function (req, res) {
                     .service_url
                     .public_key,
                 "label": value
-            }); // 바로가기 그룹 작성
+            });
         });
+
         responseBody = {
             version: "2.0",
             template: {
                 outputs: [
                     {
                         simpleText: {
-                            text: "💬 원하시는 학과 메뉴를 선택해주세요." // 학과 공용 서비스 첫 질문
+                            text: "💬 원하시는 학과 메뉴를 선택해주세요." // 텍스트 뷰 블록으로 출력
                         }
                     }
                 ],
-                quickReplies: quickReplies
+                quickReplies: quickReplies // 바로가기 출력
             }
         };
     } else {
@@ -62,7 +64,7 @@ router.post('/', async function (req, res) {
     }
     res
         .status(201)
-        .send(responseBody); // 응답 전송
+        .send(responseBody); // 응답 상태 코드와 내용 전송
 });
 
 module.exports = router;

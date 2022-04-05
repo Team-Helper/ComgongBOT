@@ -12,7 +12,7 @@ router.post('/', async function (req, res) {
     let responseBody; // 응답 블록 구조
     const quickReplies = [
         {
-            // 뒤로가기 버튼
+            // 바로가기 작성
             "messageText": "뒤로 돌아갈래",
             "action": "block",
             "blockId": functions
@@ -22,15 +22,16 @@ router.post('/', async function (req, res) {
             "label": "🔙 뒤로가기"
         }
     ];
-    // console.log(itemList);
 
     switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
         case "나의 누적 학점을 알려줘":
+            /*사용자 프로필 DB 조회*/
             const firestore = admin.firestore();
             const userSelect = firestore
                 .collection('users')
                 .doc(userAbout.plusfriendUserKey);
             const userData = await userSelect.get();
+            /*사용자 학점 데이터 get*/
             const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
             const description = [
                 userData
@@ -54,17 +55,17 @@ router.post('/', async function (req, res) {
                     .credits
                     .total
             ];
+            /*아이템 카드 뷰 본문 작성*/
             const itemList = [];
-
             title.forEach((value, index) => {
-                itemList.push({"title": value, "description": description[index]}); // 학점 조회 뷰 바로가기 그룹 작성
+                itemList.push({"title": value, "description": description[index]});
             });
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
-                            itemCard: { // 아이템 카드 뷰로 사용자가 입력한 학점 총 출력
+                            itemCard: { // 아이템 카드 뷰 블록으로 출력
                                 "head": {
                                     "title": "☑ 누적 학점 조회"
                                 },
@@ -73,20 +74,23 @@ router.post('/', async function (req, res) {
                             }
                         }
                     ],
-                    quickReplies: quickReplies
+                    quickReplies: quickReplies // 바로가기 출력
                 }
             };
             break;
+
         case "졸업까지 남은 학점을 계산해줘":
             break;
+
         case "교과목별 최저이수 요구학점을 알려줘":
             break;
+
         default:
             break;
     }
     res
         .status(201)
-        .send(responseBody); // 응답 전송
+        .send(responseBody); // 응답 상태 코드와 내용 전송
 });
 
 module.exports = router;

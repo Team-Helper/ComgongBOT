@@ -7,7 +7,7 @@ exports.coldBreak = functions // 함수 이름
     .schedule('*/5 * * * *') // 5분 단위로 작동
     .timeZone('Asia/Seoul')
     .onRun(async () => {
-        let data = JSON.stringify({
+        let data = JSON.stringify({ // 학과 공용 서비스 조회 관련 데이터 시나리오
             "userRequest": {
                 "user": {
                     "properties": {
@@ -27,6 +27,7 @@ exports.coldBreak = functions // 함수 이름
         };
         await axios(config)
             .then(async (result) => {
+                /*서비스 조회 성공 시 바로가기 조회 시나리오 작성 및 실행*/
                 console.log('public: ', result.status);
                 data = JSON.stringify({
                     "userRequest": {
@@ -49,10 +50,10 @@ exports.coldBreak = functions // 함수 이름
                 };
                 await axios(config)
                     .then(result => {
-                        console.log('public service: ', result.status);
+                        console.log('public service: ', result.status); // 조회 성공 시 성공 상태 코드 출력
                     })
                     .catch(error => {
-                        console.error('Error from coldBreak public service: ', error);
+                        console.error('Error from coldBreak public service: ', error); // 실패 시 에러문 출력
                     });
             })
             .catch(error => {
