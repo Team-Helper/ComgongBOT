@@ -510,15 +510,35 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .body
                     .template
                     .outputs[0]
-                    .simpleImage;
+                    .carousel;
                 // console.log(element);
-                for (let index = 0; index < element.length; index++) {
-                    expect(element[index].imageUrl)
+                expect(element.type)
+                    .to
+                    .equal('basicCard');
+
+                const items = element.items;
+                // console.log(items.length);
+                expect(items.length)
+                    .to
+                    .equal(2);
+                for (let index = 0; index < items.length; index++) {
+                    const itemTitle = items[index].title;
+                    const itemImg = items[index].thumbnail;
+                    // console.log(itemTitle, itemImg);
+                    expect(itemTitle)
                         .to
-                        .include('jpg');
-                    expect(element[index].altText)
+                        .be
+                        .a('string');
+                    expect(itemTitle)
                         .to
                         .include('올해 이수체계도');
+                    expect(typeof itemImg.imageUrl)
+                        .to
+                        .be
+                        .a('string');
+                    expect(itemImg.imageUrl)
+                        .to
+                        .include('jpg');
                 }
 
                 const backElement = res
@@ -574,8 +594,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     const itemDescription = items[index].description;
                     const itemImg = items[index].thumbnail;
                     const itemBtn = items[index].buttons;
-                    // console.log(itemImg.imageUrl); console.log(itemBtn[0].label);
-
+                    // console.log(itemTitle, itemDescription, itemImg, itemBtn);
                     expect(itemTitle)
                         .to
                         .be

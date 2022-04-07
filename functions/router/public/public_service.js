@@ -237,17 +237,26 @@ router.post('/', async function (req, res) {
         case "올해 이수체계도를 조회해줘":
             image = await getImg('completionSystem');
             //console.log(image);
-            const imgList = [];
-            const imgText = ['올해 이수체계도 이미지', '올해 이수체계도 설계 이미지']
+            const imgText = ['올해 이수체계도 이미지', '올해 이수체계도 설계 이미지'];
             image.forEach((value, index) => {
-                imgList.push({"imageUrl": value, "altText": imgText[index]});
+                items.push({
+                    "title": imgText[index],
+                    "thumbnail": {
+                        "imageUrl": value,
+                        "fixedRatio": true
+                    }
+                });
             });
+            // console.log(imgList);
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
-                            simpleImage: imgList
+                            carousel: { // 캐러셀 구조의 기본 카드형 응답 블록 출력
+                                "type": "basicCard",
+                                "items": items
+                            }
                         }
                     ],
                     quickReplies: quickReplies
