@@ -34,7 +34,7 @@ exports.curriculum = functions // 크롤링 함수 이름
             // console.log(imgUrl);
             await browser.close();
 
-            admin
+            await admin
                 .database()
                 .ref('curriculum/')
                 .set({imgUrl: imgUrl}); // 주소를 DB에 저장

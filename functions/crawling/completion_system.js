@@ -46,7 +46,7 @@ exports.completionSystem = functions // 크롤링 함수 이름
             // console.log(imgUrl);
             await browser.close();
 
-            admin
+            await admin
                 .database()
                 .ref('completionSystem/')
                 .set({imgUrl}); // 배열 처리된 이미지 주소를 DB에 저장
