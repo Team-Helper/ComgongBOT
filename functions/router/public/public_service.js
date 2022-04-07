@@ -16,7 +16,8 @@ router.post('/', async function (req, res) {
         name // 교수진 소개 정보와 이름 저장
     let items = []; // 게시판 별 value 저장
     const quickReplies = [
-        { // 바로가기 작성
+        {
+            // 바로가기 작성
             "messageText": "뒤로 돌아갈래",
             "action": "block",
             "blockId": functions
@@ -235,15 +236,20 @@ router.post('/', async function (req, res) {
 
         case "올해 이수체계도를 조회해줘":
             image = await getImg('completionSystem');
-            // console.log(image);
+            console.log(image[0]);
+            console.log(image[1]);
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
                             simpleImage: {
-                                "imageUrl": image,
+                                "imageUrl": image[0],
                                 "altText": "올해 이수체계도 이미지"
+                            },
+                            simpleImage: {
+                                "imageUrl": image[1],
+                                "altText": "올해 이수체계도 설계 이미지"
                             }
                         }
                     ],
@@ -306,7 +312,7 @@ router.post('/', async function (req, res) {
                 }
             }
             break;
-            
+
         default:
             break;
     }

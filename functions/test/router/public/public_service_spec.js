@@ -514,7 +514,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 // console.log(element);
                 expect(element.imageUrl)
                     .to
-                    .include('png');
+                    .include('jpg');
                 expect(element.altText)
                     .to
                     .include('올해 이수체계도');
