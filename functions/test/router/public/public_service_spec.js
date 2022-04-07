@@ -512,12 +512,14 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleImage;
                 // console.log(element);
-                expect(element.imageUrl)
-                    .to
-                    .include('jpg');
-                expect(element.altText)
-                    .to
-                    .include('올해 이수체계도');
+                for (let index = 0; index < element.length; index++) {
+                    expect(element[index].imageUrl)
+                        .to
+                        .include('jpg');
+                    expect(element[index].altText)
+                        .to
+                        .include('올해 이수체계도');
+                }
 
                 const backElement = res
                     .body
