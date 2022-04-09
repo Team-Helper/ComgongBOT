@@ -143,7 +143,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "💬 변경하고자 하는 학적상태로 선택해주세요.\n⚠자퇴해요 클릭 시 설정이 초기화 됩니다."
+                                text: "변경하고자 하는 학적상태로 선택해주세요.\n❗ 자퇴해요 클릭 시 설정이 초기화 됩니다."
                             }
                         }
                     ],
