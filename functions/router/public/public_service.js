@@ -24,7 +24,7 @@ router.post('/', async function (req, res) {
                 .config()
                 .service_url
                 .publichub_key,
-            "label": "🔙 뒤로가기"
+            "label": "↩ 뒤로가기"
         }
     ];
 

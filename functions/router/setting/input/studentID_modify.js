@@ -14,7 +14,7 @@ router.post('/', async function (req, res) {
     /* 바로가기 그룹, 본문, 버튼명 그리고 본문 작성*/
     const quickReplies = [];
     const items = ['나의 학번을 변경할게'];
-    const label = ['🔙 뒤로가기'];
+    const label = ['↩ 뒤로가기'];
     items.forEach((value, index) => {
         quickReplies.push({
             "messageText": value,

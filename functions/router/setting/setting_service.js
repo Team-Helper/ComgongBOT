@@ -23,7 +23,7 @@ router.post('/', async function (req, res) {
     switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
         case "나의 학년을 변경할게":
             items = ['1학년', '2학년', '3학년', '4학년', '뒤로 돌아갈래'];
-            label = ['1학년', '2학년', '3학년', '4학년', '🔙 뒤로가기'];
+            label = ['1학년', '2학년', '3학년', '4학년', '↩ 뒤로가기'];
             items.forEach((value, index) => {
                 if (index == items.length - 1) { // 뒤로가기는 해당 내용의 블록 아이디 값으로
                     quickReplies.push({
@@ -67,7 +67,7 @@ router.post('/', async function (req, res) {
         case "4학년":
             userData = await userSelect.get();
             items = ['나의 학년을 변경할게'];
-            label = ['🔙 뒤로가기'];
+            label = ['↩ 뒤로가기'];
             items.forEach((value, index) => {
                 quickReplies.push({ // 뒤로가기 버튼
                     "messageText": value,
@@ -113,7 +113,7 @@ router.post('/', async function (req, res) {
 
         case "나의 학적상태를 변경할게":
             items = ['휴학해요', '재학해요', '자퇴해요', '뒤로 돌아갈래'];
-            label = ['휴학해요', '재학해요', '자퇴해요', '🔙 뒤로가기'];
+            label = ['휴학해요', '재학해요', '자퇴해요', '↩ 뒤로가기'];
             items.forEach((value, index) => {
                 if (index == items.length - 1) {
                     quickReplies.push({
@@ -143,7 +143,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "변경하고자 하는 학적상태를 클릭해주세요. (자퇴해요 클릭 시 설정이 초기화 됩니다.)"
+                                text: "💬 변경하고자 하는 학적상태로 선택해주세요.\n⚠자퇴해요 클릭 시 설정이 초기화 됩니다."
                             }
                         }
                     ],
@@ -154,7 +154,7 @@ router.post('/', async function (req, res) {
         case "휴학해요":
             userData = await userSelect.get();
             items = ['나의 학적상태를 변경할게'];
-            label = ['🔙 뒤로가기'];
+            label = ['↩ 뒤로가기'];
             items.forEach((value, index) => {
                 quickReplies.push({
                     "messageText": value,
@@ -199,7 +199,7 @@ router.post('/', async function (req, res) {
         case "재학해요":
             userData = await userSelect.get();
             items = ['나의 학적상태를 변경할게'];
-            label = ['🔙 뒤로가기'];
+            label = ['↩ 뒤로가기'];
             items.forEach((value, index) => {
                 quickReplies.push({
                     "messageText": value,
