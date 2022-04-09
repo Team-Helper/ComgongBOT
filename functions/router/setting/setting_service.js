@@ -53,7 +53,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "💬 변경하고자 하는 학년으로 선택해주세요." // 텍스트 뷰 블록으로 출력
+                                text: "변경하고자 하는 학년으로 선택해주세요." // 텍스트 뷰 블록으로 출력
                             }
                         }
                     ],
@@ -143,7 +143,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "💬 변경하고자 하는 학적상태를 선택해주세요.\n\n❗ 자퇴해요 클릭 시 설정이 초기화 됩니다."
+                                text: "변경하고자 하는 학적상태를 클릭해주세요. (자퇴해요 클릭 시 설정이 초기화 됩니다.)"
                             }
                         }
                     ],
@@ -249,7 +249,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "⚠전체 설정이 초기화 됩니다.⚠\n\n정말 진행을 원하시나요?"
+                                text: "‼ 전체 설정이 초기화 됩니다. 정말 진행을 원하시나요?"
                             }
                         }
                     ],
