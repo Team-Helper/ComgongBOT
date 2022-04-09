@@ -24,7 +24,7 @@ router.post('/', async function (req, res) {
 
     if (userData.data().credits[menuType] === credit) { // 입력한 학점이 기존의 학점 값과 같을 경우
         items = ['나의 학점을 수정할게'];
-        label = ['🔙 뒤로가기'];
+        label = ['↩ 뒤로가기'];
         /*바로가기 작성*/
         items.forEach((value, index) => {
             quickReplies.push({

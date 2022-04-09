@@ -19,7 +19,7 @@ router.post('/', async function (req, res) {
                 .config()
                 .service_url
                 .personalhub_key,
-            "label": "🔙 뒤로가기"
+            "label": "↩ 뒤로가기"
         }
     ];
 
