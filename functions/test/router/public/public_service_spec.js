@@ -92,6 +92,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 done(err);
             })
         });
+
     it('responds resultOut2', done => {
         const userRequest = {
             utterance: "새소식 게시판을 조회해줘"
@@ -181,6 +182,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 done(err);
             })
         });
+
     it('responds resultOut3', done => {
         const userRequest = {
             utterance: "자유게시판을 조회해줘"
@@ -270,6 +272,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 done(err);
             })
         });
+
     it('responds resultOut4', done => {
         const userRequest = {
             utterance: "외부IT행사 및 교육 게시판을 조회해줘"
@@ -359,6 +362,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 done(err);
             })
         });
+
     it('responds resultOut5', done => {
         const userRequest = {
             utterance: "공학인증자료실 게시판을 조회해줘"
@@ -448,6 +452,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 done(err);
             })
         });
+
     it('responds resultOut6', done => {
         const userRequest = {
             utterance: "교과과정을 조회해줘"
@@ -471,7 +476,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .include('png');
                 expect(element.altText)
                     .to
-                    .include('교과과정');
+                    .equal('교과과정');
 
                 const backElement = res
                     .body
@@ -494,6 +499,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 done(err);
             })
         });
+
     it('responds resultOut7', done => {
         const userRequest = {
             utterance: "올해 이수체계도를 조회해줘"
@@ -510,36 +516,55 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .body
                     .template
                     .outputs[0]
-                    .carousel;
+                    .simpleText;
                 // console.log(element);
-                expect(element.type)
+                expect(element.text)
                     .to
-                    .equal('basicCard');
+                    .be
+                    .a('string');
+                expect(element.text)
+                    .to
+                    .include('보고자하는 올해 이수체계도 이미지');
 
-                const items = element.items;
-                // console.log(items.length);
-                expect(items.length)
-                    .to
-                    .equal(2);
-                for (let index = 0; index < items.length; index++) {
-                    const itemTitle = items[index].title;
-                    const itemImg = items[index].thumbnail;
-                    // console.log(itemTitle, itemImg);
-                    expect(itemTitle)
+                const elementQuick = res.body.template.quickReplies;
+                // console.log(element);
+                const array = ['뒤로가기', '이수체계도', '설계 이수체계도'];
+                for (let index = 0; index < elementQuick.length; index++) {
+                    expect(elementQuick[index].label)
                         .to
-                        .be
-                        .a('string');
-                    expect(itemTitle)
-                        .to
-                        .include('올해 이수체계도');
-                    expect(typeof itemImg.imageUrl)
-                        .to
-                        .be
-                        .a('string');
-                    expect(itemImg.imageUrl)
-                        .to
-                        .include('jpg');
+                        .include(array[index]);
                 }
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            })
+        });
+    it('responds resultOut7_0', done => {
+        const userRequest = {
+            utterance: "이수체계도 이미지를 보여줘"
+        };
+
+        request(functions.config().service_url.app)
+            .post('/public/public_service')
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .simpleImage;
+                // console.log(element);
+                expect(element.imageUrl)
+                    .to
+                    .include('jpg');
+                expect(element.altText)
+                    .to
+                    .equal('올해 이수체계도');
 
                 const backElement = res
                     .body
@@ -562,6 +587,53 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 done(err);
             })
         });
+    it('responds resultOut7_1', done => {
+        const userRequest = {
+            utterance: "설계 이수체계도 이미지를 보여줘"
+        };
+
+        request(functions.config().service_url.app)
+            .post('/public/public_service')
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .simpleImage;
+                // console.log(element);
+                expect(element.imageUrl)
+                    .to
+                    .include('jpg');
+                expect(element.altText)
+                    .to
+                    .equal('올해 설계 이수체계도');
+
+                const backElement = res
+                    .body
+                    .template
+                    .quickReplies[0];
+                // console.log(backElement);
+                expect(backElement.messageText)
+                    .to
+                    .equal('뒤로 돌아갈래');
+                expect(backElement.action)
+                    .to
+                    .equal('block');
+                expect(backElement.label)
+                    .to
+                    .include('뒤로가기');
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            })
+        });
+
     it('responds resultOut8', done => {
         const userRequest = {
             utterance: "교수진소개 게시판을 조회해줘"
@@ -605,10 +677,10 @@ describe('POST /public/public_service', () => { // 테스트 수트
                         .a('string');
                     expect(itemDescription)
                         .to
-                        .include('직위');
+                        .include('연락처');
                     expect(itemDescription)
                         .to
-                        .include('연락처');
+                        .include('연구실');
                     expect(typeof itemImg.imageUrl)
                         .to
                         .be

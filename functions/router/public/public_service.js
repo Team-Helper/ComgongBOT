@@ -216,7 +216,7 @@ router.post('/', async function (req, res) {
             break;
 
         case "교과과정을 조회해줘":
-            image = await getImg('curriculum'); // DB로 부터 해당 게시물 이미지 데이터 get
+            image = await getImg('curriculum', undefined); // DB로 부터 해당 게시물 이미지 데이터 get
             // console.log(image);
             responseBody = {
                 version: "2.0",
@@ -225,7 +225,7 @@ router.post('/', async function (req, res) {
                         {
                             simpleImage: { // 이미지 뷰 블록으로 출력
                                 "imageUrl": image,
-                                "altText": "교과과정 이미지"
+                                "altText": "교과과정"
                             }
                         }
                     ],
@@ -235,27 +235,71 @@ router.post('/', async function (req, res) {
             break;
 
         case "올해 이수체계도를 조회해줘":
-            image = await getImg('completionSystem');
-            //console.log(image);
-            const imgText = ['올해 이수체계도 이미지', '올해 이수체계도 설계 이미지'];
-            image.forEach((value, index) => {
-                items.push({
-                    "title": imgText[index],
-                    "thumbnail": {
-                        "imageUrl": value,
-                        "fixedRatio": true
-                    }
+            const messageText = [
+                // 바로가기 요청문
+                "이수체계도 이미지를 보여줘",
+                "설계 이수체계도 이미지를 보여줘"
+            ];
+            const label = [
+                // 바로가기 버튼명
+                "이수체계도",
+                "설계 이수체계도"
+            ];
+            /*바로가기 작성*/
+            label.forEach((value, index) => {
+                quickReplies.push({
+                    "messageText": messageText[index],
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .public_key,
+                    "label": value
                 });
             });
-            // console.log(imgList);
             responseBody = {
                 version: "2.0",
                 template: {
                     outputs: [
                         {
-                            carousel: { // 캐러셀 구조의 기본 카드형 응답 블록 출력
-                                "type": "basicCard",
-                                "items": items
+                            simpleText: {
+                                text: "💬 보고자하는 올해 이수체계도 이미지를 선택해주세요."
+                            }
+                        }
+                    ],
+                    quickReplies: quickReplies
+                }
+            };
+            break;
+        case "이수체계도 이미지를 보여줘":
+            image = await getImg('completionSystem', 0);
+            // console.log(image);
+            responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            simpleImage: {
+                                "imageUrl": image,
+                                "altText": "올해 이수체계도"
+                            }
+                        }
+                    ],
+                    quickReplies: quickReplies
+                }
+            }
+            break;
+        case "설계 이수체계도 이미지를 보여줘":
+            image = await getImg('completionSystem', 1);
+            // console.log(image);
+            responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            simpleImage: {
+                                "imageUrl": image,
+                                "altText": "올해 설계 이수체계도"
                             }
                         }
                     ],
@@ -346,15 +390,27 @@ router.post('/', async function (req, res) {
         return [title, date, url];
     };
 
-    async function getImg(params) { // 이미지 DB 검색 쿼리문 처리 함수
-        const imageData = await admin
-            .database()
-            .ref(params)
-            .child('imgUrl')
-            .once('value')
-            .then(snapshot => {
-                return snapshot.val();
-            });
+    async function getImg(params, index) { // 이미지 DB 검색 쿼리문 처리 함수
+        let imageData;
+        if (index === undefined) {
+            imageData = await admin
+                .database()
+                .ref(params)
+                .child('imgUrl')
+                .once('value')
+                .then(snapshot => {
+                    return snapshot.val();
+                });
+        } else {
+            imageData = await admin
+                .database()
+                .ref(params)
+                .child(`imgUrl/${index}`)
+                .once('value')
+                .then(snapshot => {
+                    return snapshot.val();
+                });
+        }
         return imageData;
     }
 
