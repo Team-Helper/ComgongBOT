@@ -573,7 +573,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 // console.log(backElement);
                 expect(backElement.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('올해 이수체계도를 조회해줘');
                 expect(backElement.action)
                     .to
                     .equal('block');
@@ -619,7 +619,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 // console.log(backElement);
                 expect(backElement.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('올해 이수체계도를 조회해줘');
                 expect(backElement.action)
                     .to
                     .equal('block');

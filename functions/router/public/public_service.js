@@ -263,7 +263,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "💬 보고자하는 올해 이수체계도 이미지를 선택해주세요."
+                                text: "보고자하는 올해 이수체계도 이미지를 선택해주세요."
                             }
                         }
                     ],
@@ -272,6 +272,11 @@ router.post('/', async function (req, res) {
             };
             break;
         case "이수체계도 이미지를 보여줘":
+            quickReplies[0].messageText = "올해 이수체계도를 조회해줘";
+            quickReplies[0].blockId = functions
+                .config()
+                .service_url
+                .public_key;
             image = await getImg('completionSystem', 0);
             // console.log(image);
             responseBody = {
@@ -290,6 +295,11 @@ router.post('/', async function (req, res) {
             }
             break;
         case "설계 이수체계도 이미지를 보여줘":
+            quickReplies[0].messageText = "올해 이수체계도를 조회해줘";
+            quickReplies[0].blockId = functions
+                .config()
+                .service_url
+                .public_key;
             image = await getImg('completionSystem', 1);
             // console.log(image);
             responseBody = {
