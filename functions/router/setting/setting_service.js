@@ -242,6 +242,139 @@ router.post('/', async function (req, res) {
             }
             break;
 
+        case "나의 공학인증상태를 변경할게":
+            items = ['공학인증해요', '공학인증 안해요', '뒤로 돌아갈래']
+            label = ['O', 'X', '↩ 뒤로가기']
+            items.forEach((value, index) => {
+                if (index == items.length - 1) {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .settinghub_key,
+                        "label": label[index]
+                    });
+                } else {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_url
+                            .setting_key,
+                        "label": label[index]
+                    });
+                }
+            });
+            responseBody = {
+                version: "2.0",
+                template: {
+                    outputs: [
+                        {
+                            simpleText: {
+                                text: "변경하고자 하는 공학인증상태로 선택해주세요."
+                            }
+                        }
+                    ],
+                    quickReplies: quickReplies
+                }
+            }
+            break;
+
+        case "공학인증해요":
+            userData = await userSelect.get();
+            items = ["나의 공학인증상태를 변경할게"]
+            label = ["↩ 뒤로가기"]
+            items.forEach((value, index) => {
+                quickReplies.push({
+                    "messageText": value,
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .setting_key,
+                    "label": label[index]
+                });
+            });
+            if (userData.data().engineeringStatus === true) {
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "🚫 이미 공학인증을 하고 있어요!"
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                }
+            } else {
+                await userSelect.update({engineeringStatus: true});
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "🔄 공학인증상태를 공학인증 진행(O)으로 변경완료 하였습니다."
+                                }
+                            }
+                        ],
+                    }
+                }
+            }
+            break;
+
+        case "공학인증 안해요":
+            userData = await userSelect.get();
+            items = ["나의 공학인증상태를 변경할게"]
+            label = ["↩ 뒤로가기"]
+            items.forEach((value, index) => {
+                quickReplies.push({
+                    "messageText": value,
+                    "action": "block",
+                    "blockId": functions
+                        .config()
+                        .service_url
+                        .setting_key,
+                    "label": label[index]
+                });
+            });
+            if (userData.data().engineeringStatus === false) {
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "🚫 이미 공학인증을 하지 않고 있어요!"
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                }
+            } else {
+                await userSelect.update({engineeringStatus: false});
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "🔄 공학인증상태를 공학인증 미진행(X)으로 변경완료 하였습니다."
+                                }
+                            }
+                        ],
+                    }
+                }
+            }
+            break;
+
         case "설정을 초기화 해줘":
             responseBody = {
                 version: "2.0",
