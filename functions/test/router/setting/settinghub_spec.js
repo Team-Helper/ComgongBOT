@@ -153,8 +153,8 @@ describe('POST /setting', () => { // 테스트 수트
                     .include('png'); // 아이템 카드 뷰 이미지 주소에 png 명칭이 포함하는가
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
-                const items = ["이메일", "학년/학번", "학적상태", "학점입력"];
-                const type = ['string', 'string', 'string', 'string'];
+                const items = ["이메일", "학년/학번", "학적상태", "공학인증여부", "학점입력"];
+                const type = ['string', 'string', 'string', 'string', 'string'];
                 for (let index = 0; index < itemLength; index++) {
                     // console.log(element.itemList[index].description)
                     expect(element.itemList[index].title)
@@ -168,7 +168,7 @@ describe('POST /setting', () => { // 테스트 수트
 
                 const elementQuick = res.body.template.quickReplies;
                 // console.log(element);
-                const array = ['학년 변경', '학번 변경', '학적상태 변경', '설정 초기화']
+                const array = ['학점 입력', '학년 변경', '학번 변경', '학적상태 변경', '공학인증여부 변경', '설정 초기화']
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].label)
                         .to
@@ -219,8 +219,8 @@ describe('POST /setting', () => { // 테스트 수트
                     .include('png');
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
-                const items = ["이메일", "학년/학번", "학적상태", "학점입력"];
-                const type = ['string', 'string', 'string', 'string'];
+                const items = ["이메일", "학년/학번", "학적상태", "공학인증여부", "학점입력"];
+                const type = ['string', 'string', 'string', 'string', 'string'];
                 for (let index = 0; index < itemLength; index++) {
                     // console.log(element.itemList[index].description)
                     expect(element.itemList[index].title)
@@ -233,8 +233,8 @@ describe('POST /setting', () => { // 테스트 수트
                 }
 
                 const elementQuick = res.body.template.quickReplies;
-                // console.log(element);
-                const array = ['학점 수정', '학년 변경', '학번 변경', '학적상태 변경', '설정 초기화']
+                console.log(elementQuick);
+                const array = ['학점 수정', '학년 변경', '학번 변경', '학적상태 변경', '공학인증여부 변경', '설정 초기화']
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].label)
                         .to

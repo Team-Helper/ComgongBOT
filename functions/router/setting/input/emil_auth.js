@@ -25,7 +25,7 @@ router.post('/', async function (req, res) {
         .doc(userAbout.plusfriendUserKey); // 사용자 카카오채널 id 값으로 프로필 DB 생성
     await docRef
         .set(
-            {email: email, grade: grade, studentID: studentID, status: true} // 프로필 DB에 기본 데이터 생성 (재학상태는 기본적으르 '재학')
+            {email: email, grade: grade, studentID: studentID, status: true, engineeringStatus: true} // 프로필 DB에 기본 데이터 생성 (재학상태와 공학인증여부는 기본적으로 '재학')
         )
         .then(() => {
             const responseBody = {
