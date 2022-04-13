@@ -255,7 +255,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             })
         });
 
-    it('responds change user engineeringStatus data before choose', done => { //공학인증 상태 선택 전, 사용자 공학인증상태 변경 메뉴에 접근
+    it('responds change user engineeringStatus data before choose', done => { //공학인증 상태 선택 전, 사용자 공학인증여부 변경 메뉴에 접근
         const userRequest = {
             user: {
                 "properties": {
@@ -263,7 +263,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     "isFriend": true
                 }
             },
-            utterance: "나의 공학인증상태를 변경할게"
+            utterance: "나의 공학인증여부를 변경할게"
         };
         request(functions.config().service_url.app)
             .post('/setting/setting_service')
@@ -280,7 +280,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 // console.log(element);
                 expect(element.text)
                     .to
-                    .include("변경하고자 하는 공학인증상태로");
+                    .include("변경하고자 하는 공학인증여부로");
 
                 const elementQuick = res
                     .body
@@ -300,7 +300,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             })
     });
 
-    it('responds change user engineeringStatus data', done => { //공학인증상태 변경이 성공했을 때
+    it('responds change user engineeringStatus data', done => { //공학인증여부 변경이 성공했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -325,7 +325,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 // console.log(element);
                 expect(element.text)
                     .to
-                    .include("공학인증상태를 공학인증 미진행");
+                    .include("공학인증여부를 공학인증 미진행");
                 done();
             })
             .catch(err => {
@@ -334,7 +334,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             })
     });
 
-    it('responds change user engineeringStatus data fail', done => { //공학인증상태 변경이 실패했을 때
+    it('responds change user engineeringStatus data fail', done => { //공학인증여부 변경이 실패했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -368,7 +368,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .include('나의 공학인증상태를');
+                    .include('나의 공학인증여부를');
                 expect(elementQuick.label)
                     .to
                     .include('뒤로가기');

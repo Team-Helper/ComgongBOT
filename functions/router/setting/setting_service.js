@@ -242,8 +242,8 @@ router.post('/', async function (req, res) {
             }
             break;
 
-        case "나의 공학인증상태를 변경할게":
-            items = ['공학인증해요', '공학인증 안해요', '뒤로 돌아갈래']
+        case "나의 공학인증여부를 변경할게":
+            items = ['공학인증 해요', '공학인증 안해요', '뒤로 돌아갈래']
             label = ['O', 'X', '↩ 뒤로가기']
             items.forEach((value, index) => {
                 if (index == items.length - 1) {
@@ -274,7 +274,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "변경하고자 하는 공학인증상태로 선택해주세요."
+                                text: "변경하고자 하는 공학인증여부로 선택해주세요."
                             }
                         }
                     ],
@@ -283,9 +283,9 @@ router.post('/', async function (req, res) {
             }
             break;
 
-        case "공학인증해요":
+        case "공학인증 해요":
             userData = await userSelect.get();
-            items = ["나의 공학인증상태를 변경할게"]
+            items = ["나의 공학인증여부를 변경할게"]
             label = ["↩ 뒤로가기"]
             items.forEach((value, index) => {
                 quickReplies.push({
@@ -320,7 +320,7 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "🔄 공학인증상태를 공학인증 진행(O)으로 변경완료 하였습니다."
+                                    text: "🔄 공학인증여부를 공학인증 진행으로 변경완료 하였습니다."
                                 }
                             }
                         ],
@@ -331,7 +331,7 @@ router.post('/', async function (req, res) {
 
         case "공학인증 안해요":
             userData = await userSelect.get();
-            items = ["나의 공학인증상태를 변경할게"]
+            items = ["나의 공학인증여부를 변경할게"]
             label = ["↩ 뒤로가기"]
             items.forEach((value, index) => {
                 quickReplies.push({
@@ -366,7 +366,7 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "🔄 공학인증상태를 공학인증 미진행(X)으로 변경완료 하였습니다."
+                                    text: "🔄 공학인증여부를 공학인증 미진행으로 변경완료 하였습니다."
                                 }
                             }
                         ],
