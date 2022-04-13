@@ -282,7 +282,6 @@ router.post('/', async function (req, res) {
                 }
             }
             break;
-
         case "공학인증 해요":
             userData = await userSelect.get();
             items = ["나의 공학인증여부를 변경할게"]
@@ -328,7 +327,6 @@ router.post('/', async function (req, res) {
                 }
             }
             break;
-
         case "공학인증 안해요":
             userData = await userSelect.get();
             items = ["나의 공학인증여부를 변경할게"]

@@ -32,7 +32,7 @@ router.post('/', async function (req, res) {
                 "나의 공학인증여부를 변경할게",
                 "설정을 초기화 해줘"
             )
-            label.push("학점 입력", "학년 변경", "학번 변경", "학적상태 변경", "공학인증여부 변경", "설정 초기화");
+            label.push("학점 입력", "학년 변경", "학번 변경", "학적상태 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
                 if (index == 0) { // 학점 입력 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
@@ -75,7 +75,7 @@ router.post('/', async function (req, res) {
                 "나의 공학인증여부를 변경할게",
                 "설정을 초기화 해줘"
             );
-            label.push("학점 수정", "학년 변경", "학번 변경", "학적상태 변경", "공학인증여부 변경", "설정 초기화");
+            label.push("학점 수정", "학년 변경", "학번 변경", "학적상태 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
                 if (index == 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
@@ -111,7 +111,7 @@ router.post('/', async function (req, res) {
             });
         }
         /*사용자 학점 입력 값 배열 처리*/
-        const title = ["이메일", "학년/학번", "학적상태", "공학인증여부", "학점입력"];
+        const title = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
         const description = [
             userData
                 .data()
@@ -130,7 +130,7 @@ router.post('/', async function (req, res) {
             userData
                 .data()
                 .credits
-        ]
+        ];
         description[description.length - 3] = ( // 사용자 재학 상태 값을 T/F로 나누어 재학/휴학으로 처리
                 description[description.length - 3] === true)
             ? '재학'
