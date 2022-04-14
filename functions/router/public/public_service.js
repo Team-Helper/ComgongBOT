@@ -239,16 +239,14 @@ router.post('/', async function (req, res) {
             // console.log(image);
             const imgText = ['올해 이수체계도', '올해 설계-이수체계도'];
             image.forEach((value, index) => {
-                items.push([
-                    {
-                        simpleImage: {
-                            "imageUrl": value,
-                            "altText": imgText[index]
-                        }
+                items.push({
+                    simpleImage: {
+                        "imageUrl": value,
+                        "altText": imgText[index]
                     }
-                ]);
+                });
             });
-            // console.log(items);
+            console.log(items);
             responseBody = {
                 version: "2.0",
                 template: {
