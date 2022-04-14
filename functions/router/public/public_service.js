@@ -237,22 +237,22 @@ router.post('/', async function (req, res) {
         case "올해 이수체계도를 조회해줘":
             image = await getImg('completionSystem');
             // console.log(image);
+            const imgText = ['올해 이수체계도', '올해 설계-이수체계도'];
+            image.forEach((value, index) => {
+                items.push([
+                    {
+                        simpleImage: {
+                            "imageUrl": value,
+                            "altText": imgText[index]
+                        }
+                    }
+                ]);
+            });
+            // console.log(items);
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs: [
-                        {
-                            simpleImage: {
-                                "imageUrl": image[0],
-                                "altText": "올해 이수체계도"
-                            }
-                        }, {
-                            simpleImage: {
-                                "imageUrl": image[1],
-                                "altText": "올해 설계-이수체계도"
-                            }
-                        }
-                    ],
+                    outputs: items,
                     quickReplies: quickReplies
                 }
             }

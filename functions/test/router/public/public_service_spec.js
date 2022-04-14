@@ -519,7 +519,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     const element = res
                         .body
                         .template
-                        .outputs[index]
+                        .outputs[index][0]
                         .simpleImage;
                     // console.log(element);
                     expect(element.imageUrl)
