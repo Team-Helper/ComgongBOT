@@ -235,49 +235,7 @@ router.post('/', async function (req, res) {
             break;
 
         case "올해 이수체계도를 조회해줘":
-            const messageText = [
-                // 바로가기 요청문
-                "이수체계도 이미지를 보여줘",
-                "설계 이수체계도 이미지를 보여줘"
-            ];
-            const label = [
-                // 바로가기 버튼명
-                "이수체계도",
-                "설계 이수체계도"
-            ];
-            /*바로가기 작성*/
-            label.forEach((value, index) => {
-                quickReplies.push({
-                    "messageText": messageText[index],
-                    "action": "block",
-                    "blockId": functions
-                        .config()
-                        .service_url
-                        .public_key,
-                    "label": value
-                });
-            });
-            responseBody = {
-                version: "2.0",
-                template: {
-                    outputs: [
-                        {
-                            simpleText: {
-                                text: "보고자하는 올해 이수체계도 이미지를 선택해주세요."
-                            }
-                        }
-                    ],
-                    quickReplies: quickReplies
-                }
-            };
-            break;
-        case "이수체계도 이미지를 보여줘":
-            quickReplies[0].messageText = "올해 이수체계도를 조회해줘";
-            quickReplies[0].blockId = functions
-                .config()
-                .service_url
-                .public_key;
-            image = await getImg('completionSystem', 0);
+            image = await getImg('completionSystem');
             // console.log(image);
             responseBody = {
                 version: "2.0",
@@ -285,31 +243,13 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleImage: {
-                                "imageUrl": image,
+                                "imageUrl": image[0],
                                 "altText": "올해 이수체계도"
                             }
-                        }
-                    ],
-                    quickReplies: quickReplies
-                }
-            }
-            break;
-        case "설계 이수체계도 이미지를 보여줘":
-            quickReplies[0].messageText = "올해 이수체계도를 조회해줘";
-            quickReplies[0].blockId = functions
-                .config()
-                .service_url
-                .public_key;
-            image = await getImg('completionSystem', 1);
-            // console.log(image);
-            responseBody = {
-                version: "2.0",
-                template: {
-                    outputs: [
-                        {
+                        }, {
                             simpleImage: {
-                                "imageUrl": image,
-                                "altText": "올해 설계 이수체계도"
+                                "imageUrl": image[1],
+                                "altText": "올해 설계-이수체계도"
                             }
                         }
                     ],

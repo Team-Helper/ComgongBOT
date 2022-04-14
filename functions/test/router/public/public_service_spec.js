@@ -512,59 +512,23 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .send({userRequest})
             .expect(201)
             .then(res => {
-                const element = res
-                    .body
-                    .template
-                    .outputs[0]
-                    .simpleText;
-                // console.log(element);
-                expect(element.text)
-                    .to
-                    .be
-                    .a('string');
-                expect(element.text)
-                    .to
-                    .include('보고자하는 올해 이수체계도 이미지');
-
-                const elementQuick = res.body.template.quickReplies;
-                // console.log(element);
-                const array = ['뒤로가기', '이수체계도', '설계 이수체계도'];
-                for (let index = 0; index < elementQuick.length; index++) {
-                    expect(elementQuick[index].label)
+                const imgText = ['올해 이수체계도', '올해 설계-이수체계도'];
+                const elementLength = res.body.template.outputs.length;
+                // console.log(elementLength);
+                for (let index = 0; index < elementLength; index++) {
+                    const element = res
+                        .body
+                        .template
+                        .outputs[index]
+                        .simpleImage;
+                    // console.log(element);
+                    expect(element.imageUrl)
                         .to
-                        .include(array[index]);
+                        .include('jpg');
+                    expect(element.altText)
+                        .to
+                        .equal(imgText[index]);
                 }
-                done();
-            })
-            .catch(err => {
-                console.error("Error >>", err);
-                done(err);
-            })
-        });
-    it('responds resultOut7_0', done => {
-        const userRequest = {
-            utterance: "이수체계도 이미지를 보여줘"
-        };
-
-        request(functions.config().service_url.app)
-            .post('/public/public_service')
-            .set('Accept', 'application/json')
-            .type('application/json')
-            .send({userRequest})
-            .expect(201)
-            .then(res => {
-                const element = res
-                    .body
-                    .template
-                    .outputs[0]
-                    .simpleImage;
-                // console.log(element);
-                expect(element.imageUrl)
-                    .to
-                    .include('jpg');
-                expect(element.altText)
-                    .to
-                    .equal('올해 이수체계도');
 
                 const backElement = res
                     .body
@@ -573,53 +537,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 // console.log(backElement);
                 expect(backElement.messageText)
                     .to
-                    .equal('올해 이수체계도를 조회해줘');
-                expect(backElement.action)
-                    .to
-                    .equal('block');
-                expect(backElement.label)
-                    .to
-                    .include('뒤로가기');
-                done();
-            })
-            .catch(err => {
-                console.error("Error >>", err);
-                done(err);
-            })
-        });
-    it('responds resultOut7_1', done => {
-        const userRequest = {
-            utterance: "설계 이수체계도 이미지를 보여줘"
-        };
-
-        request(functions.config().service_url.app)
-            .post('/public/public_service')
-            .set('Accept', 'application/json')
-            .type('application/json')
-            .send({userRequest})
-            .expect(201)
-            .then(res => {
-                const element = res
-                    .body
-                    .template
-                    .outputs[0]
-                    .simpleImage;
-                // console.log(element);
-                expect(element.imageUrl)
-                    .to
-                    .include('jpg');
-                expect(element.altText)
-                    .to
-                    .equal('올해 설계 이수체계도');
-
-                const backElement = res
-                    .body
-                    .template
-                    .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
-                    .to
-                    .equal('올해 이수체계도를 조회해줘');
+                    .equal('뒤로 돌아갈래');
                 expect(backElement.action)
                     .to
                     .equal('block');
