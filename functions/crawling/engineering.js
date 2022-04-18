@@ -5,10 +5,8 @@ const cheerio = require("cheerio");
 
 exports.engineering = functions // 크롤링 함수 이름
     .region('asia-northeast1')
-    .pubsub
-    .schedule('0 0 1 * *') // 1달 단위로 작동
-    .timeZone('Asia/Seoul')
-    .onRun(async () => {
+    .https
+    .onRequest((req, res) => {
         axios
             .get('https://www.sungkyul.ac.kr/computer/4100/subview.do') // 공학인증 자료실 주소
             .then(html => {
@@ -47,9 +45,10 @@ exports.engineering = functions // 크롤링 함수 이름
                     .ref('engineering/')
                     .set(result); // 반환된 변수를 DB에 저장
                 console.log('engineering DB input Success');
+                res.sendStatus(201); // 성공 코드 전송
             })
             .catch(error => {
                 console.error('Error from engineering : ', error);
+                res.sendStatus(error.response.status); // 에러 코드 전송
             });
-        return null;
     });

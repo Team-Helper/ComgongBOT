@@ -10,10 +10,8 @@ const option = {
 exports.curriculum = functions // 크롤링 함수 이름
     .runWith(option)
     .region('asia-northeast1')
-    .pubsub
-    .schedule('0 0 1 * *') // 1달 단위로 작동
-    .timeZone('Asia/Seoul')
-    .onRun(async () => {
+    .https
+    .onRequest((req, res) => {
         try {
             const browser = await puppeteer.launch({
                 // headless : false
@@ -39,8 +37,9 @@ exports.curriculum = functions // 크롤링 함수 이름
                 .ref('curriculum/')
                 .set({imgUrl: imgUrl}); // 주소를 DB에 저장
             console.log('Crawling and curriculum DB input Success');
+            res.sendStatus(201); // 성공 코드 전송
         } catch (error) {
             console.error('Error from curriculum : ', error);
+            res.sendStatus(error.response.status); // 에러 코드 전송
         }
-        return null;
     });
