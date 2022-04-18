@@ -11,7 +11,7 @@ exports.completionSystem = functions // 크롤링 함수 이름
     .runWith(option)
     .region('asia-northeast1')
     .https
-    .onRequest((req, res) => {
+    .onRequest(async (req, res) => {
         try {
             const browser = await puppeteer.launch({
                 // headless: false
