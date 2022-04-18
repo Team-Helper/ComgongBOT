@@ -238,6 +238,7 @@ router.post('/', async function (req, res) {
             image = await getImg('completionSystem');
             // console.log(image);
             const imgText = ['올해 이수체계도', '올해 설계-이수체계도'];
+            /*응답 횟수만큼 이미지 블록 뷰를 생성*/
             image.forEach((value, index) => {
                 items.push({
                     simpleImage: {
@@ -250,6 +251,7 @@ router.post('/', async function (req, res) {
             responseBody = {
                 version: "2.0",
                 template: {
+                    /*뷰 및 바로가기 출력*/
                     outputs: items,
                     quickReplies: quickReplies
                 }
@@ -273,7 +275,7 @@ router.post('/', async function (req, res) {
                     });
                 })
             // console.log(image, info, name);
-            /*기본 카드 뷰 본문 작성*/
+            /*응답 횟수만큼 기본 카드 뷰를 생성*/
             let data = [];
             image.forEach((value, index) => {
                 data.push({
@@ -291,9 +293,9 @@ router.post('/', async function (req, res) {
                         }
                     ]
                 });
-                if (data.length == 10 || index == info.length - 1) {
+                if (data.length == 10 || index == info.length - 1) { // 케러셀이 지원하는 최대 개수만큼 혹은 DB value 값 만큼 반복되었다면
                     items.push({
-                        carousel: { // 캐러셀 구조의 기본 카드형 응답 블록 출력
+                        carousel: { // 캐러셀 구조의 기본 카드형 응답 블록으로 본문 작성
                             "type": "basicCard",
                             "items": data
                         }
