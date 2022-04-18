@@ -515,6 +515,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 const imgText = ['올해 이수체계도', '올해 설계-이수체계도'];
                 const elementLength = res.body.template.outputs.length;
                 // console.log(elementLength);
+                /*응답 횟수 별로 구조와 내용 검증*/
                 for (let index = 0; index < elementLength; index++) {
                     const element = res
                         .body
@@ -564,52 +565,52 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .send({userRequest})
             .expect(201)
             .then(res => {
-                const element = res
-                    .body
-                    .template
-                    .outputs[0]
-                    .carousel;
-                // console.log(element);
-                expect(element.type)
-                    .to
-                    .equal('basicCard');
-
-                const items = element.items;
-                // console.log(items.length);
-                expect(items.length)
-                    .to
-                    .equal(10);
-                for (let index = 0; index < items.length; index++) {
-                    const itemTitle = items[index].title;
-                    const itemDescription = items[index].description;
-                    const itemImg = items[index].thumbnail;
-                    const itemBtn = items[index].buttons;
-                    // console.log(itemTitle, itemDescription, itemImg, itemBtn);
-                    expect(itemTitle)
+                const elementLength = res.body.template.outputs.length;
+                // console.log(elementLength);
+                for (let index = 0; index < elementLength; index++) {
+                    const element = res
+                        .body
+                        .template
+                        .outputs[index]
+                        .carousel;
+                    // console.log(element);
+                    expect(element.type)
                         .to
-                        .be
-                        .a('string');
-                    expect(itemDescription)
-                        .to
-                        .be
-                        .a('string');
-                    expect(itemDescription)
-                        .to
-                        .include('연락처');
-                    expect(itemDescription)
-                        .to
-                        .include('연구실');
-                    expect(typeof itemImg.imageUrl)
-                        .to
-                        .be
-                        .a('string');
-                    expect(itemBtn[0].label)
-                        .to
-                        .be
-                        .a('string');
-                    expect(itemBtn[0].action)
-                        .to
-                        .equal('webLink');
+                        .equal('basicCard');
+                    const items = element.items;
+                    // console.log(items.length);
+                    for (let index = 0; index < items.length; index++) {
+                        const itemTitle = items[index].title;
+                        const itemDescription = items[index].description;
+                        const itemImg = items[index].thumbnail;
+                        const itemBtn = items[index].buttons;
+                        // console.log(itemTitle, itemDescription, itemImg, itemBtn);
+                        expect(itemTitle)
+                            .to
+                            .be
+                            .a('string');
+                        expect(itemDescription)
+                            .to
+                            .be
+                            .a('string');
+                        expect(itemDescription)
+                            .to
+                            .include('연락처');
+                        expect(itemDescription)
+                            .to
+                            .include('연구실');
+                        expect(typeof itemImg.imageUrl)
+                            .to
+                            .be
+                            .a('string');
+                        expect(itemBtn[0].label)
+                            .to
+                            .be
+                            .a('string');
+                        expect(itemBtn[0].action)
+                            .to
+                            .equal('webLink');
+                    }
                 }
 
                 const backElement = res

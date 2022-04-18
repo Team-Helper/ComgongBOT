@@ -246,7 +246,7 @@ router.post('/', async function (req, res) {
                     }
                 });
             });
-            console.log(items);
+            // console.log(items);
             responseBody = {
                 version: "2.0",
                 template: {
@@ -260,25 +260,23 @@ router.post('/', async function (req, res) {
             image = new Array();
             info = new Array();
             name = new Array();
-            /*최대 출력인 10개의 교수진 소개 관련 DB 쿼리문 처리*/
-            for (let index = 1; index <= 10; index++) {
-                await admin
-                    .database()
-                    .ref('facultyIntroduction')
-                    .child(index)
-                    .once('value')
-                    .then(snapshot => {
-                        image.push(snapshot.val().img);
-                        info.push(snapshot.val().info);
-                        name.push(snapshot.val().name);
-                    })
-                    .catch(e => {
-                        console.log('Error from public_service facultyIntroduction :', e);
-                    })
-                }
+            /*교수진 소개 관련 DB 쿼리문 처리*/
+            await admin
+                .database()
+                .ref('facultyIntroduction')
+                .once('value')
+                .then(snapshot => {
+                    snapshot.forEach(value => {
+                        image.push(value.val().img);
+                        info.push(value.val().info);
+                        name.push(value.val().name);
+                    });
+                })
+            // console.log(image, info, name);
             /*기본 카드 뷰 본문 작성*/
+            let data = [];
             image.forEach((value, index) => {
-                items.push({
+                data.push({
                     "title": name[index],
                     "description": info[index],
                     "thumbnail": {
@@ -293,19 +291,21 @@ router.post('/', async function (req, res) {
                         }
                     ]
                 });
+                if (data.length == 10 || index == info.length - 1) {
+                    items.push({
+                        carousel: { // 캐러셀 구조의 기본 카드형 응답 블록 출력
+                            "type": "basicCard",
+                            "items": data
+                        }
+                    });
+                    data = [];
+                }
             });
-            // console.log(name, info, image);
+            // console.log(items);
             responseBody = {
                 version: "2.0",
                 template: {
-                    outputs: [
-                        {
-                            carousel: { // 캐러셀 구조의 기본 카드형 응답 블록 출력
-                                "type": "basicCard",
-                                "items": items
-                            }
-                        }
-                    ],
+                    outputs: items,
                     quickReplies: quickReplies
                 }
             }
