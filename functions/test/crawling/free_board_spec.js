@@ -40,6 +40,6 @@ describe('GET /freeBoard', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 });

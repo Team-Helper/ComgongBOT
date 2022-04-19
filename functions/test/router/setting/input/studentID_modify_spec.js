@@ -22,7 +22,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                         value: '번호'
                     }
                 }
-            }
+            };
             request(functions.config().service_url.app) // 테스트 하려는 기본 주소
                 .post('/setting/studentID_correction') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
@@ -45,7 +45,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 .catch(err => {
                     console.error("Error >>", err);
                     done(err);
-                })
+                });
             }
     );
 
@@ -66,7 +66,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     value: '번호'
                 }
             }
-        }
+        };
         request(functions.config().service_url.app)
             .post(
                 '/setting/studentID_correction'
@@ -106,6 +106,6 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 });

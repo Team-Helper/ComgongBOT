@@ -47,7 +47,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 .catch(err => {
                     console.error("Error >>", err);
                     done(err);
-                })
+                });
             }
     );
     it('responds change user grade data', done => { // 학년 변경이 성공했을 때
@@ -81,7 +81,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
     it('responds change user grade data fail', done => { // 중복 문제로 학년 변경이 실패했을 때
         const userRequest = {
@@ -126,7 +126,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it(
@@ -173,7 +173,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 .catch(err => {
                     console.error("Error >>", err);
                     done(err);
-                })
+                });
             }
     );
     it('responds change user status data', done => { // 학적 상태 변경이 성공했을 때
@@ -207,7 +207,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
     it('responds change user status data fail', done => { // 중복 문제로 학적상태 변경이 실패했을 때
         const userRequest = {
@@ -252,7 +252,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds change user engineeringStatus data before choose', done => { //공학인증 상태 선택 전, 사용자 공학인증여부 변경 메뉴에 접근
@@ -297,7 +297,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
     });
 
     it('responds change user engineeringStatus data', done => { //공학인증여부 변경이 성공했을 때
@@ -331,7 +331,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
     });
 
     it('responds change user engineeringStatus data fail', done => { //공학인증여부 변경이 실패했을 때
@@ -377,7 +377,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
     });
 
     it('responds delete user', done => { // 사용자를 컴공봇에서 삭제했을 때
@@ -412,6 +412,6 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 });

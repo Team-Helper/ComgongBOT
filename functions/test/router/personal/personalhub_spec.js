@@ -39,7 +39,7 @@ describe('POST /personal', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it(
@@ -112,7 +112,7 @@ describe('POST /personal', () => { // 테스트 수트
                 .catch(err => {
                     console.error("Error >>", err);
                     done(err);
-                })
+                });
             }
     );
 
@@ -184,7 +184,7 @@ describe('POST /personal', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds auth success', done => { // 프로필과 학점 입력까지 완료되어있을 때
@@ -236,6 +236,6 @@ describe('POST /personal', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 });

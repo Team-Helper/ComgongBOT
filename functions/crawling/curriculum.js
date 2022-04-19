@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 const option = {
     timeoutSeconds: 60,
     memory: '512MB'
-} // puppteer를 쓰기 위한 HTTP functions 옵션 값 set
+}; // puppteer를 쓰기 위한 HTTP functions 옵션 값 set
 
 exports.curriculum = functions // 크롤링 함수 이름
     .runWith(option)

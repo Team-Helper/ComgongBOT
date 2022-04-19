@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 const option = {
     timeoutSeconds: 60,
     memory: '512MB'
-} // puppteer를 쓰기 위한 HTTP functions 옵션 값 set
+}; // puppteer를 쓰기 위한 HTTP functions 옵션 값 set
 
 exports.completionSystem = functions // 크롤링 함수 이름
     .runWith(option)
@@ -26,8 +26,8 @@ exports.completionSystem = functions // 크롤링 함수 이름
             await page.click('#menu4053_obj37 > div > a.a_2');
             await page.waitForSelector('#pagetitle2 > button');
             await page.click('#pagetitle2 > button');
-            await page.waitForSelector('#pagetitle2 > ul > li:nth-child(3) > a')
-            await page.click('#pagetitle2 > ul > li:nth-child(3) > a')
+            await page.waitForSelector('#pagetitle2 > ul > li:nth-child(3) > a');
+            await page.click('#pagetitle2 > ul > li:nth-child(3) > a');
             await page.waitForSelector('#_contentBuilder');
             const images = await page.evaluate(
                 () => Array.from(document.images, e => e.src)

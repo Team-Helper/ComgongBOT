@@ -33,7 +33,7 @@ exports.education = functions // 크롤링 함수 이름
                         )
                             .attr('href')
                             .replace(/^/, 'https://www.sungkyul.ac.kr')
-                    }
+                    };
                 }
                 // console.log(tableCrawling);
                 return tableCrawling; // 오브젝트 변수 반환

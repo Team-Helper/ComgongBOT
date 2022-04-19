@@ -21,6 +21,6 @@ describe('GET /completionSystem', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 });

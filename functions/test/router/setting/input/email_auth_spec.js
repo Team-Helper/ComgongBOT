@@ -32,7 +32,7 @@ describe('POST /setting/email_auth', () => { // 테스트 수트
                         'value': 'studentID'
                     }
                 }
-            }
+            };
             request(functions.config().service_url.app) // 테스트 하려는 기본 주소
                 .post('/setting/email_auth') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
@@ -66,7 +66,7 @@ describe('POST /setting/email_auth', () => { // 테스트 수트
                 .catch(err => {
                     console.error("Error >>", err);
                     done(err);
-                })
+                });
             }
     );
 });

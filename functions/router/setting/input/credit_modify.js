@@ -49,7 +49,7 @@ router.post('/', async function (req, res) {
                 ],
                 quickReplies: quickReplies // 바로가기 출력
             }
-        }
+        };
     } else { // 아닌 경우 사용자의 학점 데이터를 변경 및 응답 블록 출력
         await userSelect
             .update({
@@ -67,7 +67,7 @@ router.post('/', async function (req, res) {
                             }
                         ]
                     }
-                }
+                };
             })
             .catch(e => {
                 console.error('Error credit modify:', e);

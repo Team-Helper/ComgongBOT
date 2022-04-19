@@ -46,7 +46,7 @@ router.post('/', async function (req, res) {
                 ],
                 quickReplies: quickReplies // 바로가기 출력
             }
-        }
+        };
     } else { // 아닌 경우 학번 값 수정과 응답 블록 출력
         await userSelect
             .update({studentID: `${studentID}`})

@@ -39,7 +39,7 @@ describe('POST /setting', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it(
@@ -112,7 +112,7 @@ describe('POST /setting', () => { // 테스트 수트
                 .catch(err => {
                     console.error("Error >>", err);
                     done(err);
-                })
+                });
             }
     );
 
@@ -168,7 +168,7 @@ describe('POST /setting', () => { // 테스트 수트
 
                 const elementQuick = res.body.template.quickReplies;
                 // console.log(element);
-                const array = ['학점 입력', '학년 변경', '학번 변경', '학적상태 변경', '공학인증여부 변경', '설정 초기화']
+                const array = ['학점 입력', '학년 변경', '학번 변경', '학적상태 변경', '공학인증여부 변경', '설정 초기화'];
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].label)
                         .to
@@ -179,7 +179,7 @@ describe('POST /setting', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds auth success', done => { // 프로필 그리고 학점 인증까지 되었을 떄
@@ -234,7 +234,7 @@ describe('POST /setting', () => { // 테스트 수트
 
                 const elementQuick = res.body.template.quickReplies;
                 console.log(elementQuick);
-                const array = ['학점 수정', '학년 변경', '학번 변경', '학적상태 변경', '공학인증여부 변경', '설정 초기화']
+                const array = ['학점 수정', '학년 변경', '학번 변경', '학적상태 변경', '공학인증여부 변경', '설정 초기화'];
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].label)
                         .to
@@ -245,6 +245,6 @@ describe('POST /setting', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 });

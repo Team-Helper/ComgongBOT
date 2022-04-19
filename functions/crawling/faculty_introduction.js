@@ -49,7 +49,7 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
                             .split('실')
                             .join('실: ')
                             .replace(/^/, '\n')
-                    }
+                    };
                 }
                 // console.log(tableCrawling);
                 return tableCrawling; // 오브젝트 변수 반환

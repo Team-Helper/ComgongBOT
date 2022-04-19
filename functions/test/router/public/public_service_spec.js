@@ -90,7 +90,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds resultOut2', done => {
@@ -180,7 +180,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds resultOut3', done => {
@@ -270,7 +270,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds resultOut4', done => {
@@ -360,7 +360,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds resultOut5', done => {
@@ -450,7 +450,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds resultOut6', done => {
@@ -497,7 +497,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds resultOut7', done => {
@@ -550,7 +550,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 
     it('responds resultOut8', done => {
@@ -632,6 +632,6 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 });

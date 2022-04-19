@@ -13,7 +13,7 @@ router.post('/', async function (req, res) {
         urlResult;
     let image; // 이미지 링크 저장
     let info,
-        name // 교수진 소개 정보와 이름 저장
+        name; // 교수진 소개 정보와 이름 저장
     let items = []; // 게시판 별 value 저장
     const quickReplies = [
         {
@@ -101,7 +101,7 @@ router.post('/', async function (req, res) {
                     ],
                     quickReplies: quickReplies
                 }
-            }
+            };
             break;
 
         case "자유게시판을 조회해줘":
@@ -138,7 +138,7 @@ router.post('/', async function (req, res) {
                     ],
                     quickReplies: quickReplies
                 }
-            }
+            };
             break;
 
         case "외부IT행사 및 교육 게시판을 조회해줘":
@@ -175,7 +175,7 @@ router.post('/', async function (req, res) {
                     ],
                     quickReplies: quickReplies
                 }
-            }
+            };
             break;
 
         case "공학인증자료실 게시판을 조회해줘":
@@ -212,7 +212,7 @@ router.post('/', async function (req, res) {
                     ],
                     quickReplies: quickReplies
                 }
-            }
+            };
             break;
 
         case "교과과정을 조회해줘":
@@ -231,87 +231,91 @@ router.post('/', async function (req, res) {
                     ],
                     quickReplies: quickReplies
                 }
-            }
+            };
             break;
 
         case "올해 이수체계도를 조회해줘":
-            image = await getImg('completionSystem');
-            // console.log(image);
-            const imgText = ['올해 이수체계도', '올해 설계-이수체계도'];
-            /*응답 횟수만큼 이미지 블록 뷰를 생성*/
-            image.forEach((value, index) => {
-                items.push({
-                    simpleImage: {
-                        "imageUrl": value,
-                        "altText": imgText[index]
-                    }
+            {
+                image = await getImg('completionSystem');
+                // console.log(image);
+                const imgText = ['올해 이수체계도', '올해 설계-이수체계도'];
+                /*응답 횟수만큼 이미지 블록 뷰를 생성*/
+                image.forEach((value, index) => {
+                    items.push({
+                        simpleImage: {
+                            "imageUrl": value,
+                            "altText": imgText[index]
+                        }
+                    });
                 });
-            });
-            // console.log(items);
-            responseBody = {
-                version: "2.0",
-                template: {
-                    /*뷰 및 바로가기 출력*/
-                    outputs: items,
-                    quickReplies: quickReplies
-                }
+                // console.log(items);
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        /*뷰 및 바로가기 출력*/
+                        outputs: items,
+                        quickReplies: quickReplies
+                    }
+                };
+                break;
             }
-            break;
 
         case "교수진소개 게시판을 조회해줘":
-            image = new Array();
-            info = new Array();
-            name = new Array();
-            /*교수진 소개 관련 DB 쿼리문 처리*/
-            await admin
-                .database()
-                .ref('facultyIntroduction')
-                .once('value')
-                .then(snapshot => {
-                    snapshot.forEach(value => {
-                        image.push(value.val().img);
-                        info.push(value.val().info);
-                        name.push(value.val().name);
+            {
+                image = new Array();
+                info = new Array();
+                name = new Array();
+                /*교수진 소개 관련 DB 쿼리문 처리*/
+                await admin
+                    .database()
+                    .ref('facultyIntroduction')
+                    .once('value')
+                    .then(snapshot => {
+                        snapshot.forEach(value => {
+                            image.push(value.val().img);
+                            info.push(value.val().info);
+                            name.push(value.val().name);
+                        });
                     });
-                })
-            // console.log(image, info, name);
-            /*응답 횟수만큼 기본 카드 뷰를 생성*/
-            let data = [];
-            image.forEach((value, index) => {
-                data.push({
-                    "title": name[index],
-                    "description": info[index],
-                    "thumbnail": {
-                        "imageUrl": value,
-                        "fixedRatio": true
-                    },
-                    "buttons": [
-                        {
-                            "action": "webLink",
-                            "label": "상세보기",
-                            "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
-                        }
-                    ]
+                // console.log(image, info, name);
+                /*응답 횟수만큼 기본 카드 뷰를 생성*/
+                let data = [];
+                image.forEach((value, index) => {
+                    data.push({
+                        "title": name[index],
+                        "description": info[index],
+                        "thumbnail": {
+                            "imageUrl": value,
+                            "fixedRatio": true
+                        },
+                        "buttons": [
+                            {
+                                "action": "webLink",
+                                "label": "상세보기",
+                                "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4123/subview.do"
+                            }
+                        ]
+                    });
+                    if (data.length == 10 || index == info.length - 1) { // 케러셀이 지원하는 최대 개수만큼 혹은 DB value 값 만큼 반복되었다면
+                        items.push({
+                            carousel: { // 캐러셀 구조의 기본 카드형 응답 블록으로 본문 작성
+                                "type": "basicCard",
+                                "items": data
+                            }
+                        });
+                        data = [];
+                    }
                 });
-                if (data.length == 10 || index == info.length - 1) { // 케러셀이 지원하는 최대 개수만큼 혹은 DB value 값 만큼 반복되었다면
-                    items.push({
-                        carousel: { // 캐러셀 구조의 기본 카드형 응답 블록으로 본문 작성
-                            "type": "basicCard",
-                            "items": data
-                        }
-                    });
-                    data = [];
-                }
-            });
-            // console.log(items);
-            responseBody = {
-                version: "2.0",
-                template: {
-                    outputs: items,
-                    quickReplies: quickReplies
-                }
+                // console.log(items);
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: items,
+                        quickReplies: quickReplies
+                    }
+                };
+                break;
             }
-            break;
 
         default:
             break;
@@ -335,10 +339,10 @@ router.post('/', async function (req, res) {
                 })
                 .catch(e => {
                     console.log('Error from public_service getData :', e);
-                })
+                });
             }
         return [title, date, url];
-    };
+    }
 
     async function getImg(params, index) { // 이미지 DB 검색 쿼리문 처리 함수
         let imageData;

@@ -73,6 +73,6 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
             .catch(err => {
                 console.error("Error >>", err);
                 done(err);
-            })
+            });
         });
 });
