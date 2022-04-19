@@ -46,9 +46,9 @@ router.post('/', async function (req, res) {
                 .status(201)
                 .send(responseBody); // 응답 상태 코드와 내용 전송
         })
-        .catch(e => {
-            console.error('Error from set credit into DB:', e);
-            res.sendStatus(e.response.status); // 에러 코드 전송
+        .catch(err => {
+            console.error('Error from set credit into DB:', err);
+            res.sendStatus(err.response.status); // 에러 코드 전송
         });
 });
 

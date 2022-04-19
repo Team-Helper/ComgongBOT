@@ -28,6 +28,7 @@ exports.curriculum = functions // 크롤링 함수 이름
             const element = await page.$('#menu4093_obj250 > div._fnctWrap > iframe');
             const frame = await element.contentFrame();
             await frame.waitForSelector('#page0');
+            // eslint-disable-next-line id-length
             const imgUrl = await frame.$eval('#page0', e => e.getAttribute("src")); // 이미지 주소 추출
             // console.log(imgUrl);
             await browser.close();
@@ -38,8 +39,8 @@ exports.curriculum = functions // 크롤링 함수 이름
                 .set({imgUrl: imgUrl}); // 주소를 DB에 저장
             console.log('Crawling and curriculum DB input Success');
             res.sendStatus(201); // 성공 코드 전송
-        } catch (error) {
-            console.error('Error from curriculum : ', error);
-            res.sendStatus(error.response.status); // 에러 코드 전송
+        } catch (err) {
+            console.error('Error from curriculum : ', err);
+            res.sendStatus(err.response.status); // 에러 코드 전송
         }
     });

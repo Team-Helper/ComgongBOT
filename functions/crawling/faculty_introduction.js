@@ -13,6 +13,7 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
             .get('https://www.sungkyul.ac.kr/computer/4123/subview.do') // 교수진 소개 페이지 주소
             .then(html => {
                 const tableCrawling = new Object();
+                // eslint-disable-next-line id-length
                 const $ = cheerio.load(html.data);
                 const tableLength = $(
                     '#menu4123_obj242 > div.profile._fnctWrap > form > ul > li'
@@ -62,8 +63,8 @@ exports.facultyIntroduction = functions // 크롤링 함수 이름
                     .set(result); // 반환된 변수를 DB에 저장
                 console.log('facultyIntroduction DB input Success');
             })
-            .catch(error => {
-                console.error('Error from facultyIntroduction : ', error);
+            .catch(err => {
+                console.error('Error from facultyIntroduction : ', err);
             });
         return null;
     });

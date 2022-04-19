@@ -337,10 +337,10 @@ router.post('/', async function (req, res) {
                     date.push(snapshot.val().date);
                     url.push(snapshot.val().url);
                 })
-                .catch(e => {
-                    console.log('Error from public_service getData :', e);
+                .catch(err => {
+                    console.error('Error from public_service getData :', err);
                 });
-            }
+        }
         return [title, date, url];
     }
 
@@ -354,6 +354,9 @@ router.post('/', async function (req, res) {
                 .once('value')
                 .then(snapshot => {
                     return snapshot.val();
+                })
+                .catch(err => {
+                    console.error('Error from public_service getImg :', err);
                 });
         } else {
             imageData = await admin
@@ -363,6 +366,9 @@ router.post('/', async function (req, res) {
                 .once('value')
                 .then(snapshot => {
                     return snapshot.val();
+                })
+                .catch(err => {
+                    console.error('Error from public_service getImg :', err);
                 });
         }
         return imageData;

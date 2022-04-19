@@ -10,6 +10,16 @@
         "ecmaVersion": "latest"
     },
     "rules": {
-        "semi": "error"
+        "semi": "error",
+        "no-unused-vars": "error",
+        "default-case": "error",
+        "default-case-last": "error",
+        "id-length": "error",
+        "max-depth": [
+            "error", {
+                "max": 3
+            }
+        ],
+        "max-nested-callbacks": ["error", 3]
     }
 }

@@ -15,8 +15,8 @@ router.post('/', async function (req, res) {
     await admin
         .auth()
         .createUser({email: email}) // 입력한 이메일 주소로 AUTH 생성
-        .catch(e => {
-            console.error('Error from auth to createUser:', e);
+        .catch(error => {
+            console.error('Error from auth to createUser:', error);
         });
 
     const firestore = admin.firestore();
@@ -56,9 +56,9 @@ router.post('/', async function (req, res) {
                 .status(201)
                 .send(responseBody); // 응답 상태 코드와 내용 전송
         })
-        .catch(e => {
-            console.error('Error from set profile DB:', e);
-            res.sendStatus(e.response.status); // 에러 코드 전송
+        .catch(err => {
+            console.error('Error from set profile DB:', err);
+            res.sendStatus(err.response.status); // 에러 코드 전송
         });
 });
 

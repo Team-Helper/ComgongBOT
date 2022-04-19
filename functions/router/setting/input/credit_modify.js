@@ -69,8 +69,8 @@ router.post('/', async function (req, res) {
                     }
                 };
             })
-            .catch(e => {
-                console.error('Error credit modify:', e);
+            .catch(err => {
+                console.error('Error credit modify:', err);
             });
     }
     res

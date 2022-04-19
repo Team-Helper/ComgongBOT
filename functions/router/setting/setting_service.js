@@ -423,8 +423,8 @@ router.post('/', async function (req, res) {
                         // console.log(userRecord);
                         return userRecord.uid; // 사용자 이메일 주소를 통한 사용자의 udi 값 get
                     })
-                    .catch(e => {
-                        console.error('Error get user uid:', e);
+                    .catch(err => {
+                        console.error('Error get user uid:', err);
                     });
                 // console.log(userUid);
                 await admin
@@ -446,8 +446,8 @@ router.post('/', async function (req, res) {
                             }
                         };
                     })
-                    .catch((e) => {
-                        console.log('Error deleting user:', e);
+                    .catch((err) => {
+                        console.error('Error deleting user:', err);
                     });
                 break;
             }

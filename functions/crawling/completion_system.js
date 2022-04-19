@@ -30,6 +30,7 @@ exports.completionSystem = functions // 크롤링 함수 이름
             await page.click('#pagetitle2 > ul > li:nth-child(3) > a');
             await page.waitForSelector('#_contentBuilder');
             const images = await page.evaluate(
+                // eslint-disable-next-line id-length
                 () => Array.from(document.images, e => e.src)
             ); // 해당 dom 구간의 이미지 태그 값 전체 추출
             // console.log(images);
@@ -50,8 +51,8 @@ exports.completionSystem = functions // 크롤링 함수 이름
                 .set({imgUrl}); // 배열 처리된 이미지 주소를 DB에 저장
             console.log('Crawling and completionSystem DB input Success');
             res.sendStatus(201); // 성공 코드 전송
-        } catch (error) {
-            console.error('Error from completionSystem : ', error);
-            res.sendStatus(error.response.status); // 에러 코드 전송
+        } catch (err) {
+            console.error('Error from completionSystem : ', err);
+            res.sendStatus(err.response.status); // 에러 코드 전송
         }
     });

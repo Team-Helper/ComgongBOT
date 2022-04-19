@@ -11,6 +11,7 @@ exports.freeBoard = functions // 크롤링 함수 이름
             .get('https://www.sungkyul.ac.kr/computer/4108/subview.do') // 자유게시판 페이지 주소
             .then(html => {
                 const tableCrawling = new Object();
+                // eslint-disable-next-line id-length
                 const $ = cheerio.load(html.data);
                 /*게시물의 이름, 날짜, 주소를 각각 추출 및 오브젝트 변수에 저장*/
                 for (let index = 1; index <= 5; index++) {
@@ -47,8 +48,8 @@ exports.freeBoard = functions // 크롤링 함수 이름
                 console.log('freeBoard DB input Success');
                 res.sendStatus(201); // 성공 코드 전송
             })
-            .catch(error => {
-                console.error('Error from freeBoard : ', error);
-                res.sendStatus(error.response.status); // 에러 코드 전송
+            .catch(err => {
+                console.error('Error from freeBoard : ', err);
+                res.sendStatus(err.response.status); // 에러 코드 전송
             });
     });
