@@ -10,19 +10,19 @@
         "ecmaVersion": "latest"
     },
     "rules": {
-        "semi": "error",
-        "no-unused-vars": "error",
-        "default-case": "error",
-        "default-case-last": "error",
-        "id-length": "error",
-        "max-depth": [
+        "semi": "error", // 세미콜론 없으면 에러
+        "no-unused-vars": "error", // 변수 선언 후 안쓰면 에러
+        "default-case": "error", // switch/case 문에 default 없으면 에러
+        "default-case-last": "error", // default 문이 마지막으로 없으면 에러
+        "id-length": "error", // 변수 작명이 2글자 미만이면 에러
+        "max-depth": [ // 로직 깊이를 3개 이상으로 하면 에러
             "error", {
                 "max": 3
             }
         ],
-        "max-nested-callbacks": [
+        "max-nested-callbacks": [ // 콜백 함수 깊이를 3개 이상으로 하면 에러
             "error", 3
         ],
-        "no-plusplus": "error"
+        "no-plusplus": "error" // 전위 후위 연산하면 에러
     }
 }
