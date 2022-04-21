@@ -82,7 +82,78 @@ router.post('/', async function (req, res) {
             }
 
         case "졸업까지 남은 학점을 계산해줘":
-            break;
+            {
+                const firestore = admin.firestore();
+                /* 사용자 프로필 DB 조회 */
+                const userSelect = firestore
+                    .collection('users')
+                    .doc(userAbout.plusfriendUserKey);
+                const userData = await userSelect.get();
+                /* 사용자 학번 조회 */
+                const userStudentID = '20' + userData.data().studentID;
+                /* 공학인증 인증 DB 조회 */
+                const engineerCreditsSelect = firestore
+                    .collection('engineeringCredits');
+                /* 공학인증 미인증 DB 조회 */
+                const creditsSelect = firestore
+                    .collection('credits');
+                /* 출력 item 리스트 */
+                const title = ['전공필수', '전공선택', '교양필수', '교양선택', '총 학점'];
+                const itemList = [];
+                /* 사용자 공학인증여부 인증일 때 */
+                if (userData.data().engineeringStatus == true) {
+                    const engineerCreditsData = await engineerCreditsSelect
+                        .doc(userStudentID)
+                        .get();
+                    /* 남은 학점 계산 */
+                    const geA = engineerCreditsData.data().geA - parseInt(userData.data().credits.geA);
+                    const geB = engineerCreditsData.data().geB - parseInt(userData.data().credits.geB);
+                    const majorA = engineerCreditsData.data().majorA - parseInt(userData.data().credits.majorA);
+                    const majorB = engineerCreditsData.data().majorB - parseInt(userData.data().credits.majorB);
+                    const total = engineerCreditsData.data().total - parseInt(userData.data().credits.total);
+
+                    /* itemList에 JSON형식으로 저장 */
+                    const graduateCredits = [majorA, majorB, geA, geB, total];
+                    title.forEach((value, index) => {
+                        itemList.push({'title': value, 'description': graduateCredits[index]});
+                    });
+                } else if (userData.data().engineeringStatus == false) {
+                    const creditsData = await creditsSelect
+                        .doc(userStudentID)
+                        .get();
+                    /* 남은 학점 계산 */
+                    const geA = creditsData.data().geA - parseInt(userData.data().credits.geA);
+                    const geB = creditsData.data().geB - parseInt(userData.data().credits.geB);
+                    const majorA = creditsData.data().majorA - parseInt(userData.data().credits.majorA);
+                    const majorB = creditsData.data().majorB - parseInt(userData.data().credits.majorB);
+                    const total = creditsData.data().total - parseInt(userData.data().credits.total);
+
+                    /* itemList에 JSON형식으로 저장 */
+                    const graduateCredits = [majorA, majorB, geA, geB, total];
+                    title.forEach((value, index) => {
+                        itemList.push({'title': value, 'description': graduateCredits[index]});
+                    });
+                }
+                // console.log(itemList);
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                itemCard: {
+                                    "head": {
+                                        "title": "☑ 남은 학점 조회"
+                                    },
+                                    "itemList": itemList,
+                                    "title": "졸업까지 남은 학점입니다."
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                };
+                break;
+            }
 
         case "교과목별 최저이수 요구학점을 알려줘":
             break;
