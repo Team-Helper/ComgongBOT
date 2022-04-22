@@ -54,7 +54,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                     expect(itemDescription)
                         .to
                         .be
-                        .a('string'); // 아이템 카드 뷰의 본문 value 값이 숫자 타입인가
+                        .a('string'); // 아이템 카드 뷰의 본문 value 값이 문자열 타입인가
                 }
 
                 const elementQuick = res
@@ -111,10 +111,10 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                     .a('string');
                 expect(headTitle)
                     .to
-                    .include('남은 학점 조회');
+                    .include('졸업까지 남은 학점 조회');
                 expect(elementTitle)
                     .to
-                    .equal('졸업까지 남은 학점입니다.');
+                    .equal('본인 학번의 졸업까지 남은 학점 계산 결과입니다.');
 
                 const elementItems = element.itemList;
                 const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];

@@ -10,6 +10,11 @@ router.post('/', async function (req, res) {
     const userRequest = req.body.userRequest.utterance; // 사용자 요청문
     // console.log(userRequest);
     let responseBody; // 응답 블록 구조
+    let firestore = admin.firestore();
+    let userSelect = firestore
+        .collection('users')
+        .doc(userAbout.plusfriendUserKey);
+    let userData;
     const quickReplies = [
         {
             // 바로가기 작성
@@ -27,11 +32,7 @@ router.post('/', async function (req, res) {
         case "나의 누적 학점을 알려줘":
             {
                 /*사용자 프로필 DB 조회*/
-                const firestore = admin.firestore();
-                const userSelect = firestore
-                    .collection('users')
-                    .doc(userAbout.plusfriendUserKey);
-                const userData = await userSelect.get();
+                userData = await userSelect.get();
                 /*사용자 학점 데이터 get*/
                 const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
                 const description = [
@@ -83,12 +84,8 @@ router.post('/', async function (req, res) {
 
         case "졸업까지 남은 학점을 계산해줘":
             {
-                const firestore = admin.firestore();
                 /* 사용자 프로필 DB 조회 */
-                const userSelect = firestore
-                    .collection('users')
-                    .doc(userAbout.plusfriendUserKey);
-                const userData = await userSelect.get();
+                userData = await userSelect.get();
                 /* 사용자 학번 조회 */
                 const userStudentID = '20' + userData.data().studentID;
                 /* 공학인증 인증 DB 조회 */
@@ -117,7 +114,7 @@ router.post('/', async function (req, res) {
                     title.forEach((value, index) => {
                         itemList.push({'title': value, 'description': graduateCredits[index]});
                     });
-                } else if (userData.data().engineeringStatus == false) {
+                } else {
                     const creditsData = await creditsSelect
                         .doc(userStudentID)
                         .get();
@@ -142,10 +139,10 @@ router.post('/', async function (req, res) {
                             {
                                 itemCard: {
                                     "head": {
-                                        "title": "☑ 남은 학점 조회"
+                                        "title": "☑ 졸업까지 남은 학점 조회"
                                     },
                                     "itemList": itemList,
-                                    "title": "졸업까지 남은 학점입니다."
+                                    "title": "본인 학번의 졸업까지 남은 학점 계산 결과입니다."
                                 }
                             }
                         ],
