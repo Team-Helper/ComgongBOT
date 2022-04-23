@@ -2,11 +2,11 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /setting/setting_service', () => { // 테스트 수트
+describe('POST /setting/setting_service', () => { //테스트 수트
     it(
         'responds change user grade data before choose',
-        done => { // 테스트 단위 : 학년 변경 전 메뉴 선택이 이루어질 떄
-            const userRequest = { // 기본 사용자 정보 시나리오와 요청 발화문
+        done => { //테스트 단위 : 학년 변경 전 메뉴 선택이 이루어질 떄
+            const userRequest = { //기본 사용자 정보 시나리오와 요청 발화문
                 user: {
                     "properties": {
                         "plusfriendUserKey": "some-id",
@@ -15,22 +15,22 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 },
                 utterance: "나의 학년을 변경할게"
             };
-            request(functions.config().service_url.app) // 테스트 하려는 기본 주소
-                .post('/setting/setting_service') // 주소의 엔드포인트
+            request(functions.config().service_url.app) //테스트 하려는 기본 주소
+                .post('/setting/setting_service') //주소의 엔드포인트
                 .set('Accept', 'application/json')
                 .type('application/json')
-                .send({userRequest}) // body 데이터 전송
-                .expect(201) // 응답 상태코드
+                .send({userRequest}) //body 데이터 전송
+                .expect(201) //응답 상태코드
                 .then(res => {
                     const element = res
                         .body
                         .template
                         .outputs[0]
                         .simpleText;
-                    // console.log(element);
+                    //console.log(element);
                     expect(element.text)
                         .to
-                        .include("변경하고자 하는 학년으로"); // 응답 결과가 작성한 텍스트 내용을 포함하는가
+                        .include("변경하고자 하는 학년으로"); //응답 결과가 작성한 텍스트 내용을 포함하는가
 
                     const elementQuick = res
                         .body
@@ -40,7 +40,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     for (let index = 0; index < elementQuick.length; index++) {
                         expect(element[index].label)
                             .to
-                            .include(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
+                            .include(array[index]); //응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
                     }
                     done();
                 })
@@ -50,7 +50,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 });
             }
     );
-    it('responds change user grade data', done => { // 학년 변경이 성공했을 때
+    it('responds change user grade data', done => { //학년 변경이 성공했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -72,7 +72,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                // console.log(element);
+                //console.log(element);
                 expect(element.text)
                     .to
                     .include("선택하신 학년으로");
@@ -83,7 +83,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 done(err);
             });
         });
-    it('responds change user grade data fail', done => { // 중복 문제로 학년 변경이 실패했을 때
+    it('responds change user grade data fail', done => { //중복 문제로 학년 변경이 실패했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -105,7 +105,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                // console.log(element);
+                //console.log(element);
                 expect(element.text)
                     .to
                     .include("이미 같은 학년");
@@ -114,7 +114,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(elementQuick);
+                //console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
                     .include('나의 학년을');
@@ -131,7 +131,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
 
     it(
         'responds change user status data before choose',
-        done => { // 학적상태 변경 전 메뉴 선택이 이루어질 때
+        done => { //학적상태 변경 전 메뉴 선택이 이루어질 때
             const userRequest = {
                 user: {
                     "properties": {
@@ -153,7 +153,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                         .template
                         .outputs[0]
                         .simpleText;
-                    // console.log(element);
+                    //console.log(element);
                     expect(element.text)
                         .to
                         .include("변경하고자 하는 학적상태로");
@@ -166,7 +166,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     for (let index = 0; index < elementQuick.length; index++) {
                         expect(element[index].label)
                             .to
-                            .include(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
+                            .include(array[index]); //응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
                     }
                     done();
                 })
@@ -176,7 +176,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 });
             }
     );
-    it('responds change user status data', done => { // 학적 상태 변경이 성공했을 때
+    it('responds change user status data', done => { //학적 상태 변경이 성공했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -198,7 +198,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                // console.log(element);
+                //console.log(element);
                 expect(element.text)
                     .to
                     .include("학적상태를 휴학으로");
@@ -209,7 +209,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 done(err);
             });
         });
-    it('responds change user status data fail', done => { // 중복 문제로 학적상태 변경이 실패했을 때
+    it('responds change user status data fail', done => { //중복 문제로 학적상태 변경이 실패했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -231,7 +231,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                // console.log(element);
+                //console.log(element);
                 expect(element.text)
                     .to
                     .include("이미 학적상태가");
@@ -240,7 +240,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(elementQuick);
+                //console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
                     .include('나의 학적상태를');
@@ -277,7 +277,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                // console.log(element);
+                //console.log(element);
                 expect(element.text)
                     .to
                     .include("변경하고자 하는 공학인증여부로");
@@ -290,7 +290,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(element[index].label)
                         .to
-                        .include(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
+                        .include(array[index]); //응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
                 }
                 done();
             })
@@ -322,7 +322,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                // console.log(element);
+                //console.log(element);
                 expect(element.text)
                     .to
                     .include("공학인증여부를 공학인증 미진행");
@@ -356,7 +356,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                // console.log(element);
+                //console.log(element);
                 expect(element.text)
                     .to
                     .include("이미 공학인증을");
@@ -365,7 +365,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(elementQuick);
+                //console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
                     .include('나의 공학인증여부를');
@@ -380,7 +380,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             });
     });
 
-    it('responds delete user', done => { // 사용자를 컴공봇에서 삭제했을 때
+    it('responds delete user', done => { //사용자를 컴공봇에서 삭제했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -389,7 +389,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 }
             },
             utterance: "네"
-            // utterance: "자퇴해요"
+            //utterance: "자퇴해요"
         };
         request(functions.config().service_url.app)
             .post('/setting/setting_service')
@@ -403,7 +403,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
-                // console.log(element);
+                //console.log(element);
                 expect(element.text)
                     .to
                     .include("전체 설정이 초기화");
