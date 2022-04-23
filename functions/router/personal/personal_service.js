@@ -85,46 +85,69 @@ router.post('/', async function (req, res) {
         case "졸업까지 남은 학점을 계산해줘":
             {
                 userData = await userSelect.get();
-                /*사용자 학번 조회 */
-                const userStudentID = '20' + userData.data().studentID;
-                /*공학인증 인증 DB 조회 */
-                const engineerCreditsSelect = firestore
-                    .collection('engineeringCredits');
-                /*공학인증 미인증 DB 조회 */
-                const creditsSelect = firestore
-                    .collection('credits');
+                const thieYear = new Date()
+                    .getFullYear()
+                    .toString()
+                    .substr(0, 2); //현재 년도 앞의 2자리 추출
+                //console.log(thieYear);
+                const userStudentID = thieYear + userData
+                    .data()
+                    .studentID; //추출 한 값을 사용자 학번 값에 앞자리 년도로 추가
                 /*출력 item 리스트 */
                 const title = ['전공필수', '전공선택', '교양필수', '교양선택', '총 학점'];
                 const itemList = [];
-                /*사용자 공학인증여부 인증일 때 */
+                /*사용자가 공학인증 상태 시 */
                 if (userData.data().engineeringStatus == true) {
+                    /*공학인증 관련 사용자 학번 학점DB 조회*/
+                    const engineerCreditsSelect = firestore.collection('engineeringCredits');
                     const engineerCreditsData = await engineerCreditsSelect
                         .doc(userStudentID)
                         .get();
                     /*남은 학점 계산 */
-                    const geA = engineerCreditsData.data().geA - parseInt(userData.data().credits.geA);
-                    const geB = engineerCreditsData.data().geB - parseInt(userData.data().credits.geB);
-                    const majorA = engineerCreditsData.data().majorA - parseInt(userData.data().credits.majorA);
-                    const majorB = engineerCreditsData.data().majorB - parseInt(userData.data().credits.majorB);
-                    const total = engineerCreditsData.data().total - parseInt(userData.data().credits.total);
+                    const geA = engineerCreditsData
+                        .data()
+                        .geA - parseInt(userData.data().credits.geA);
+                    const geB = engineerCreditsData
+                        .data()
+                        .geB - parseInt(userData.data().credits.geB);
+                    const majorA = engineerCreditsData
+                        .data()
+                        .majorA - parseInt(userData.data().credits.majorA);
+                    const majorB = engineerCreditsData
+                        .data()
+                        .majorB - parseInt(userData.data().credits.majorB);
+                    const total = engineerCreditsData
+                        .data()
+                        .total - parseInt(userData.data().credits.total);
 
-                    /*itemList에 JSON형식으로 저장 */
+                    /*아이템 카드 뷰 본문 작성*/
                     const graduateCredits = [majorA, majorB, geA, geB, total];
                     title.forEach((value, index) => {
                         itemList.push({'title': value, 'description': graduateCredits[index]});
                     });
                 } else {
+                    /*일반인증 관련 사용자 학번 학점DB 조회*/
+                    const creditsSelect = firestore.collection('credits');
                     const creditsData = await creditsSelect
                         .doc(userStudentID)
                         .get();
-                    /*남은 학점 계산 */
-                    const geA = creditsData.data().geA - parseInt(userData.data().credits.geA);
-                    const geB = creditsData.data().geB - parseInt(userData.data().credits.geB);
-                    const majorA = creditsData.data().majorA - parseInt(userData.data().credits.majorA);
-                    const majorB = creditsData.data().majorB - parseInt(userData.data().credits.majorB);
-                    const total = creditsData.data().total - parseInt(userData.data().credits.total);
 
-                    /*itemList에 JSON형식으로 저장 */
+                    const geA = creditsData
+                        .data()
+                        .geA - parseInt(userData.data().credits.geA);
+                    const geB = creditsData
+                        .data()
+                        .geB - parseInt(userData.data().credits.geB);
+                    const majorA = creditsData
+                        .data()
+                        .majorA - parseInt(userData.data().credits.majorA);
+                    const majorB = creditsData
+                        .data()
+                        .majorB - parseInt(userData.data().credits.majorB);
+                    const total = creditsData
+                        .data()
+                        .total - parseInt(userData.data().credits.total);
+
                     const graduateCredits = [majorA, majorB, geA, geB, total];
                     title.forEach((value, index) => {
                         itemList.push({'title': value, 'description': graduateCredits[index]});
