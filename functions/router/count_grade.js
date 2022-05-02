@@ -3,10 +3,8 @@ const admin = require('firebase-admin');
 
 exports.countGrade = functions //함수 이름
     .region('asia-northeast1')
-    .pubsub
-    .schedule('0 0 1 3 *') //매년 3월 1일에 작동
-    .timeZone('Asia/Seoul')
-    .onRun(async () => {
+    .https
+    .onRequest(async (req, res) => {
         const firestore = admin.firestore();
         const snapshot = await firestore
             .collection('users')
@@ -31,5 +29,5 @@ exports.countGrade = functions //함수 이름
                     }
                 }
             });
-        return null;
+        res.sendStatus(200);
     });
