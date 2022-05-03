@@ -114,7 +114,7 @@ describe('POST /personal/personal_service', () => { //테스트 수트
                     .include('졸업까지 남은 학점 조회');
                 expect(elementTitle)
                     .to
-                    .equal('본인 학번의 졸업까지 남은 학점 계산 결과입니다.');
+                    .equal('[남은 학점/전체 학점]\n본인 학번의 졸업까지 남은 학점 계산 결과입니다.');
 
                 const elementItems = element.itemList;
                 const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
@@ -127,7 +127,7 @@ describe('POST /personal/personal_service', () => { //테스트 수트
                     expect(itemDescription)
                         .to
                         .be
-                        .a('number');
+                        .a('string');
                 }
 
                 const elementQuick = res
