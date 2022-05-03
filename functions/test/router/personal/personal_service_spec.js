@@ -74,77 +74,84 @@ describe('POST /personal/personal_service', () => { //테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
-    it('responds check graduateCredits', done => { //테스트 단위 : 학점과 학번, 공학인증여부가 입력되어 있고 조회할 때
-        const userRequest = { //기본 사용자 시나리오와 요청 발화문
-            user: {
-                "properties": {
-                    "plusfriendUserKey": "some-id",
-                    "isFriend": true
-                }
-            },
-            utterance: "졸업까지 남은 학점을 계산해줘"
-        };
-        request(functions.config().service_url.app)
-            .post('/personal/personal_service')
-            .set('Accept', 'application/json')
-            .type('application/json')
-            .send({userRequest})
-            .expect(201)
-            .then(res => {
-                const element = res
-                    .body
-                    .template
-                    .outputs[0]
-                    .itemCard;
-                //console.log(element);
-                expect(element)
-                    .to
-                    .be
-                    .an('object');
-                const headTitle = element.head.title;
-                const elementTitle = element.title;
-                expect(headTitle)
-                    .to
-                    .be
-                    .a('string');
-                expect(headTitle)
-                    .to
-                    .include('졸업까지 남은 학점 조회');
-                expect(elementTitle)
-                    .to
-                    .equal('[남은 학점/전체 학점]\n본인 학번의 졸업까지 남은 학점 계산 결과입니다.');
-
-                const elementItems = element.itemList;
-                const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
-                for (let index = 0; index < elementItems.length; index++) {
-                    const itemTitle = elementItems[index].title;
-                    const itemDescription = elementItems[index].description;
-                    expect(itemTitle)
+    it(
+        'responds check graduateCredits',
+        done => { //테스트 단위 : 학점과 학번, 공학인증여부가 입력되어 있고 조회할 때
+            const userRequest = { //기본 사용자 시나리오와 요청 발화문
+                user: {
+                    "properties": {
+                        "plusfriendUserKey": "some-id",
+                        "isFriend": true
+                    }
+                },
+                utterance: "졸업까지 남은 학점을 계산해줘"
+            };
+            request(functions.config().service_url.app)
+                .post('/personal/personal_service')
+                .set('Accept', 'application/json')
+                .type('application/json')
+                .send({userRequest})
+                .expect(201)
+                .then(res => {
+                    const element = res
+                        .body
+                        .template
+                        .outputs[0]
+                        .itemCard;
+                    //console.log(element);
+                    expect(element)
                         .to
-                        .equal(title[index]);
-                    expect(itemDescription)
+                        .be
+                        .an('object');
+                    const headTitle = element.head.title;
+                    const elementTitle = element.title;
+                    const elementDescription = element.description;
+                    expect(headTitle)
                         .to
                         .be
                         .a('string');
-                }
+                    expect(headTitle)
+                        .to
+                        .include('졸업까지 남은 학점 조회');
+                    expect(elementTitle)
+                        .to
+                        .equal('[남은 학점/전체 학점]');
+                    expect(elementDescription)
+                        .to
+                        .equal('본인 학번의 졸업까지 남은 학점 계산 결과입니다.');
 
-                const elementQuick = res
-                    .body
-                    .template
-                    .quickReplies[0];
-                expect(elementQuick.messageText)
-                    .to
-                    .equal('뒤로 돌아갈래');
-                expect(elementQuick.label)
-                    .to
-                    .include('뒤로가기');
-                done();
-            })
-            .catch(err => {
-                console.error("Error >>", err);
-                done(err);
-            });
-        });
+                    const elementItems = element.itemList;
+                    const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
+                    for (let index = 0; index < elementItems.length; index++) {
+                        const itemTitle = elementItems[index].title;
+                        const itemDescription = elementItems[index].description;
+                        expect(itemTitle)
+                            .to
+                            .equal(title[index]);
+                        expect(itemDescription)
+                            .to
+                            .be
+                            .a('string');
+                    }
+
+                    const elementQuick = res
+                        .body
+                        .template
+                        .quickReplies[0];
+                    expect(elementQuick.messageText)
+                        .to
+                        .equal('뒤로 돌아갈래');
+                    expect(elementQuick.label)
+                        .to
+                        .include('뒤로가기');
+                    done();
+                })
+                .catch(err => {
+                    console.error("Error >>", err);
+                    done(err);
+                });
+        }
+    );
 });

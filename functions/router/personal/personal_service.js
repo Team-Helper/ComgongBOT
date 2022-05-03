@@ -106,19 +106,34 @@ router.post('/', async function (req, res) {
                     /*남은 학점 계산 */
                     const geA = engineerCreditsData
                         .data()
-                        .geA - parseInt(userData.data().credits.geA) + '/' + engineerCreditsData.data().geA;
+                        .geA - parseInt(userData.data().credits.geA) + '/' +
+                            engineerCreditsData
+                        .data()
+                        .geA;
                     const geB = engineerCreditsData
                         .data()
-                        .geB - parseInt(userData.data().credits.geB) + '/' + engineerCreditsData.data().geB;
+                        .geB - parseInt(userData.data().credits.geB) + '/' +
+                            engineerCreditsData
+                        .data()
+                        .geB;
                     const majorA = engineerCreditsData
                         .data()
-                        .majorA - parseInt(userData.data().credits.majorA) + '/' + engineerCreditsData.data().majorA;
+                        .majorA - parseInt(userData.data().credits.majorA) + '/' +
+                            engineerCreditsData
+                        .data()
+                        .majorA;
                     const majorB = engineerCreditsData
                         .data()
-                        .majorB - parseInt(userData.data().credits.majorB) + '/' + engineerCreditsData.data().majorB;
+                        .majorB - parseInt(userData.data().credits.majorB) + '/' +
+                            engineerCreditsData
+                        .data()
+                        .majorB;
                     const total = engineerCreditsData
                         .data()
-                        .total - parseInt(userData.data().credits.total) + '/' + engineerCreditsData.data().total;
+                        .total - parseInt(userData.data().credits.total) + '/' +
+                            engineerCreditsData
+                        .data()
+                        .total;
 
                     /*아이템 카드 뷰 본문 작성*/
                     const graduateCredits = [majorA, majorB, geA, geB, total];
@@ -134,19 +149,29 @@ router.post('/', async function (req, res) {
 
                     const geA = creditsData
                         .data()
-                        .geA - parseInt(userData.data().credits.geA) + '/' + creditsData.data().geA;
+                        .geA - parseInt(userData.data().credits.geA) + '/' + creditsData
+                        .data()
+                        .geA;
                     const geB = creditsData
                         .data()
-                        .geB - parseInt(userData.data().credits.geB) + '/' + creditsData.data().geB;
+                        .geB - parseInt(userData.data().credits.geB) + '/' + creditsData
+                        .data()
+                        .geB;
                     const majorA = creditsData
                         .data()
-                        .majorA - parseInt(userData.data().credits.majorA) + '/' + creditsData.data().majorA;
+                        .majorA - parseInt(userData.data().credits.majorA) + '/' + creditsData
+                        .data()
+                        .majorA;
                     const majorB = creditsData
                         .data()
-                        .majorB - parseInt(userData.data().credits.majorB) + '/' + creditsData.data().majorB;
+                        .majorB - parseInt(userData.data().credits.majorB) + '/' + creditsData
+                        .data()
+                        .majorB;
                     const total = creditsData
                         .data()
-                        .total - parseInt(userData.data().credits.total) + '/' + creditsData.data().total;
+                        .total - parseInt(userData.data().credits.total) + '/' + creditsData
+                        .data()
+                        .total;
 
                     const graduateCredits = [majorA, majorB, geA, geB, total];
                     title.forEach((value, index) => {
@@ -164,7 +189,8 @@ router.post('/', async function (req, res) {
                                         "title": "☑ 졸업까지 남은 학점 조회"
                                     },
                                     "itemList": itemList,
-                                    "title": "[남은 학점/전체 학점]\n본인 학번의 졸업까지 남은 학점 계산 결과입니다."
+                                    "title": "[남은 학점/전체 학점]",
+                                    "description": "본인 학번의 졸업까지 남은 학점 계산 결과입니다."
                                 }
                             }
                         ],
