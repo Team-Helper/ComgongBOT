@@ -45,7 +45,14 @@ async function checkAuth(req) {
                                     "title": "⚠ 누락된 설정이 있습니다."
                                 },
                                 "itemList": itemList,
-                                "title": "컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다."
+                                "title": "컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.",
+                                "buttons": [
+                                    {
+                                        "label": "이메일 인증",
+                                        "action": "webLink",
+                                        "webLinkUrl": "https://comgong-bot.web.app/blank"
+                                    }
+                                ],
                             }
                         }
                     ],
