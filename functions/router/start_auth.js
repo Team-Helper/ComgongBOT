@@ -50,7 +50,7 @@ async function checkAuth(req) {
                                     {
                                         "label": "이메일 인증",
                                         "action": "webLink",
-                                        "webLinkUrl": "https://comgong-bot.web.app/blank"
+                                        "webLinkUrl": "https://comgong-bot.web.app/"
                                     }
                                 ],
                             }
