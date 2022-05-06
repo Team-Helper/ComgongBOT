@@ -346,6 +346,7 @@ router.post('/', async function (req, res) {
 
     async function getImg(params, index) { // 이미지 DB 검색 쿼리문 처리 함수
         let imageData;
+        
         if (index === undefined) {
             imageData = await admin
                 .database()

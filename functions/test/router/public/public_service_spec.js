@@ -91,7 +91,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it('responds resultOut2', done => {
         const userRequest = {
@@ -181,7 +181,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it('responds resultOut3', done => {
         const userRequest = {
@@ -271,7 +271,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it('responds resultOut4', done => {
         const userRequest = {
@@ -361,7 +361,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it('responds resultOut5', done => {
         const userRequest = {
@@ -451,7 +451,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it('responds resultOut6', done => {
         const userRequest = {
@@ -470,7 +470,14 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleImage;
-                // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object');
+                expect(typeof element.imageUrl)
+                    .to
+                    .be
+                    .a('string');
                 expect(element.imageUrl)
                     .to
                     .include('png');
@@ -498,7 +505,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it('responds resultOut7', done => {
         const userRequest = {
@@ -523,6 +530,14 @@ describe('POST /public/public_service', () => { // 테스트 수트
                         .outputs[index]
                         .simpleImage;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object');
+                    expect(typeof element.imageUrl)
+                        .to
+                        .be
+                        .a('string');
                     expect(element.imageUrl)
                         .to
                         .include('jpg');
@@ -551,7 +566,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it('responds resultOut8', done => {
         const userRequest = {
@@ -633,5 +648,5 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 });

@@ -146,6 +146,10 @@ describe('POST /public', () => { // 테스트 수트
                     '이수체계도',
                     '교수진'
                 ];
+                expect(elementQuick)
+                    .to
+                    .have
+                    .lengthOf(array.length); // 응답 블록의 바로가기 개수가 지정한 배열 값 만큼인가
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].label)
                         .to
