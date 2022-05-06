@@ -14,12 +14,6 @@ describe('POST /public', () => { // 테스트 수트
         };
         request(functions.config().service_url.app) // 테스트 하려는 기본 주소
             .post('/public') // 주소의 엔드포인트
-            .set({
-                key: functions
-                    .config()
-                    .service_url
-                    .public_key
-            })
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest}) // body 데이터 전송
@@ -40,7 +34,7 @@ describe('POST /public', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it(
         'responds isFriend is true and auth fail',
@@ -55,12 +49,6 @@ describe('POST /public', () => { // 테스트 수트
             };
             request(functions.config().service_url.app)
                 .post('/public')
-                .set({
-                    key: functions
-                        .config()
-                        .service_url
-                        .public_key
-                })
                 .set('Accept', 'application/json')
                 .type('application/json')
                 .send({userRequest})
@@ -113,7 +101,7 @@ describe('POST /public', () => { // 테스트 수트
                     console.error("Error >>", err);
                     done(err);
                 });
-            }
+        }
     );
 
     it('responds auth success', done => { // 프로필 인증까지 완료되어있을 때
@@ -127,12 +115,6 @@ describe('POST /public', () => { // 테스트 수트
         };
         request(functions.config().service_url.app)
             .post('/public')
-            .set({
-                key: functions
-                    .config()
-                    .service_url
-                    .public_key
-            })
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -175,5 +157,5 @@ describe('POST /public', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 });

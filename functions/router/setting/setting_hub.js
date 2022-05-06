@@ -40,7 +40,7 @@ router.post('/', async function (req, res) {
                         "action": "block",
                         "blockId": functions
                             .config()
-                            .service_url
+                            .service_key
                             .credit_key,
                         "label": value
                     });
@@ -50,7 +50,7 @@ router.post('/', async function (req, res) {
                         "action": "block",
                         "blockId": functions
                             .config()
-                            .service_url
+                            .service_key
                             .studentid_modify_key,
                         "label": value
                     });
@@ -60,7 +60,7 @@ router.post('/', async function (req, res) {
                         "action": "block",
                         "blockId": functions
                             .config()
-                            .service_url
+                            .service_key
                             .setting_key,
                         "label": value
                     });
@@ -83,7 +83,7 @@ router.post('/', async function (req, res) {
                         "action": "block",
                         "blockId": functions
                             .config()
-                            .service_url
+                            .service_key
                             .credit_modify_key,
                         "label": value
                     });
@@ -93,7 +93,7 @@ router.post('/', async function (req, res) {
                         "action": "block",
                         "blockId": functions
                             .config()
-                            .service_url
+                            .service_key
                             .studentid_modify_key,
                         "label": value
                     });
@@ -103,7 +103,7 @@ router.post('/', async function (req, res) {
                         "action": "block",
                         "blockId": functions
                             .config()
-                            .service_url
+                            .service_key
                             .setting_key,
                         "label": value
                     });

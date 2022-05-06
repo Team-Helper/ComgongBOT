@@ -14,12 +14,6 @@ describe('POST /personal', () => { // 테스트 수트
         };
         request(functions.config().service_url.app) // 테스트 하려는 기본 주소
             .post('/personal') // 주소의 엔드포인트
-            .set({
-                key: functions
-                    .config()
-                    .service_url
-                    .personal_key
-            })
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest}) // body 데이터 전송
@@ -55,12 +49,6 @@ describe('POST /personal', () => { // 테스트 수트
             };
             request(functions.config().service_url.app)
                 .post('/personal')
-                .set({
-                    key: functions
-                        .config()
-                        .service_url
-                        .personal_key
-                })
                 .set('Accept', 'application/json')
                 .type('application/json')
                 .send({userRequest})
@@ -127,12 +115,6 @@ describe('POST /personal', () => { // 테스트 수트
         };
         request(functions.config().service_url.app)
             .post('/personal')
-            .set({
-                key: functions
-                    .config()
-                    .service_url
-                    .personal_key
-            })
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -198,12 +180,6 @@ describe('POST /personal', () => { // 테스트 수트
         };
         request(functions.config().service_url.app)
             .post('/personal')
-            .set({
-                key: functions
-                    .config()
-                    .service_url
-                    .personal_key
-            })
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -221,7 +197,7 @@ describe('POST /personal', () => { // 테스트 수트
                     .a('string'); // 응답 블록의 본문이 문자열 타입인가
                 expect(element.text)
                     .to
-                    .include('원하시는 학과 메뉴를 선택'); // 응답 블록의 본문이 작성한 텍스트 내용을 포함하는가
+                    .include('원하시는 메뉴를 선택'); // 응답 블록의 본문이 작성한 텍스트 내용을 포함하는가
 
                 const elementQuick = res.body.template.quickReplies;
                 // console.log(element);

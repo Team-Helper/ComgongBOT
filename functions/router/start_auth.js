@@ -62,7 +62,7 @@ async function checkAuth(req) {
                             "action": "block",
                             "blockId": functions
                                 .config()
-                                .service_url
+                                .service_key
                                 .email_key,
                             "label": "이메일 인증"
                         }

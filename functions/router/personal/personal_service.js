@@ -23,7 +23,7 @@ router.post('/', async function (req, res) {
             "action": "block",
             "blockId": functions
                 .config()
-                .service_url
+                .service_key
                 .personalhub_key,
             "label": "↩ 뒤로가기"
         }
