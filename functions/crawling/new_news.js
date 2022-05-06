@@ -9,7 +9,7 @@ exports.newNews = functions // 크롤링 함수 이름
     .onRequest((req, res) => {
         axios
             .get('https://www.sungkyul.ac.kr/computer/4102/subview.do') // 새소식 페이지 주소
-            .then(html => {
+            .then(async (html) => {
                 const tableCrawling = new Object();
                 // eslint-disable-next-line id-length
                 const $ = cheerio.load(html.data);
@@ -37,15 +37,12 @@ exports.newNews = functions // 크롤링 함수 이름
                     };
                 }
                 // console.log(tableCrawling);
-                return tableCrawling; // 오브젝트 변수 반환
-            })
-            .then(async (result) => {
-                // console.log(result);
                 await admin
                     .database()
                     .ref('newNews/')
-                    .set(result); // 반환된 변수를 DB에 저장
+                    .set(tableCrawling); // 오브젝트 변수를 DB에 저장
                 console.log('newNews DB input Success');
+                // res.status(201).send(tableCrawling);
                 res.sendStatus(201); // 성공 코드 전송
             })
             .catch(err => {

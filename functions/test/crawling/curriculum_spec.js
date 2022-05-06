@@ -15,7 +15,7 @@ describe('GET /curriculum', () => { // 테스트 수트
                     .a('string'); // 응답 결과가 문자열 타입인가
                 expect(res.text)
                     .to
-                    .include('png'); // 결과에 png 명칭이 있는가
+                    .include('png'); // 응답 결과가 png 파일명인가
                 done();
             })
             .catch(err => {

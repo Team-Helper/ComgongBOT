@@ -38,6 +38,7 @@ exports.curriculum = functions // 크롤링 함수 이름
                 .ref('curriculum/')
                 .set({imgUrl: imgUrl}); // 주소를 DB에 저장
             console.log('Crawling and curriculum DB input Success');
+            // res.status(201).send(imgUrl);
             res.sendStatus(201); // 성공 코드 전송
         } catch (err) {
             console.error('Error from curriculum : ', err);

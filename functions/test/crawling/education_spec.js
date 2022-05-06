@@ -25,7 +25,7 @@ describe('GET /education', () => { // 테스트 수트
                     expect(res.body[index].title)
                         .to
                         .be
-                        .a('string'); // 해당 key값이 문자열 타입인가
+                        .a('string'); // 해당 key의 내용 값이 문자열 타입인가
                     expect(res.body[index].date)
                         .to
                         .be
