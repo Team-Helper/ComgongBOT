@@ -34,7 +34,7 @@ describe('POST /setting', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
     it(
         'responds isFriend is true and auth fail',
@@ -73,6 +73,9 @@ describe('POST /setting', () => { // 테스트 수트
 
                     const elementItems = element.itemList;
                     const title = ['이메일', '학년/학번'];
+                    expect(Object.keys(elementItems).length)
+                        .to
+                        .equal(title.length); // 응답 결과 개수가 지정한 배열 사이즈 만큼인가
                     for (let index = 0; index < elementItems.length; index++) {
                         const itemTitle = elementItems[index].title;
                         const itemDescription = elementItems[index].description;
@@ -101,7 +104,7 @@ describe('POST /setting', () => { // 테스트 수트
                     console.error("Error >>", err);
                     done(err);
                 });
-            }
+        }
     );
 
     it('responds not input credits', done => { // 프로필 인증은 되었으나 학점 입력이 이루어지지 않았을 때
@@ -137,6 +140,9 @@ describe('POST /setting', () => { // 테스트 수트
                 // console.log(itemLength);
                 const items = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
                 const type = ['string', 'string', 'string', 'string', 'string'];
+                expect(itemLength)
+                    .to
+                    .equal(items.length);
                 for (let index = 0; index < itemLength; index++) {
                     // console.log(element.itemList[index].description)
                     expect(element.itemList[index].title)
@@ -150,7 +156,14 @@ describe('POST /setting', () => { // 테스트 수트
 
                 const elementQuick = res.body.template.quickReplies;
                 // console.log(element);
-                const array = ['학점 입력', '학년 변경', '학번 변경', '학적상태 변경', '공학인증 변경', '설정 초기화'];
+                const array = [
+                    '학점 입력',
+                    '학년 변경',
+                    '학번 변경',
+                    '학적상태 변경',
+                    '공학인증 변경',
+                    '설정 초기화'
+                ];
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].label)
                         .to
@@ -162,9 +175,9 @@ describe('POST /setting', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 
-    it('responds auth success', done => { // 프로필 그리고 학점 인증까지 되었을 떄
+    it('responds auth & credits success', done => { // 프로필 그리고 학점 인증까지 되었을 떄
         const userRequest = {
             user: {
                 "properties": {
@@ -197,6 +210,9 @@ describe('POST /setting', () => { // 테스트 수트
                 // console.log(itemLength);
                 const items = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
                 const type = ['string', 'string', 'string', 'string', 'string'];
+                expect(itemLength)
+                    .to
+                    .equal(items.length);
                 for (let index = 0; index < itemLength; index++) {
                     // console.log(element.itemList[index].description)
                     expect(element.itemList[index].title)
@@ -209,8 +225,19 @@ describe('POST /setting', () => { // 테스트 수트
                 }
 
                 const elementQuick = res.body.template.quickReplies;
-                console.log(elementQuick);
-                const array = ['학점 수정', '학년 변경', '학번 변경', '학적상태 변경', '공학인증 변경', '설정 초기화'];
+                // console.log(elementQuick);
+                const array = [
+                    '학점 수정',
+                    '학년 변경',
+                    '학번 변경',
+                    '학적상태 변경',
+                    '공학인증 변경',
+                    '설정 초기화'
+                ];
+                expect(elementQuick)
+                    .to
+                    .have
+                    .lengthOf(array.length); // 응답 블록의 바로가기 개수가 지정한 배열 사이즈 만큼인가
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].label)
                         .to
@@ -222,5 +249,5 @@ describe('POST /setting', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 });
