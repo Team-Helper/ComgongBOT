@@ -30,7 +30,7 @@ describe('POST /private', () => {
                     .template
                     .outputs[0]
                     .simpleText;
-                //console.log(element);
+                // console.log(element);
                 expect(element.text)
                     .to
                     .include("컴공봇 채널 추가부터");
@@ -60,7 +60,7 @@ describe('POST /private', () => {
                     .template
                     .outputs[0]
                     .itemCard;
-                //console.log(element);
+                // console.log(element);
                 expect(element.head.title)
                     .to
                     .be
@@ -90,7 +90,7 @@ describe('POST /private', () => {
                     .body
                     .template
                     .quickReplies[0];
-                //console.log(element);
+                // console.log(element);
                 expect(elementQuick.messageText)
                     .to
                     .equal('이메일 인증할게');

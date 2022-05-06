@@ -4,13 +4,13 @@ const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    //console.log(req.body.userRequest.user.id);
-    const userAbout = req.body.userRequest.user.properties; //사용자 정보
-    //console.log(userAbout);
-    const userRequest = req.body.userRequest.utterance; //사용자 요청문
-    //console.log(userRequest);
-    let responseBody; //응답 블록 구조
-    /*사용자 프로필 DB 조회*/
+    // console.log(req.body.userRequest.user.id);
+    const userAbout = req.body.userRequest.user.properties; // 사용자 정보
+    // console.log(userAbout);
+    const userRequest = req.body.userRequest.utterance; // 사용자 요청문
+    // console.log(userRequest);
+    let responseBody; // 응답 블록 구조
+    /* 사용자 프로필 DB 조회*/
     let firestore = admin.firestore();
     let userSelect = firestore
         .collection('users')
@@ -18,7 +18,7 @@ router.post('/', async function (req, res) {
     let userData;
     const quickReplies = [
         {
-            //바로가기 작성
+            // 바로가기 작성
             "messageText": "뒤로 돌아갈래",
             "action": "block",
             "blockId": functions
@@ -29,11 +29,11 @@ router.post('/', async function (req, res) {
         }
     ];
 
-    switch (userRequest) { //사용자 요청문 내용에 따른 개별 처리
+    switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
         case "나의 누적 학점을 알려줘":
             {
-                userData = await userSelect.get(); //사용자 프로필 DB 값 변수처리
-                /*사용자 학점 데이터 get*/
+                userData = await userSelect.get(); // 사용자 프로필 DB 값 변수처리
+                /* 사용자 학점 데이터 get*/
                 const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
                 const description = [
                     userData
@@ -57,7 +57,7 @@ router.post('/', async function (req, res) {
                         .credits
                         .total
                 ];
-                /*아이템 카드 뷰 본문 작성*/
+                /* 아이템 카드 뷰 본문 작성*/
                 const itemList = [];
                 title.forEach((value, index) => {
                     itemList.push({"title": value, "description": description[index]});
@@ -67,7 +67,7 @@ router.post('/', async function (req, res) {
                     template: {
                         outputs: [
                             {
-                                itemCard: { //아이템 카드 뷰 블록으로 출력
+                                itemCard: { // 아이템 카드 뷰 블록으로 출력
                                     "head": {
                                         "title": "☑ 누적 학점 조회"
                                     },
@@ -76,7 +76,7 @@ router.post('/', async function (req, res) {
                                 }
                             }
                         ],
-                        quickReplies: quickReplies //바로가기 출력
+                        quickReplies: quickReplies // 바로가기 출력
                     }
                 };
                 break;
@@ -88,22 +88,22 @@ router.post('/', async function (req, res) {
                 const thieYear = new Date()
                     .getFullYear()
                     .toString()
-                    .substr(0, 2); //현재 년도 앞의 2자리 추출
-                //console.log(thieYear);
+                    .substr(0, 2); // 현재 년도 앞의 2자리 추출
+                // console.log(thieYear);
                 const userStudentID = thieYear + userData
                     .data()
-                    .studentID; //추출 한 값을 사용자 학번 값에 앞자리 년도로 추가
-                /*출력 item 리스트 */
+                    .studentID; // 추출 한 값을 사용자 학번 값에 앞자리 년도로 추가
+                /* 출력 item 리스트 */
                 const title = ['전공필수', '전공선택', '교양필수', '교양선택', '총 학점'];
                 const itemList = [];
-                /*사용자가 공학인증 상태 시 */
+                /* 사용자가 공학인증 상태 시 */
                 if (userData.data().engineeringStatus == true) {
-                    /*공학인증 관련 사용자 학번 학점DB 조회*/
+                    /* 공학인증 관련 사용자 학번 학점DB 조회*/
                     const engineerCreditsSelect = firestore.collection('engineeringCredits');
                     const engineerCreditsData = await engineerCreditsSelect
                         .doc(userStudentID)
                         .get();
-                    /*남은 학점 계산 */
+                    /* 남은 학점 계산 */
                     const geA = engineerCreditsData
                         .data()
                         .geA - parseInt(userData.data().credits.geA) + '/' +
@@ -135,13 +135,13 @@ router.post('/', async function (req, res) {
                         .data()
                         .total;
 
-                    /*아이템 카드 뷰 본문 작성*/
+                    /* 아이템 카드 뷰 본문 작성*/
                     const graduateCredits = [majorA, majorB, geA, geB, total];
                     title.forEach((value, index) => {
                         itemList.push({'title': value, 'description': graduateCredits[index]});
                     });
                 } else {
-                    /*일반인증 관련 사용자 학번 학점DB 조회*/
+                    /* 일반인증 관련 사용자 학번 학점DB 조회*/
                     const creditsSelect = firestore.collection('credits');
                     const creditsData = await creditsSelect
                         .doc(userStudentID)
@@ -178,7 +178,7 @@ router.post('/', async function (req, res) {
                         itemList.push({'title': value, 'description': graduateCredits[index]});
                     });
                 }
-                //console.log(itemList);
+                // console.log(itemList);
                 responseBody = {
                     version: "2.0",
                     template: {
@@ -208,7 +208,7 @@ router.post('/', async function (req, res) {
     }
     res
         .status(201)
-        .send(responseBody); //응답 상태 코드와 내용 전송
+        .send(responseBody); // 응답 상태 코드와 내용 전송
 });
 
 module.exports = router;

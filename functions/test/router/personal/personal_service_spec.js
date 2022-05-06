@@ -2,9 +2,9 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /personal/personal_service', () => { //테스트 수트
-    it('responds check credits', done => { //테스트 단위 : 학점 입력이 되어있고 조회를 할 떄
-        const userRequest = { //기본 사용자 정보 시나리오와 요청 발화문
+describe('POST /personal/personal_service', () => { // 테스트 수트
+    it('responds check credits', done => { // 테스트 단위 : 학점 입력이 되어있고 조회를 할 떄
+        const userRequest = { // 기본 사용자 정보 시나리오와 요청 발화문
             user: {
                 "properties": {
                     "plusfriendUserKey": "some-id",
@@ -13,35 +13,35 @@ describe('POST /personal/personal_service', () => { //테스트 수트
             },
             utterance: "나의 누적 학점을 알려줘"
         };
-        request(functions.config().service_url.app) //테스트 하려는 기본 주소
-            .post('/personal/personal_service') //주소의 엔드포인트
+        request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+            .post('/personal/personal_service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest}) //body 데이터 전송
-            .expect(201) //응답 상태코드
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res
                     .body
                     .template
                     .outputs[0]
                     .itemCard;
-                //console.log(element);
+                // console.log(element);
                 expect(element)
                     .to
                     .be
-                    .an('object'); //응답 결과가 오브젝트 타입인가
+                    .an('object'); // 응답 결과가 오브젝트 타입인가
                 const headTitle = element.head.title;
                 const elementTitle = element.title;
                 expect(headTitle)
                     .to
                     .be
-                    .a('string'); //아이템 카드 뷰의 제목이 문자열 타입인가
+                    .a('string'); // 아이템 카드 뷰의 제목이 문자열 타입인가
                 expect(headTitle)
                     .to
-                    .include('누적 학점 조회'); //아이템 카드 뷰의 제목 내용이 작성한 텍스트 내용을 포함하는가
+                    .include('누적 학점 조회'); // 아이템 카드 뷰의 제목 내용이 작성한 텍스트 내용을 포함하는가
                 expect(elementTitle)
                     .to
-                    .equal('학점은 설정을 통해 언제든지 수정이 가능합니다.'); //아이템 카드 뷰의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
+                    .equal('학점은 설정을 통해 언제든지 수정이 가능합니다.'); // 아이템 카드 뷰의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const elementItems = element.itemList;
                 const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
@@ -50,24 +50,24 @@ describe('POST /personal/personal_service', () => { //테스트 수트
                     const itemDescription = elementItems[index].description;
                     expect(itemTitle)
                         .to
-                        .equal(title[index]); //아이템 카드 뷰의 본문 key 값 내용이 지정한 배열의 내용과 완전 일치하는가
+                        .equal(title[index]); // 아이템 카드 뷰의 본문 key 값 내용이 지정한 배열의 내용과 완전 일치하는가
                     expect(itemDescription)
                         .to
                         .be
-                        .a('string'); //아이템 카드 뷰의 본문 value 값이 문자열 타입인가
+                        .a('string'); // 아이템 카드 뷰의 본문 value 값이 문자열 타입인가
                 }
 
                 const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                //console.log(elementQuick);
+                // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .include('뒤로 돌아갈래'); //응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용을 포함하는가
+                    .include('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용을 포함하는가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기'); //응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
+                    .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -78,8 +78,8 @@ describe('POST /personal/personal_service', () => { //테스트 수트
 
     it(
         'responds check graduateCredits',
-        done => { //테스트 단위 : 학점과 학번, 공학인증여부가 입력되어 있고 조회할 때
-            const userRequest = { //기본 사용자 시나리오와 요청 발화문
+        done => { // 테스트 단위 : 학점과 학번, 공학인증여부가 입력되어 있고 조회할 때
+            const userRequest = { // 기본 사용자 시나리오와 요청 발화문
                 user: {
                     "properties": {
                         "plusfriendUserKey": "some-id",
@@ -100,7 +100,7 @@ describe('POST /personal/personal_service', () => { //테스트 수트
                         .template
                         .outputs[0]
                         .itemCard;
-                    //console.log(element);
+                    // console.log(element);
                     expect(element)
                         .to
                         .be

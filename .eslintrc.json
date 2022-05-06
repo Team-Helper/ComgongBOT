@@ -26,6 +26,6 @@
             "error",
             3
         ],
-        "spaced-comment": ["error", "never"] // 주석처리 시작부분에 공백을 넣으면 에러
+        "spaced-comment": ["error", "always"] // 주석처리 시작부분에 공백을 넣으면 에러
     }
 }
