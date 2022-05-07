@@ -52,12 +52,12 @@ exports.coldBreak = functions // 함수 이름
                     .then(result => {
                         console.log('public service: ', result.status); // 조회 성공 시 성공 상태 코드 출력
                     })
-                    .catch(error => {
-                        console.error('Error from coldBreak public service: ', error); // 실패 시 에러문 출력
+                    .catch(err => {
+                        console.error('Error from coldBreak public service: ', err); // 실패 시 에러문 출력
                     });
             })
-            .catch(error => {
-                console.error('Error from coldBreak public: ', error);
+            .catch(err => {
+                console.error('Error from coldBreak public: ', err);
             });
 
         let data2 = JSON.stringify({
@@ -105,12 +105,12 @@ exports.coldBreak = functions // 함수 이름
                     .then(result => {
                         console.log('personal service: ', result.status);
                     })
-                    .catch(error => {
-                        console.error('Error from coldBreak personal service: ', error);
+                    .catch(err => {
+                        console.error('Error from coldBreak personal service: ', err);
                     });
             })
-            .catch(error => {
-                console.error('Error from coldBreak personal: ', error);
+            .catch(err => {
+                console.error('Error from coldBreak personal: ', err);
             });
 
         let data3 = JSON.stringify({
@@ -158,12 +158,12 @@ exports.coldBreak = functions // 함수 이름
                     .then(result => {
                         console.log('setting service: ', result.status);
                     })
-                    .catch(error => {
-                        console.error('Error from coldBreak setting service: ', error);
+                    .catch(err => {
+                        console.error('Error from coldBreak setting service: ', err);
                     });
             })
-            .catch(error => {
-                console.error('Error from coldBreak setting: ', error);
+            .catch(err => {
+                console.error('Error from coldBreak setting: ', err);
             });
         return null;
     });

@@ -15,8 +15,8 @@ router.post('/', async function (req, res) {
     await admin
         .auth()
         .createUser({email: email}) // 입력한 이메일 주소로 AUTH 생성
-        .catch(error => {
-            console.error('Error from auth to createUser:', error);
+        .catch(err => {
+            console.error('Error from auth to createUser:', err);
         });
 
     const firestore = admin.firestore();

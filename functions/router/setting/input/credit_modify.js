@@ -20,12 +20,11 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
-    // console.log(userData.data().credits[menuType]);
 
     if (userData.data().credits[menuType] === credit) { // 입력한 학점이 기존의 학점 값과 같을 경우
+        /* 바로가기 작성*/
         items = ['나의 학점을 수정할게'];
         label = ['↩ 뒤로가기'];
-        /* 바로가기 작성*/
         items.forEach((value, index) => {
             quickReplies.push({
                 "messageText": value,

@@ -41,16 +41,17 @@ describe('POST /setting/credit_modify', () => { // 테스트 수트
                         .template
                         .outputs[0]
                         .simpleText;
+                    // console.log(element);
                     expect(element.text)
                         .to
-                        .include('입력하신 학점으로 수정'); // 응답 결과가 작성한 텍스트 내용을 포함하는가
+                        .equal('🔄 입력하신 학점으로 수정이 완료되었습니다.'); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
                     done();
                 })
                 .catch(err => {
                     console.error("Error >>", err);
                     done(err);
                 });
-            }
+        }
     );
 
     it('responds fail modify credit', done => { // 수정이 실패했을 때
@@ -89,7 +90,7 @@ describe('POST /setting/credit_modify', () => { // 테스트 수트
                     .simpleText;
                 expect(element.text)
                     .to
-                    .include('이미 같은 학점');
+                    .equal('🚫 이미 같은 학점 이예요!'); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
 
                 const elementQuick = res
                     .body
@@ -111,5 +112,5 @@ describe('POST /setting/credit_modify', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 });

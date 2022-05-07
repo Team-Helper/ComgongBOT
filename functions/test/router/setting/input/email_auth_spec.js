@@ -58,6 +58,9 @@ describe('POST /setting/email_auth', () => { // 테스트 수트
                     expect(elementQuick.messageText)
                         .to
                         .equal('학점 입력할게'); // 응답 블록의 바로가기 요청문이 작성한 텍스트의 내용과 완전 일치하는가
+                    expect(elementQuick.action)
+                        .to
+                        .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                     expect(elementQuick.label)
                         .to
                         .equal('학점 입력'); // 응답 블록의 바로가기 버튼명이 작성한 텍스트의 내용과 완전 일치하는가
@@ -67,6 +70,6 @@ describe('POST /setting/email_auth', () => { // 테스트 수트
                     console.error("Error >>", err);
                     done(err);
                 });
-            }
+        }
     );
 });
