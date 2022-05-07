@@ -200,11 +200,11 @@ router.post('/', async function (req, res) {
                 break;
             }
 
-        case "교과목별 최저이수 요구학점을 알려줘":
+        case "나의 졸업조건을 알려줘":
             {
-                /*사용자 데이터 get */
+                /* 사용자 데이터 get */
                 userData = await userSelect.get();
-                /*사용자 학번 추출 */
+                /* 사용자 학번 추출 */
                 const thieYear = new Date()
                     .getFullYear()
                     .toString()
@@ -212,17 +212,17 @@ router.post('/', async function (req, res) {
                 const userStudentID = thieYear + userData
                     .data()
                     .studentID;
-                /*출력 item 리스트 */
+                /* 출력 item 리스트 */
                 const title = ['채플', '이수체계도', '설계-이수체계도'];
                 const itemList = [];
 
                 if (userData.data().engineeringStatus == true) {
-                    /*사용자 학번에 매칭되는 공학인증 DB 추출 */
+                    /* 사용자 학번에 매칭되는 공학인증 DB 추출 */
                     const engineerCreditsSelect = firestore.collection('engineeringCredits');
                     const engineerCreditsData = await engineerCreditsSelect
                         .doc(userStudentID)
                         .get();
-                    /*사용자 채플, 이수체계도 데이터 추출 */
+                    /* 사용자 채플, 이수체계도 데이터 추출 */
                     const chapel = engineerCreditsData
                         .data()
                         .chapel;
@@ -242,12 +242,12 @@ router.post('/', async function (req, res) {
                         itemList.push({'title': title[index], 'description': value});
                     });
                 } else {
-                    /*사용자 학번에 매칭되는 공학인증 DB 추출 */
+                    /* 사용자 학번에 매칭되는 공학인증 DB 추출 */
                     const creditsSelect = firestore.collection('credits');
                     const creditsData = await creditsSelect
                         .doc(userStudentID)
                         .get();
-                    /*사용자 채플, 이수체계도 데이터 추출 */
+                    /* 사용자 채플, 이수체계도 데이터 추출 */
                     const chapel = creditsData
                         .data()
                         .chapel;
