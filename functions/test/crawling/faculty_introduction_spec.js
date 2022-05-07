@@ -25,7 +25,7 @@ describe('GET /facultyIntroduction', () => { // 테스트 수트
                     expect(res.body[index].img)
                         .to
                         .be
-                        .a('string'); // 해당 key 값이 문자열 타입인가
+                        .a('string'); // 해당 key의 내용 값이 문자열 타입인가
                     expect(res.body[index].name)
                         .to
                         .be
