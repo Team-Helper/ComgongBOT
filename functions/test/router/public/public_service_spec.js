@@ -24,22 +24,22 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 expect(element)
                     .to
                     .be
-                    .an('object'); // 응답 결과가 오브젝트 타입인가
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
 
                 const headerString = element.header.title;
                 // console.log(headerString);
                 expect(headerString)
                     .to
                     .be
-                    .a('string'); // 리스트 뷰 제목이 문자열 타입인가
+                    .a('string'); // 응답 블록 제목이 문자열 타입인가
                 expect(headerString)
                     .to
-                    .equal('학과 공지사항'); // 리스트 뷰 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
+                    .equal('학과 공지사항'); // 응답 블록 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const items = element.items;
                 expect(items.length)
                     .to
-                    .equal(5); // 리스트 뷰의 본문 갯수가 지정한 값 만큼인가
+                    .equal(5); // 응답 블록의 본문 개수가 지정한 값 만큼인가
                 for (let index = 0; index < items.length; index++) {
                     const itemTitle = items[index].title;
                     const itemDate = items[index].description;
@@ -47,7 +47,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     expect(itemTitle)
                         .to
                         .be
-                        .a('string'); // 리스트 뷰 본문의 제목이 문자열 타입인가
+                        .a('string'); // 응답 블록 본문의 제목이 문자열 타입인가
                     expect(itemDate)
                         .to
                         .be
@@ -62,14 +62,14 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 // console.log(button.label);
                 expect(button.label)
                     .to
-                    .equal('학과 공지사항 페이지'); // 리스트 뷰 하단 버튼명이 작성한 텍스트 내용과 완전 일치하는가
+                    .equal('학과 공지사항 페이지'); // 응답 블록 하단 버튼명이 작성한 텍스트 내용과 완전 일치하는가
                 expect(button.action)
                     .to
-                    .equal('webLink'); // 리스트 뷰 하단 버튼 구조가 웹 링크연결 구조인가
+                    .equal('webLink'); // 응답 블록 하단 버튼 구조가 웹 링크연결 구조인가
                 expect(button.webLinkUrl)
                     .to
                     .be
-                    .a('string'); // 리스트 뷰 하단 버튼 링크가 문자열 타입인가
+                    .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
 
                 const backElement = res
                     .body
@@ -477,13 +477,13 @@ describe('POST /public/public_service', () => { // 테스트 수트
                 expect(typeof element.imageUrl)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 이미지 주소가 문자열 타입인가
                 expect(element.imageUrl)
                     .to
-                    .include('png');
+                    .include('png'); // 응답 블록의 이미지 주소에 png 확장자가 포함되었는가
                 expect(element.altText)
                     .to
-                    .equal('교과과정');
+                    .equal('교과과정'); // 응답 블록의 이미지 설명문이 작성한 텍스트 내용과 완전일치 하는가
 
                 const backElement = res
                     .body
@@ -582,6 +582,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .then(res => {
                 const elementLength = res.body.template.outputs.length;
                 // console.log(elementLength);
+                /* 응답 횟수 별로 구조와 내용 검증*/
                 for (let index = 0; index < elementLength; index++) {
                     const element = res
                         .body
@@ -591,7 +592,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     // console.log(element);
                     expect(element.type)
                         .to
-                        .equal('basicCard');
+                        .equal('basicCard'); // 응답 블록의 구조가 베이직 카드 구조인가
                     const items = element.items;
                     // console.log(items.length);
                     for (let index = 0; index < items.length; index++) {
