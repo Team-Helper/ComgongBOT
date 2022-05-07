@@ -154,4 +154,84 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                 });
         }
     );
+
+    it('responds check graduationCompletionCondition',
+        done => {
+            const userRequest = {
+                user: {
+                    "properties": {
+                        "plusfriendUserKey": "some-id",
+                        "isFriend": true
+                    }
+                },
+                utterance: "교과목별 최저이수 요구학점을 알려줘"
+            };
+            request(functions.config().service_url.app)
+                .post('/personal/personal_service')
+                .set('Accept', 'application/json')
+                .type('application/json')
+                .send({userRequest})
+                .expect(201)
+                .then(res => {
+                    const element = res
+                        .body
+                        .template
+                        .outputs[0]
+                        .itemCard;
+                    expect(element)
+                        .to
+                        .be
+                        .an('object');
+                    const headTitle = element.head.title;
+                    const elementTitle = element.title;
+                    expect(headTitle)
+                        .to
+                        .be
+                        .a('string');
+                    expect(headTitle)
+                        .to
+                        .include('졸업이수 조건 조회');
+                    expect(elementTitle)
+                        .to
+                        .equal('본인 학번의 졸업이수 조건 결과입니다.');
+                    
+                    const elementItems = element.itemList;
+                    const title = ['채플', '이수체계도', '설계-이수체계도'];
+                    for (let index=0; index < elementItems.length; index++) {
+                        const itemTitle = elementItems[index].title;
+                        const itemDescription = elementItems[index].description;
+                        expect(itemTitle)
+                            .to
+                            .equal(title[index]);
+                        if (index == 0) {
+                            expect(itemDescription)
+                                .to
+                                .be
+                                .a('number');
+                        } else {
+                            expect(itemDescription)
+                                .to
+                                .be
+                                .a('string');
+                        }
+                    }
+
+                    const elementQuick = res
+                        .body
+                        .template
+                        .quickReplies[0];
+                    expect(elementQuick.messageText)
+                        .to
+                        .equal('뒤로 돌아갈래');
+                    expect(elementQuick.label)
+                        .to
+                        .include('뒤로가기');
+                    done();
+                })
+                .catch(err => {
+                    console.error("Error >>", err);
+                    done(err);
+                });
+        }
+    );
 });

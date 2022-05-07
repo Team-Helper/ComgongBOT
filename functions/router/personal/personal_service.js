@@ -201,7 +201,84 @@ router.post('/', async function (req, res) {
             }
 
         case "교과목별 최저이수 요구학점을 알려줘":
-            break;
+            {
+                /*사용자 데이터 get */
+                userData = await userSelect.get();
+                /*사용자 학번 추출 */
+                const thieYear = new Date()
+                    .getFullYear()
+                    .toString()
+                    .substring(0, 2);
+                const userStudentID = thieYear + userData
+                    .data()
+                    .studentID;
+                /*출력 item 리스트 */
+                const title = ['채플', '이수체계도', '설계-이수체계도'];
+                const itemList = [];
+
+                if (userData.data().engineeringStatus == true) {
+                    /*사용자 학번에 매칭되는 공학인증 DB 추출 */
+                    const engineerCreditsSelect = firestore.collection('engineeringCredits');
+                    const engineerCreditsData = await engineerCreditsSelect
+                        .doc(userStudentID)
+                        .get();
+                    /*사용자 채플, 이수체계도 데이터 추출 */
+                    const chapel = engineerCreditsData
+                        .data()
+                        .chapel;
+                    const completionSystem = engineerCreditsData
+                        .data()
+                        .completionSystem;
+                    const itmeSet = [];
+
+                    if (parseInt(userStudentID) < 2015) {
+                        itmeSet.push(chapel);
+                    } else if (parseInt(userStudentID) == 2015) {
+                        itmeSet.push(chapel, completionSystem);
+                    } else {
+                        itmeSet.push(chapel, completionSystem[0], completionSystem[1]);
+                    }
+                    itmeSet.forEach((value, index) => {
+                        itemList.push({'title': title[index], 'description': value});
+                    });
+                } else {
+                    /*사용자 학번에 매칭되는 공학인증 DB 추출 */
+                    const creditsSelect = firestore.collection('credits');
+                    const creditsData = await creditsSelect
+                        .doc(userStudentID)
+                        .get();
+                    /*사용자 채플, 이수체계도 데이터 추출 */
+                    const chapel = creditsData
+                        .data()
+                        .chapel;
+                    const itemSet = [];
+
+                    itemSet.push(chapel);
+                    itemSet.forEach((value, index) => {
+                        itemList.push({'title': title[index], 'description': value});
+                    });
+                }
+                console.log(itemList);
+                
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                itemCard: {
+                                    "head": {
+                                        "title": "☑ 졸업이수 조건 조회"
+                                    },
+                                    "itemList": itemList,
+                                    "title": "본인 학번의 졸업이수 조건 결과입니다."
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                };
+                break;
+            }
 
         default:
             break;
