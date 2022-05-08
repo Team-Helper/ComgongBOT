@@ -204,6 +204,14 @@ router.post('/', async function (req, res) {
             {
                 userData = await userSelect.get(); // 사용자 프로필 DB 값 변수처리
                 let items = []; // 응답 블록의 내용을 처리
+                title = [
+                    "전공필수",
+                    "전공선택",
+                    "교양필수",
+                    "교양선택",
+                    "총 학점",
+                    "채플 횟수"
+                ]; // 아이템 카드 뷰 본문 목차 내용 작성
                 /* 사용자 학번 추출 및 현재년도 전체이름으로 설정*/
                 const thieYear = new Date()
                     .getFullYear()
@@ -253,29 +261,16 @@ router.post('/', async function (req, res) {
                     ];
                     /* 학번에 따른 응답 구조 작성 */
                     if (parseInt(userStudentID) < 2015) {
-                        itemSet.push(credits);
+                        title.forEach((value, index) => {
+                            itemList.push({'title': value, 'description': credits[index]});
+                        });
+                        itemSet.push(itemList);
                     } else if (parseInt(userStudentID) == 2015) {
-                        title = [
-                            "전공필수",
-                            "전공선택",
-                            "교양필수",
-                            "교양선택",
-                            "총 학점",
-                            "채플 횟수"
-                        ];
                         title.forEach((value, index) => {
                             itemList.push({'title': value, 'description': credits[index]});
                         });
                         itemSet.push(itemList, completionSystem);
                     } else {
-                        title = [
-                            "전공필수",
-                            "전공선택",
-                            "교양필수",
-                            "교양선택",
-                            "총 학점",
-                            "채플 횟수"
-                        ];
                         title.forEach((value, index) => {
                             itemList.push({'title': value, 'description': credits[index]});
                         });
@@ -330,14 +325,6 @@ router.post('/', async function (req, res) {
                             .chapel
                     ];
                     /* 응답 구조인 아이템 카드 뷰 작성 */
-                    title = [
-                        "전공필수",
-                        "전공선택",
-                        "교양필수",
-                        "교양선택",
-                        "총 학점",
-                        "채플 횟수"
-                    ];
                     title.forEach((value, index) => {
                         itemList.push({'title': value, 'description': credits[index]});
                     });
