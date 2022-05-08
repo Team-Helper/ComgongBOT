@@ -7,7 +7,7 @@ describe('POST /personal', () => { // 테스트 수트
         const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id", // 사용자 카카오 채널 아이디
+                    "plusfriendUserKey": "testID", // 사용자 카카오 채널 아이디
                     "isFriend": undefined // 채널 추가 상태
                 }
             }
@@ -42,7 +42,7 @@ describe('POST /personal', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id",
+                        "plusfriendUserKey": "testID",
                         "isFriend": true
                     }
                 }
@@ -115,7 +115,7 @@ describe('POST /personal', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             }
@@ -187,7 +187,7 @@ describe('POST /personal', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             }

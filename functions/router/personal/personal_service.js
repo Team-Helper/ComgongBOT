@@ -28,14 +28,18 @@ router.post('/', async function (req, res) {
             "label": "↩ 뒤로가기"
         }
     ];
+    /* 아이템 카드 뷰의 본문 목차와 내용 작성 관련*/
+    let title;
+    let description;
+    let itemList = [];
 
     switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
         case "나의 누적 학점을 알려줘":
             {
                 userData = await userSelect.get(); // 사용자 프로필 DB 값 변수처리
                 /* 사용자 학점 데이터 get*/
-                const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
-                const description = [
+                title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
+                description = [
                     userData
                         .data()
                         .credits
@@ -58,7 +62,6 @@ router.post('/', async function (req, res) {
                         .total
                 ];
                 /* 아이템 카드 뷰 본문 작성*/
-                const itemList = [];
                 title.forEach((value, index) => {
                     itemList.push({"title": value, "description": description[index]});
                 });
@@ -84,26 +87,24 @@ router.post('/', async function (req, res) {
 
         case "졸업까지 남은 학점을 계산해줘":
             {
-                userData = await userSelect.get();
+                userData = await userSelect.get(); // 사용자 프로필 DB 값 변수처리
+                /* 사용자 학번 추출 및 현재년도 전체이름으로 설정*/
                 const thieYear = new Date()
                     .getFullYear()
                     .toString()
-                    .substr(0, 2); // 현재 년도 앞의 2자리 추출
-                // console.log(thieYear);
+                    .substr(0, 2);
                 const userStudentID = thieYear + userData
                     .data()
-                    .studentID; // 추출 한 값을 사용자 학번 값에 앞자리 년도로 추가
-                /* 출력 item 리스트 */
-                const title = ['전공필수', '전공선택', '교양필수', '교양선택', '총 학점'];
-                const itemList = [];
-                /* 사용자가 공학인증 상태 시 */
-                if (userData.data().engineeringStatus == true) {
-                    /* 공학인증 관련 사용자 학번 학점DB 조회*/
-                    const engineerCreditsSelect = firestore.collection('engineeringCredits');
-                    const engineerCreditsData = await engineerCreditsSelect
+                    .studentID;
+                // console.log(userStudentID);
+                title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"]; // 아이템 카드 뷰 목차 이름 작성
+
+                if (userData.data().engineeringStatus === true) { // 공학인증 사용자 인 경우
+                    const engineerCreditsData = await firestore
+                        .collection('engineeringCredits')
                         .doc(userStudentID)
-                        .get();
-                    /* 남은 학점 계산 */
+                        .get(); // 공학인증 관련 사용자 학번의 학점DB 조회
+                    /* 전체 교과목 남은 학점 계산 */
                     const geA = engineerCreditsData
                         .data()
                         .geA - parseInt(userData.data().credits.geA) + '/' +
@@ -141,12 +142,11 @@ router.post('/', async function (req, res) {
                         itemList.push({'title': value, 'description': graduateCredits[index]});
                     });
                 } else {
-                    /* 일반인증 관련 사용자 학번 학점DB 조회*/
-                    const creditsSelect = firestore.collection('credits');
-                    const creditsData = await creditsSelect
+                    const creditsData = await firestore
+                        .collection('credits')
                         .doc(userStudentID)
-                        .get();
-
+                        .get(); // 일반인증 관련 사용자 학번의 학점DB 조회
+                    /* 전체 교과목 남은 학점 계산 */
                     const geA = creditsData
                         .data()
                         .geA - parseInt(userData.data().credits.geA) + '/' + creditsData
@@ -184,7 +184,7 @@ router.post('/', async function (req, res) {
                     template: {
                         outputs: [
                             {
-                                itemCard: {
+                                itemCard: { // 아이템 카드 뷰 블록으로 출력
                                     "head": {
                                         "title": "☑ 졸업까지 남은 학점 조회"
                                     },
@@ -202,9 +202,9 @@ router.post('/', async function (req, res) {
 
         case "나의 졸업조건을 알려줘":
             {
-                /* 사용자 데이터 get */
-                userData = await userSelect.get();
-                /* 사용자 학번 추출 */
+                userData = await userSelect.get(); // 사용자 프로필 DB 값 변수처리
+                let items = []; // 응답 블록의 내용을 처리
+                /* 사용자 학번 추출 및 현재년도 전체이름으로 설정*/
                 const thieYear = new Date()
                     .getFullYear()
                     .toString()
@@ -212,118 +212,147 @@ router.post('/', async function (req, res) {
                 const userStudentID = thieYear + userData
                     .data()
                     .studentID;
-                /* 출력 요소 설정 */
-                let userEngineeringStatus = userData // 공학 인증 여부 저장
-                        .data()
-                        .engineeringStatus;
-                if (userEngineeringStatus == true) {
-                    userEngineeringStatus = "공학인증 학생";
-                } else {
-                    userEngineeringStatus = "일반 학생";
+                let userEngineeringStatus = userData // 사용자 공학 인증 상태 데이터 변수처리
+                    .data()
+                    .engineeringStatus;
+                if (userEngineeringStatus === true) { // 공학인증 상태 일 경우
+                    userEngineeringStatus = "공학인증";
+                } else { // 아닌 경우
+                    userEngineeringStatus = "일반인증";
                 }
-                const itemSet = []; // 출력 데이터 임시 저장
-                const itemList = []; // itemCard 형식에 사용할 데이터 리스트
-                const items = []; // 챗봇 응답에서 출력으로 사용할 응답 블록의 리스트
 
-                if (userData.data().engineeringStatus == true) { // 공학인증 사용자에 대해 졸업조건 조회 기능 수행
-                    /* 사용자 학번에 매칭되는 공학인증 DB 추출 */
-                    const engineerCreditsSelect = firestore.collection('engineeringCredits');
-                    const engineerCreditsData = await engineerCreditsSelect
+                if (userEngineeringStatus === "공학인증") { // 공학인증 사용자일 경우
+                    let itemSet = []; // 다중 응답 횟수 처리를 위한 임시 배열
+                    const engineerCreditsData = await firestore
+                        .collection('engineeringCredits')
                         .doc(userStudentID)
-                        .get();
-                    /* 사용자 채플, 학점표, 이수체계도 데이터 추출 */
-                    const chapel = engineerCreditsData
-                        .data()
-                        .chapel;
+                        .get(); // 사용자 학번에 해당하는 공학인증 DB 연동
+                    /* 사용자 학번의 공학인증 DB 이수체계도, 학점표 데이터 추출 */
                     const completionSystem = engineerCreditsData
                         .data()
                         .completionSystem;
-                    const creditCard = engineerCreditsData
-                        .data()
-                        .creditCard;
-                    /* 공학인증 졸업조건 기능에서의 기본 Title Set */
-                    const title = ['인증 여부', '채플', '공학인증 학점표', '이수체계도', '설계-이수체계도'];
-
-                    /* 학번에 따라 출력할 데이터를 다르게 지정 */
+                    const credits = [
+                        engineerCreditsData
+                            .data()
+                            .majorA,
+                        engineerCreditsData
+                            .data()
+                            .majorB,
+                        engineerCreditsData
+                            .data()
+                            .geA,
+                        engineerCreditsData
+                            .data()
+                            .geB,
+                        engineerCreditsData
+                            .data()
+                            .total,
+                        engineerCreditsData
+                            .data()
+                            .chapel
+                    ];
+                    /* 학번에 따른 응답 구조 작성 */
                     if (parseInt(userStudentID) < 2015) {
-                        itemSet.push(userEngineeringStatus ,chapel, creditCard);
+                        itemSet.push(credits);
                     } else if (parseInt(userStudentID) == 2015) {
-                        itemSet.push(userEngineeringStatus, chapel, creditCard, completionSystem);
+                        title = [
+                            "전공필수",
+                            "전공선택",
+                            "교양필수",
+                            "교양선택",
+                            "총 학점",
+                            "채플 횟수"
+                        ];
+                        title.forEach((value, index) => {
+                            itemList.push({'title': value, 'description': credits[index]});
+                        });
+                        itemSet.push(itemList, completionSystem);
                     } else {
-                        itemSet.push(userEngineeringStatus, chapel, creditCard, completionSystem[0], completionSystem[1]);
+                        title = [
+                            "전공필수",
+                            "전공선택",
+                            "교양필수",
+                            "교양선택",
+                            "총 학점",
+                            "채플 횟수"
+                        ];
+                        title.forEach((value, index) => {
+                            itemList.push({'title': value, 'description': credits[index]});
+                        });
+                        itemSet.push(credits, completionSystem[0], completionSystem[1]);
                     }
-
-                    /* 응답 횟수만큼 응답 블록 생성 */
+                    // console.log(itemSet);
+                    /* 작성한 응답 횟수만큼 응답 블록 생성 */
                     itemSet.forEach((value, index) => {
-                        if (index <= 1) {
-                            itemList.push({'title': title[index], 'description': value});
-                        }
-
-                        /* 인증여부, 채플 데이터는 itemCard 블록으로 생성 */
-                        if (index == 1) {
+                        if (index == 0) {
                             items.push({
-                                itemCard: {
+                                itemCard: { // 첫번째 응답은 아이템 카드 뷰 블록으로 출력
                                     "head": {
-                                        "title": "☑ 졸업이수 조건 조회"
+                                        "title": `☑ ${userEngineeringStatus} 학점표 조회`
                                     },
                                     "itemList": itemList,
-                                    "title": "본인 학번의 졸업이수 조건 결과입니다."
+                                    "title": `본인 학번의 ${userEngineeringStatus} 학점표 입니다.`
                                 }
                             });
-                        /* 학점표, 이수체계도 이미지는 simpleImage 블록으로 생성 */
-                        } else if (index >= 2) {
+                        } else {
                             items.push({
-                                simpleImage: {
+                                simpleImage: { // 나머진 이미지 뷰 블록으로 출력
                                     "imageUrl": value,
                                     "altText": title[index]
                                 }
                             });
                         }
                     });
-                } else { // 일반 사용자에 대해 졸업조건 조회 기능 수행
-                    /* 사용자 학번에 매칭되는 공학인증 DB 추출 */
-                    const creditsSelect = firestore.collection('credits');
-                    const creditsData = await creditsSelect
+                } else { // 일반인증 사용자일 경우
+                    const creditsData = await firestore
+                        .collection('credits')
                         .doc(userStudentID)
-                        .get();
-                    /* 사용자 채플, 학점표 데이터 추출 */
-                    const chapel = creditsData
-                        .data()
-                        .chapel;
-                    const creditCard = creditsData
-                        .data()
-                        .creditCard;
-                    /* 일반 졸업조건 기능에서의 기본 Title Set */
-                    const title = ['인증 여부', '채플', '일반 학점표'];
+                        .get(); // 사용자 학번에 해당하는 일반인증 DB 연동
+                    /* 사용자 학번의 일반인증 DB 학점표 데이터 추출 */
+                    const credits = [
+                        creditsData
+                            .data()
+                            .majorA,
+                        creditsData
+                            .data()
+                            .majorB,
+                        creditsData
+                            .data()
+                            .geA,
+                        creditsData
+                            .data()
+                            .geB,
+                        creditsData
+                            .data()
+                            .total,
+                        creditsData
+                            .data()
+                            .chapel
+                    ];
+                    /* 응답 구조인 아이템 카드 뷰 작성 */
+                    title = [
+                        "전공필수",
+                        "전공선택",
+                        "교양필수",
+                        "교양선택",
+                        "총 학점",
+                        "채플 횟수"
+                    ];
+                    title.forEach((value, index) => {
+                        itemList.push({'title': value, 'description': credits[index]});
+                    });
 
-                    itemSet.push(userEngineeringStatus, chapel, creditCard);
-                    itemSet.forEach((value, index) => {
-                        if (index <= 1) {
-                            itemList.push({'title': title[index], 'description': value});
-                        }
-
-                        if (index == 1) {
-                            items.push({
-                                itemCard: {
-                                    "head": {
-                                        "title": "☑ 졸업이수 조건 조회"
-                                    },
-                                    "itemList": itemList,
-                                    "title": "본인 학번의 졸업이수 조건 결과입니다."
-                                }
-                            });
-                        } else if (index >= 2) {
-                            items.push({
-                                simpleImage: {
-                                    "imageUrl": value,
-                                    "altText": title[index]
-                                }
-                            });
+                    items.push({
+                        itemCard: { // 아이템 카드 뷰 블록으로 출력
+                            "head": {
+                                "title": `☑ ${userEngineeringStatus} 학점표 조회`
+                            },
+                            "itemList": itemList,
+                            "title": `본인 학번의 ${userEngineeringStatus} 학점표 입니다.`
                         }
                     });
                 }
-                console.log(items);
-
+                // console.log(items);
                 responseBody = {
                     version: "2.0",
                     template: {

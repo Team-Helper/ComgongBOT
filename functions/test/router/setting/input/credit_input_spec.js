@@ -9,7 +9,7 @@ describe('POST /setting/credit_input', () => { // 테스트 수트
             const userRequest = { // 학점을 입력하려는 사용자의 기본 정보 시나리오와 요청 발화문
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id", // 사용자 카카오 채널 아이디
+                        "plusfriendUserKey": "testID", // 사용자 카카오 채널 아이디
                         "isFriend": true // 채널 추가 상태
                     }
                 },
@@ -19,28 +19,28 @@ describe('POST /setting/credit_input', () => { // 테스트 수트
                 detailParams: { // 사용자가 입력한 학점 데이터 시나리오 (이메일, 학년, 학번)
                     majorA: {
                         'groupName': '',
-                        'origin': '1',
-                        'value': '1'
+                        'origin': '12',
+                        'value': '12'
                     },
                     majorB: {
                         'groupName': '',
-                        'origin': '2',
-                        'value': '2'
+                        'origin': '24',
+                        'value': '24'
                     },
                     geA: {
                         'groupName': '',
-                        'origin': '3',
-                        'value': '3'
+                        'origin': '36',
+                        'value': '36'
                     },
                     geB: {
                         'groupName': '',
-                        'origin': '4',
-                        'value': '4'
+                        'origin': '48',
+                        'value': '48'
                     },
                     total: {
                         'groupName': '',
-                        'origin': '15',
-                        'value': '15'
+                        'origin': '123',
+                        'value': '123'
                     }
                 }
             };

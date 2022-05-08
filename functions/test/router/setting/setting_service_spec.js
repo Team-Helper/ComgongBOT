@@ -10,7 +10,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id",
+                        "plusfriendUserKey": "testID",
                         "isFriend": true
                     }
                 },
@@ -56,7 +56,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             },
@@ -89,7 +89,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             },
@@ -140,7 +140,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id",
+                        "plusfriendUserKey": "testID",
                         "isFriend": true
                     }
                 },
@@ -186,7 +186,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             },
@@ -219,7 +219,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             },
@@ -270,7 +270,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id",
+                        "plusfriendUserKey": "testID",
                         "isFriend": true
                     }
                 },
@@ -319,7 +319,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id",
+                        "plusfriendUserKey": "testID",
                         "isFriend": true
                     }
                 },
@@ -356,7 +356,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id",
+                        "plusfriendUserKey": "testID",
                         "isFriend": true
                     }
                 },
@@ -408,7 +408,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id",
+                        "plusfriendUserKey": "testID",
                         "isFriend": true
                     }
                 },
@@ -454,7 +454,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             },

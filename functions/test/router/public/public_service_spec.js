@@ -71,18 +71,18 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .be
                     .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
 
-                const backElement = res
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
+                // console.log(elementQuick);
+                expect(elementQuick.messageText)
                     .to
                     .equal('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
-                expect(backElement.action)
+                expect(elementQuick.action)
                     .to
                     .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
-                expect(backElement.label)
+                expect(elementQuick.label)
                     .to
                     .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
@@ -161,18 +161,18 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .be
                     .a('string');
 
-                const backElement = res
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
+                // console.log(elementQuick);
+                expect(elementQuick.messageText)
                     .to
                     .equal('뒤로 돌아갈래');
-                expect(backElement.action)
+                expect(elementQuick.action)
                     .to
                     .equal('block');
-                expect(backElement.label)
+                expect(elementQuick.label)
                     .to
                     .include('뒤로가기');
                 done();
@@ -251,18 +251,18 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .be
                     .a('string');
 
-                const backElement = res
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
+                // console.log(elementQuick);
+                expect(elementQuick.messageText)
                     .to
                     .equal('뒤로 돌아갈래');
-                expect(backElement.action)
+                expect(elementQuick.action)
                     .to
                     .equal('block');
-                expect(backElement.label)
+                expect(elementQuick.label)
                     .to
                     .include('뒤로가기');
                 done();
@@ -341,18 +341,18 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .be
                     .a('string');
 
-                const backElement = res
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
+                // console.log(elementQuick);
+                expect(elementQuick.messageText)
                     .to
                     .equal('뒤로 돌아갈래');
-                expect(backElement.action)
+                expect(elementQuick.action)
                     .to
                     .equal('block');
-                expect(backElement.label)
+                expect(elementQuick.label)
                     .to
                     .include('뒤로가기');
                 done();
@@ -431,18 +431,18 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .be
                     .a('string');
 
-                const backElement = res
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
+                // console.log(elementQuick);
+                expect(elementQuick.messageText)
                     .to
                     .equal('뒤로 돌아갈래');
-                expect(backElement.action)
+                expect(elementQuick.action)
                     .to
                     .equal('block');
-                expect(backElement.label)
+                expect(elementQuick.label)
                     .to
                     .include('뒤로가기');
                 done();
@@ -485,18 +485,18 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .to
                     .equal('교과과정'); // 응답 블록의 이미지 설명문이 작성한 텍스트 내용과 완전일치 하는가
 
-                const backElement = res
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
+                // console.log(elementQuick);
+                expect(elementQuick.messageText)
                     .to
                     .equal('뒤로 돌아갈래');
-                expect(backElement.action)
+                expect(elementQuick.action)
                     .to
                     .equal('block');
-                expect(backElement.label)
+                expect(elementQuick.label)
                     .to
                     .include('뒤로가기');
                 done();
@@ -546,18 +546,18 @@ describe('POST /public/public_service', () => { // 테스트 수트
                         .equal(imgText[index]);
                 }
 
-                const backElement = res
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
+                // console.log(elementQuick);
+                expect(elementQuick.messageText)
                     .to
                     .equal('뒤로 돌아갈래');
-                expect(backElement.action)
+                expect(elementQuick.action)
                     .to
                     .equal('block');
-                expect(backElement.label)
+                expect(elementQuick.label)
                     .to
                     .include('뒤로가기');
                 done();
@@ -629,18 +629,18 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     }
                 }
 
-                const backElement = res
+                const elementQuick = res
                     .body
                     .template
                     .quickReplies[0];
-                // console.log(backElement);
-                expect(backElement.messageText)
+                // console.log(elementQuick);
+                expect(elementQuick.messageText)
                     .to
                     .equal('뒤로 돌아갈래');
-                expect(backElement.action)
+                expect(elementQuick.action)
                     .to
                     .equal('block');
-                expect(backElement.label)
+                expect(elementQuick.label)
                     .to
                     .include('뒤로가기');
                 done();
