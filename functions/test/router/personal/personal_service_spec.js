@@ -164,7 +164,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                         "isFriend": true
                     }
                 },
-                utterance: "교과목별 최저이수 요구학점을 알려줘"
+                utterance: "나의 졸업조건을 알려줘"
             };
             request(functions.config().service_url.app)
                 .post('/personal/personal_service')
@@ -173,6 +173,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                 .send({userRequest})
                 .expect(201)
                 .then(res => {
+                    /* itemList 응답 블록에 대한 테스트 */
                     const element = res
                         .body
                         .template
@@ -196,7 +197,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                         .equal('본인 학번의 졸업이수 조건 결과입니다.');
                     
                     const elementItems = element.itemList;
-                    const title = ['채플', '이수체계도', '설계-이수체계도'];
+                    const title = ['인증 여부', '채플'];
                     for (let index=0; index < elementItems.length; index++) {
                         const itemTitle = elementItems[index].title;
                         const itemDescription = elementItems[index].description;
@@ -207,12 +208,46 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                             expect(itemDescription)
                                 .to
                                 .be
-                                .a('number');
+                                .a('string');
                         } else {
                             expect(itemDescription)
                                 .to
                                 .be
-                                .a('string');
+                                .a('number');
+                        }
+                    }
+
+                    /* simpleImage 응답 블록에 대한 테스트 */
+                    const imageAltText = ['학점표', '이수체계도', '설계-이수체계도'];
+                    const outputsLenght = res.body.template.outputs.length - 1;
+                    for (let index = 1; index <= outputsLenght.length; index++) {
+                        const imageElement  = res
+                            .body
+                            .template
+                            .outputs[index]
+                            .simpleImage;
+                        expect(imageElement)
+                            .to
+                            .be
+                            .an('object');
+                        const elementImageUrl = imageElement.imageUrl;
+                        const elementAltText = imageElement.altText;
+                        expect(elementImageUrl)
+                            .to
+                            .be
+                            .a('string');
+                        expect(elementAltText)
+                            .to
+                            .be
+                            .a('string');
+                        if (index == 1) {
+                            expect(elementAltText)
+                                .to
+                                .include(imageAltText[index-1]);
+                        } else {
+                            expect(elementAltText)
+                                .to
+                                .equal(imageAltText[index-1]);
                         }
                     }
 
