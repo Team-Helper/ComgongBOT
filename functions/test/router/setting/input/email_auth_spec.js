@@ -48,6 +48,10 @@ describe('POST /setting/email_auth', () => { // 테스트 수트
                         .simpleText;
                     expect(element.text)
                         .to
+                        .be
+                        .a('string');
+                    expect(element.text)
+                        .to
                         .equal('✅ 프로필 생성이 완료되었습니다!\n하단의 버튼을 통해 본인의 학점도 바로 입력해보세요.'); // 응답 결과가 작성한 텍스트의 내용과 완전 일치하는가
 
                     const elementQuick = res

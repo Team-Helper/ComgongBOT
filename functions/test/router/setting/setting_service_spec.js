@@ -28,7 +28,11 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                         .template
                         .outputs[0]
                         .simpleText;
-                    console.log(element);
+                    // console.log(element);
+                    expect(element.text)
+                        .to
+                        .be
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
                     expect(element.text)
                         .to
                         .include("변경하고자 하는 학년으로"); // 응답 블록 내용이 작성한 텍스트 내용을 포함하는가
@@ -77,6 +81,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 // console.log(element);
                 expect(element.text)
                     .to
+                    .be
+                    .a('string');
+                expect(element.text)
+                    .to
                     .equal("🔄 선택하신 학년으로 변경이 완료되었습니다."); // 응답 블록의 내용이 작성한 텍스트 내용과 완전일치 하는가
                 done();
             })
@@ -108,6 +116,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element.text)
+                    .to
+                    .be
+                    .a('string');
                 expect(element.text)
                     .to
                     .include("이미 같은 학년"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
@@ -161,6 +173,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     // console.log(element);
                     expect(element.text)
                         .to
+                        .be
+                        .a('string');
+                    expect(element.text)
+                        .to
                         .include("변경하고자 하는 학적상태로");
 
                     const elementQuick = res.body.template.quickReplies;
@@ -207,6 +223,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 // console.log(element);
                 expect(element.text)
                     .to
+                    .be
+                    .a('string');
+                expect(element.text)
+                    .to
                     .equal("🔄 학적상태를 휴학으로 변경완료 하였습니다.");
                 done();
             })
@@ -238,6 +258,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element.text)
+                    .to
+                    .be
+                    .a('string');
                 expect(element.text)
                     .to
                     .include("이미 학적상태가");
@@ -291,6 +315,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     // console.log(element);
                     expect(element.text)
                         .to
+                        .be
+                        .a('string');
+                    expect(element.text)
+                        .to
                         .include("변경하고자 하는 공학인증여부로");
 
                     const elementQuick = res.body.template.quickReplies;
@@ -340,6 +368,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     // console.log(element);
                     expect(element.text)
                         .to
+                        .be
+                        .a('string');
+                    expect(element.text)
+                        .to
                         .equal("🔄 공학인증여부를 공학인증 미진행으로 변경완료 하였습니다.");
                     done();
                 })
@@ -375,6 +407,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element.text)
+                        .to
+                        .be
+                        .a('string');
                     expect(element.text)
                         .to
                         .include("이미 공학인증을");
@@ -429,6 +465,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     // console.log(element);
                     expect(element.text)
                         .to
+                        .be
+                        .a('string');
+                    expect(element.text)
+                        .to
                         .equal("‼ 전체 설정이 초기화 됩니다. 정말 진행을 원하시나요?");
 
                     const elementQuick = res.body.template.quickReplies;
@@ -474,6 +514,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element.text)
+                    .to
+                    .be
+                    .a('string');
                 expect(element.text)
                     .to
                     .equal("🗑 전체 설정이 초기화 되었습니다.");

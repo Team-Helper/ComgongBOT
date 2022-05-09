@@ -39,6 +39,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     // console.log(element);
                     expect(element.text)
                         .to
+                        .be
+                        .a('string');
+                    expect(element.text)
+                        .to
                         .equal("🔄 입력하신 학번으로 변경이 완료되었습니다."); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
                     done();
                 })
@@ -83,6 +87,10 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element.text)
+                    .to
+                    .be
+                    .a('string');
                 expect(element.text)
                     .to
                     .equal("🚫 이미 같은 학번 이예요!"); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가

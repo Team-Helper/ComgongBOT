@@ -186,11 +186,11 @@ router.post('/', async function (req, res) {
                             {
                                 itemCard: { // 아이템 카드 뷰 블록으로 출력
                                     "head": {
-                                        "title": "☑ 졸업까지 남은 학점 조회"
+                                        "title": "☑ 졸업까지 남은 학점 계산"
                                     },
                                     "itemList": itemList,
                                     "title": "[남은 학점/전체 학점]",
-                                    "description": "본인 학번의 졸업까지 남은 학점 계산 결과입니다."
+                                    "description": "계산은 컴공봇에 입력하신 학점을 토대로 계산됩니다."
                                 }
                             }
                         ],
@@ -220,6 +220,7 @@ router.post('/', async function (req, res) {
                 const userStudentID = thieYear + userData
                     .data()
                     .studentID;
+                // console.log(userStudentID);
                 let userEngineeringStatus = userData // 사용자 공학 인증 상태 데이터 변수처리
                     .data()
                     .engineeringStatus;
@@ -235,7 +236,7 @@ router.post('/', async function (req, res) {
                         .collection('engineeringCredits')
                         .doc(userStudentID)
                         .get(); // 사용자 학번에 해당하는 공학인증 DB 연동
-                    /* 사용자 학번의 공학인증 DB 이수체계도, 학점표 데이터 추출 */
+                    /* 사용자 학번의 공학인증 DB 이수체계도, 최저이수요구 학점표 데이터 추출 */
                     const completionSystem = engineerCreditsData
                         .data()
                         .completionSystem;
@@ -260,21 +261,13 @@ router.post('/', async function (req, res) {
                             .chapel
                     ];
                     /* 학번에 따른 응답 구조 작성 */
+                    title.forEach((value, index) => {
+                        itemList.push({'title': value, 'description': credits[index]});
+                    });
                     if (parseInt(userStudentID) < 2015) {
-                        title.forEach((value, index) => {
-                            itemList.push({'title': value, 'description': credits[index]});
-                        });
                         itemSet.push(itemList);
-                    } else if (parseInt(userStudentID) == 2015) {
-                        title.forEach((value, index) => {
-                            itemList.push({'title': value, 'description': credits[index]});
-                        });
-                        itemSet.push(itemList, completionSystem);
                     } else {
-                        title.forEach((value, index) => {
-                            itemList.push({'title': value, 'description': credits[index]});
-                        });
-                        itemSet.push(credits, completionSystem[0], completionSystem[1]);
+                        itemSet.push(itemList, completionSystem);
                     }
                     // console.log(itemSet);
                     /* 작성한 응답 횟수만큼 응답 블록 생성 */
@@ -283,19 +276,33 @@ router.post('/', async function (req, res) {
                             items.push({
                                 itemCard: { // 첫번째 응답은 아이템 카드 뷰 블록으로 출력
                                     "head": {
-                                        "title": `☑ ${userEngineeringStatus} 학점표 조회`
+                                        "title": `☑ ${userEngineeringStatus} 최저이수요구 학점표 조회`
                                     },
                                     "itemList": itemList,
-                                    "title": `본인 학번의 ${userEngineeringStatus} 학점표 입니다.`
+                                    "title": `본인 학번의 ${userEngineeringStatus} 최저이수요구 학점표 입니다.`
                                 }
                             });
                         } else {
-                            items.push({
-                                simpleImage: { // 나머진 이미지 뷰 블록으로 출력
-                                    "imageUrl": value,
-                                    "altText": title[index]
+                            // console.log(value, typeof value);
+                            const imgTitle = ['이수체계도', '설계 이수체계도'];
+                            if (typeof value === 'object') { // 응답 구조가 오브젝트 인 경우
+                                for (let jndex = 0; jndex < Object.keys(value).length; jndex++) {
+                                    // console.log(value[jndex]);
+                                    items.push({
+                                        simpleImage: { // 이미지별로 이미지 뷰 출력
+                                            "imageUrl": value[jndex],
+                                            "altText": imgTitle[jndex]
+                                        }
+                                    });
                                 }
-                            });
+                            } else { // 아닌 경우
+                                items.push({
+                                    simpleImage: { // 이미지 하나 출력
+                                        "imageUrl": value,
+                                        "altText": imgTitle[0]
+                                    }
+                                });
+                            }
                         }
                     });
                 } else { // 일반인증 사용자일 경우
@@ -303,7 +310,7 @@ router.post('/', async function (req, res) {
                         .collection('credits')
                         .doc(userStudentID)
                         .get(); // 사용자 학번에 해당하는 일반인증 DB 연동
-                    /* 사용자 학번의 일반인증 DB 학점표 데이터 추출 */
+                    /* 사용자 학번의 일반인증 DB 최저이수요구 학점표 데이터 추출 */
                     const credits = [
                         creditsData
                             .data()
@@ -332,17 +339,17 @@ router.post('/', async function (req, res) {
                     items.push({
                         itemCard: { // 아이템 카드 뷰 블록으로 출력
                             "head": {
-                                "title": `☑ ${userEngineeringStatus} 학점표 조회`
+                                "title": `☑ ${userEngineeringStatus} 최저이수요구 학점표 조회`
                             },
                             "itemList": itemList,
-                            "title": `본인 학번의 ${userEngineeringStatus} 학점표 입니다.`
+                            "title": `본인 학번의 ${userEngineeringStatus} 최저이수요구 학점표 입니다.`
                         }
                     });
                 }
                 // console.log(items);
                 responseBody = {
                     version: "2.0",
-                    template: {
+                    template: { // 작성한 응답 횟수별로 구조 조정
                         outputs: items,
                         quickReplies: quickReplies
                     }

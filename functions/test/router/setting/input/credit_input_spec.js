@@ -60,6 +60,10 @@ describe('POST /setting/credit_input', () => { // 테스트 수트
                     // console.log(element);
                     expect(element.text)
                         .to
+                        .be
+                        .a('string');
+                    expect(element.text)
+                        .to
                         .equal("✅ 학점 입력이 완료되었습니다!\n이제 학과 개인 서비스도 이용하실 수 있게 되었습니다."); // 응답 결과가 작성한 텍스트의 내용과 완전일치 하는가
                     done();
                 })

@@ -7,7 +7,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
         const userRequest = { // 기본 사용자 정보 시나리오와 요청 발화문
             user: {
                 "properties": {
-                    "plusfriendUserKey": "some-id",
+                    "plusfriendUserKey": "testID",
                     "isFriend": true
                 }
             },
@@ -41,6 +41,10 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                     .include('누적 학점 조회'); // 아이템 카드 뷰의 제목 내용이 작성한 텍스트 내용을 포함하는가
                 expect(elementTitle)
                     .to
+                    .be
+                    .a('string'); // 아이템 카드 뷰의 본문이 문자열 타입인가
+                expect(elementTitle)
+                    .to
                     .equal('학점은 설정을 통해 언제든지 수정이 가능합니다.'); // 아이템 카드 뷰의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const elementItems = element.itemList;
@@ -65,6 +69,9 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                 expect(elementQuick.messageText)
                     .to
                     .include('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용을 포함하는가
+                expect(elementQuick.action)
+                    .to
+                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
                     .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
@@ -82,7 +89,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
             const userRequest = { // 기본 사용자 시나리오와 요청 발화문
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "some-id",
+                        "plusfriendUserKey": "testID",
                         "isFriend": true
                     }
                 },
@@ -112,15 +119,23 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                         .to
                         .be
                         .a('string');
+                    expect(elementTitle)
+                        .to
+                        .be
+                        .a('string');
+                    expect(elementDescription)
+                        .to
+                        .be
+                        .a('string');
                     expect(headTitle)
                         .to
-                        .include('졸업까지 남은 학점 조회');
+                        .include('졸업까지 남은 학점 계산');
                     expect(elementTitle)
                         .to
                         .equal('[남은 학점/전체 학점]');
                     expect(elementDescription)
                         .to
-                        .equal('본인 학번의 졸업까지 남은 학점 계산 결과입니다.');
+                        .equal('계산은 컴공봇에 입력하신 학점을 토대로 계산됩니다.');
 
                     const elementItems = element.itemList;
                     const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
@@ -143,6 +158,9 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                     expect(elementQuick.messageText)
                         .to
                         .equal('뒤로 돌아갈래');
+                    expect(elementQuick.action)
+                        .to
+                        .equal('block');
                     expect(elementQuick.label)
                         .to
                         .include('뒤로가기');
@@ -155,118 +173,116 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
         }
     );
 
-    it('responds check graduationCompletionCondition',
-        done => {
-            const userRequest = {
-                user: {
-                    "properties": {
-                        "plusfriendUserKey": "some-id",
-                        "isFriend": true
-                    }
-                },
-                utterance: "나의 졸업조건을 알려줘"
-            };
-            request(functions.config().service_url.app)
-                .post('/personal/personal_service')
-                .set('Accept', 'application/json')
-                .type('application/json')
-                .send({userRequest})
-                .expect(201)
-                .then(res => {
-                    /* itemList 응답 블록에 대한 테스트 */
-                    const element = res
-                        .body
-                        .template
-                        .outputs[0]
-                        .itemCard;
-                    expect(element)
-                        .to
-                        .be
-                        .an('object');
-                    const headTitle = element.head.title;
-                    const elementTitle = element.title;
-                    expect(headTitle)
-                        .to
-                        .be
-                        .a('string');
-                    expect(headTitle)
-                        .to
-                        .include('졸업이수 조건 조회');
-                    expect(elementTitle)
-                        .to
-                        .equal('본인 학번의 졸업이수 조건 결과입니다.');
-                    
-                    const elementItems = element.itemList;
-                    const title = ['인증 여부', '채플'];
-                    for (let index=0; index < elementItems.length; index++) {
-                        const itemTitle = elementItems[index].title;
-                        const itemDescription = elementItems[index].description;
-                        expect(itemTitle)
+    it('responds check graduationCompletionCondition', done => {
+        const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": "testID",
+                    "isFriend": true
+                }
+            },
+            utterance: "나의 졸업조건을 알려줘"
+        };
+        request(functions.config().service_url.app)
+            .post('/personal/personal_service')
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                // console.log(res.body.template.outputs);
+                const elements = res.body.template.outputs;
+                for (let index = 0; index < elements.length; index++) {
+                    if (index == 0) {
+                        const element = res
+                            .body
+                            .template
+                            .outputs[index]
+                            .itemCard;
+                        expect(element)
                             .to
-                            .equal(title[index]);
-                        if (index == 0) {
-                            expect(itemDescription)
+                            .be
+                            .an('object');
+                        const headTitle = element.head.title;
+                        const elementTitle = element.title;
+                        expect(headTitle)
+                            .to
+                            .be
+                            .a('string');
+                        expect(headTitle)
+                            .to
+                            .include('최저이수요구 학점표 조회');
+                        expect(elementTitle)
+                            .to
+                            .be
+                            .a('string');
+                        expect(elementTitle)
+                            .to
+                            .include('최저이수요구 학점표 입니다.');
+                        const elementItems = element.itemList;
+                        const title = [
+                            "전공필수",
+                            "전공선택",
+                            "교양필수",
+                            "교양선택",
+                            "총 학점",
+                            "채플 횟수"
+                        ];
+                        for (let index = 0; index < elementItems.length; index++) {
+                            const itemTitle = elementItems[index].title;
+                            const itemDescription = elementItems[index].description;
+                            // console.log(itemTitle, itemDescription);
+                            expect(itemTitle)
                                 .to
-                                .be
-                                .a('string');
-                        } else {
+                                .equal(title[index]);
                             expect(itemDescription)
                                 .to
                                 .be
                                 .a('number');
                         }
-                    }
-
-                    /* simpleImage 응답 블록에 대한 테스트 */
-                    const imageAltText = ['학점표', '이수체계도', '설계-이수체계도'];
-                    const outputsLenght = res.body.template.outputs.length - 1;
-                    for (let index = 1; index <= outputsLenght.length; index++) {
-                        const imageElement  = res
+                    } else {
+                        const imgTitle = ['이수체계도', '설계 이수체계도'];
+                        const element = res
                             .body
                             .template
                             .outputs[index]
                             .simpleImage;
-                        expect(imageElement)
+                        // console.log(element);
+                        expect(element)
                             .to
                             .be
                             .an('object');
-                        const elementImageUrl = imageElement.imageUrl;
-                        const elementAltText = imageElement.altText;
-                        expect(elementImageUrl)
+                        expect(typeof element.imageUrl)
                             .to
                             .be
                             .a('string');
-                        expect(elementAltText)
+                        expect(element.imageUrl)
                             .to
-                            .be
-                            .a('string');
-                        if (index == 1) {
-                            expect(elementAltText)
-                                .to
-                                .include(imageAltText[index-1]);
-                        } else {
-                            expect(elementAltText)
-                                .to
-                                .equal(imageAltText[index-1]);
-                        }
+                            .include('jpg');
+                        expect(element.altText)
+                            .to
+                            .equal(imgTitle[index - 1]);
                     }
+                }
 
-                    const elementQuick = res
-                        .body
-                        .template
-                        .quickReplies[0];
-                    expect(elementQuick.messageText)
-                        .to
-                        .equal('뒤로 돌아갈래');
-                    expect(elementQuick.label)
-                        .to
-                        .include('뒤로가기');
-                    done();
-                })
-                .catch(err => {
-                    console.error("Error >>", err);
-                    done(err);
-                });
-        }
-    );
+                const elementQuick = res
+                    .body
+                    .template
+                    .quickReplies[0];
+                expect(elementQuick.messageText)
+                    .to
+                    .equal('뒤로 돌아갈래');
+                expect(elementQuick.action)
+                    .to
+                    .equal('block');
+                expect(elementQuick.label)
+                    .to
+                    .include('뒤로가기');
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            });
+    });
 });

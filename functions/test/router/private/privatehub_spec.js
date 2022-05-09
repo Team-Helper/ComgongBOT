@@ -27,6 +27,10 @@ describe('POST /private', () => {
                 // console.log(element);
                 expect(element.text)
                     .to
+                    .be
+                    .a('string'); // 응답 결과의 내용이 문자열 타입인가
+                expect(element.text)
+                    .to
                     .include("컴공봇 채널 추가부터"); // 응답 결과가 작성한 텍스트 내용을 포함하는가
                 done();
             })
@@ -63,7 +67,7 @@ describe('POST /private', () => {
                     expect(element.head.title)
                         .to
                         .be
-                        .a('string'); // 응답 블록의 제목이 문자열 타입인가
+                        .a('string');
                     expect(element.head.title)
                         .to
                         .include('누락된 설정이'); // 응답 블록의 제목 내용이 작성한 텍스트 내용을 포함하는가
@@ -79,7 +83,7 @@ describe('POST /private', () => {
                     for (let index = 0; index < elementItems.length; index++) {
                         const itemTitle = elementItems[index].title;
                         const itemDescription = elementItems[index].description;
-                        
+
                         expect(itemTitle)
                             .to
                             .equal(title[index]); // 응답 블록의 본문 목차 내용이 지정한 배열 내용과 완전 일치하는가

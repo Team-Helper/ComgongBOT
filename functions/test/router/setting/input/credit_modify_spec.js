@@ -44,6 +44,10 @@ describe('POST /setting/credit_modify', () => { // 테스트 수트
                     // console.log(element);
                     expect(element.text)
                         .to
+                        .be
+                        .a('string');
+                    expect(element.text)
+                        .to
                         .equal('🔄 입력하신 학점으로 수정이 완료되었습니다.'); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
                     done();
                 })
@@ -88,6 +92,10 @@ describe('POST /setting/credit_modify', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
+                expect(element.text)
+                    .to
+                    .be
+                    .a('string');
                 expect(element.text)
                     .to
                     .equal('🚫 이미 같은 학점 이예요!'); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가

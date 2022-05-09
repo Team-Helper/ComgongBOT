@@ -27,6 +27,10 @@ describe('POST /personal', () => { // 테스트 수트
                 // console.log(element);
                 expect(element.text)
                     .to
+                    .be
+                    .a('string'); // 응답 결과의 내용이 문자열 타입인가
+                expect(element.text)
+                    .to
                     .include("컴공봇 채널 추가부터"); // 응답 결과가 작성한 텍스트 내용을 포함하는가
                 done();
             })
@@ -63,10 +67,14 @@ describe('POST /personal', () => { // 테스트 수트
                     expect(element.head.title)
                         .to
                         .be
-                        .a('string'); // 응답 블록의 제목이 문자열 타입인가
+                        .a('string');
                     expect(element.head.title)
                         .to
                         .include('누락된 설정이'); // 응답 블록의 제목 내용이 작성한 텍스트 내용을 포함하는가
+                    expect(element.text)
+                        .to
+                        .be
+                        .a('string');
                     expect(element.title)
                         .to
                         .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
@@ -140,6 +148,10 @@ describe('POST /personal', () => { // 테스트 수트
                 expect(element.head.title)
                     .to
                     .include('누락된 설정이'); // 응답 블록의 제목 내용이 작성한 텍스트 내용을 포함하는가
+                expect(element.text)
+                    .to
+                    .be
+                    .a('string');
                 expect(element.title)
                     .to
                     .equal('학과 개인 서비스는 학점 입력이 완료되어야 이용이 가능해집니다.'); // 응답 블록의 본문 내용이 작성한 텍스트과 완전일치 하는가

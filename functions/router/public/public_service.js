@@ -238,13 +238,13 @@ router.post('/', async function (req, res) {
             {
                 image = await getImg('completionSystem');
                 // console.log(image);
-                const imgText = ['올해 이수체계도', '올해 설계-이수체계도'];
+                const imgTitle = ['올해 이수체계도', '올해 설계-이수체계도'];
                 /* 응답 횟수만큼 이미지 블록 뷰를 생성*/
                 image.forEach((value, index) => {
                     items.push({
                         simpleImage: {
                             "imageUrl": value,
-                            "altText": imgText[index]
+                            "altText": imgTitle[index]
                         }
                     });
                 });
