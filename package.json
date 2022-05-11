@@ -1,26 +1,28 @@
 {
-  "name": "comgongbot",
-  "version": "1.0.0",
-  "description": "성결대학교 졸업작품 컴공과 챗봇 프로젝트",
-  "scripts": {
-    "start": "firebase emulators:start",
-    "lint": "eslint . --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Team-Helper/ComgongBOT.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Team-Helper/ComgongBOT/issues"
-  },
-  "homepage": "https://github.com/Team-Helper/ComgongBOT#readme",
-  "dependencies": {
-    "express": "^4.17.2"
-  },
-  "devDependencies": {
-    "eslint": "^8.13.0",
-    "nodemon": "^2.0.15"
-  }
+    "name": "comgongbot",
+    "version": "1.0.0",
+    "description": "성결대학교 졸업작품 컴공과 챗봇 프로젝트",
+    "scripts": {
+        "start": "firebase emulators:start",
+        "config": "cd functions && npm run config",
+        "test": "cd functions && npm run test",
+        "lint": "eslint . --fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Team-Helper/ComgongBOT.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Team-Helper/ComgongBOT/issues"
+    },
+    "homepage": "https://github.com/Team-Helper/ComgongBOT#readme",
+    "dependencies": {
+        "express": "^4.17.2"
+    },
+    "devDependencies": {
+        "eslint": "^8.13.0",
+        "nodemon": "^2.0.15"
+    }
 }
