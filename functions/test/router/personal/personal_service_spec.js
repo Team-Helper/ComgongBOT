@@ -86,7 +86,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
     it(
         'responds check graduateCredits',
         done => { // 테스트 단위 : 학점과 학번, 공학인증여부가 입력되어 있고 조회할 때
-            const userRequest = { // 기본 사용자 시나리오와 요청 발화문
+            const userRequest = {
                 user: {
                     "properties": {
                         "plusfriendUserKey": "testID",
@@ -193,7 +193,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                 // console.log(res.body.template.outputs);
                 const elements = res.body.template.outputs;
                 for (let index = 0; index < elements.length; index++) {
-                    if (index == 0) {
+                    if (index == 0) { // 사용자가 공학인증 일 때 테스트 시나리오
                         const element = res
                             .body
                             .template
@@ -219,6 +219,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                         expect(elementTitle)
                             .to
                             .include('최저이수요구 학점표 입니다.');
+
                         const elementItems = element.itemList;
                         const title = [
                             "전공필수",
@@ -240,7 +241,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                                 .be
                                 .a('number');
                         }
-                    } else {
+                    } else { // 사용자가 일반인증 일 때 테스트 시나리오
                         const element = res
                             .body
                             .template
@@ -255,12 +256,13 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                             .to
                             .be
                             .a('string');
-                        expect(element.imgURL)
+                        expect(typeof element.altText)
                             .to
-                            .include('jpg');
+                            .be
+                            .a('string');
                         expect(element.altText)
                             .to
-                            .equal(imgTitle[index - 1]);
+                            .include('교과과정');
                     }
                 }
 

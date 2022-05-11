@@ -283,13 +283,13 @@ router.post('/', async function (req, res) {
                                 }
                             });
                         } else {
-                            console.log(value, typeof value, Object.keys(value).length);
+                            // console.log(value, typeof value, Object.keys(value).length);
                             /* 그 외 응답은 조회된 이미지 개수 별로 처리 */
                             for (let jndex = 0; jndex < Object.keys(value).length; jndex++) {
                                 // console.log(value[jndex]);
                                 items.push({
                                     simpleImage: { // 이미지별로 이미지 뷰 출력
-                                        "imgURL": value[jndex].imgURL,
+                                        "imgUrl": value[jndex].imgURL,
                                         "altText": value[jndex].imgAlt
                                     }
                                 });

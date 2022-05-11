@@ -224,7 +224,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleImage: { // 이미지 뷰 블록으로 출력
-                                "imgURL": image,
+                                "imgUrl": image,
                                 "altText": "교과과정"
                             }
                         }
@@ -243,7 +243,7 @@ router.post('/', async function (req, res) {
                 image.forEach((value, index) => {
                     items.push({
                         simpleImage: {
-                            "imgURL": value,
+                            "imgUrl": value,
                             "altText": imgTitle[index]
                         }
                     });
