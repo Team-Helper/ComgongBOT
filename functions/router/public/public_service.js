@@ -224,7 +224,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleImage: { // 이미지 뷰 블록으로 출력
-                                "imageUrl": image,
+                                "imgURL": image,
                                 "altText": "교과과정"
                             }
                         }
@@ -243,7 +243,7 @@ router.post('/', async function (req, res) {
                 image.forEach((value, index) => {
                     items.push({
                         simpleImage: {
-                            "imageUrl": value,
+                            "imgURL": value,
                             "altText": imgTitle[index]
                         }
                     });
@@ -285,7 +285,7 @@ router.post('/', async function (req, res) {
                         "title": name[index],
                         "description": info[index],
                         "thumbnail": {
-                            "imageUrl": value,
+                            "imgURL": value,
                             "fixedRatio": true
                         },
                         "buttons": [
@@ -351,7 +351,7 @@ router.post('/', async function (req, res) {
             imageData = await admin
                 .database()
                 .ref(params)
-                .child('imgUrl')
+                .child('imgURL')
                 .once('value')
                 .then(snapshot => {
                     return snapshot.val();
@@ -363,7 +363,7 @@ router.post('/', async function (req, res) {
             imageData = await admin
                 .database()
                 .ref(params)
-                .child(`imgUrl/${index}`)
+                .child(`imgURL/${index}`)
                 .once('value')
                 .then(snapshot => {
                     return snapshot.val();

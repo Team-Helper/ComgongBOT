@@ -5,7 +5,9 @@
     "serve": "firebase emulators:start --only functions",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "mocha test/router/setting/input/email_auth_spec -t 10000"
+    "test": "mocha test/router/personal/personal_service_spec -t 10000",
+    "config": "firebase functions:config:get > .runtimeconfig.json",
+    "config_win": "firebase functions:config:get | ac .runtimeconfig.json"
   },
   "engines": {
     "node": "16"

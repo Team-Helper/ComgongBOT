@@ -440,7 +440,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
 
     it(
         'responds choose menu before delete user',
-        done => { // 컴공봇 초기화 전, 메뉴 선택이 이루어질 때
+        done => { // ComgongBOT 초기화 전, 메뉴 선택이 이루어질 때
             const userRequest = {
                 user: {
                     "properties": {
@@ -490,7 +490,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 });
         }
     );
-    it('responds delete user', done => { // 사용자가 컴공봇을 초기화할 때
+    it('responds delete user', done => { // 사용자가 ComgongBOT을 초기화할 때
         const userRequest = {
             user: {
                 "properties": {

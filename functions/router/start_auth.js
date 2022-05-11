@@ -12,7 +12,7 @@ async function checkAuth(req) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요.!" // 텍스트 뷰 블록으로 출력
+                            text: "🔕 ComgongBOT 채널 추가부터 하셔야 이용이 가능해요.!" // 텍스트 뷰 블록으로 출력
                         }
                     }
                 ]
@@ -45,7 +45,7 @@ async function checkAuth(req) {
                                     "title": "⚠ 누락된 설정이 있습니다."
                                 },
                                 "itemList": itemList,
-                                "title": "컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.",
+                                "title": "ComgongBOT 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.",
                                 "buttons": [
                                     {
                                         "label": "이메일 인증",

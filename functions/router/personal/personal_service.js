@@ -190,7 +190,7 @@ router.post('/', async function (req, res) {
                                     },
                                     "itemList": itemList,
                                     "title": "[남은 학점/전체 학점]",
-                                    "description": "계산은 컴공봇에 입력하신 학점을 토대로 계산됩니다."
+                                    "description": "계산은 ComgongBOT에 입력하신 학점을 토대로 계산됩니다."
                                 }
                             }
                         ],
@@ -283,23 +283,14 @@ router.post('/', async function (req, res) {
                                 }
                             });
                         } else {
-                            // console.log(value, typeof value);
-                            const imgTitle = ['이수체계도', '설계 이수체계도'];
-                            if (typeof value === 'object') { // 응답 구조가 오브젝트 인 경우
-                                for (let jndex = 0; jndex < Object.keys(value).length; jndex++) {
-                                    // console.log(value[jndex]);
-                                    items.push({
-                                        simpleImage: { // 이미지별로 이미지 뷰 출력
-                                            "imageUrl": value[jndex],
-                                            "altText": imgTitle[jndex]
-                                        }
-                                    });
-                                }
-                            } else { // 아닌 경우
+                            console.log(value, typeof value, Object.keys(value).length);
+                            /* 그 외 응답은 조회된 이미지 개수 별로 처리 */
+                            for (let jndex = 0; jndex < Object.keys(value).length; jndex++) {
+                                // console.log(value[jndex]);
                                 items.push({
-                                    simpleImage: { // 이미지 하나 출력
-                                        "imageUrl": value,
-                                        "altText": imgTitle[0]
+                                    simpleImage: { // 이미지별로 이미지 뷰 출력
+                                        "imgURL": value[jndex].imgURL,
+                                        "altText": value[jndex].imgAlt
                                     }
                                 });
                             }

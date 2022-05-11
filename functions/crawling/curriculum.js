@@ -29,16 +29,16 @@ exports.curriculum = functions // 크롤링 함수 이름
             const frame = await element.contentFrame();
             await frame.waitForSelector('#page0');
             // eslint-disable-next-line id-length
-            const imgUrl = await frame.$eval('#page0', e => e.getAttribute("src")); // 이미지 주소 추출
-            // console.log(imgUrl);
+            const imgURL = await frame.$eval('#page0', e => e.getAttribute("src")); // 이미지 주소 추출
+            // console.log(imgURL);
             await browser.close();
 
             await admin
                 .database()
                 .ref('curriculum/')
-                .set({imgUrl: imgUrl}); // 주소를 DB에 저장
+                .set({imgURL: imgURL}); // 주소를 DB에 저장
             console.log('Crawling and curriculum DB input Success');
-            // res.status(201).send(imgUrl);
+            // res.status(201).send(imgURL);
             res.sendStatus(201); // 성공 코드 전송
         } catch (err) {
             console.error('Error from curriculum : ', err);

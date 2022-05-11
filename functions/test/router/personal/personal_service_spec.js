@@ -135,7 +135,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                         .equal('[남은 학점/전체 학점]');
                     expect(elementDescription)
                         .to
-                        .equal('계산은 컴공봇에 입력하신 학점을 토대로 계산됩니다.');
+                        .equal('계산은 ComgongBOT에 입력하신 학점을 토대로 계산됩니다.');
 
                     const elementItems = element.itemList;
                     const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
@@ -241,7 +241,6 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                                 .a('number');
                         }
                     } else {
-                        const imgTitle = ['이수체계도', '설계 이수체계도'];
                         const element = res
                             .body
                             .template
@@ -252,11 +251,11 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                             .to
                             .be
                             .an('object');
-                        expect(typeof element.imageUrl)
+                        expect(typeof element.imgURL)
                             .to
                             .be
                             .a('string');
-                        expect(element.imageUrl)
+                        expect(element.imgURL)
                             .to
                             .include('jpg');
                         expect(element.altText)

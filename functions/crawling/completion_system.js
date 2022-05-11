@@ -35,22 +35,22 @@ exports.completionSystem = functions // 크롤링 함수 이름
             ); // 해당 dom 구간의 이미지 태그 값 전체 추출
             // console.log(images);
             const year = new Date().getFullYear(); // 올해 년도
-            const imgUrl = [];
+            const imgURL = [];
             for (let index = 0; index < images.length; index++) {
                 const element = images[index];
                 if (element.indexOf(year) > -1) {
-                    imgUrl.push(element); // 올해 년도 이름의 이미지 파일을 배열 처리
+                    imgURL.push(element); // 올해 년도 이름의 이미지 파일을 배열 처리
                 }
             }
-            // console.log(imgUrl);
+            // console.log(imgURL);
             await browser.close();
 
             await admin
                 .database()
                 .ref('completionSystem/')
-                .set({imgUrl}); // 배열 처리된 이미지 주소를 DB에 저장
+                .set({imgURL}); // 배열 처리된 이미지 주소를 DB에 저장
             console.log('Crawling and completionSystem DB input Success');
-            // res.status(201).send(imgUrl);
+            // res.status(201).send(imgURL);
             res.sendStatus(201); // 성공 코드 전송
         } catch (err) {
             console.error('Error from completionSystem : ', err);

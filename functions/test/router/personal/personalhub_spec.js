@@ -31,7 +31,7 @@ describe('POST /personal', () => { // 테스트 수트
                     .a('string'); // 응답 결과의 내용이 문자열 타입인가
                 expect(element.text)
                     .to
-                    .include("컴공봇 채널 추가부터"); // 응답 결과가 작성한 텍스트 내용을 포함하는가
+                    .include("ComgongBOT 채널 추가부터"); // 응답 결과가 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -77,7 +77,7 @@ describe('POST /personal', () => { // 테스트 수트
                         .a('string');
                     expect(element.title)
                         .to
-                        .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
+                        .equal('ComgongBOT 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                     const elementItems = element.itemList;
                     const title = ['이메일', '학년/학번'];
