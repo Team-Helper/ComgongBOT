@@ -190,7 +190,7 @@ router.post('/', async function (req, res) {
                                     },
                                     "itemList": itemList,
                                     "title": "[남은 학점/전체 학점]",
-                                    "description": "계산은 ComgongBOT에 입력하신 학점을 토대로 계산됩니다."
+                                    "description": "계산은 컴공봇에 입력하신 학점을 토대로 계산됩니다."
                                 }
                             }
                         ],
