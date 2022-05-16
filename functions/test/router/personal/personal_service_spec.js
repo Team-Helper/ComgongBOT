@@ -149,6 +149,10 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                             .to
                             .be
                             .a('string');
+                        expect(itemDescription)
+                            .to
+                            .not
+                            .include('-');
                     }
 
                     const elementQuick = res
