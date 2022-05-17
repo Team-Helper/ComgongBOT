@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    console.log(res.body);
+    console.log(req.body);
     // const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
     // // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     // const userRequest = req.body.action.detailParams; // 사용자 입력 데이터
