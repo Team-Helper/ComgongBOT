@@ -30,6 +30,12 @@ async function checkAuth(req) {
             const title = ["이메일", "학년/학번"];
             const description = "❌ 미설정";
             const itemList = [];
+            const url = 'http://localhost:5000/email?variable=';
+            const newURL = new URL(url);
+            newURL
+                .searchParams
+                .set('variable', req.plusfriendUserKey);
+            const webLink = newURL.href;
 
             title.forEach(value => {
                 itemList.push({"title": value, "description": description});
@@ -49,9 +55,9 @@ async function checkAuth(req) {
                                     {
                                         "label": "이메일 인증",
                                         "action": "webLink",
-                                        "webLinkUrl": "https://comgong-bot.web.app/email"
+                                        "webLinkUrl": webLink
                                     }
-                                ],
+                                ]
                             }
                         }
                     ]
