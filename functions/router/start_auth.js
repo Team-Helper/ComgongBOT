@@ -30,7 +30,7 @@ async function checkAuth(req) {
             const title = ["이메일", "학년/학번"];
             const description = "❌ 미설정";
             const itemList = [];
-            const url = 'http://localhost:5000/email?variable=';
+            const url = 'https://comgong-bot.web.appemail?variable=';
             const newURL = new URL(url);
             newURL
                 .searchParams
