@@ -1,5 +1,4 @@
 const admin = require('firebase-admin');
-const functions = require('firebase-functions');
 
 async function checkAuth(req) {
     // console.log(req);
@@ -54,17 +53,6 @@ async function checkAuth(req) {
                                     }
                                 ],
                             }
-                        }
-                    ],
-                    quickReplies: [
-                        { // 바로가기 작성 및 출력 설정
-                            "messageText": "이메일 인증할게",
-                            "action": "block",
-                            "blockId": functions
-                                .config()
-                                .service_key
-                                .email_key,
-                            "label": "이메일 인증"
                         }
                     ]
                 }
