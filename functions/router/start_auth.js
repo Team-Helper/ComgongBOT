@@ -32,6 +32,7 @@ async function checkAuth(req) {
             const title = ["이메일", "학년/학번"];
             const description = "❌ 미설정";
             const itemList = [];
+            /* 사용자 카카오채널 id값을 암호화 */
             const userKey = req.plusfriendUserKey;
             const encrypted = AES
                 .encrypt(
@@ -45,7 +46,7 @@ async function checkAuth(req) {
             newURL
                 .searchParams
                 .set('variable', encrypted);
-            const webLink = newURL.href;
+            const webLink = newURL.href; // 연결 페이지 주소에 파라미터로 저장
             // console.log(webLink);
 
             title.forEach(value => {
