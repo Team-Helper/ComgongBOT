@@ -1,4 +1,6 @@
 const admin = require('firebase-admin');
+const AES = require('crypto-js/aes');
+const functions = require('firebase-functions');
 
 async function checkAuth(req) {
     // console.log(req);
@@ -30,12 +32,21 @@ async function checkAuth(req) {
             const title = ["이메일", "학년/학번"];
             const description = "❌ 미설정";
             const itemList = [];
+            const userKey = req.plusfriendUserKey;
+            const encrypted = AES
+                .encrypt(
+                    JSON.stringify(userKey),
+                    functions.config().service_key.aes_key
+                )
+                .toString();
+            // console.log(encrypted);
             const url = 'https://comgong-bot.web.app/email?variable=';
             const newURL = new URL(url);
             newURL
                 .searchParams
-                .set('variable', req.plusfriendUserKey);
+                .set('variable', encrypted);
             const webLink = newURL.href;
+            // console.log(webLink);
 
             title.forEach(value => {
                 itemList.push({"title": value, "description": description});

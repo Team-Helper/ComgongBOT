@@ -4,7 +4,7 @@
     "scripts": {
         "logs": "firebase functions:log",
         "config": "firebase functions:config:get > .runtimeconfig.json",
-        "test": "mocha test/router/setting/input/email_auth_spec -t 10000"
+        "test": "mocha test/router/public/publichub_spec -t 10000"
     },
     "engines": {
         "node": "16"
@@ -13,6 +13,7 @@
     "dependencies": {
         "axios": "^0.25.0",
         "cheerio": "^1.0.0-rc.10",
+        "crypto-js": "^4.1.1",
         "dotenv": "^15.0.0",
         "express": "^4.17.2",
         "firebase-admin": "^9.8.0",
