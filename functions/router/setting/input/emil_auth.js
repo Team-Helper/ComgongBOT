@@ -6,7 +6,7 @@ const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
     // console.log(req.body);
-    const userRequest = req.body.Data; // 입력한 사용자의 데이터
+    const userRequest = req.body.Data; // 입력한 사용자의 데이터 조회
     const email = userRequest.email; // 입력한 이메일
     const grade = userRequest.grade; // 입력한 학년
     const studentID = userRequest.studentID; // 입력한 학번
@@ -17,10 +17,11 @@ router.post('/', async function (req, res) {
     const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     // console.log(email, grade, studentID, decrypted);
 
+    /* 사용자 카카오채널 id 값으로 프로필 DB 생성 */
     const firestore = admin.firestore();
     const docRef = firestore
         .collection('users')
-        .doc(decrypted); // 사용자 카카오채널 id 값으로 프로필 DB 생성
+        .doc(decrypted);
     await docRef
         .set(
             {email: email, grade: grade, studentID: studentID, status: true, engineeringStatus: true} // 프로필 DB에 기본 데이터 생성 (재학상태와 공학인증여부는 기본적으로 '재학')
@@ -28,7 +29,7 @@ router.post('/', async function (req, res) {
         .then(() => {
             res
                 .status(201)
-                .send('Create user profile success');
+                .send('Create user profile success'); // 응답 상태 코드와 내용 전송
         })
         .catch(err => {
             console.error('Error from set profile DB:', err);
