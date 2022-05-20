@@ -252,7 +252,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                             .to
                             .be
                             .an('object');
-                        expect(typeof element.imgURL)
+                        expect(typeof element.imageUrl)
                             .to
                             .be
                             .a('string');

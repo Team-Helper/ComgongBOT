@@ -289,7 +289,7 @@ router.post('/', async function (req, res) {
                                 // console.log(value[jndex]);
                                 items.push({
                                     simpleImage: { // 이미지별로 이미지 뷰 출력
-                                        "imgUrl": value[jndex].imgURL,
+                                        "imageUrl": value[jndex].imgURL,
                                         "altText": value[jndex].imgAlt
                                     }
                                 });
