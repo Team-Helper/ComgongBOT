@@ -224,7 +224,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleImage: { // 이미지 뷰 블록으로 출력
-                                "imgUrl": image,
+                                "imageUrl": image,
                                 "altText": "교과과정"
                             }
                         }
@@ -243,7 +243,7 @@ router.post('/', async function (req, res) {
                 image.forEach((value, index) => {
                     items.push({
                         simpleImage: {
-                            "imgUrl": value,
+                            "imageUrl": value,
                             "altText": imgTitle[index]
                         }
                     });
@@ -285,7 +285,7 @@ router.post('/', async function (req, res) {
                         "title": name[index],
                         "description": info[index],
                         "thumbnail": {
-                            "imgURL": value,
+                            "imageUrl": value,
                             "fixedRatio": true
                         },
                         "buttons": [
@@ -296,7 +296,7 @@ router.post('/', async function (req, res) {
                             }
                         ]
                     });
-                    if (data.length == 10 || index == info.length - 1) { // 케러셀이 지원하는 최대 개수만큼 혹은 DB value 값 만큼 반복되었다면
+                    if (data.length === 10 || index === info.length - 1) { // 케러셀이 지원하는 최대 개수만큼 혹은 DB value 값 만큼 반복되었다면
                         items.push({
                             carousel: { // 캐러셀 구조의 기본 카드형 응답 블록으로 본문 작성
                                 "type": "basicCard",
@@ -346,7 +346,7 @@ router.post('/', async function (req, res) {
 
     async function getImg(params, index) { // 이미지 DB 검색 쿼리문 처리 함수
         let imageData;
-        
+
         if (index === undefined) {
             imageData = await admin
                 .database()

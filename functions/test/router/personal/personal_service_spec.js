@@ -197,7 +197,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                 // console.log(res.body.template.outputs);
                 const elements = res.body.template.outputs;
                 for (let index = 0; index < elements.length; index++) {
-                    if (index == 0) { // 사용자가 공학인증 일 때 테스트 시나리오
+                    if (index === 0) { // 사용자가 공학인증 일 때 테스트 시나리오
                         const element = res
                             .body
                             .template
@@ -256,7 +256,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
                             .to
                             .be
                             .an('object');
-                        expect(typeof element.imgURL)
+                        expect(typeof element.imageUrl)
                             .to
                             .be
                             .a('string');

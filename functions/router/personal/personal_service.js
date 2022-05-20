@@ -89,11 +89,11 @@ router.post('/', async function (req, res) {
             {
                 userData = await userSelect.get(); // 사용자 프로필 DB 값 변수처리
                 /* 사용자 학번 추출 및 현재년도 전체이름으로 설정*/
-                const thieYear = new Date()
+                const thisYear = new Date()
                     .getFullYear()
                     .toString()
                     .substr(0, 2);
-                const userStudentID = thieYear + userData
+                const userStudentID = thisYear + userData
                     .data()
                     .studentID;
                 // console.log(userStudentID);
@@ -235,11 +235,11 @@ router.post('/', async function (req, res) {
                     "채플 횟수"
                 ]; // 아이템 카드 뷰 본문 목차 내용 작성
                 /* 사용자 학번 추출 및 현재년도 전체이름으로 설정*/
-                const thieYear = new Date()
+                const thisYear = new Date()
                     .getFullYear()
                     .toString()
                     .substring(0, 2);
-                const userStudentID = thieYear + userData
+                const userStudentID = thisYear + userData
                     .data()
                     .studentID;
                 // console.log(userStudentID);
@@ -294,7 +294,7 @@ router.post('/', async function (req, res) {
                     // console.log(itemSet);
                     /* 작성한 응답 횟수만큼 응답 블록 생성 */
                     itemSet.forEach((value, index) => {
-                        if (index == 0) {
+                        if (index === 0) {
                             items.push({
                                 itemCard: { // 첫번째 응답은 아이템 카드 뷰 블록으로 출력
                                     "head": {
@@ -311,7 +311,7 @@ router.post('/', async function (req, res) {
                                 // console.log(value[jndex]);
                                 items.push({
                                     simpleImage: { // 이미지별로 이미지 뷰 출력
-                                        "imgUrl": value[jndex].imgURL,
+                                        "imageUrl": value[jndex].imgURL,
                                         "altText": value[jndex].imgAlt
                                     }
                                 });

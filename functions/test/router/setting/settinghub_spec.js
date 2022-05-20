@@ -149,7 +149,7 @@ describe('POST /setting', () => { // 테스트 수트
                 expect(element.imageTitle.title)
                     .to
                     .equal('프로필 설정'); // 응답 블록의 이미지 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
-                expect(element.imageTitle.imgURL)
+                expect(element.imageTitle.imageUrl)
                     .to
                     .include('png'); // 응답 블록의 이미지 주소에 png 명칭이 포함하는가
                 const itemLength = element.itemList.length;
@@ -230,7 +230,7 @@ describe('POST /setting', () => { // 테스트 수트
                 expect(element.imageTitle.title)
                     .to
                     .equal('프로필 설정');
-                expect(element.imageTitle.imgURL)
+                expect(element.imageTitle.imageUrl)
                     .to
                     .include('png');
                 const itemLength = element.itemList.length;

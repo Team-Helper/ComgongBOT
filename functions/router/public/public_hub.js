@@ -32,7 +32,7 @@ router.post('/', async function (req, res) {
         "교수진소개"
     ];
 
-    if (checkAuth == true) { // 사용자가 프로필 설정이 되어있다면
+    if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
         /* 바로가기 작성*/
         label.forEach((value, index) => {
             quickReplies.push({

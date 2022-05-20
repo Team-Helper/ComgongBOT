@@ -470,15 +470,16 @@ describe('POST /public/public_service', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleImage;
+                // console.log(element);
                 expect(element)
                     .to
                     .be
                     .an('object');
-                expect(typeof element.imgURL)
+                expect(typeof element.imageUrl)
                     .to
                     .be
                     .a('string'); // 응답 블록의 이미지 주소가 문자열 타입인가
-                expect(element.imgURL)
+                expect(element.imageUrl)
                     .to
                     .include('png'); // 응답 블록의 이미지 주소에 png 확장자가 포함되었는가
                 expect(element.altText)
@@ -534,11 +535,11 @@ describe('POST /public/public_service', () => { // 테스트 수트
                         .to
                         .be
                         .an('object');
-                    expect(typeof element.imgURL)
+                    expect(typeof element.imageUrl)
                         .to
                         .be
                         .a('string');
-                    expect(element.imgURL)
+                    expect(element.imageUrl)
                         .to
                         .include('jpg');
                     expect(element.altText)
@@ -615,7 +616,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                         expect(itemDescription)
                             .to
                             .include('연구실');
-                        expect(typeof itemImg.imgURL)
+                        expect(typeof itemImg.imageUrl)
                             .to
                             .be
                             .a('string');

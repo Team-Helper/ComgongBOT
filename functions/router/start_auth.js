@@ -1,11 +1,12 @@
 const admin = require('firebase-admin');
+const AES = require('crypto-js/aes');
 const functions = require('firebase-functions');
 
 async function checkAuth(req) {
     // console.log(req);
     let responseBody;
 
-    if (req.isFriend == undefined) { // 채널을 추가하지 않은 경우
+    if (req.isFriend === undefined) { // 채널을 추가하지 않은 경우
         responseBody = {
             version: "2.0",
             template: {
@@ -31,6 +32,22 @@ async function checkAuth(req) {
             const title = ["이메일", "학년/학번"];
             const description = "❌ 미설정";
             const itemList = [];
+            /* 사용자 카카오채널 id값을 암호화 */
+            const userKey = req.plusfriendUserKey;
+            const encrypted = AES
+                .encrypt(
+                    JSON.stringify(userKey),
+                    functions.config().service_key.aes_key
+                )
+                .toString();
+            // console.log(encrypted);
+            const url = 'https://comgong-bot.web.app/email?variable=';
+            const newURL = new URL(url);
+            newURL
+                .searchParams
+                .set('variable', encrypted);
+            const webLink = newURL.href; // 연결 페이지 주소에 파라미터로 저장
+            // console.log(webLink);
 
             title.forEach(value => {
                 itemList.push({"title": value, "description": description});
@@ -50,21 +67,10 @@ async function checkAuth(req) {
                                     {
                                         "label": "이메일 인증",
                                         "action": "webLink",
-                                        "webLinkUrl": "https://comgong-bot.web.app/email"
+                                        "webLinkUrl": webLink
                                     }
-                                ],
+                                ]
                             }
-                        }
-                    ],
-                    quickReplies: [
-                        { // 바로가기 작성 및 출력 설정
-                            "messageText": "이메일 인증할게",
-                            "action": "block",
-                            "blockId": functions
-                                .config()
-                                .service_key
-                                .email_key,
-                            "label": "이메일 인증"
                         }
                     ]
                 }

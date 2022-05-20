@@ -14,7 +14,7 @@ router.post('/', async function (req, res) {
     let messageText = []; // 바로가기 요청문
     let label = []; // 바로가기 버튼명
 
-    if (checkAuth == true) { // 사용자가 프로필 설정이 되어있다면
+    if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
         /* 사용자 프로필 DB 조회*/
         const firestore = admin.firestore();
         const userSelect = firestore
@@ -34,7 +34,7 @@ router.post('/', async function (req, res) {
             );
             label.push("학점 입력", "학년 변경", "학번 변경", "학적상태 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
-                if (index == 0) { // 학점 입력 경우 파라미터를 사용한 블록 주소로 설정
+                if (index === 0) { // 학점 입력 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -44,7 +44,7 @@ router.post('/', async function (req, res) {
                             .credit_key,
                         "label": value
                     });
-                } else if (index == 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
+                } else if (index === 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -77,7 +77,7 @@ router.post('/', async function (req, res) {
             );
             label.push("학점 수정", "학년 변경", "학번 변경", "학적상태 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
-                if (index == 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로 설정
+                if (index === 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -87,7 +87,7 @@ router.post('/', async function (req, res) {
                             .credit_modify_key,
                         "label": value
                     });
-                } else if (index == 2) {
+                } else if (index === 2) {
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -157,9 +157,7 @@ router.post('/', async function (req, res) {
                         itemCard: { // 아이템 카드 뷰 블록으로 출력
                             imageTitle: { // 설정 서비스 경우 사용자의 프로필을 첫번째로 출력
                                 "title": "프로필 설정",
-                                "imgURL": "https://pixabay.com/get/g52adf5f3d0c49d960af25a1881181b38ae144f96c845ec34874db" +
-                                    "53ef268324954a49df11f8e954aa36312663fb8a91affa2bd50adf637897eadb6a98fb15ecf1b1" +
-                                    "0dfe05fe18a44d0cb7994276c6a90_640.png"
+                                "imageUrl": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                             },
                             itemList: itemList
                         }
