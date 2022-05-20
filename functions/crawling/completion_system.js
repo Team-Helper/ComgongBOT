@@ -35,20 +35,24 @@ exports.completionSystem = functions // 크롤링 함수 이름
             ); // 해당 dom 구간의 이미지 태그 값 전체 추출
             // console.log(images);
             const year = new Date().getFullYear(); // 올해 년도
-            const imgURL = [];
+            const imgSet = new Object;
+
             for (let index = 0; index < images.length; index++) {
-                const element = images[index];
-                if (element.indexOf(year) > -1) {
-                    imgURL.push(element); // 올해 년도 이름의 이미지 파일을 배열 처리
+                const imgURL = images[index];
+                if (imgURL.indexOf(year) > -1) {
+                    imgSet[index] = {
+                        'imgAlt': toString(year) + "년도 교과과정",
+                        'imgURL': imgURL
+                    }; // 올해 년도 이름의 이미지 파일을 객체에 저장
                 }
             }
-            // console.log(imgURL);
+            // console.log(imgSet);
             await browser.close();
 
             await admin
                 .database()
                 .ref('completionSystem/')
-                .set({imgURL}); // 배열 처리된 이미지 주소를 DB에 저장
+                .set(imgSet); // 배열 처리된 이미지 주소를 DB에 저장
             console.log('Crawling and completionSystem DB input Success');
             // res.status(201).send(imgURL);
             res.sendStatus(201); // 성공 코드 전송

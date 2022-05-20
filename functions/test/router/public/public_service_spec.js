@@ -520,7 +520,8 @@ describe('POST /public/public_service', () => { // 테스트 수트
             .send({userRequest})
             .expect(201)
             .then(res => {
-                const imgTitle = ['올해 이수체계도', '올해 설계-이수체계도'];
+                const year = new Date().getFullYear();
+                const imgAlt = toString(year) + "년도 교과과정";
                 const elementLength = res.body.template.outputs.length;
                 // console.log(elementLength);
                 /* 응답 횟수 별로 구조와 내용 검증*/
@@ -544,7 +545,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
                         .include('jpg');
                     expect(element.altText)
                         .to
-                        .equal(imgTitle[index]);
+                        .equal(imgAlt);
                 }
 
                 const elementQuick = res
