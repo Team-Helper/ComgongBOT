@@ -157,9 +157,7 @@ router.post('/', async function (req, res) {
                         itemCard: { // 아이템 카드 뷰 블록으로 출력
                             imageTitle: { // 설정 서비스 경우 사용자의 프로필을 첫번째로 출력
                                 "title": "프로필 설정",
-                                "imgURL": "https://pixabay.com/get/g52adf5f3d0c49d960af25a1881181b38ae144f96c845ec34874db" +
-                                    "53ef268324954a49df11f8e954aa36312663fb8a91affa2bd50adf637897eadb6a98fb15ecf1b1" +
-                                    "0dfe05fe18a44d0cb7994276c6a90_640.png"
+                                "imgURL": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                             },
                             itemList: itemList
                         }
