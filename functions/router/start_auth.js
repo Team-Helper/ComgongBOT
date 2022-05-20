@@ -6,7 +6,7 @@ async function checkAuth(req) {
     // console.log(req);
     let responseBody;
 
-    if (req.isFriend == undefined) { // 채널을 추가하지 않은 경우
+    if (req.isFriend === undefined) { // 채널을 추가하지 않은 경우
         responseBody = {
             version: "2.0",
             template: {

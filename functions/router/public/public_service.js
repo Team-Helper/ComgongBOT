@@ -296,7 +296,7 @@ router.post('/', async function (req, res) {
                             }
                         ]
                     });
-                    if (data.length == 10 || index == info.length - 1) { // 케러셀이 지원하는 최대 개수만큼 혹은 DB value 값 만큼 반복되었다면
+                    if (data.length === 10 || index === info.length - 1) { // 케러셀이 지원하는 최대 개수만큼 혹은 DB value 값 만큼 반복되었다면
                         items.push({
                             carousel: { // 캐러셀 구조의 기본 카드형 응답 블록으로 본문 작성
                                 "type": "basicCard",

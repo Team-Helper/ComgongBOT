@@ -21,7 +21,7 @@ router.post('/', async function (req, res) {
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
 
-    if (checkAuth == true) { // 사용자가 프로필 설정이 되어있다면
+    if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
         if (!userData.data().credits) { // 프로필 DB에 학점 데이터가 존재하지 않는다면
             const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
             const description = "❌ 미설정";

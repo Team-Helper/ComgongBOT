@@ -25,7 +25,7 @@ router.post('/', async function (req, res) {
             items = ['1학년', '2학년', '3학년', '4학년', '뒤로 돌아갈래'];
             label = ['1학년', '2학년', '3학년', '4학년', '↩ 뒤로가기'];
             items.forEach((value, index) => {
-                if (index == items.length - 1) { // 뒤로가기는 해당 내용의 블록 아이디 값으로
+                if (index === items.length - 1) { // 뒤로가기는 해당 내용의 블록 아이디 값으로
                     quickReplies.push({
                         "messageText": value,
                         "action": "block",
@@ -118,7 +118,7 @@ router.post('/', async function (req, res) {
             items = ['휴학해요', '재학해요', '자퇴해요', '뒤로 돌아갈래'];
             label = ['휴학해요', '재학해요', '자퇴해요', '↩ 뒤로가기'];
             items.forEach((value, index) => {
-                if (index == items.length - 1) {
+                if (index === items.length - 1) {
                     quickReplies.push({
                         "messageText": value,
                         "action": "block",
@@ -249,7 +249,7 @@ router.post('/', async function (req, res) {
             items = ['공학인증 해요', '공학인증 안해요', '뒤로 돌아갈래'];
             label = ['O', 'X', '↩ 뒤로가기'];
             items.forEach((value, index) => {
-                if (index == items.length - 1) {
+                if (index === items.length - 1) {
                     quickReplies.push({
                         "messageText": value,
                         "action": "block",
