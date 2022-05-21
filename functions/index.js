@@ -42,7 +42,7 @@ app.use('/setting/credit_input', creditInput);
 app.use('/setting/credit_modify', creditModify);
 app.use('/setting/studentID_modify', studentIDModify);
 const test = require('./test');
-app.use('./test', test);
+app.use('/test', test);
 
 exports.middleWare = functions
     .region('asia-northeast1')
