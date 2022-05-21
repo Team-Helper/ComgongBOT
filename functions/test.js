@@ -8,9 +8,9 @@ router.post('/', async function (req, res) {
     const userRequest = req.body.utterance; // 사용자 입력 데이터
     console.log(userRequest, typeof userRequest);
     if (typeof userRequest === 'string') {
-        res.sendStatus(200);
+        res.status(200).send(userRequest);
     } else {
-        res.sendStatus(400);
+        res.status(400).send('fail');
     }
 });
 
