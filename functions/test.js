@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
-    console.log(userAbout);
+    // const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
+    // console.log(userAbout);
     const userRequest = req.body.action.detailParams; // 사용자 입력 데이터
     console.log(userRequest);
 
