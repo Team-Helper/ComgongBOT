@@ -216,7 +216,7 @@ router.post('/', async function (req, res) {
             break;
 
         case "교과과정을 조회해줘":
-            image = await getImg('curriculum', undefined); // DB로 부터 해당 게시물 이미지 데이터 get
+            image = await getImg('curriculum', null); // DB로 부터 해당 게시물 이미지 데이터 get
             // console.log(image);
             responseBody = {
                 version: "2.0",
@@ -242,7 +242,7 @@ router.post('/', async function (req, res) {
                 image.forEach((value) => {
                     items.push({
                         simpleImage: {
-                            "imageUrl": value.imgUrl,
+                            "imageUrl": value.imgURL,
                             "altText": value.imgAlt
                         }
                     });
@@ -345,8 +345,9 @@ router.post('/', async function (req, res) {
 
     async function getImg(params, index) { // 이미지 DB 검색 쿼리문 처리 함수
         let imageData;
+        // console.log(params, index);
 
-        if (index === undefined) {
+        if (index === null) {
             imageData = await admin
                 .database()
                 .ref(params)
@@ -359,12 +360,15 @@ router.post('/', async function (req, res) {
                     console.error('Error from public_service getImg :', err);
                 });
         } else {
-            imageData = await admin
+            imageData = [];
+            await admin
                 .database()
                 .ref(params)
                 .once('value')
                 .then(snapshot => {
-                    return snapshot.val();
+                    snapshot.forEach(value => {
+                        imageData.push(value.val());
+                    });
                 })
                 .catch(err => {
                     console.error('Error from public_service getImg :', err);

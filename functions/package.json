@@ -4,7 +4,7 @@
     "scripts": {
         "logs": "firebase functions:log",
         "config": "firebase functions:config:get > .runtimeconfig.json",
-        "test": "mocha test/crawling/completion_system_spec -t 10000"
+        "test": "mocha test/router/public/public_service_spec -t 10000"
     },
     "engines": {
         "node": "16"
