@@ -56,8 +56,8 @@ exports.completionSystem = functions // 크롤링 함수 이름
                 .ref('completionSystem/')
                 .set(imgSet); // 배열 처리된 이미지 주소를 DB에 저장
             console.log('Crawling and completionSystem DB input Success');
-            res.status(201).send(imgSet);
-            // res.sendStatus(201); // 성공 코드 전송
+            // res.status(201).send(imgSet);
+            res.sendStatus(201); // 성공 코드 전송
         } catch (err) {
             console.error('Error from completionSystem : ', err);
             res.sendStatus(err.response.status); // 에러 코드 전송

@@ -362,7 +362,6 @@ router.post('/', async function (req, res) {
             imageData = await admin
                 .database()
                 .ref(params)
-                .child(`imgURL/${index}`)
                 .once('value')
                 .then(snapshot => {
                     return snapshot.val();
