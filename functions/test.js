@@ -7,7 +7,7 @@ router.post('/', async function (req, res) {
     // console.log(req.body);
     const userRequest = req.body.utterance; // 사용자 입력 데이터
     console.log(userRequest, typeof userRequest);
-    if (typeof test === 'string') {
+    if (typeof userRequest === 'string') {
         res.sendStatus(200);
     } else {
         res.sendStatus(400);
