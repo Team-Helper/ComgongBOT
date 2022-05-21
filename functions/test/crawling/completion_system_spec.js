@@ -9,7 +9,7 @@ describe('GET /completionSystem', () => { // 테스트 수트
             .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res.body;
-                console.log(element);
+                // console.log(element);
                 expect(element)
                     .to
                     .be
