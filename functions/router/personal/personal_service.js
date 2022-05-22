@@ -98,43 +98,58 @@ router.post('/', async function (req, res) {
                     .studentID;
                 // console.log(userStudentID);
                 title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"]; // 아이템 카드 뷰 목차 이름 작성
+                /* 사용자 학점 데이터 변수처리 */
+                const usermajorA = userData
+                    .data()
+                    .credits
+                    .majorA;
+                const usermajorB = userData
+                    .data()
+                    .credits
+                    .majorB;
+                const usergeA = userData
+                    .data()
+                    .credits
+                    .geA;
+                const usergeB = userData
+                    .data()
+                    .credits
+                    .geB;
+                const usertotal = userData
+                    .data()
+                    .credits
+                    .total;
 
                 if (userData.data().engineeringStatus === true) { // 공학인증 사용자 인 경우
                     const engineerCreditsData = await firestore
                         .collection('engineeringCredits')
                         .doc(userStudentID)
                         .get(); // 공학인증 관련 사용자 학번의 학점DB 조회
-                    /* 전체 교과목 남은 학점 계산 */
-                    const geA = engineerCreditsData
-                        .data()
-                        .geA - parseInt(userData.data().credits.geA) + '/' +
-                            engineerCreditsData
-                        .data()
-                        .geA;
-                    const geB = engineerCreditsData
-                        .data()
-                        .geB - parseInt(userData.data().credits.geB) + '/' +
-                            engineerCreditsData
-                        .data()
-                        .geB;
-                    const majorA = engineerCreditsData
-                        .data()
-                        .majorA - parseInt(userData.data().credits.majorA) + '/' +
-                            engineerCreditsData
+                    /* 공학인증 전체 교과목 남은 학점 계산 */
+                    const DBmajorA = engineerCreditsData
                         .data()
                         .majorA;
-                    const majorB = engineerCreditsData
-                        .data()
-                        .majorB - parseInt(userData.data().credits.majorB) + '/' +
-                            engineerCreditsData
+                    const majorA = DBmajorA - usermajorA + '/' + DBmajorA;
+
+                    const DBmajorB = engineerCreditsData
                         .data()
                         .majorB;
-                    const total = engineerCreditsData
+                    const majorB = DBmajorB - usermajorB + '/' + DBmajorB;
+
+                    const DBgeA = engineerCreditsData
                         .data()
-                        .total - parseInt(userData.data().credits.total) + '/' +
-                            engineerCreditsData
+                        .geA;
+                    const geA = DBgeA - usergeA + '/' + DBgeA;
+
+                    const DBgeB = engineerCreditsData
+                        .data()
+                        .geB;
+                    const geB = DBgeB - usergeB + '/' + DBgeB;
+
+                    const DBtotal = engineerCreditsData
                         .data()
                         .total;
+                    const total = DBtotal - usertotal + '/' + DBtotal;
 
                     /* 아이템 카드 뷰 본문 작성*/
                     const graduateCredits = [majorA, majorB, geA, geB, total];
@@ -146,33 +161,32 @@ router.post('/', async function (req, res) {
                         .collection('credits')
                         .doc(userStudentID)
                         .get(); // 일반인증 관련 사용자 학번의 학점DB 조회
-                    /* 전체 교과목 남은 학점 계산 */
-                    const geA = creditsData
-                        .data()
-                        .geA - parseInt(userData.data().credits.geA) + '/' + creditsData
-                        .data()
-                        .geA;
-                    const geB = creditsData
-                        .data()
-                        .geB - parseInt(userData.data().credits.geB) + '/' + creditsData
-                        .data()
-                        .geB;
-                    const majorA = creditsData
-                        .data()
-                        .majorA - parseInt(userData.data().credits.majorA) + '/' + creditsData
+                    /* 일반 인증 전체 교과목 남은 학점 계산 */
+                    const DBmajorA = creditsData
                         .data()
                         .majorA;
-                    const majorB = creditsData
-                        .data()
-                        .majorB - parseInt(userData.data().credits.majorB) + '/' + creditsData
+                    const majorA = DBmajorA - usermajorA + '/' + DBmajorA;
+
+                    const DBmajorB = creditsData
                         .data()
                         .majorB;
-                    const total = creditsData
+                    const majorB = DBmajorB - usermajorB + '/' + DBmajorB;
+
+                    const DBgeA = creditsData
                         .data()
-                        .total - parseInt(userData.data().credits.total) + '/' + creditsData
+                        .geA;
+                    const geA = DBgeA - usergeA + '/' + DBgeA;
+
+                    const DBgeB = creditsData
+                        .data()
+                        .geB;
+                    const geB = DBgeB - usergeB + '/' + DBgeB;
+
+                    const DBtotal = creditsData
                         .data()
                         .total;
-
+                    const total = DBtotal - usertotal + '/' + DBtotal;
+                    
                     const graduateCredits = [majorA, majorB, geA, geB, total];
                     title.forEach((value, index) => {
                         itemList.push({'title': value, 'description': graduateCredits[index]});
