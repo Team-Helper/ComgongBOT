@@ -4,7 +4,7 @@
     "scripts": {
         "logs": "firebase functions:log",
         "config": "firebase functions:config:get > .runtimeconfig.json",
-        "test": "mocha test/router/setting/input/credit_modify_spec -t 10000"
+        "test": "mocha test/router/setting/input/studentID_modify_spec -t 10000"
     },
     "engines": {
         "node": "16"

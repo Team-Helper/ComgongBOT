@@ -2,7 +2,7 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /setting/setting_service', () => { // 테스트 수트
+describe('POST /input/studentID_modify', () => { // 테스트 수트
     it(
         'responds success modify studentID',
         done => { // 테스트 단위 : 입력한 값으로 학번 변경이 성공했을 때
@@ -18,13 +18,13 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
                 detailParams: {
                     studentID_modify: {
                         groupName: '',
-                        origin: '22',
+                        origin: '16',
                         value: '번호'
                     }
                 }
             };
             request(functions.config().service_url.app) // 테스트 하려는 기본 주소
-                .post('/setting/studentID_correction') // 주소의 엔드포인트
+                .post('/input/studentID_modify') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
                 .type('application/json')
                 .send({userRequest}) // body 데이터 전송(하단 포함)
@@ -66,14 +66,14 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             detailParams: {
                 studentID_modify: {
                     groupName: '',
-                    origin: '22',
+                    origin: '16',
                     value: '번호'
                 }
             }
         };
         request(functions.config().service_url.app)
             .post(
-                '/setting/studentID_correction'
+                '/input/studentID_modify'
             )
             .set('Accept', 'application/json')
             .type('application/json')

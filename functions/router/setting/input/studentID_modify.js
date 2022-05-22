@@ -8,7 +8,7 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams; // 사용자 입력 데이터
     // console.log(userRequest);
-    const studentID = userRequest.studentID_modify['origin']; // 입력한 학번 값
+    const studentID = parseInt(userRequest.studentID_modify['origin']); // 입력한 학번 값
     // console.log(studentID);
     let responseBody; // 응답 블록 구조
     let quickReplies = []; // 바로가기 그룹
@@ -20,8 +20,9 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
+    const userStudentID = parseInt(userData.data().studentID);
 
-    if (userData.data().studentID === studentID) { // 입력한 학번 값이 기존의 학번 값과 같은 경우
+    if (userStudentID === studentID) { // 입력한 학번 값이 기존의 학번 값과 같은 경우
         /* 바로가기 작성*/
         items = ['나의 학번을 변경할게'];
         label = ['↩ 뒤로가기'];
@@ -51,7 +52,9 @@ router.post('/', async function (req, res) {
         };
     } else { // 아닌 경우 학번 값 수정과 응답 블록 출력
         await userSelect
-            .update({studentID: `${studentID}`})
+            .update({
+                studentID: Number(`${studentID}`)
+            })
             .then(() => {
                 responseBody = {
                     version: "2.0",
