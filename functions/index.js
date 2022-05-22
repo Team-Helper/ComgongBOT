@@ -38,9 +38,9 @@ app.use('/personal/personal_service', personalService);
 app.use('/setting', setting);
 app.use('/setting/setting_service', settingService);
 app.use('/input/create_profile', createProfile);
-app.use('/setting/credit_input', creditInput);
-app.use('/setting/credit_modify', creditModify);
-app.use('/setting/studentID_modify', studentIDModify);
+app.use('/input/credit_input', creditInput);
+app.use('/input/credit_modify', creditModify);
+app.use('/input/studentID_modify', studentIDModify);
 
 exports.middleWare = functions
     .region('asia-northeast1')

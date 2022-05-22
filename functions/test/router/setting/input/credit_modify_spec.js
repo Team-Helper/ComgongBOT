@@ -2,7 +2,7 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /setting/credit_modify', () => { // 테스트 수트
+describe('POST /input/credit_modify', () => { // 테스트 수트
     it(
         'responds success modify credit',
         done => { // 테스트 단위 : 입력한 값으로 학점 수정이 성공했을 때
@@ -29,7 +29,7 @@ describe('POST /setting/credit_modify', () => { // 테스트 수트
                 }
             };
             request(functions.config().service_url.app) // 테스트 하려는 기본 주소
-                .post('/setting/credit_modify') // 주소의 엔드포인트
+                .post('/input/credit_modify') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
                 .type('application/json')
                 .send({userRequest}) // body 데이터 전송(하단 포함)
@@ -69,18 +69,20 @@ describe('POST /setting/credit_modify', () => { // 테스트 수트
         };
         const action = {
             detailParams: {
-                'groupName': '',
-                'origin': '총 학점',
-                'value': 'total'
-            },
-            credit: {
-                'groupName': '',
-                'origin': '12345',
-                'value': '12345'
+                menu: {
+                    'groupName': '',
+                    'origin': '총 학점',
+                    'value': 'total'
+                },
+                credit: {
+                    'groupName': '',
+                    'origin': '12345',
+                    'value': '12345'
+                }
             }
         };
         request(functions.config().service_url.app)
-            .post('/setting/credit_modify')
+            .post('/input/credit_modify')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
