@@ -32,7 +32,7 @@ router.post('/', async function (req, res) {
                 "action": "block",
                 "blockId": functions
                     .config()
-                    .service_url
+                    .service_key
                     .studentid_modify_key,
                 "label": label[index]
             });
