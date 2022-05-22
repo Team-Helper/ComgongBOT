@@ -81,8 +81,9 @@ router.post('/', async function (req, res) {
                         "label": label[index]
                     });
                 });
-                const gradeNumber = userRequest.replace("학년", ""); // 사용자 입력 값에서 '학년' 글자는 제거
-                if (userData.data().grade === gradeNumber) { // 입력한 학년이 기존의 학년 값과 같을 경우
+                const gradeNumber = parseInt(userRequest.replace("학년", "")); // 사용자 입력 값에서 '학년' 글자는 제거
+                const userGrade = parseInt(userData.data().grade);
+                if (userGrade === gradeNumber) { // 입력한 학년이 기존의 학년 값과 같을 경우
                     responseBody = {
                         version: "2.0",
                         template: {
@@ -97,7 +98,9 @@ router.post('/', async function (req, res) {
                         }
                     };
                 } else { // 아닌 경우 사용자의 학년 데이터를 변경 및 응답 블록 출력
-                    await userSelect.update({grade: `${gradeNumber}`});
+                    await userSelect.update({
+                        grade: Number(`${gradeNumber}`)
+                    });
                     responseBody = {
                         version: "2.0",
                         template: {
