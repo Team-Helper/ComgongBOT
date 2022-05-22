@@ -12,7 +12,7 @@ const personalHub = require('./router/personal/personal_hub');
 const personalService = require('./router/personal/personal_service');
 const setting = require('./router/setting/setting_hub');
 const settingService = require('./router/setting/setting_service');
-const emailAuth = require('./router/setting/input/emil_auth');
+const createProfile = require('./router/setting/input/create_profile');
 const creditInput = require('./router/setting/input/credit_input');
 const creditModify = require('./router/setting/input/credit_modify');
 const studentIDModify = require('./router/setting/input/studentID_modify');
@@ -37,12 +37,10 @@ app.use('/personal', personalHub);
 app.use('/personal/personal_service', personalService);
 app.use('/setting', setting);
 app.use('/setting/setting_service', settingService);
-app.use('/setting/email_auth', emailAuth);
+app.use('/input/create_profile', createProfile);
 app.use('/setting/credit_input', creditInput);
 app.use('/setting/credit_modify', creditModify);
 app.use('/setting/studentID_modify', studentIDModify);
-const test = require('./test');
-app.use('/test', test);
 
 exports.middleWare = functions
     .region('asia-northeast1')

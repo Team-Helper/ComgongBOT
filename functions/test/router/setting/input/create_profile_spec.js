@@ -3,7 +3,7 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 const AES = require('crypto-js/aes');
 
-describe('POST /setting/email_auth', () => { // 테스트 수트
+describe('POST /input/create_profile', () => { // 테스트 수트
     it(
         'responds success create profile DB',
         done => { // 테스트 단위 : 프로필 DB 생성에 성공했을 때
@@ -25,7 +25,7 @@ describe('POST /setting/email_auth', () => { // 테스트 수트
                 'userKey': encrypted
             };
             request(functions.config().service_url.app) // 테스트 하려는 기본 주소
-                .post('/setting/email_auth') // 주소의 엔드포인트
+                .post('/input/create_profile') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
                 .type('application/json')
                 .send({Data}) // body 데이터 전송
