@@ -10,8 +10,8 @@ router.post('/', async function (req, res) {
 
     let responseBody; // 응답 블록 구조
     const quickReplies = []; // 바로가기 그룹
-    const messageText = ["해당 키워드를 조회해줘", "해당 키워드를 조회해줘", "해당 키워드를 조회해줘"]; // 바로가기 요청문
-    const label = ["키워드", "키워드2", "키워드3"]; // 바로가기 버튼명
+    const messageText = ["단톡 공지사항을 조회해줘", "분실문 신고 내역을 조회해줘", "학과 SNS 공지사항을 조회해줘"]; // 바로가기 요청문
+    const label = ["단톡 공지사항", "분실물 신고 내역", "학과 SNS 공지사항"]; // 바로가기 버튼명
 
     if (checkAuth === true) { // 프로필 설정이 되어있다면
         /* 바로가기 작성*/
