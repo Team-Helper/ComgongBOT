@@ -7,7 +7,7 @@ exports.coldBreak = functions // 함수 이름
     .schedule('*/5 * * * *') // 5분 단위로 작동
     .timeZone('Asia/Seoul')
     .onRun(async () => {
-        let data = JSON.stringify({ // 학과 공용 서비스 조회 관련 데이터 시나리오
+        let publicData = JSON.stringify({ // 학과 공용 서비스 조회 관련 데이터 시나리오
             "userRequest": {
                 "user": {
                     "properties": {
@@ -17,19 +17,19 @@ exports.coldBreak = functions // 함수 이름
                 }
             }
         });
-        let config = {
+        let publicConfig = {
             method: 'post',
             url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/public',
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: data
+            data: publicData
         };
-        await axios(config)
+        await axios(publicConfig)
             .then(async (result) => {
                 /* 서비스 조회 성공 시 바로가기 조회 시나리오 작성 및 실행*/
                 console.log('public: ', result.status);
-                data = JSON.stringify({
+                publicData = JSON.stringify({
                     "userRequest": {
                         "user": {
                             "properties": {
@@ -40,15 +40,15 @@ exports.coldBreak = functions // 함수 이름
                         }
                     }
                 });
-                config = {
+                publicConfig = {
                     method: 'post',
                     url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/public',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    data: data
+                    data: publicData
                 };
-                await axios(config)
+                await axios(publicConfig)
                     .then(result => {
                         console.log('public service: ', result.status); // 조회 성공 시 성공 상태 코드 출력
                     })
@@ -60,7 +60,7 @@ exports.coldBreak = functions // 함수 이름
                 console.error('Error from coldBreak public: ', err);
             });
 
-        let data2 = JSON.stringify({
+        let personalData = JSON.stringify({
             "userRequest": {
                 "user": {
                     "properties": {
@@ -70,18 +70,18 @@ exports.coldBreak = functions // 함수 이름
                 }
             }
         });
-        let config2 = {
+        let personalConfig = {
             method: 'post',
             url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/personal',
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: data
+            data: personalData
         };
-        await axios(config2)
+        await axios(personalConfig)
             .then(async (result) => {
                 console.log('personal: ', result.status);
-                data2 = JSON.stringify({
+                personalData = JSON.stringify({
                     "userRequest": {
                         "user": {
                             "properties": {
@@ -92,16 +92,16 @@ exports.coldBreak = functions // 함수 이름
                         "utterance": "나의 누적 학점을 알려줘"
                     }
                 });
-                config2 = {
+                personalConfig = {
                     method: 'post',
                     url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/personal/per' +
                             'sonal_service',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    data: data2
+                    data: personalData
                 };
-                await axios(config2)
+                await axios(personalConfig)
                     .then(result => {
                         console.log('personal service: ', result.status);
                     })
@@ -113,7 +113,7 @@ exports.coldBreak = functions // 함수 이름
                 console.error('Error from coldBreak personal: ', err);
             });
 
-        let data3 = JSON.stringify({
+        let settingData = JSON.stringify({
             "userRequest": {
                 "user": {
                     "properties": {
@@ -123,18 +123,18 @@ exports.coldBreak = functions // 함수 이름
                 }
             }
         });
-        let config3 = {
+        let settingConfig = {
             method: 'post',
             url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/setting',
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: data3
+            data: settingData
         };
-        await axios(config3)
+        await axios(settingConfig)
             .then(async (result) => {
                 console.log('setting: ', result.status);
-                data3 = JSON.stringify({
+                settingData = JSON.stringify({
                     "userRequest": {
                         "user": {
                             "properties": {
@@ -145,16 +145,16 @@ exports.coldBreak = functions // 함수 이름
                         "utterance": "설정을 초기화 해줘"
                     }
                 });
-                config3 = {
+                settingConfig = {
                     method: 'post',
                     url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/setting/sett' +
                             'ing_service',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    data: data3
+                    data: settingData
                 };
-                await axios(config3)
+                await axios(settingConfig)
                     .then(result => {
                         console.log('setting service: ', result.status);
                     })
