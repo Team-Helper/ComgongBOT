@@ -5,7 +5,7 @@ const CryptoJS = require('crypto-js');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     const userRequest = req.body.Data; // 입력한 사용자의 데이터 조회
     const email = userRequest.email; // 입력한 이메일
     const grade = parseInt(userRequest.grade); // 입력한 학년
