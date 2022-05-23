@@ -28,6 +28,7 @@ const engineering = require('./crawling/engineering');
 const completionSystem = require('./crawling/completion_system');
 const coldBreak = require('./cold_break');
 const countGrade = require('./count_grade');
+const checkParameter = require('./check_parameter');
 
 app.use(cors());
 app.use(express.json());
@@ -59,3 +60,5 @@ exports.engineering = engineering.engineering; // 공학인증자료실 크롤�
 exports.completionSystem = completionSystem.completionSystem; // 이수체계도 크롤링 미들웨어
 exports.coldBreak = coldBreak.coldBreak; // cold start 이슈 개선의 미들웨어
 exports.countGrade = countGrade.countGrade; // 학년 값 자동증가의 미들웨어
+
+exports.checkParameter = checkParameter.checkParameter;
