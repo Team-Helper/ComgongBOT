@@ -101,11 +101,21 @@ router.post('/', async function (req, res) {
                 let majorA, majorB, geA, geB, total;
                 const graduateCredits = [majorA, majorB, geA, geB, total];
                 /* 지금까지 이수한 사용자 학점 추출 */
-                const user_geA = parseInt(userData.data().credits.geA);
-                const user_geB = parseInt(userData.data().credits.geB);
-                const user_majorA = parseInt(userData.data().credits.majorA);
-                const user_majorB = parseInt(userData.data().credits.majorB);
-                const user_total = parseInt(userData.data().credits.total);
+                const user_geA = userData
+                    .data()
+                    .credits.geA;
+                const user_geB = userData
+                    .data()
+                    .credits.geB;
+                const user_majorA = userData
+                    .data()
+                    .credits.majorA;
+                const user_majorB = userData
+                    .data()
+                    .credits.majorB;
+                const user_total = userData
+                    .data()
+                    .credits.total;
                 const user_creditList = [
                     user_majorA,
                     user_majorB,
@@ -146,11 +156,9 @@ router.post('/', async function (req, res) {
                     
                     /* 전체 교과목 남은 학점 계산 */
                     user_creditList.forEach((value, index) => {
-                        if (value > engineering_crditList[index]) {
-                            graduateCredits[index] = 0 + '/' + engineering_crditList[index];
-                        } else {
-                            graduateCredits[index] = engineering_crditList[index] - value + '/' + engineering_crditList[index];
-                        }
+                        graduateCredits[index] = (value > engineering_crditList[index])
+                            ? 0 + '/' + engineering_crditList[index]
+                            : engineering_crditList[index] - value + '/' + engineering_crditList[index];
                     });
 
                     /* 아이템 카드 뷰 본문 작성*/
@@ -189,11 +197,9 @@ router.post('/', async function (req, res) {
     
                     /* 전체 교과목 남은 학점 계산 */
                     user_creditList.forEach((value, index) => {
-                        if (value > credits_crditList[index]) {
-                            graduateCredits[index] = 0 + '/' + credits_crditList[index];
-                        } else {
-                            graduateCredits[index] = credits_crditList[index] - value + '/' + credits_crditList[index];
-                        }
+                        graduateCredits[index] = (value > credits_crditList[index])
+                            ? 0 + '/' + credits_crditList[index]
+                            : credits_crditList[index] - value + '/' + credits_crditList[index];
                     });
                     
                     title.forEach((value, index) => {
