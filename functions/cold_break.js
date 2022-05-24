@@ -6,7 +6,7 @@ exports.coldBreak = functions // 함수 이름
     .pubsub
     .schedule('*/3 * * * *') // 3분 단위로 작동
     .timeZone('Asia/Seoul')
-    .onRun(async () => {
+    .onRun(() => {
         function publicCold() {
             const data = JSON.stringify({
                 "userRequest": {
@@ -31,7 +31,7 @@ exports.coldBreak = functions // 함수 이름
                 data: data
             };
 
-            axios(config)
+            return axios(config)
                 .then(function (response) {
                     console.log(JSON.stringify(response.data));
                 })
@@ -65,7 +65,7 @@ exports.coldBreak = functions // 함수 이름
                 data: data
             };
 
-            axios(config)
+            return axios(config)
                 .then(function (response) {
                     console.log(JSON.stringify(response.data));
                 })
@@ -100,7 +100,7 @@ exports.coldBreak = functions // 함수 이름
                 data: data
             };
 
-            axios(config)
+            return axios(config)
                 .then(function (response) {
                     console.log(JSON.stringify(response.data));
                 })
@@ -134,7 +134,7 @@ exports.coldBreak = functions // 함수 이름
                 data: data
             };
 
-            axios(config)
+            return axios(config)
                 .then(function (response) {
                     console.log(JSON.stringify(response.data));
                 })
@@ -144,15 +144,10 @@ exports.coldBreak = functions // 함수 이름
 
         }
 
-        publicCold()
-            .then(() => privateCold())
-            .then(() => personalCold())
-            .then(() => settingCold())
-            .then(() => {
-                console.log('GJ!');
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        axios
+            .all([publicCold(), privateCold(), personalCold(), settingCold()])
+            .then(axios.spread(() => {
+                console.log('Break!');
+            }));
         return null;
     });
