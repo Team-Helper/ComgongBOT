@@ -7,7 +7,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
         const userRequest = { // 기본 사용자 정보 시나리오와 요청 발화문
             user: {
                 "properties": {
-                    "plusfriendUserKey": "testID",
+                    "plusfriendUserKey": functions.config().service_key.myKey,
                     "isFriend": true
                 }
             },
@@ -89,7 +89,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "testID",
+                        "plusfriendUserKey": functions.config().service_key.myKey,
                         "isFriend": true
                     }
                 },
@@ -181,7 +181,7 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "testID",
+                    "plusfriendUserKey": functions.config().service_key.myKey,
                     "isFriend": true
                 }
             },

@@ -10,7 +10,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "testID",
+                        "plusfriendUserKey": functions.config().service_key.myKey,
                         "isFriend": true
                     }
                 },
@@ -60,7 +60,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "testID",
+                    "plusfriendUserKey": functions.config().service_key.myKey,
                     "isFriend": true
                 }
             },
@@ -97,7 +97,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "testID",
+                    "plusfriendUserKey": functions.config().service_key.myKey,
                     "isFriend": true
                 }
             },
@@ -152,7 +152,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "testID",
+                        "plusfriendUserKey": functions.config().service_key.myKey,
                         "isFriend": true
                     }
                 },
@@ -202,7 +202,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "testID",
+                    "plusfriendUserKey": functions.config().service_key.myKey,
                     "isFriend": true
                 }
             },
@@ -239,7 +239,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "testID",
+                    "plusfriendUserKey": functions.config().service_key.myKey,
                     "isFriend": true
                 }
             },
@@ -294,7 +294,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "testID",
+                        "plusfriendUserKey": functions.config().service_key.myKey,
                         "isFriend": true
                     }
                 },
@@ -347,7 +347,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "testID",
+                        "plusfriendUserKey": functions.config().service_key.myKey,
                         "isFriend": true
                     }
                 },
@@ -388,7 +388,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "testID",
+                        "plusfriendUserKey": functions.config().service_key.myKey,
                         "isFriend": true
                     }
                 },
@@ -444,7 +444,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "testID",
+                        "plusfriendUserKey": functions.config().service_key.myKey,
                         "isFriend": true
                     }
                 },
@@ -494,7 +494,7 @@ describe('POST /setting/setting_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": "testID",
+                    "plusfriendUserKey": functions.config().service_key.myKey,
                     "isFriend": true
                 }
             },

@@ -46,7 +46,10 @@ exports.coldBreak = functions // 함수 이름
                 "userRequest": {
                     "user": {
                         "properties": {
-                            "plusfriendUserKey": "testID",
+                            "plusfriendUserKey": functions
+                                .config()
+                                .service_key
+                                .myKey,
                             "isFriend": true
                         }
                     }
@@ -78,7 +81,10 @@ exports.coldBreak = functions // 함수 이름
                 "userRequest": {
                     "user": {
                         "properties": {
-                            "plusfriendUserKey": "testID",
+                            "plusfriendUserKey": functions
+                                .config()
+                                .service_key
+                                .myKey,
                             "isFriend": true
                         }
                     }
@@ -109,7 +115,10 @@ exports.coldBreak = functions // 함수 이름
                 "userRequest": {
                     "user": {
                         "properties": {
-                            "plusfriendUserKey": "testID",
+                            "plusfriendUserKey": functions
+                                .config()
+                                .service_key
+                                .myKey,
                             "isFriend": true
                         }
                     }

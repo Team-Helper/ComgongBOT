@@ -9,7 +9,7 @@ describe('POST /setting/credit_input', () => { // 테스트 수트
             const userRequest = { // 학점을 입력하려는 사용자의 기본 정보 시나리오와 요청 발화문
                 user: {
                     "properties": {
-                        "plusfriendUserKey": "testID", // 사용자 카카오 채널 아이디
+                        "plusfriendUserKey": functions.config().service_key.myKey, // 사용자 카카오 채널 아이디
                         "isFriend": true // 채널 추가 상태
                     }
                 },
