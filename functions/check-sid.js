@@ -12,7 +12,7 @@ exports.checkStudentID = functions // 함수 이름
         // console.log(thisYear, typeof thisYear);
         const studentID = parseInt(req.body.utterance); // 사용자가 입력한 학점 값
         // console.log(studentID);
-        if (!isNaN(studentID) && (studentID > parseInt('08') && studentID < parseInt(thisYear))) { // 숫자 타입인 경우
+        if (!isNaN(studentID) && (studentID > parseInt('08') && studentID <= parseInt(thisYear))) { // 숫자 타입인 경우
             res
                 .status(200)
                 .send(
