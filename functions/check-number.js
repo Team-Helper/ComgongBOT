@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 
-exports.checkParameter = functions // 함수 이름
+exports.checkNumber = functions // 함수 이름
     .region('asia-northeast1')
     .https
     .onRequest(async (req, res) => {
