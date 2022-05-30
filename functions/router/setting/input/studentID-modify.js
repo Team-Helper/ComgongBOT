@@ -8,7 +8,7 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams; // 사용자 입력 데이터
     // console.log(userRequest);
-    const studentID = parseInt(userRequest.studentID_modify['origin']); // 입력한 학번 값
+    const studentID = parseInt(userRequest.studentID.value); // 입력한 학번 값
     // console.log(studentID);
     let responseBody; // 응답 블록 구조
     let quickReplies = []; // 바로가기 그룹

@@ -19,10 +19,10 @@ describe('POST /input/studentID-modify', () => { // 테스트 수트
             };
             const action = { // 사용자가 입력한 학번 변경 데이터 시나리오
                 detailParams: {
-                    studentID_modify: {
+                    studentID: {
                         groupName: '',
                         origin: '16',
-                        value: '번호'
+                        value: '16'
                     }
                 }
             };
