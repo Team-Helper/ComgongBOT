@@ -2,14 +2,17 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /setting/credit_input', () => { // 테스트 수트
+describe('POST /input/credit', () => { // 테스트 수트
     it(
         'responds success input credits to profile DB',
         done => { // 테스트 단위 : 프로필 DB에 학점 데이터 입력을 성공했을 때
             const userRequest = { // 학점을 입력하려는 사용자의 기본 정보 시나리오와 요청 발화문
                 user: {
                     "properties": {
-                        "plusfriendUserKey": functions.config().service_key.myKey, // 사용자 카카오 채널 아이디
+                        "plusfriendUserKey": functions
+                            .config()
+                            .service_key
+                            .myKey, // 사용자 카카오 채널 아이디
                         "isFriend": true // 채널 추가 상태
                     }
                 },
@@ -45,7 +48,7 @@ describe('POST /setting/credit_input', () => { // 테스트 수트
                 }
             };
             request(functions.config().service_url.app) // 테스트 하려는 기본 주소
-                .post('/setting/credit_input') // 주소의 엔드포인트
+                .post('/input/credit') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
                 .type('application/json')
                 .send({userRequest}) // body 데이터 전송(하단 포함)

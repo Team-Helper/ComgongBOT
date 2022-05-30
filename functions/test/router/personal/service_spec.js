@@ -2,19 +2,22 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /personal/personal_service', () => { // 테스트 수트
+describe('POST /personal/service', () => { // 테스트 수트
     it('responds check credits', done => { // 테스트 단위 : 학점 입력이 되어있고 조회를 할 떄
         const userRequest = { // 기본 사용자 정보 시나리오와 요청 발화문
             user: {
                 "properties": {
-                    "plusfriendUserKey": functions.config().service_key.myKey,
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .myKey,
                     "isFriend": true
                 }
             },
             utterance: "나의 누적 학점을 알려줘"
         };
         request(functions.config().service_url.app) // 테스트 하려는 기본 주소
-            .post('/personal/personal_service') // 주소의 엔드포인트
+            .post('/personal/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest}) // body 데이터 전송
@@ -89,14 +92,17 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": functions.config().service_key.myKey,
+                        "plusfriendUserKey": functions
+                            .config()
+                            .service_key
+                            .myKey,
                         "isFriend": true
                     }
                 },
                 utterance: "졸업까지 남은 학점을 계산해줘"
             };
             request(functions.config().service_url.app)
-                .post('/personal/personal_service')
+                .post('/personal/service')
                 .set('Accept', 'application/json')
                 .type('application/json')
                 .send({userRequest})
@@ -181,14 +187,17 @@ describe('POST /personal/personal_service', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": functions.config().service_key.myKey,
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .myKey,
                     "isFriend": true
                 }
             },
             utterance: "나의 졸업조건을 알려줘"
         };
         request(functions.config().service_url.app)
-            .post('/personal/personal_service')
+            .post('/personal/service')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})

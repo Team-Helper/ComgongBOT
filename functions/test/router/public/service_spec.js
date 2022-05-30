@@ -2,14 +2,14 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /public/public_service', () => { // 테스트 수트
+describe('POST /public/service', () => { // 테스트 수트
     it('responds resultOut', done => { // 테스트 단위 : 지정한 이름의 데이터가 출력되는가
         const userRequest = {
             utterance: "공지사항 게시판을 조회해줘" // 사용자 요청 발화문
         };
 
         request(functions.config().service_url.app) // 테스트 하려는 기본 주소
-            .post('/public/public_service') // 주소의 엔드포인트
+            .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest}) // body 데이터 전송
@@ -99,7 +99,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
         };
 
         request(functions.config().service_url.app)
-            .post('/public/public_service')
+            .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -189,7 +189,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
         };
 
         request(functions.config().service_url.app)
-            .post('/public/public_service')
+            .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -279,7 +279,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
         };
 
         request(functions.config().service_url.app)
-            .post('/public/public_service')
+            .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -369,7 +369,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
         };
 
         request(functions.config().service_url.app)
-            .post('/public/public_service')
+            .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -459,7 +459,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
         };
 
         request(functions.config().service_url.app)
-            .post('/public/public_service')
+            .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -514,7 +514,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
         };
 
         request(functions.config().service_url.app)
-            .post('/public/public_service')
+            .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})
@@ -576,7 +576,7 @@ describe('POST /public/public_service', () => { // 테스트 수트
         };
 
         request(functions.config().service_url.app)
-            .post('/public/public_service')
+            .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest})

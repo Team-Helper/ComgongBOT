@@ -7,7 +7,10 @@ describe('POST /private', () => {
         const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
-                    "plusfriendUserKey": functions.config().service_key.myKey, // 사용자 카카오 채널 아이디
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .myKey, // 사용자 카카오 채널 아이디
                     "isFriend": undefined // 채널 추가 상태
                 }
             }
@@ -46,7 +49,10 @@ describe('POST /private', () => {
             const userRequest = {
                 user: {
                     "properties": {
-                        "plusfriendUserKey": functions.config().service_key.myKey,
+                        "plusfriendUserKey": functions
+                            .config()
+                            .service_key
+                            .myKey,
                         "isFriend": true
                     }
                 }
