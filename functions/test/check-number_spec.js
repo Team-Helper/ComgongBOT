@@ -14,7 +14,7 @@ describe('POST /checkNumber', () => { // 테스트 수트
             .expect(200) // 응답 상태코드
             .then(res => {
                 const element = res.body;
-                console.log(element);
+                // console.log(element);
                 expect(element.status)
                     .to
                     .be
@@ -40,7 +40,7 @@ describe('POST /checkNumber', () => { // 테스트 수트
 
     it(
         'responds check parameter is not a number',
-        done => { // 테스트 단위 : 파라미터 검증이 올바를 때
+        done => { // 테스트 단위 : 파라미터 검증이 올바르지 않을 때
             const utterance = 'testText';
 
             request(functions.config().service_url.crawling) // 테스트 하려는 기본 주소
@@ -51,7 +51,7 @@ describe('POST /checkNumber', () => { // 테스트 수트
                 .expect(400) // 응답 상태코드
                 .then(res => {
                     const element = res.body;
-                    console.log(element);
+                    // console.log(element);
                     expect(element.status)
                         .to
                         .be

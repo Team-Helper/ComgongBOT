@@ -30,6 +30,7 @@ const completionSystem = require('./crawling/completion-system');
 const coldBreak = require('./cold-break');
 const countGrade = require('./count-grade');
 const checkNumber = require('./check-number');
+const checkStudentID = require('./check-sid');
 
 app.use(cors());
 app.use(express.json());
@@ -62,4 +63,5 @@ exports.completionSystem = completionSystem.completionSystem; // 이수체계도
 
 exports.coldBreak = coldBreak.coldBreak; // cold start 이슈 개선의 미들웨어
 exports.countGrade = countGrade.countGrade; // 학년 값 자동증가의 미들웨어
-exports.checkNumber = checkNumber.checkNumber; // 학점 입력 검증 API 미들웨어
+exports.checkNumber = checkNumber.checkNumber; // 숫자 값 입력 검증 API 미들웨어
+exports.checkStudentID = checkStudentID.checkStudentID; // 학번 수정 검증 API 미들웨어
