@@ -36,12 +36,11 @@ exports.coldBreak = functions // 함수 이름
                     console.log(JSON.stringify(response.data));
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.error(error);
                 });
         }
 
         function privateCold() {
-            const axios = require('axios');
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -70,13 +69,12 @@ exports.coldBreak = functions // 함수 이름
                     console.log(JSON.stringify(response.data));
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.error(error);
                 });
 
         }
 
         function personalCold() {
-            const axios = require('axios');
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -105,12 +103,11 @@ exports.coldBreak = functions // 함수 이름
                     console.log(JSON.stringify(response.data));
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.error(error);
                 });
         }
 
         function settingCold() {
-            const axios = require('axios');
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -139,7 +136,7 @@ exports.coldBreak = functions // 함수 이름
                     console.log(JSON.stringify(response.data));
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.error(error);
                 });
 
         }
