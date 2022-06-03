@@ -19,7 +19,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 },
                 utterance: "나의 학년을 변경할게"
             };
-            request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+            request(functions.config().test_url.app) // 테스트 하려는 기본 주소
                 .post('/setting/service') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
                 .type('application/json')
@@ -72,7 +72,7 @@ describe('POST /setting/service', () => { // 테스트 수트
             },
             utterance: "1학년"
         };
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/setting/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -112,7 +112,7 @@ describe('POST /setting/service', () => { // 테스트 수트
             },
             utterance: "1학년"
         };
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/setting/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -170,7 +170,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 },
                 utterance: "나의 학적상태를 변경할게"
             };
-            request(functions.config().service_url.app)
+            request(functions.config().test_url.app)
                 .post('/setting/service')
                 .set('Accept', 'application/json')
                 .type('application/json')
@@ -223,7 +223,7 @@ describe('POST /setting/service', () => { // 테스트 수트
             },
             utterance: "휴학해요"
         };
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/setting/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -263,7 +263,7 @@ describe('POST /setting/service', () => { // 테스트 수트
             },
             utterance: "휴학해요"
         };
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/setting/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -321,7 +321,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 },
                 utterance: "나의 공학인증여부를 변경할게"
             };
-            request(functions.config().service_url.app)
+            request(functions.config().test_url.app)
                 .post('/setting/service')
                 .set('Accept', 'application/json')
                 .type('application/json')
@@ -377,7 +377,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 },
                 utterance: "공학인증 안해요"
             };
-            request(functions.config().service_url.app)
+            request(functions.config().test_url.app)
                 .post('/setting/service')
                 .set('Accept', 'application/json')
                 .type('application/json')
@@ -421,7 +421,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 },
                 utterance: "공학인증 안해요"
             };
-            request(functions.config().service_url.app)
+            request(functions.config().test_url.app)
                 .post('/setting/service')
                 .set('Accept', 'application/json')
                 .type('application/json')
@@ -480,7 +480,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 },
                 utterance: "설정을 초기화 해줘"
             };
-            request(functions.config().service_url.app)
+            request(functions.config().test_url.app)
                 .post('/setting/service')
                 .set('Accept', 'application/json')
                 .type('application/json')
@@ -534,7 +534,7 @@ describe('POST /setting/service', () => { // 테스트 수트
             utterance: "네"
             // utterance: "자퇴해요"
         };
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/setting/service')
             .set('Accept', 'application/json')
             .type('application/json')

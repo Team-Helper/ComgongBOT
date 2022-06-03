@@ -15,7 +15,7 @@ describe('POST /personal', () => { // 테스트 수트
                 }
             }
         };
-        request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
             .post('/personal') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
@@ -57,7 +57,7 @@ describe('POST /personal', () => { // 테스트 수트
                     }
                 }
             };
-            request(functions.config().service_url.app)
+            request(functions.config().test_url.app)
                 .post('/personal')
                 .set('Accept', 'application/json')
                 .type('application/json')
@@ -137,7 +137,7 @@ describe('POST /personal', () => { // 테스트 수트
                 }
             }
         };
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/personal')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -216,7 +216,7 @@ describe('POST /personal', () => { // 테스트 수트
                 }
             }
         };
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/personal')
             .set('Accept', 'application/json')
             .type('application/json')

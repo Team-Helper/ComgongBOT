@@ -24,7 +24,7 @@ describe('POST /input/profile', () => { // 테스트 수트
                 'studentID': 22,
                 'userKey': encrypted
             };
-            request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+            request(functions.config().test_url.app) // 테스트 하려는 기본 주소
                 .post('/input/profile') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
                 .type('application/json')

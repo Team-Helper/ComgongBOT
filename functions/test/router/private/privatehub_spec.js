@@ -15,7 +15,7 @@ describe('POST /private', () => {
                 }
             }
         };
-        request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
             .post('/private') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
@@ -57,7 +57,7 @@ describe('POST /private', () => {
                     }
                 }
             };
-            request(functions.config().service_url.app)
+            request(functions.config().test_url.app)
                 .post('/private')
                 .set('Accept', 'application/json')
                 .type('application/json')

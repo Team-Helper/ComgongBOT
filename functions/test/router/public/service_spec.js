@@ -8,7 +8,7 @@ describe('POST /public/service', () => { // 테스트 수트
             utterance: "공지사항 게시판을 조회해줘" // 사용자 요청 발화문
         };
 
-        request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
             .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
@@ -98,7 +98,7 @@ describe('POST /public/service', () => { // 테스트 수트
             utterance: "새소식 게시판을 조회해줘"
         };
 
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -188,7 +188,7 @@ describe('POST /public/service', () => { // 테스트 수트
             utterance: "자유게시판을 조회해줘"
         };
 
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -278,7 +278,7 @@ describe('POST /public/service', () => { // 테스트 수트
             utterance: "외부IT행사 및 교육 게시판을 조회해줘"
         };
 
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -368,7 +368,7 @@ describe('POST /public/service', () => { // 테스트 수트
             utterance: "공학인증자료실 게시판을 조회해줘"
         };
 
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -458,7 +458,7 @@ describe('POST /public/service', () => { // 테스트 수트
             utterance: "교과과정을 조회해줘"
         };
 
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -513,7 +513,7 @@ describe('POST /public/service', () => { // 테스트 수트
             utterance: "올해 이수체계도를 조회해줘"
         };
 
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')
@@ -575,7 +575,7 @@ describe('POST /public/service', () => { // 테스트 수트
             utterance: "교수진소개 게시판을 조회해줘"
         };
 
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/public/service')
             .set('Accept', 'application/json')
             .type('application/json')

@@ -16,7 +16,7 @@ describe('POST /personal/service', () => { // 테스트 수트
             },
             utterance: "나의 누적 학점을 알려줘"
         };
-        request(functions.config().service_url.app) // 테스트 하려는 기본 주소
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
             .post('/personal/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
@@ -101,7 +101,7 @@ describe('POST /personal/service', () => { // 테스트 수트
                 },
                 utterance: "졸업까지 남은 학점을 계산해줘"
             };
-            request(functions.config().service_url.app)
+            request(functions.config().test_url.app)
                 .post('/personal/service')
                 .set('Accept', 'application/json')
                 .type('application/json')
@@ -196,7 +196,7 @@ describe('POST /personal/service', () => { // 테스트 수트
             },
             utterance: "나의 졸업조건을 알려줘"
         };
-        request(functions.config().service_url.app)
+        request(functions.config().test_url.app)
             .post('/personal/service')
             .set('Accept', 'application/json')
             .type('application/json')

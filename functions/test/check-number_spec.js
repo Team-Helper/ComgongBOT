@@ -6,7 +6,7 @@ describe('POST /checkNumber', () => { // 테스트 수트
     it('responds check parameter is a number', done => { // 테스트 단위 : 파라미터 검증이 올바를 때
         const utterance = 12345;
 
-        request(functions.config().service_url.crawling) // 테스트 하려는 기본 주소
+        request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
             .post('/checkNumber') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
@@ -43,7 +43,7 @@ describe('POST /checkNumber', () => { // 테스트 수트
         done => { // 테스트 단위 : 파라미터 검증이 올바르지 않을 때
             const utterance = 'testText';
 
-            request(functions.config().service_url.crawling) // 테스트 하려는 기본 주소
+            request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
                 .post('/checkNumber') // 주소의 엔드포인트
                 .set('Accept', 'application/json')
                 .type('application/json')

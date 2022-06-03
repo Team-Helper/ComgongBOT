@@ -4,7 +4,7 @@ const functions = require('firebase-functions');
 
 describe('GET /newNews', () => { // 테스트 수트
     it('responds crawling type', done => { // 테스트 단위(확인하고자 하는 내용을 명시)
-        request(functions.config().service_url.crawling) // 테스트 하려는 기본 주소
+        request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
             .get('/newNews') // 주소의 엔드포인트
             .expect(201) // 응답 상태코드
             .then(res => {
