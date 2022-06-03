@@ -12,7 +12,7 @@ describe('POST /input/credit', () => { // 테스트 수트
                         "plusfriendUserKey": functions
                             .config()
                             .service_key
-                            .myKey, // 사용자 카카오 채널 아이디
+                            .testID, // 사용자 카카오 채널 아이디
                         "isFriend": true // 채널 추가 상태
                     }
                 },

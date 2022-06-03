@@ -13,7 +13,7 @@ router.post('/', async function (req, res) {
     /* 사용자 카카오채널 id값 복호화*/
     const bytes = CryptoJS
         .AES
-        .decrypt(userRequest.userKey, functions.config().service_key.aes_key);
+        .decrypt(userRequest.userKey, functions.config().service_key.aes);
     const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     // console.log(email, grade, studentID, decrypted);
 

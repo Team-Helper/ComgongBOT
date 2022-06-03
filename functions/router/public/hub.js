@@ -41,7 +41,7 @@ router.post('/', async function (req, res) {
                 "blockId": functions
                     .config()
                     .service_key
-                    .public_key,
+                    .public,
                 "label": value
             });
         });

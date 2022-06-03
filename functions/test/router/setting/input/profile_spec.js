@@ -11,11 +11,11 @@ describe('POST /input/profile', () => { // 테스트 수트
             const userKey = functions
                 .config()
                 .service_key
-                .myKey;
+                .testID;
             const encrypted = AES
                 .encrypt(
                     JSON.stringify(userKey),
-                    functions.config().service_key.aes_key
+                    functions.config().service_key.aes
                 )
                 .toString();
             const Data = { // 인증하려는 사용자의 기본 정보 시나리오

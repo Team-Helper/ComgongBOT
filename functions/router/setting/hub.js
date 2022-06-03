@@ -41,7 +41,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .credit_key,
+                            .credit,
                         "label": value
                     });
                 } else if (index === 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
@@ -51,7 +51,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .studentid_modify_key,
+                            .studentID_modify,
                         "label": value
                     });
                 } else {
@@ -61,7 +61,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .setting_key,
+                            .setting,
                         "label": value
                     });
                 }
@@ -84,7 +84,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .credit_modify_key,
+                            .credit_modify,
                         "label": value
                     });
                 } else if (index === 2) {
@@ -94,7 +94,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .studentid_modify_key,
+                            .studentID_modify,
                         "label": value
                     });
                 } else {
@@ -104,7 +104,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .setting_key,
+                            .setting,
                         "label": value
                     });
                 }

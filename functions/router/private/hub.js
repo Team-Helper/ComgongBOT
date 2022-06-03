@@ -22,7 +22,7 @@ router.post('/', async function (req, res) {
                 "blockId": functions
                     .config()
                     .service_key
-                    .private_key,
+                    .private,
                 "label": value
             });
         });

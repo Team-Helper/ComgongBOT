@@ -13,7 +13,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                         "plusfriendUserKey": functions
                             .config()
                             .service_key
-                            .myKey,
+                            .testID,
                         "isFriend": true
                     }
                 },
@@ -66,7 +66,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .myKey,
+                        .testID,
                     "isFriend": true
                 }
             },
@@ -106,7 +106,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .myKey,
+                        .testID,
                     "isFriend": true
                 }
             },
@@ -164,7 +164,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                         "plusfriendUserKey": functions
                             .config()
                             .service_key
-                            .myKey,
+                            .testID,
                         "isFriend": true
                     }
                 },
@@ -217,7 +217,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .myKey,
+                        .testID,
                     "isFriend": true
                 }
             },
@@ -257,7 +257,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .myKey,
+                        .testID,
                     "isFriend": true
                 }
             },
@@ -315,7 +315,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                         "plusfriendUserKey": functions
                             .config()
                             .service_key
-                            .myKey,
+                            .testID,
                         "isFriend": true
                     }
                 },
@@ -371,7 +371,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                         "plusfriendUserKey": functions
                             .config()
                             .service_key
-                            .myKey,
+                            .testID,
                         "isFriend": true
                     }
                 },
@@ -415,7 +415,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                         "plusfriendUserKey": functions
                             .config()
                             .service_key
-                            .myKey,
+                            .testID,
                         "isFriend": true
                     }
                 },
@@ -474,7 +474,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                         "plusfriendUserKey": functions
                             .config()
                             .service_key
-                            .myKey,
+                            .testID,
                         "isFriend": true
                     }
                 },
@@ -527,7 +527,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .myKey,
+                        .testID,
                     "isFriend": true
                 }
             },

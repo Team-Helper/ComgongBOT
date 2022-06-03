@@ -9,7 +9,7 @@ describe('POST /input/credit-modify', () => { // 테스트 수트
             const userRequest = { // 학점을 수정하는 사용자의 기본 정보 시나리오
                 user: {
                     "properties": {
-                        "plusfriendUserKey": functions.config().service_key.myKey, // 사용자 카카오 채널 아이디
+                        "plusfriendUserKey": functions.config().service_key.testID, // 사용자 카카오 채널 아이디
                         "isFriend": true // 채널 추가 상태
                     }
                 }
@@ -62,7 +62,7 @@ describe('POST /input/credit-modify', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": functions.config().service_key.myKey,
+                    "plusfriendUserKey": functions.config().service_key.testID,
                     "isFriend": true
                 }
             }

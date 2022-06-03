@@ -14,7 +14,7 @@ router.post('/', async function (req, res) {
             "blockId": functions
                 .config()
                 .service_key
-                .privatehub_key,
+                .private_hub,
             "label": "↩ 뒤로가기"
         }
     ];

@@ -37,7 +37,7 @@ async function checkAuth(req) {
             const encrypted = AES
                 .encrypt(
                     JSON.stringify(userKey),
-                    functions.config().service_key.aes_key
+                    functions.config().service_key.aes
                 )
                 .toString();
             // console.log(encrypted);

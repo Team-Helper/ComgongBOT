@@ -10,7 +10,7 @@ describe('POST /setting', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .myKey, // 사용자 카카오 채널 아이디
+                        .testID, // 사용자 카카오 채널 아이디
                     "isFriend": undefined // 채널 추가 상태
                 }
             }
@@ -52,7 +52,7 @@ describe('POST /setting', () => { // 테스트 수트
                         "plusfriendUserKey": functions
                             .config()
                             .service_key
-                            .myKey,
+                            .testID,
                         "isFriend": true
                     }
                 }
@@ -132,7 +132,7 @@ describe('POST /setting', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .myKey,
+                        .testID,
                     "isFriend": true
                 }
             }
@@ -216,7 +216,7 @@ describe('POST /setting', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .myKey,
+                        .testID,
                     "isFriend": true
                 }
             }

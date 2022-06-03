@@ -51,7 +51,7 @@ router.post('/', async function (req, res) {
                             "blockId": functions
                                 .config()
                                 .service_key
-                                .credit_key,
+                                .credit,
                             "label": "학점 입력"
                         }
                     ]
@@ -66,7 +66,7 @@ router.post('/', async function (req, res) {
                     "blockId": functions
                         .config()
                         .service_key
-                        .personal_key,
+                        .personal,
                     "label": value
                 });
             });

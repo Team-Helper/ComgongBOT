@@ -32,7 +32,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .settinghub_key,
+                            .setting_hub,
                         "label": label[index]
                     });
                 } else {
@@ -42,7 +42,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .setting_key,
+                            .setting,
                         "label": label[index]
                     });
                 }
@@ -77,7 +77,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .setting_key,
+                            .setting,
                         "label": label[index]
                     });
                 });
@@ -128,7 +128,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .settinghub_key,
+                            .setting_hub,
                         "label": label[index]
                     });
                 } else {
@@ -138,7 +138,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .setting_key,
+                            .setting,
                         "label": label[index]
                     });
                 }
@@ -168,7 +168,7 @@ router.post('/', async function (req, res) {
                     "blockId": functions
                         .config()
                         .service_key
-                        .setting_key,
+                        .setting,
                     "label": label[index]
                 });
             });
@@ -213,7 +213,7 @@ router.post('/', async function (req, res) {
                     "blockId": functions
                         .config()
                         .service_key
-                        .setting_key,
+                        .setting,
                     "label": label[index]
                 });
             });
@@ -259,7 +259,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .settinghub_key,
+                            .setting_hub,
                         "label": label[index]
                     });
                 } else {
@@ -269,7 +269,7 @@ router.post('/', async function (req, res) {
                         "blockId": functions
                             .config()
                             .service_key
-                            .setting_key,
+                            .setting,
                         "label": label[index]
                     });
                 }
@@ -299,7 +299,7 @@ router.post('/', async function (req, res) {
                     "blockId": functions
                         .config()
                         .service_key
-                        .setting_key,
+                        .setting,
                     "label": label[index]
                 });
             });
@@ -344,7 +344,7 @@ router.post('/', async function (req, res) {
                     "blockId": functions
                         .config()
                         .service_key
-                        .setting_key,
+                        .setting,
                     "label": label[index]
                 });
             });
@@ -397,7 +397,7 @@ router.post('/', async function (req, res) {
                             "blockId": functions
                                 .config()
                                 .service_key
-                                .setting_key,
+                                .setting,
                             "label": "네"
                         }, {
                             "messageText": "아니오",
@@ -405,7 +405,7 @@ router.post('/', async function (req, res) {
                             "blockId": functions
                                 .config()
                                 .service_key
-                                .settinghub_key,
+                                .setting_hub,
                             "label": "아니오"
                         }
                     ]

@@ -15,7 +15,7 @@ exports.coldBreak = functions // 함수 이름
                             "plusfriendUserKey": functions
                                 .config()
                                 .service_key
-                                .myKey,
+                                .testID,
                             "isFriend": true
                         }
                     }
@@ -48,7 +48,7 @@ exports.coldBreak = functions // 함수 이름
                             "plusfriendUserKey": functions
                                 .config()
                                 .service_key
-                                .myKey,
+                                .testID,
                             "isFriend": true
                         }
                     }
@@ -82,7 +82,7 @@ exports.coldBreak = functions // 함수 이름
                             "plusfriendUserKey": functions
                                 .config()
                                 .service_key
-                                .myKey,
+                                .testID,
                             "isFriend": true
                         }
                     }
@@ -115,7 +115,7 @@ exports.coldBreak = functions // 함수 이름
                             "plusfriendUserKey": functions
                                 .config()
                                 .service_key
-                                .myKey,
+                                .testID,
                             "isFriend": true
                         }
                     }
