@@ -5,6 +5,8 @@
     "scripts": {
         "start": "firebase emulators:start",
         "config": "cd functions && npm run config",
+        "test_crawling": "cd functions && npm run test_crawling",
+        "test_profile": "cd functions && npm run test_createProfile && npm run test_createCredit",
         "test": "cd functions && npm run test",
         "lint": "eslint . --fix"
     },

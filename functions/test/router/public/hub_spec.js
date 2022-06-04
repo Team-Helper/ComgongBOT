@@ -1,6 +1,7 @@
 const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
+const proFile = require('../setting/input/profile_spec');
 
 describe('POST /public', () => { // 테스트 수트
     it('responds isFriend is false', done => { // 테스트 단위 : 채널 추가가 안되어있을 떄
@@ -101,21 +102,24 @@ describe('POST /public', () => { // 테스트 수트
                             .to
                             .include('미설정'); // 응답 블록의 본문 내용이 작성한 텍스트 내용을 포함하는가
                     }
-
-                    const elementQuick = res
-                        .body
-                        .template
-                        .quickReplies[0];
-                    // console.log(element);
-                    expect(elementQuick.messageText)
+                    // console.log(element.buttons[0]);
+                    expect(typeof element.buttons[0].label)
                         .to
-                        .equal('이메일 인증할게'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
-                    expect(elementQuick.action)
+                        .be
+                        .a('string'); // 응답 블록의 버튼명이 문자열 타입인가
+                    expect(element.buttons[0].label)
                         .to
-                        .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
-                    expect(elementQuick.label)
+                        .equal('이메일 인증'); // 응답 블록의 버튼 내용이 작성한 텍스트 내용과 완전일치 하는가
+                    expect(element.buttons[0].action)
                         .to
-                        .equal('이메일 인증'); // 응답 블록의 바로가기 버튼명이 작성한 텍스트 내용과 완전 일치하는가
+                        .equal('webLink'); // 응답 블록의 버튼 구조가 웹 링크 타입인가
+                    expect(element.buttons[0].webLinkUrl)
+                        .to
+                        .be
+                        .a('string'); // 응답 블록의 버튼 주소가 문자열 타입인가
+                    expect(element.buttons[0].webLinkUrl)
+                        .to
+                        .include('comgong-bot'); // 응답 블록의 버튼 주소에 작성한 텍스트 내용이 포함되어 있는가
                     done();
                 })
                 .catch(err => {
@@ -126,6 +130,7 @@ describe('POST /public', () => { // 테스트 수트
     );
 
     it('responds all success', done => { // 프로필 인증까지 완료되어있을 때
+        proFile.bind(this);
         const userRequest = {
             user: {
                 "properties": {

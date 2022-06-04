@@ -4,7 +4,11 @@
     "scripts": {
         "logs": "firebase functions:log",
         "config": "firebase functions:config:get > .runtimeconfig.json",
-        "test": "mocha test/check-sid_spec -t 10000"
+        "test_crawling": "mocha test/crawling/*.js -t 10000",
+        "test_createProfile": "mocha test/router/setting/input/profile_spec -t 10000",
+        "test_createCredit": "mocha test/router/setting/input/credit_spec -t 10000",
+        "test": "mocha test/router/public/hub_spec -t 10000"
+
     },
     "engines": {
         "node": "16"
