@@ -76,4 +76,20 @@ describe('POST /input/credit', () => { // 테스트 수트
                 });
         }
     );
+    after(() => {
+        request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
+            .get('/createTestDB') // 주소의 엔드포인트
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .expect(200) // 응답 상태코드
+            .then(res => {
+                const element = res.statusCode;
+                expect(element)
+                    .to
+                    .equal(200); // 테스트 DB 생성 후 응답 상태 코드 확인
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+            });
+    });
 });
