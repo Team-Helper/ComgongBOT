@@ -78,10 +78,16 @@ describe('POST /input/credit', () => { // 테스트 수트
     );
     after(() => {
         request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
-            .get('/createTestDB') // 주소의 엔드포인트
+            .post('/createTestDB') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .expect(200) // 응답 상태코드
+            .send({
+                'admin': functions
+                    .config()
+                    .service_key
+                    .admin
+            }) // 어드민 인증 키 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res.statusCode;
                 expect(element)

@@ -5,8 +5,16 @@ const functions = require('firebase-functions');
 describe('GET /notice', () => { // 테스트 수트
     it('responds crawling type', done => { // 테스트 단위(확인하고자 하는 내용을 명시)
         request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
-            .get('/notice') // 주소의 엔드포인트
-            .expect(201)
+            .post('/notice') // 주소의 엔드포인트
+            .expect(201) // 응답 상태코드
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({
+                'admin': functions
+                    .config()
+                    .service_key
+                    .admin
+            }) // 어드민 인증 키 전송
             .then(res => {
                 // console.log(res);
                 expect(res.body)
@@ -41,5 +49,5 @@ describe('GET /notice', () => { // 테스트 수트
                 console.error("Error >>", err);
                 done(err);
             });
-        });
+    });
 });

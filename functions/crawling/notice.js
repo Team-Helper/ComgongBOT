@@ -7,47 +7,52 @@ exports.notice = functions // 크롤링 함수 이름
     .region('asia-northeast1')
     .https
     .onRequest((req, res) => {
-        console.log(req);
-        axios
-            .get('https://www.sungkyul.ac.kr/computer/4101/subview.do') // 공지사항 페이지 주소
-            .then(async (html) => {
-                const tableCrawling = new Object();
-                // eslint-disable-next-line id-length
-                const $ = cheerio.load(html.data);
-                /* 게시물의 이름, 날짜, 주소를 각각 추출 및 오브젝트 변수에 저장*/
-                for (let index = 1; index <= 5; index++) {
-                    tableCrawling[index] = {
-                        'title': $(
-                            '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
-                            'r:nth-child(' + index + ') > td.td-subject > a > strong'
-                        )
-                            .text()
-                            .trim(),
-                        'date': $(
-                            '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
-                            'r:nth-child(' + index + ') > td.td-date'
-                        )
-                            .text()
-                            .trim(),
-                        'url': $(
-                            '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
-                            'r:nth-child(' + index + ') > td.td-subject > a'
-                        )
-                            .attr('href')
-                            .replace(/^/, 'https://www.sungkyul.ac.kr')
-                    };
-                }
-                // console.log(tableCrawling);
-                await admin
-                    .database()
-                    .ref('notice/')
-                    .set(tableCrawling); // 오브젝트 변수를 DB에 저장
-                console.log('notice DB input Success');
-                // res.status(201).send(tableCrawling);
-                res.sendStatus(201); // 성공 코드 전송
-            })
-            .catch(err => {
-                console.error('Error from notice : ', err);
-                res.sendStatus(err.response.status); // 에러 코드 전송
-            });
+        // console.log(req.body.admin);
+        if (req.body.admin === functions.config().service_key.admin) {
+            axios
+                .get('https://www.sungkyul.ac.kr/computer/4101/subview.do') // 공지사항 페이지 주소
+                .then(async (html) => {
+                    const tableCrawling = new Object();
+                    // eslint-disable-next-line id-length
+                    const $ = cheerio.load(html.data);
+                    /* 게시물의 이름, 날짜, 주소를 각각 추출 및 오브젝트 변수에 저장*/
+                    for (let index = 1; index <= 5; index++) {
+                        tableCrawling[index] = {
+                            'title': $(
+                                '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
+                                'r:nth-child(' + index + ') > td.td-subject > a > strong'
+                            )
+                                .text()
+                                .trim(),
+                            'date': $(
+                                '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
+                                'r:nth-child(' + index + ') > td.td-date'
+                            )
+                                .text()
+                                .trim(),
+                            'url': $(
+                                '#menu4101_obj256 > div._fnctWrap > form:nth-child(2) > div > table > tbody > t' +
+                                'r:nth-child(' + index + ') > td.td-subject > a'
+                            )
+                                .attr('href')
+                                .replace(/^/, 'https://www.sungkyul.ac.kr')
+                        };
+                    }
+                    // console.log(tableCrawling);
+                    await admin
+                        .database()
+                        .ref('notice/')
+                        .set(tableCrawling); // 오브젝트 변수를 DB에 저장
+                    console.log('notice DB input Success');
+                    // res.status(201).send(tableCrawling);
+                    res.sendStatus(201); // 성공 코드 전송
+                })
+                .catch(err => {
+                    console.error('Error from notice : ', err);
+                    res.sendStatus(err.response.status); // 에러 코드 전송
+                });
+        } else {
+            console.error('No have key');
+            res.sendStatus(400);
+        }
     });

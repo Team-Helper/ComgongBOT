@@ -12,36 +12,42 @@ exports.curriculum = functions // 크롤링 함수 이름
     .region('asia-northeast1')
     .https
     .onRequest(async (req, res) => {
-        try {
-            const browser = await puppeteer.launch({
-                // headless : false
-                args: ['--no-sandbox', '--disable-setuid-sandbox'] // Firebase cli 환경에서 돌아가기 위한 조건 설정
-            });
-            const page = await browser.newPage();
-            await page.setDefaultNavigationTimeout(0);
-            await page.goto(
-                'https://www.sungkyul.ac.kr/computer/4093/subview.do',
-                {waitUntil: "domcontentloaded"}
-            ); // 교과과정 주소로 이동
-            await page.waitForSelector('#menu4093_obj250 > div._fnctWrap > iframe');
-            console.log('iframe is ready. Loading iframe content');
-            const element = await page.$('#menu4093_obj250 > div._fnctWrap > iframe');
-            const frame = await element.contentFrame();
-            await frame.waitForSelector('#page0');
-            // eslint-disable-next-line id-length
-            const imgURL = await frame.$eval('#page0', e => e.getAttribute("src")); // 이미지 주소 추출
-            // console.log(imgURL);
-            await browser.close();
+        // console.log(req.body.admin);
+        if (req.body.admin === functions.config().service_key.admin) {
+            try {
+                const browser = await puppeteer.launch({
+                    // headless : false
+                    args: ['--no-sandbox', '--disable-setuid-sandbox'] // Firebase cli 환경에서 돌아가기 위한 조건 설정
+                });
+                const page = await browser.newPage();
+                await page.setDefaultNavigationTimeout(0);
+                await page.goto(
+                    'https://www.sungkyul.ac.kr/computer/4093/subview.do',
+                    {waitUntil: "domcontentloaded"}
+                ); // 교과과정 주소로 이동
+                await page.waitForSelector('#menu4093_obj250 > div._fnctWrap > iframe');
+                console.log('iframe is ready. Loading iframe content');
+                const element = await page.$('#menu4093_obj250 > div._fnctWrap > iframe');
+                const frame = await element.contentFrame();
+                await frame.waitForSelector('#page0');
+                // eslint-disable-next-line id-length
+                const imgURL = await frame.$eval('#page0', e => e.getAttribute("src")); // 이미지 주소 추출
+                // console.log(imgURL);
+                await browser.close();
 
-            await admin
-                .database()
-                .ref('curriculum/')
-                .set({imgURL: imgURL}); // 주소를 DB에 저장
-            console.log('Crawling and curriculum DB input Success');
-            // res.status(201).send(imgURL);
-            res.sendStatus(201); // 성공 코드 전송
-        } catch (err) {
-            console.error('Error from curriculum : ', err);
-            res.sendStatus(err.response.status); // 에러 코드 전송
+                await admin
+                    .database()
+                    .ref('curriculum/')
+                    .set({imgURL: imgURL}); // 주소를 DB에 저장
+                console.log('Crawling and curriculum DB input Success');
+                // res.status(201).send(imgURL);
+                res.sendStatus(201); // 성공 코드 전송
+            } catch (err) {
+                console.error('Error from curriculum : ', err);
+                res.sendStatus(err.response.status); // 에러 코드 전송
+            }
+        } else {
+            console.error('No have key');
+            res.sendStatus(400);
         }
     });
