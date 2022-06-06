@@ -4,7 +4,7 @@ exports.checkNumber = functions // 함수 이름
     .region('asia-northeast1')
     .https
     .onRequest(async (req, res) => {
-        // console.log(req.body);
+        console.log(req.get('Authorization'));
         const isNumber = parseInt(req.body.utterance); // 사용자가 입력한 학점 값
         // console.log(isNumber);
         if (!isNaN(isNumber)) { // 숫자 타입인 경우
