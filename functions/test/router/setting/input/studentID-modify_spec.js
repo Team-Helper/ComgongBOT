@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 describe('POST /input/studentID-modify', () => { // 테스트 수트
     it(
         'responds success modify studentID',
-        done => { // 테스트 단위 : 입력한 값으로 학번 변경이 성공했을 때
+        done => { // 테스트 단위 : 입력한 값으로 학번 변경에 성공했을 때
             const userRequest = { // 학번을 변경하는 사용자의 기본 정보 시나리오
                 user: {
                     "properties": {
@@ -56,7 +56,7 @@ describe('POST /input/studentID-modify', () => { // 테스트 수트
         }
     );
 
-    it('responds fail modify studentID', done => { // 변경이 실패했을 때
+    it('responds fail modify studentID', done => { // 중복 문제로 변경에 실패했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -70,10 +70,10 @@ describe('POST /input/studentID-modify', () => { // 테스트 수트
         };
         const action = {
             detailParams: {
-                studentID_modify: {
+                studentID: {
                     groupName: '',
                     origin: '16',
-                    value: '번호'
+                    value: '16'
                 }
             }
         };

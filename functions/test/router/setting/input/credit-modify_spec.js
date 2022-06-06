@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 describe('POST /input/credit-modify', () => { // 테스트 수트
     it(
         'responds success modify credit',
-        done => { // 테스트 단위 : 입력한 값으로 학점 수정이 성공했을 때
+        done => { // 테스트 단위 : 입력한 값으로 학점 수정에 성공했을 때
             const userRequest = { // 학점을 수정하는 사용자의 기본 정보 시나리오
                 user: {
                     "properties": {
@@ -58,7 +58,7 @@ describe('POST /input/credit-modify', () => { // 테스트 수트
         }
     );
 
-    it('responds fail modify credit', done => { // 수정이 실패했을 때
+    it('responds fail modify credit', done => { // 중복 문제로 수정에 실패했을 때
         const userRequest = {
             user: {
                 "properties": {
