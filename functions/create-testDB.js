@@ -20,10 +20,24 @@ exports.createTestDB = functions // 함수 이름
                 'chapel': 6
             };
             const firestore = admin.firestore();
-            const docRef = firestore
+            const docRef = firestore            // 공학 인증 DB 생성
                 .collection('engineeringCredits')
                 .doc(thisYear);
             await docRef
+                .set(testData)
+                .then((result) => {
+                    console.log('succeess! : ', result);
+                    res.sendStatus(201);
+                })
+                .catch(err => {
+                    console.error('Error... : ', err);
+                    res.sendStatus(400);
+                });
+
+            const docRefCredits = firestore     // 일반 인증 DB 생성
+                .collection('credits')
+                .doc(thisYear);
+            await docRefCredits
                 .set(testData)
                 .then((result) => {
                     console.log('succeess! : ', result);
