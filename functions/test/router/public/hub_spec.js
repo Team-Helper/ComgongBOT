@@ -1,7 +1,6 @@
 const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
-const proFile = require('../setting/input/profile_spec');
 
 describe('POST /public', () => { // 테스트 수트
     it('responds isFriend is false', done => { // 테스트 단위 : 채널 추가가 안되어있을 떄
@@ -130,7 +129,6 @@ describe('POST /public', () => { // 테스트 수트
     );
 
     it('responds all success', done => { // 프로필 인증까지 완료되어있을 때
-        proFile.bind(this);
         const userRequest = {
             user: {
                 "properties": {

@@ -124,4 +124,60 @@ describe('POST /private', () => {
                 });
         }
     );
+
+    it('responds all success', done => { // 프로필 인증까지 완료되어있을 때
+        const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            }
+        };
+        request(functions.config().test_url.app)
+            .post('/private')
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .simpleText;
+                // console.log(element);
+                expect(element.text)
+                    .to
+                    .be
+                    .a('string'); // 응답 블록의 본문이 문자열 타입인가
+                expect(element.text)
+                    .to
+                    .include('원하시는 메뉴를 선택'); // 응답 블록의 본문이 작성한 텍스트 내용을 포함하는가
+
+                const elementQuick = res.body.template.quickReplies;
+                // console.log(element);
+                const array = ["단톡 공지사항", "분실물 신고 내역", "학과 SNS 공지사항"];
+                expect(elementQuick)
+                    .to
+                    .have
+                    .lengthOf(array.length); // 응답 블록의 바로가기 개수가 지정한 배열 사이즈 만큼인가
+                for (let index = 0; index < elementQuick.length; index++) {
+                    expect(elementQuick[index].action)
+                        .to
+                        .equal('block'); // 응답 블록의 바로가기가 블록 타입인가
+                    expect(elementQuick[index].label)
+                        .to
+                        .include(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열 내용을 포함하는가
+                }
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            });
+    });
 });

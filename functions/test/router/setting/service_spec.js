@@ -70,7 +70,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                     "isFriend": true
                 }
             },
-            utterance: "1학년"
+            utterance: "4학년"
         };
         request(functions.config().test_url.app)
             .post('/setting/service')
@@ -110,7 +110,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                     "isFriend": true
                 }
             },
-            utterance: "1학년"
+            utterance: "4학년"
         };
         request(functions.config().test_url.app)
             .post('/setting/service')

@@ -3,8 +3,17 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /public/service', () => { // 테스트 수트
-    it('responds resultOut', done => { // 테스트 단위 : 지정한 이름의 데이터가 출력되는가
+    it('responds resultOut', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
         const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            },
             utterance: "공지사항 게시판을 조회해줘" // 사용자 요청 발화문
         };
 
@@ -95,6 +104,15 @@ describe('POST /public/service', () => { // 테스트 수트
 
     it('responds resultOut2', done => {
         const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            },
             utterance: "새소식 게시판을 조회해줘"
         };
 
@@ -185,6 +203,15 @@ describe('POST /public/service', () => { // 테스트 수트
 
     it('responds resultOut3', done => {
         const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            },
             utterance: "자유게시판을 조회해줘"
         };
 
@@ -275,6 +302,15 @@ describe('POST /public/service', () => { // 테스트 수트
 
     it('responds resultOut4', done => {
         const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            },
             utterance: "외부IT행사 및 교육 게시판을 조회해줘"
         };
 
@@ -365,6 +401,15 @@ describe('POST /public/service', () => { // 테스트 수트
 
     it('responds resultOut5', done => {
         const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            },
             utterance: "공학인증자료실 게시판을 조회해줘"
         };
 
@@ -455,6 +500,15 @@ describe('POST /public/service', () => { // 테스트 수트
 
     it('responds resultOut6', done => {
         const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            },
             utterance: "교과과정을 조회해줘"
         };
 
@@ -510,6 +564,15 @@ describe('POST /public/service', () => { // 테스트 수트
 
     it('responds resultOut7', done => {
         const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            },
             utterance: "올해 이수체계도를 조회해줘"
         };
 
@@ -572,6 +635,15 @@ describe('POST /public/service', () => { // 테스트 수트
 
     it('responds resultOut8', done => {
         const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            },
             utterance: "교수진소개 게시판을 조회해줘"
         };
 

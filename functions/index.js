@@ -47,7 +47,6 @@ app.use('/input/profile', profile);
 app.use('/input/credit', credit);
 app.use('/input/credit-modify', creditModify);
 app.use('/input/studentID-modify', studentIDModify);
-
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
