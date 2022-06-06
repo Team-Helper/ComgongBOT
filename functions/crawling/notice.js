@@ -7,6 +7,7 @@ exports.notice = functions // 크롤링 함수 이름
     .region('asia-northeast1')
     .https
     .onRequest((req, res) => {
+        console.log(req);
         axios
             .get('https://www.sungkyul.ac.kr/computer/4101/subview.do') // 공지사항 페이지 주소
             .then(async (html) => {
