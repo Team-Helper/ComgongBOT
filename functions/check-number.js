@@ -6,7 +6,7 @@ exports.checkNumber = functions // 함수 이름
     .onRequest(async (req, res) => {
         const isNumber = parseInt(req.body.utterance); // 사용자가 입력한 학점 값
         // console.log(isNumber);
-        if (!isNaN(isNumber)) { // 숫자 타입인 경우
+        if (!isNaN(isNumber)) { // 숫자형 타입인 경우
             res
                 .status(200)
                 .send({"status": "SUCCESS", "message": "this is a number"}); // 성공 전송

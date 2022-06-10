@@ -87,6 +87,10 @@ describe('POST /private', () => {
                         .include('누락된 설정이'); // 응답 블록의 헤더 제목 내용이 작성한 텍스트 내용을 포함하는가
                     expect(element.title)
                         .to
+                        .be
+                        .a('string'); // 응답 블록의 설명 제목이 문자열 타입인가
+                    expect(element.title)
+                        .to
                         .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 제목이 작성한 텍스트 내용과 완전 일치하는가
 
                     const elementItems = element.itemList;
