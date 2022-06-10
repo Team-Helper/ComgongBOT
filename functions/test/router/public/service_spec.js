@@ -102,26 +102,26 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultNewnews', done => {
-        const userRequest = {
+    it('responds resultNewnews', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
-            utterance: "새소식 게시판을 조회해줘"
+            utterance: "새소식 게시판을 조회해줘" // 사용자 요청 발화문
         };
 
-        request(functions.config().test_url.app)
-            .post('/public/service')
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
+            .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
-            .expect(201)
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res
                     .body
@@ -132,22 +132,22 @@ describe('POST /public/service', () => { // 테스트 수트
                 expect(element)
                     .to
                     .be
-                    .an('object');
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
 
                 const headerString = element.header.title;
                 // console.log(headerString);
                 expect(headerString)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
                 expect(headerString)
                     .to
-                    .equal('학과 새소식');
+                    .equal('학과 새소식'); // 응답 블록의 헤도 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const items = element.items;
                 expect(items.length)
                     .to
-                    .equal(5);
+                    .equal(5); // 응답 블록의 본문 개수가 지정한 값 만큼인가
                 for (let index = 0; index < items.length; index++) {
                     const itemTitle = items[index].title;
                     const itemDate = items[index].description;
@@ -155,29 +155,29 @@ describe('POST /public/service', () => { // 테스트 수트
                     expect(itemTitle)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 제목이 문자열 타입인가
                     expect(itemDate)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 업로드 날짜가 문자열 타입인가
                     expect(itemUrl)
                         .to
                         .be
-                        .an('object');
+                        .an('object'); // 응답 블록의 본문의 게시물 주소가 오브젝트 타입인가
                 }
 
                 const button = element.buttons[0];
                 // console.log(button.label);
                 expect(button.label)
                     .to
-                    .equal('학과 새소식 페이지');
+                    .equal('학과 새소식 페이지'); // 응답 블록 하단 버튼명이 작성한 텍스트 내용과 완전 일치하는가
                 expect(button.action)
                     .to
-                    .equal('webLink');
+                    .equal('webLink'); // 응답 블록 하단 버튼 구조가 웹 링크연결 구조인가
                 expect(button.webLinkUrl)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
 
                 const elementQuick = res
                     .body
@@ -186,13 +186,13 @@ describe('POST /public/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block');
+                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기');
+                    .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -201,26 +201,26 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultFreeborad', done => {
-        const userRequest = {
+    it('responds resultFreeborad', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
-            utterance: "자유게시판을 조회해줘"
+            utterance: "자유게시판을 조회해줘" // 사용자 요청 발화문
         };
 
-        request(functions.config().test_url.app)
-            .post('/public/service')
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
+            .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
-            .expect(201)
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res
                     .body
@@ -231,22 +231,22 @@ describe('POST /public/service', () => { // 테스트 수트
                 expect(element)
                     .to
                     .be
-                    .an('object');
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
 
                 const headerString = element.header.title;
                 // console.log(headerString);
                 expect(headerString)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
                 expect(headerString)
                     .to
-                    .equal('학과 자유게시판');
+                    .equal('학과 자유게시판'); // 응답 블록의 헤도 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const items = element.items;
                 expect(items.length)
                     .to
-                    .equal(5);
+                    .equal(5); // 응답 블록의 본문 개수가 지정한 값 만큼인가
                 for (let index = 0; index < items.length; index++) {
                     const itemTitle = items[index].title;
                     const itemDate = items[index].description;
@@ -254,29 +254,29 @@ describe('POST /public/service', () => { // 테스트 수트
                     expect(itemTitle)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 제목이 문자열 타입인가
                     expect(itemDate)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 업로드 날짜가 문자열 타입인가
                     expect(itemUrl)
                         .to
                         .be
-                        .an('object');
+                        .an('object'); // 응답 블록의 본문의 게시물 주소가 오브젝트 타입인가
                 }
 
                 const button = element.buttons[0];
                 // console.log(button.label);
                 expect(button.label)
                     .to
-                    .equal('학과 자유게시판 페이지');
+                    .equal('학과 자유게시판 페이지'); // 응답 블록 하단 버튼명이 작성한 텍스트 내용과 완전 일치하는가
                 expect(button.action)
                     .to
-                    .equal('webLink');
+                    .equal('webLink'); // 응답 블록 하단 버튼 구조가 웹 링크연결 구조인가
                 expect(button.webLinkUrl)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
 
                 const elementQuick = res
                     .body
@@ -285,13 +285,13 @@ describe('POST /public/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block');
+                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기');
+                    .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -300,26 +300,26 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultEducation', done => {
-        const userRequest = {
+    it('responds resultEducation', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
-            utterance: "외부IT행사 및 교육 게시판을 조회해줘"
+            utterance: "외부IT행사 및 교육 게시판을 조회해줘" // 사용자 요청 발화문
         };
 
-        request(functions.config().test_url.app)
-            .post('/public/service')
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
+            .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
-            .expect(201)
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res
                     .body
@@ -330,22 +330,22 @@ describe('POST /public/service', () => { // 테스트 수트
                 expect(element)
                     .to
                     .be
-                    .an('object');
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
 
                 const headerString = element.header.title;
                 // console.log(headerString);
                 expect(headerString)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
                 expect(headerString)
                     .to
-                    .equal('외부IT행사 및 교육');
+                    .equal('외부IT행사 및 교육'); // 응답 블록의 헤도 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const items = element.items;
                 expect(items.length)
                     .to
-                    .equal(5);
+                    .equal(5); // 응답 블록의 본문 개수가 지정한 값 만큼인가
                 for (let index = 0; index < items.length; index++) {
                     const itemTitle = items[index].title;
                     const itemDate = items[index].description;
@@ -353,29 +353,29 @@ describe('POST /public/service', () => { // 테스트 수트
                     expect(itemTitle)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 제목이 문자열 타입인가
                     expect(itemDate)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 업로드 날짜가 문자열 타입인가
                     expect(itemUrl)
                         .to
                         .be
-                        .an('object');
+                        .an('object'); // 응답 블록의 본문의 게시물 주소가 오브젝트 타입인가
                 }
 
                 const button = element.buttons[0];
                 // console.log(button.label);
                 expect(button.label)
                     .to
-                    .equal('외부IT행사&교육 페이지');
+                    .equal('외부IT행사&교육 페이지'); // 응답 블록 하단 버튼명이 작성한 텍스트 내용과 완전 일치하는가
                 expect(button.action)
                     .to
-                    .equal('webLink');
+                    .equal('webLink'); // 응답 블록 하단 버튼 구조가 웹 링크연결 구조인가
                 expect(button.webLinkUrl)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
 
                 const elementQuick = res
                     .body
@@ -384,13 +384,13 @@ describe('POST /public/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block');
+                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기');
+                    .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -399,26 +399,26 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultEngineering', done => {
-        const userRequest = {
+    it('responds resultEngineering', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
-            utterance: "공학인증자료실 게시판을 조회해줘"
+            utterance: "공학인증자료실 게시판을 조회해줘" // 사용자 요청 발화문
         };
 
-        request(functions.config().test_url.app)
-            .post('/public/service')
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
+            .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
-            .expect(201)
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res
                     .body
@@ -429,22 +429,22 @@ describe('POST /public/service', () => { // 테스트 수트
                 expect(element)
                     .to
                     .be
-                    .an('object');
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
 
                 const headerString = element.header.title;
                 // console.log(headerString);
                 expect(headerString)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
                 expect(headerString)
                     .to
-                    .equal('학과 공학인증자료실');
+                    .equal('학과 공학인증자료실'); // 응답 블록의 헤도 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const items = element.items;
                 expect(items.length)
                     .to
-                    .equal(5);
+                    .equal(5); // 응답 블록의 본문 개수가 지정한 값 만큼인가
                 for (let index = 0; index < items.length; index++) {
                     const itemTitle = items[index].title;
                     const itemDate = items[index].description;
@@ -452,29 +452,29 @@ describe('POST /public/service', () => { // 테스트 수트
                     expect(itemTitle)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 제목이 문자열 타입인가
                     expect(itemDate)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 업로드 날짜가 문자열 타입인가
                     expect(itemUrl)
                         .to
                         .be
-                        .an('object');
+                        .an('object'); // 응답 블록의 본문의 게시물 주소가 오브젝트 타입인가
                 }
 
                 const button = element.buttons[0];
                 // console.log(button.label);
                 expect(button.label)
                     .to
-                    .equal('학과 공학인증자료실 페이지');
+                    .equal('학과 공학인증자료실 페이지'); // 응답 블록 하단 버튼명이 작성한 텍스트 내용과 완전 일치하는가
                 expect(button.action)
                     .to
-                    .equal('webLink');
+                    .equal('webLink'); // 응답 블록 하단 버튼 구조가 웹 링크연결 구조인가
                 expect(button.webLinkUrl)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
 
                 const elementQuick = res
                     .body
@@ -483,13 +483,13 @@ describe('POST /public/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block');
+                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기');
+                    .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -498,26 +498,26 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultCurriculum', done => {
-        const userRequest = {
+    it('responds resultCurriculum', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
-            utterance: "교과과정을 조회해줘"
+            utterance: "교과과정을 조회해줘" // 사용자 요청 발화문
         };
 
-        request(functions.config().test_url.app)
-            .post('/public/service')
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
+            .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
-            .expect(201)
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res
                     .body
@@ -528,7 +528,7 @@ describe('POST /public/service', () => { // 테스트 수트
                 expect(element)
                     .to
                     .be
-                    .an('object');
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(typeof element.imageUrl)
                     .to
                     .be
@@ -547,13 +547,13 @@ describe('POST /public/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block');
+                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기');
+                    .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -562,26 +562,26 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultCompletionSystem', done => {
-        const userRequest = {
+    it('responds resultCompletionSystem', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
-            utterance: "올해 이수체계도를 조회해줘"
+            utterance: "올해 이수체계도를 조회해줘" // 사용자 요청 발화문
         };
 
-        request(functions.config().test_url.app)
-            .post('/public/service')
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
+            .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
-            .expect(201)
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const year = new Date().getFullYear();
                 const imgAlt = year + "년도 교과과정";
@@ -598,17 +598,17 @@ describe('POST /public/service', () => { // 테스트 수트
                     expect(element)
                         .to
                         .be
-                        .an('object');
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(typeof element.imageUrl)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 이미지 주소가 문자열 타입인가
                     expect(element.imageUrl)
                         .to
-                        .include('jpg');
+                        .include('jpg'); // 응답 블록의 이미지 주소에 jpg 확장자가 포함되었는가
                     expect(element.altText)
                         .to
-                        .equal(imgAlt);
+                        .equal(imgAlt); // 응답 블록의 이미지 설명문이 작성한 imgAlt 내용과 완전일치 하는가
                 }
 
                 const elementQuick = res
@@ -618,13 +618,13 @@ describe('POST /public/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block');
+                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기');
+                    .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -633,26 +633,26 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultFacultyIntroduction', done => {
-        const userRequest = {
+    it('responds resultFacultyIntroduction', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
-            utterance: "교수진소개 게시판을 조회해줘"
+            utterance: "교수진소개 게시판을 조회해줘" // 사용자 요청 발화문
         };
 
-        request(functions.config().test_url.app)
-            .post('/public/service')
+        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
+            .post('/public/service') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest})
-            .expect(201)
+            .send({userRequest}) // body 데이터 전송
+            .expect(201) // 응답 상태코드
             .then(res => {
                 const elementLength = res.body.template.outputs.length;
                 // console.log(elementLength);
@@ -678,28 +678,28 @@ describe('POST /public/service', () => { // 테스트 수트
                         expect(itemTitle)
                             .to
                             .be
-                            .a('string');
+                            .a('string'); // 응답 블록 본문의 게시물 제목이 문자열 타입인가
                         expect(itemDescription)
                             .to
                             .be
-                            .a('string');
+                            .a('string'); // 응답 블록 본문의 게시물 설명이 문자열 타입인가
                         expect(itemDescription)
                             .to
-                            .include('연락처');
+                            .include('연락처'); // 응답 블록의 설명이 작성한 텍스트 내용을 포함하는가
                         expect(itemDescription)
                             .to
-                            .include('연구실');
+                            .include('연구실'); // 응답 블록의 설명이 작성한 텍스트 내용을 포함하는가
                         expect(typeof itemImg.imageUrl)
                             .to
                             .be
-                            .a('string');
+                            .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
                         expect(itemBtn[0].label)
                             .to
                             .be
-                            .a('string');
+                            .a('string'); // 응답 블록 하단 버튼명이 문자열 타입인가
                         expect(itemBtn[0].action)
                             .to
-                            .equal('webLink');
+                            .equal('webLink'); // 응답 블록 하단 버튼 구조가 웹 링크연결 구조인가
                     }
                 }
 
@@ -710,13 +710,13 @@ describe('POST /public/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .equal('뒤로 돌아갈래');
+                    .equal('뒤로 돌아갈래'); // 응답 블록의 바로가기 요청문 내용이 작성한 텍스트 내용과 완전 일치하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block');
+                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기');
+                    .include('뒤로가기'); // 응답 블록의 바로가기명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
