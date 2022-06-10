@@ -3,8 +3,8 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /public/service', () => { // 테스트 수트
-    it('responds resultOut', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
-        const userRequest = {
+    it('responds resultNotice', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
@@ -40,10 +40,10 @@ describe('POST /public/service', () => { // 테스트 수트
                 expect(headerString)
                     .to
                     .be
-                    .a('string'); // 응답 블록 제목이 문자열 타입인가
+                    .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
                 expect(headerString)
                     .to
-                    .equal('학과 공지사항'); // 응답 블록 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
+                    .equal('학과 공지사항'); // 응답 블록의 헤도 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
 
                 const items = element.items;
                 expect(items.length)
@@ -56,15 +56,15 @@ describe('POST /public/service', () => { // 테스트 수트
                     expect(itemTitle)
                         .to
                         .be
-                        .a('string'); // 응답 블록 본문의 제목이 문자열 타입인가
+                        .a('string'); // 응답 블록 본문의 게시물 제목이 문자열 타입인가
                     expect(itemDate)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록 본문의 게시물 업로드 날짜가 문자열 타입인가
                     expect(itemUrl)
                         .to
                         .be
-                        .an('object');
+                        .an('object'); // 응답 블록의 본문의 게시물 주소가 오브젝트 타입인가
                 }
 
                 const button = element.buttons[0];
@@ -102,7 +102,7 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultOut2', done => {
+    it('responds resultNewnews', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -201,7 +201,7 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultOut3', done => {
+    it('responds resultFreeborad', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -300,7 +300,7 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultOut4', done => {
+    it('responds resultEducation', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -399,7 +399,7 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultOut5', done => {
+    it('responds resultEngineering', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -498,7 +498,7 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultOut6', done => {
+    it('responds resultCurriculum', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -562,7 +562,7 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultOut7', done => {
+    it('responds resultCompletionSystem', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -633,7 +633,7 @@ describe('POST /public/service', () => { // 테스트 수트
             });
     });
 
-    it('responds resultOut8', done => {
+    it('responds resultFacultyIntroduction', done => {
         const userRequest = {
             user: {
                 "properties": {
