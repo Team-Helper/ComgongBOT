@@ -297,7 +297,7 @@ router.post('/', async function (req, res) {
                                 items.push({
                                     itemCard: { // 첫번째 응답은 아이템 카드 뷰 블록으로 출력
                                         "head": {
-                                            "title": `☑ 최저이수요구 학점표 조회`
+                                            "title": `☑ 최저이수요구 학점표`
                                         },
                                         "itemList": itemList,
                                         "title": `본인 학번의 ${userEngineeringStatus} 최저이수요구 학점표 입니다.`
@@ -351,7 +351,7 @@ router.post('/', async function (req, res) {
                         items.push({
                             itemCard: { // 아이템 카드 뷰 블록으로 출력
                                 "head": {
-                                    "title": `☑ 최저이수요구 학점표 조회`
+                                    "title": `☑ 최저이수요구 학점표`
                                 },
                                 "itemList": itemList,
                                 "title": `본인 학번의 ${userEngineeringStatus} 최저이수요구 학점표 입니다.`

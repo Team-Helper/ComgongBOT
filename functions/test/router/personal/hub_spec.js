@@ -28,6 +28,10 @@ describe('POST /personal', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
@@ -70,20 +74,24 @@ describe('POST /personal', () => { // 테스트 수트
                         .outputs[0]
                         .itemCard;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.head.title)
                         .to
                         .be
                         .a('string');
-                    expect(element.head.title)
+                    expect(element.head.title) // 응답 블록의 헤더 제목이 문자열 타입인가
                         .to
-                        .include('누락된 설정이'); // 응답 블록의 제목 내용이 작성한 텍스트 내용을 포함하는가
-                    expect(element.text)
-                        .to
-                        .be
-                        .a('string');
+                        .include('누락된 설정이'); // 응답 블록의 헤더 제목 내용이 작성한 텍스트 내용을 포함하는가
                     expect(element.title)
                         .to
-                        .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
+                        .be
+                        .a('string'); // 응답 블록의 설명 제목이 문자열 타입인가
+                    expect(element.title)
+                        .to
+                        .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 제목이 작성한 텍스트 내용과 완전 일치하는가
 
                     const elementItems = element.itemList;
                     const title = ['이메일', '학년/학번'];
@@ -154,17 +162,21 @@ describe('POST /personal', () => { // 테스트 수트
                     .outputs[0]
                     .itemCard;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.head.title)
                     .to
                     .be
-                    .a('string'); // 응답 블록의 제목이 문자열 타입인가
+                    .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
                 expect(element.head.title)
                     .to
-                    .include('누락된 설정이'); // 응답 블록의 제목 내용이 작성한 텍스트 내용을 포함하는가
-                expect(element.text)
+                    .include('누락된 설정이'); // 응답 블록의 헤더 제목 내용이 작성한 텍스트 내용을 포함하는가
+                expect(element.title)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 본문이 문자열 타입인가
                 expect(element.title)
                     .to
                     .equal('학과 개인 서비스는 학점 입력이 완료되어야 이용이 가능해집니다.'); // 응답 블록의 본문 내용이 작성한 텍스트과 완전일치 하는가
@@ -233,6 +245,10 @@ describe('POST /personal', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be

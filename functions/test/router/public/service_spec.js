@@ -3,7 +3,7 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /public/service', () => { // 테스트 수트
-    it('responds resultNotice', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
+    it('responds resultNotice', done => { // 테스트 단위 : 공지사항 조회를 눌렀을 때
         const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
