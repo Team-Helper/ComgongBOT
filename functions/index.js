@@ -24,7 +24,7 @@ const freeBoard = require('./crawling/free-board');
 const education = require('./crawling/education');
 const engineering = require('./crawling/engineering');
 const curriculum = require('./crawling/curriculum');
-const completionSystem = require('./crawling/compltion-system');
+const completionSystem = require('./crawling/completion-system');
 const facultyIntroduction = require('./crawling/faculty-introduction');
 
 const coldBreak = require('./cold-break');
