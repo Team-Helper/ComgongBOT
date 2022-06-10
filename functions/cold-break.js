@@ -7,7 +7,7 @@ exports.coldBreak = functions // 함수 이름
     .schedule('*/3 * * * *') // 3분 단위로 작동
     .timeZone('Asia/Seoul')
     .onRun(() => {
-        function publicCold() {
+        function publicCold() { // 학과 공용 서비스 coldBreak
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -40,7 +40,7 @@ exports.coldBreak = functions // 함수 이름
                 });
         }
 
-        function privateCold() {
+        function privateCold() { // 학과 전용 서비스 coldBreak
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -74,7 +74,7 @@ exports.coldBreak = functions // 함수 이름
 
         }
 
-        function personalCold() {
+        function personalCold() { // 학과 개인 서비스 coldBreak
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -107,7 +107,7 @@ exports.coldBreak = functions // 함수 이름
                 });
         }
 
-        function settingCold() {
+        function settingCold() { // 설정 coldBreak
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -142,7 +142,7 @@ exports.coldBreak = functions // 함수 이름
         }
 
         axios
-            .all([publicCold(), privateCold(), personalCold(), settingCold()])
+            .all([publicCold(), privateCold(), personalCold(), settingCold()]) // 순차적으로 함수 실행
             .then(axios.spread(() => {
                 console.log('Break!');
             }));

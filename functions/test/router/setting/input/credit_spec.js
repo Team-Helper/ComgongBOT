@@ -92,7 +92,7 @@ describe('POST /input/credit', () => { // 테스트 수트
                 const element = res.statusCode;
                 expect(element)
                     .to
-                    .equal(200); // 테스트 DB 생성 후 응답 상태 코드 확인
+                    .equal(201); // 테스트 DB 생성 후 응답 상태 코드 확인
             })
             .catch(err => {
                 console.error("Error >>", err);

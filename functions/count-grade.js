@@ -6,7 +6,7 @@ exports.countGrade = functions // 함수 이름
     .https
     .onRequest(async (req, res) => {
         // console.log(req.body.admin);
-        if (req.body.admin === functions.config().service_key.admin) {
+        if (req.body.admin === functions.config().service_key.admin) { // 모듈 실행에 앞서 특정 key 값이 있는 요청인 경우
             const firestore = admin.firestore();
             const snapshot = await firestore
                 .collection('users')
@@ -14,7 +14,7 @@ exports.countGrade = functions // 함수 이름
             await snapshot
                 .docs
                 .map(async (doc) => {
-                    /* 사용자들의 학년과 재학상태 변수 처리*/
+                    /* 모든 사용자들의 학년과 재학상태 변수 처리*/
                     const grade = doc
                         .data()
                         .grade;
@@ -34,7 +34,7 @@ exports.countGrade = functions // 함수 이름
                     }
                 });
             res.sendStatus(200);
-        } else {
+        } else { // 특정 key 값이 없는 요청인 경우
             console.error('No have key');
             res.sendStatus(400);
         }
