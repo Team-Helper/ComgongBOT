@@ -36,10 +36,14 @@ describe('POST /input/profile', () => { // 테스트 수트
                     expect(element)
                         .to
                         .be
-                        .a('string'); // 응답 결과가 문자열 타입인가
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element)
                         .to
-                        .equal('Create user profile success'); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
+                        .be
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
+                    expect(element)
+                        .to
+                        .equal('Create user profile success'); // 응답 블록의 내용이 작성한 텍스트 내용과 완전일치 하는가
                     done();
                 })
                 .catch(err => {

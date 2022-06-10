@@ -40,13 +40,17 @@ describe('POST /input/studentID-modify', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
                     expect(element.text)
                         .to
-                        .equal("🔄 입력하신 학번으로 변경이 완료되었습니다."); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
+                        .include("입력하신 학번으로 변경이 완료"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
                     done();
                 })
                 .catch(err => {
@@ -91,13 +95,17 @@ describe('POST /input/studentID-modify', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 내용이 문자열 타입인가
                 expect(element.text)
                     .to
-                    .equal("🚫 이미 같은 학번 이예요!"); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
+                    .include("이미 같은 학번 이예요!"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
 
                 const elementQuick = res
                     .body

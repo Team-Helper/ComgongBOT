@@ -9,7 +9,10 @@ describe('POST /input/credit-modify', () => { // 테스트 수트
             const userRequest = { // 학점을 수정하는 사용자의 기본 정보 시나리오
                 user: {
                     "properties": {
-                        "plusfriendUserKey": functions.config().service_key.testID, // 사용자 카카오 채널 아이디
+                        "plusfriendUserKey": functions
+                            .config()
+                            .service_key
+                            .testID, // 사용자 카카오 채널 아이디
                         "isFriend": true // 채널 추가 상태
                     }
                 }
@@ -42,13 +45,17 @@ describe('POST /input/credit-modify', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
                     expect(element.text)
                         .to
-                        .equal('🔄 입력하신 학점으로 수정이 완료되었습니다.'); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
+                        .include('입력하신 학점으로 수정'); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
                     done();
                 })
                 .catch(err => {
@@ -62,7 +69,10 @@ describe('POST /input/credit-modify', () => { // 테스트 수트
         const userRequest = {
             user: {
                 "properties": {
-                    "plusfriendUserKey": functions.config().service_key.testID,
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
                     "isFriend": true
                 }
             }
@@ -94,13 +104,17 @@ describe('POST /input/credit-modify', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .simpleText;
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 내용이 문자열 타입인가
                 expect(element.text)
                     .to
-                    .equal('🚫 이미 같은 학점 이예요!'); // 응답 결과가 작성한 텍스트 내용과 완전일치 하는가
+                    .include('이미 같은 학점 이예요!'); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
 
                 const elementQuick = res
                     .body

@@ -62,7 +62,7 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "🔄 입력하신 학번으로 변경이 완료되었습니다."
+                                    text: "🔄 입력하신 학번으로 변경이 완료되었습니다." // 텍스트 뷰 응답 블록으로 출력
                                 }
                             }
                         ]

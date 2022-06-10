@@ -61,13 +61,17 @@ describe('POST /input/credit', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
                     expect(element.text)
                         .to
-                        .equal("✅ 학점 입력이 완료되었습니다!\n이제 학과 개인 서비스도 이용하실 수 있게 되었습니다."); // 응답 결과가 작성한 텍스트의 내용과 완전일치 하는가
+                        .include("학점 입력이 완료되었습니다!"); // 응답 블록 내용이 작성한 텍스트 내용을 포함하는가
                     done();
                 })
                 .catch(err => {
@@ -76,7 +80,7 @@ describe('POST /input/credit', () => { // 테스트 수트
                 });
         }
     );
-    after(() => {
+    after(() => { // 학점 입력 후 테스트 단위의 학번-학점DB 생성
         request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
             .post('/createTestDB') // 주소의 엔드포인트
             .set('Accept', 'application/json')
