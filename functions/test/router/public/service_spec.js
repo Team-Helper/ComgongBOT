@@ -10,8 +10,8 @@ describe('POST /public/service', () => { // 테스트 수트
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
             utterance: "공지사항 게시판을 조회해줘" // 사용자 요청 발화문

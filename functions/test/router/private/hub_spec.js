@@ -28,6 +28,10 @@ describe('POST /private', () => {
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
@@ -70,16 +74,20 @@ describe('POST /private', () => {
                         .outputs[0]
                         .itemCard;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.head.title)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
                     expect(element.head.title)
                         .to
-                        .include('누락된 설정이'); // 응답 블록의 제목 내용이 작성한 텍스트 내용을 포함하는가
+                        .include('누락된 설정이'); // 응답 블록의 헤더 제목 내용이 작성한 텍스트 내용을 포함하는가
                     expect(element.title)
                         .to
-                        .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
+                        .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 제목이 작성한 텍스트 내용과 완전 일치하는가
 
                     const elementItems = element.itemList;
                     const title = ['이메일', '학년/학번'];
@@ -150,6 +158,10 @@ describe('POST /private', () => {
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be

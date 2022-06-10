@@ -4,14 +4,14 @@ const functions = require('firebase-functions');
 
 describe('POST /private/service', () => { // 테스트 수트
     it('responds resultOut', done => { // 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가
-        const userRequest = {
+        const userRequest = { // 기본 사용자 정보 시나리오
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID,
-                    "isFriend": true
+                        .testID, // 사용자 카카오 채널 아이디
+                    "isFriend": true // 채널 추가 상태
                 }
             },
             utterance: "단톡 공지사항을 조회해줘" // 사용자 요청 발화문
@@ -30,6 +30,10 @@ describe('POST /private/service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
@@ -87,6 +91,10 @@ describe('POST /private/service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
@@ -144,6 +152,10 @@ describe('POST /private/service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
