@@ -33,8 +33,8 @@ const checkNumber = require('./check-number');
 const checkStudentID = require('./check-sid');
 const createTestDB = require('./create-testDB');
 
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // cors 설정
+app.use(express.json()); // 모든 입력&출력은 JSON 포맷으로
 app.use('/public', publicHub); // 학과 공용 서비스 메뉴 선택
 app.use('/public/service', publicService); // 학과 공용 서비스 안내
 app.use('/private', privateHub); // 학과 전용 서비스 메뉴 선택
