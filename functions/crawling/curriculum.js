@@ -13,7 +13,7 @@ exports.curriculum = functions // 크롤링 함수 이름
     .https
     .onRequest(async (req, res) => {
         // console.log(req.body.admin);
-        if (req.body.admin === functions.config().service_key.admin) {
+        if (req.body.admin === functions.config().service_key.admin) { // 크롤링 실행에 앞서 특정 key 값이 있는 요청인 경우
             try {
                 const browser = await puppeteer.launch({
                     // headless : false
@@ -24,14 +24,15 @@ exports.curriculum = functions // 크롤링 함수 이름
                 await page.goto(
                     'https://www.sungkyul.ac.kr/computer/4093/subview.do',
                     {waitUntil: "domcontentloaded"}
-                ); // 교과과정 주소로 이동
+                ); // 교과과정 페이지 주소로 이동
+                /* 추출하고자 하는 이미지 dom 구간으로 이동 */
                 await page.waitForSelector('#menu4093_obj250 > div._fnctWrap > iframe');
                 console.log('iframe is ready. Loading iframe content');
                 const element = await page.$('#menu4093_obj250 > div._fnctWrap > iframe');
                 const frame = await element.contentFrame();
                 await frame.waitForSelector('#page0');
                 // eslint-disable-next-line id-length
-                const imgURL = await frame.$eval('#page0', e => e.getAttribute("src")); // 이미지 주소 추출
+                const imgURL = await frame.$eval('#page0', e => e.getAttribute("src")); // 해당 이미지 주소 추출
                 // console.log(imgURL);
                 await browser.close();
 
@@ -46,7 +47,7 @@ exports.curriculum = functions // 크롤링 함수 이름
                 console.error('Error from curriculum : ', err);
                 res.sendStatus(err.response.status); // 에러 코드 전송
             }
-        } else {
+        } else { // 특정 key 값이 없는 요청인 경우
             console.error('No have key');
             res.sendStatus(400);
         }

@@ -86,7 +86,7 @@ describe('POST /input/credit', () => { // 테스트 수트
                     .config()
                     .service_key
                     .admin
-            }) // 어드민 인증 키 전송
+            }) // 어드민 인증 key 전송
             .expect(201) // 응답 상태코드
             .then(res => {
                 const element = res.statusCode;

@@ -8,7 +8,7 @@ exports.notice = functions // 크롤링 함수 이름
     .https
     .onRequest((req, res) => {
         // console.log(req.body.admin);
-        if (req.body.admin === functions.config().service_key.admin) {
+        if (req.body.admin === functions.config().service_key.admin) { // 크롤링 실행에 앞서 특정 key 값이 있는 요청인 경우
             axios
                 .get('https://www.sungkyul.ac.kr/computer/4101/subview.do') // 공지사항 페이지 주소
                 .then(async (html) => {
@@ -51,7 +51,7 @@ exports.notice = functions // 크롤링 함수 이름
                     console.error('Error from notice : ', err);
                     res.sendStatus(err.response.status); // 에러 코드 전송
                 });
-        } else {
+        } else { // 특정 key 값이 없는 요청인 경우
             console.error('No have key');
             res.sendStatus(400);
         }

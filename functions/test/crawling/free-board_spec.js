@@ -3,7 +3,7 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('GET /freeBoard', () => { // 테스트 수트
-    it('responds crawling result', done => { // 테스트 단위(확인하고자 하는 내용을 명시)
+    it('responds crawling result', done => { // 테스트 단위 : 크롤링 결과 확인
         request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
             .get('/freeBoard') // 주소의 엔드포인트
             .expect(201) // 응답 상태코드
@@ -14,7 +14,7 @@ describe('GET /freeBoard', () => { // 테스트 수트
                     .config()
                     .service_key
                     .admin
-            }) // 어드민 인증 키 전송
+            }) // 어드민 인증 key 전송
             .then(res => {
                 // console.log(res);
                 expect(res.body)
@@ -33,15 +33,15 @@ describe('GET /freeBoard', () => { // 테스트 수트
                     expect(res.body[index].title)
                         .to
                         .be
-                        .a('string'); // 해당 key의 내용 값이 문자열 타입인가
+                        .a('string'); // 응답 결과인 게시물 제목이 문자열 타입인가
                     expect(res.body[index].date)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 결과인 게시물 업로드 날짜가 문자열 타입인가
                     expect(res.body[index].url)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 결과인 게시물 주소가 문자열 타입인가
                 }
                 done();
             })
