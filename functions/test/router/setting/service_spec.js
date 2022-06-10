@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 describe('POST /setting/service', () => { // 테스트 수트
     it(
         'responds choose menu before change user grade data',
-        done => { // 테스트 단위 : 학년 변경 전, 메뉴 선택이 이루어질 때
+        done => { // 테스트 단위 : 학년 변경 관련 메뉴 선택 시
             /* 기본 사용자 정보 시나리오와 요청 발화문 */
             const userRequest = {
                 user: {
@@ -32,6 +32,10 @@ describe('POST /setting/service', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
@@ -59,7 +63,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 });
         }
     );
-    it('responds change user grade data', done => { // 학년 변경이 성공했을 때
+    it('responds change user grade data', done => { // 학년 변경에 성공했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -85,13 +89,17 @@ describe('POST /setting/service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 내용이 문자열 타입인가
                 expect(element.text)
                     .to
-                    .equal("🔄 선택하신 학년으로 변경이 완료되었습니다."); // 응답 블록의 내용이 작성한 텍스트 내용과 완전일치 하는가
+                    .include("선택하신 학년으로 변경이 완료되었습니다."); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -99,7 +107,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 done(err);
             });
     });
-    it('responds change user grade data fail', done => { // 중복 문제로 학년 변경이 실패했을 때
+    it('responds change user grade data fail', done => { // 중복 문제로 학년 변경에 실패했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -125,10 +133,14 @@ describe('POST /setting/service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 내용이 문자열 타입인가
                 expect(element.text)
                     .to
                     .include("이미 같은 학년"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
@@ -140,13 +152,13 @@ describe('POST /setting/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .include('나의 학년을'); // 응답 블록의 요청문이 작성한 텍스트 내용을 포함하는가
+                    .include('나의 학년을'); // 바로가기 요청문이 작성한 텍스트 내용을 포함하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block'); // 응답 블록의 바로가기 구조가 블록 구조 인가
+                    .equal('block'); // 바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기'); // 응답 블록의 바로가기 버튼명이 작성한 텍스트 내용을 포함하는가
+                    .include('뒤로가기'); // 바로가기 버튼명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -157,7 +169,7 @@ describe('POST /setting/service', () => { // 테스트 수트
 
     it(
         'responds choose menu before change user status data',
-        done => { // 학적상태 변경 전, 메뉴 선택이 이루어질 때
+        done => { // 학적상태 변경 관련 메뉴 선택 시
             const userRequest = {
                 user: {
                     "properties": {
@@ -183,24 +195,28 @@ describe('POST /setting/service', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
                     expect(element.text)
                         .to
-                        .include("변경하고자 하는 학적상태로");
+                        .include("변경하고자 하는 학적상태로"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
 
                     const elementQuick = res.body.template.quickReplies;
                     const array = ['휴학해요', '재학해요', '자퇴해요', '뒤로가기'];
                     // console.log(elementQuick);
                     expect(Object.keys(elementQuick).length)
                         .to
-                        .equal(array.length);
+                        .equal(array.length); // 응답 블록의 바로가기 개수가 지정한 배열 사이즈와 동일한가
                     for (let index = 0; index < Object.keys(elementQuick).length; index++) {
                         expect(elementQuick[index].label)
                             .to
-                            .include(array[index]);
+                            .include(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
                     }
                     done();
                 })
@@ -210,7 +226,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 });
         }
     );
-    it('responds change user status data', done => { // 학적 상태 변경이 성공했을 때
+    it('responds change user status data', done => { // 학적 상태 변경에 성공했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -236,13 +252,17 @@ describe('POST /setting/service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 내용이 문자열 타입인가
                 expect(element.text)
                     .to
-                    .equal("🔄 학적상태를 휴학으로 변경완료 하였습니다.");
+                    .include("학적상태를 휴학으로 변경완료 하였습니다."); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -250,7 +270,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 done(err);
             });
     });
-    it('responds change user status data fail', done => { // 중복 문제로 학적상태 변경이 실패했을 때
+    it('responds change user status data fail', done => { // 중복 문제로 학적상태 변경에 실패했을 때
         const userRequest = {
             user: {
                 "properties": {
@@ -276,13 +296,17 @@ describe('POST /setting/service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 내용이 문자열 타입인가
                 expect(element.text)
                     .to
-                    .include("이미 학적상태가");
+                    .include("이미 학적상태가"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
 
                 const elementQuick = res
                     .body
@@ -291,13 +315,13 @@ describe('POST /setting/service', () => { // 테스트 수트
                 // console.log(elementQuick);
                 expect(elementQuick.messageText)
                     .to
-                    .include('나의 학적상태를');
+                    .include('나의 학적상태를'); // 바로가기 요청문이 작성한 텍스트 내용을 포함하는가
                 expect(elementQuick.action)
                     .to
-                    .equal('block');
+                    .equal('block'); //  바로가기 구조가 블록 구조 인가
                 expect(elementQuick.label)
                     .to
-                    .include('뒤로가기');
+                    .include('뒤로가기'); //  바로가기 버튼명이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {
@@ -334,24 +358,28 @@ describe('POST /setting/service', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
                         .a('string');
-                    expect(element.text)
+                    expect(element.text) // 응답 블록의 내용이 문자열 타입인가
                         .to
-                        .include("변경하고자 하는 공학인증여부로");
+                        .include("변경하고자 하는 공학인증여부로"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
 
                     const elementQuick = res.body.template.quickReplies;
                     const array = ['O', 'X', '뒤로가기'];
                     // console.log(elementQuick);
                     expect(Object.keys(elementQuick).length)
                         .to
-                        .equal(array.length);
+                        .equal(array.length); // 응답 블록의 바로가기 개수가 지정한 배열 사이즈와 동일한가
                     for (let index = 0; index < Object.keys(elementQuick).length; index++) {
                         expect(elementQuick[index].label)
                             .to
-                            .include(array[index]);
+                            .include(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
                     }
                     done();
                 })
@@ -390,13 +418,17 @@ describe('POST /setting/service', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
                     expect(element.text)
                         .to
-                        .equal("🔄 공학인증여부를 공학인증 미진행으로 변경완료 하였습니다.");
+                        .include("공학인증여부를 공학인증 미진행으로 변경완료 하였습니다."); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
                     done();
                 })
                 .catch(err => {
@@ -434,13 +466,17 @@ describe('POST /setting/service', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
                     expect(element.text)
                         .to
-                        .include("이미 공학인증을");
+                        .include("이미 공학인증을"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
 
                     const elementQuick = res
                         .body
@@ -449,13 +485,13 @@ describe('POST /setting/service', () => { // 테스트 수트
                     // console.log(elementQuick);
                     expect(elementQuick.messageText)
                         .to
-                        .include('나의 공학인증여부를');
+                        .include('나의 공학인증여부를'); // 바로가기 요청문이 작성한 텍스트 내용을 포함하는가
                     expect(elementQuick.action)
                         .to
-                        .equal('block');
+                        .equal('block'); //  바로가기 구조가 블록 구조 인가
                     expect(elementQuick.label)
                         .to
-                        .include('뒤로가기');
+                        .include('뒤로가기'); //  바로가기 버튼명이 작성한 텍스트 내용을 포함하는가
                     done();
                 })
                 .catch(err => {
@@ -467,7 +503,7 @@ describe('POST /setting/service', () => { // 테스트 수트
 
     it(
         'responds choose menu before delete user',
-        done => { // ComgongBOT 초기화 전, 메뉴 선택이 이루어질 때
+        done => { // ComgongBOT 초기화 관련 메뉴 선택 시
             const userRequest = {
                 user: {
                     "properties": {
@@ -493,24 +529,28 @@ describe('POST /setting/service', () => { // 테스트 수트
                         .outputs[0]
                         .simpleText;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.text)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 내용이 문자열 타입인가
                     expect(element.text)
                         .to
-                        .equal("‼ 전체 설정이 초기화 됩니다. 정말 진행을 원하시나요?");
+                        .include("전체 설정이 초기화 됩니다. 정말 진행을 원하시나요?"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
 
                     const elementQuick = res.body.template.quickReplies;
                     const array = ['네', '아니오'];
                     // console.log(elementQuick);
                     expect(Object.keys(elementQuick).length)
                         .to
-                        .equal(array.length);
+                        .equal(array.length); // 응답 블록의 바로가기 개수가 지정한 배열 사이즈와 동일한가
                     for (let index = 0; index < Object.keys(elementQuick).length; index++) {
                         expect(elementQuick[index].label)
                             .to
-                            .include(array[index]);
+                            .include(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용을 포함하는가
                     }
                     done();
                 })
@@ -520,7 +560,7 @@ describe('POST /setting/service', () => { // 테스트 수트
                 });
         }
     );
-    it('responds delete user', done => { // 사용자가 ComgongBOT을 초기화할 때
+    it('responds delete user', done => { // ComgongBOT을 초기화 후
         const userRequest = {
             user: {
                 "properties": {
@@ -547,13 +587,17 @@ describe('POST /setting/service', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 내용이 문자열 타입인가
                 expect(element.text)
                     .to
-                    .equal("🗑 전체 설정이 초기화 되었습니다.");
+                    .include("전체 설정이 초기화 되었습니다."); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
                 done();
             })
             .catch(err => {

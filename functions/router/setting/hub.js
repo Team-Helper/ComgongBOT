@@ -87,7 +87,7 @@ router.post('/', async function (req, res) {
                             .credit_modify,
                         "label": value
                     });
-                } else if (index === 2) {
+                } else if (index === 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -120,7 +120,7 @@ router.post('/', async function (req, res) {
                 .data()
                 .grade + '/' + userData
                 .data()
-                .studentID, // 학년과 학번은 하나의 문자로 처리
+                .studentID, // 학년과 학번은 하나의 문자열로 처리
             userData
                 .data()
                 .status,
@@ -139,7 +139,7 @@ router.post('/', async function (req, res) {
                 description[description.length - 2] === true)
             ? 'O'
             : 'X';
-        description[description.length - 1] = ( // 사용자 학점 입력 상태에 따른 미설정/설정으로 처리
+        description[description.length - 1] = ( // 사용자 학점 입력 상태에 따른 미입력/입력으로 처리
                 !description[description.length - 1])
             ? '미입력'
             : '입력';

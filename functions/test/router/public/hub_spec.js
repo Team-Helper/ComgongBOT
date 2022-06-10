@@ -126,7 +126,7 @@ describe('POST /public', () => { // 테스트 수트
                         .a('string'); // 응답 블록의 버튼 주소가 문자열 타입인가
                     expect(element.buttons[0].webLinkUrl)
                         .to
-                        .include('comgong-bot'); // 응답 블록의 버튼 주소에 작성한 텍스트 내용이 포함되어 있는가
+                        .include('컴공봇'); // 응답 블록의 버튼 주소에 작성한 텍스트 내용이 포함되어 있는가
                     done();
                 })
                 .catch(err => {

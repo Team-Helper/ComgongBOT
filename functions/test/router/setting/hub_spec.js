@@ -28,6 +28,10 @@ describe('POST /setting', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.text)
                     .to
                     .be
@@ -70,26 +74,30 @@ describe('POST /setting', () => { // 테스트 수트
                         .outputs[0]
                         .itemCard;
                     // console.log(element);
+                    expect(element)
+                        .to
+                        .be
+                        .an('object'); // 응답 블록이 오브젝트 타입인가
                     expect(element.head.title)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
                     expect(element.head.title)
                         .to
                         .include('누락된 설정이'); // 응답 블록의 제목 내용이 작성한 텍스트 내용을 포함하는가
                     expect(element.title)
                         .to
                         .be
-                        .a('string');
+                        .a('string'); // 응답 블록의 설명 제목이 문자열 타입인가
                     expect(element.title)
                         .to
-                        .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 내용이 작성한 텍스트 내용과 완전 일치하는가
+                        .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 제목이 작성한 텍스트 내용과 완전 일치하는가
 
                     const elementItems = element.itemList;
                     const title = ['이메일', '학년/학번'];
                     expect(Object.keys(elementItems).length)
                         .to
-                        .equal(title.length); // 응답 블록의 본문 사이즈가 지정한 배열 사이즈와 동일한가
+                        .equal(title.length); // 응답 블록의 본문 내용 개수가 지정한 배열 내용 개수와 동일한가
                     for (let index = 0; index < elementItems.length; index++) {
                         const itemTitle = elementItems[index].title;
                         const itemDescription = elementItems[index].description;
@@ -119,7 +127,7 @@ describe('POST /setting', () => { // 테스트 수트
                         .a('string'); // 응답 블록의 버튼 주소가 문자열 타입인가
                     expect(element.buttons[0].webLinkUrl)
                         .to
-                        .include('comgong-bot'); // 응답 블록의 버튼 주소에 작성한 텍스트 내용이 포함되어 있는가
+                        .include('컴공봇'); // 응답 블록의 버튼 주소에 작성한 텍스트 내용이 포함되어 있는가
                     done();
                 })
                 .catch(err => {
@@ -154,21 +162,23 @@ describe('POST /setting', () => { // 테스트 수트
                     .outputs[0]
                     .itemCard;
                 // console.log(element);
-
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.imageTitle.title)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 이미지 제목이 문자열 타입인가
                 expect(element.imageTitle.title)
                     .to
-                    .equal('프로필 설정'); // 응답 블록의 이미지 제목 내용이 작성한 텍스트 내용과 완전 일치하는가
+                    .equal('프로필 설정'); // 응답 블록의 이미지 제목 내용이 작성한 텍스트 내용과 완전일치 하는가
                 expect(element.imageTitle.imageUrl)
                     .to
-                    .include('png'); // 응답 블록의 이미지 주소에 png 명칭이 포함하는가
+                    .include('png'); // 응답 블록의 이미지가 png 인가
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
                 const items = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
-                const type = ['string', 'string', 'string', 'string', 'string'];
                 expect(itemLength)
                     .to
                     .equal(items.length); // 응답 블록의 본문 내용 개수가 지정한 배열 내용 개수와 동일한가
@@ -180,7 +190,7 @@ describe('POST /setting', () => { // 테스트 수트
                     expect(element.itemList[index].description)
                         .to
                         .be
-                        .a(type[index]); // 아이템 카드 뷰 본문의 내용이 문자열 타입인가
+                        .a('string'); // 아이템 카드 뷰 본문의 내용이 문자열 타입인가
                 }
 
                 const elementQuick = res.body.template.quickReplies;
@@ -238,32 +248,34 @@ describe('POST /setting', () => { // 테스트 수트
                     .outputs[0]
                     .itemCard;
                 // console.log(element);
-
+                expect(element)
+                    .to
+                    .be
+                    .an('object'); // 응답 블록이 오브젝트 타입인가
                 expect(element.imageTitle.title)
                     .to
                     .be
-                    .a('string');
+                    .a('string'); // 응답 블록의 이미지 제목이 문자열 타입인가
                 expect(element.imageTitle.title)
                     .to
-                    .equal('프로필 설정');
+                    .equal('프로필 설정'); // 응답 블록의 이미지 제목 내용이 작성한 텍스트 내용과 완전일치 하는가
                 expect(element.imageTitle.imageUrl)
                     .to
-                    .include('png');
+                    .include('png'); // 응답 블록의 이미지가 png 인가
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
                 const items = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
-                const type = ['string', 'string', 'string', 'string', 'string'];
                 expect(itemLength)
                     .to
                     .equal(items.length);
                 for (let index = 0; index < itemLength; index++) {
                     expect(element.itemList[index].title)
                         .to
-                        .equal(items[index]);
+                        .equal(items[index]); // 아이템 카드 뷰 본문의 제목이 지정한 배열의 내용과 완전 일치하는가
                     expect(element.itemList[index].description)
                         .to
                         .be
-                        .a(type[index]);
+                        .a('string'); // 아이템 카드 뷰 본문의 내용이 문자열 타입인가
                 }
 
                 const elementQuick = res.body.template.quickReplies;
@@ -283,10 +295,10 @@ describe('POST /setting', () => { // 테스트 수트
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].action)
                         .to
-                        .equal('block');
+                        .equal('block'); // 응답 블록의 바로가기가 블록 타입인가
                     expect(elementQuick[index].label)
                         .to
-                        .equal(array[index]);
+                        .equal(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용과 완전 일치하는가
                 }
                 done();
             })

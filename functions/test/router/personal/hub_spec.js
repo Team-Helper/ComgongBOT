@@ -127,7 +127,7 @@ describe('POST /personal', () => { // 테스트 수트
                         .a('string'); // 응답 블록의 버튼 주소가 문자열 타입인가
                     expect(element.buttons[0].webLinkUrl)
                         .to
-                        .include('comgong-bot'); // 응답 블록의 버튼 주소에 작성한 텍스트 내용이 포함되어 있는가
+                        .include('컴공봇'); // 응답 블록의 버튼 주소에 작성한 텍스트 내용이 포함되어 있는가
                     done();
                 })
                 .catch(err => {
@@ -185,7 +185,7 @@ describe('POST /personal', () => { // 테스트 수트
                 const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
                 expect(Object.keys(elementItems).length)
                     .to
-                    .equal(title.length); // 응답 블록의 본문 사이즈가 지정한 배열 사이즈와 동일한가
+                    .equal(title.length); // 응답 블록의 본문 내용 개수가 지정한 배열 내용 개수와 동일한가
                 for (let index = 0; index < elementItems.length; index++) {
                     const itemTitle = elementItems[index].title;
                     const itemDescription = elementItems[index].description;
