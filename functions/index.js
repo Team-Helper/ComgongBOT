@@ -20,12 +20,12 @@ const studentIDModify = require('./router/setting/input/studentID-modify');
 
 const notice = require('./crawling/notice');
 const newNews = require('./crawling/new-news');
-const facultyIntroduction = require('./crawling/faculty-introduction');
 const freeBoard = require('./crawling/free-board');
 const education = require('./crawling/education');
-const curriculum = require('./crawling/curriculum');
 const engineering = require('./crawling/engineering');
-const completionSystem = require('./crawling/completion-system');
+const curriculum = require('./crawling/curriculum');
+const completionSystem = require('./crawling/compltion-system');
+const facultyIntroduction = require('./crawling/faculty-introduction');
 
 const coldBreak = require('./cold-break');
 const countGrade = require('./count-grade');
@@ -35,18 +35,18 @@ const createTestDB = require('./create-testDB');
 
 app.use(cors());
 app.use(express.json());
-app.use('/public', publicHub);
-app.use('/public/service', publicService);
-app.use('/private', privateHub);
-app.use('/private/service', privateService);
-app.use('/personal', personalHub);
-app.use('/personal/service', personalService);
-app.use('/setting', setting);
-app.use('/setting/service', settingService);
-app.use('/input/profile', profile);
-app.use('/input/credit', credit);
-app.use('/input/credit-modify', creditModify);
-app.use('/input/studentID-modify', studentIDModify);
+app.use('/public', publicHub); // 학과 공용 서비스 메뉴 선택
+app.use('/public/service', publicService); // 학과 공용 서비스 안내
+app.use('/private', privateHub); // 학과 전용 서비스 메뉴 선택
+app.use('/private/service', privateService); // 학과 전용 서비스 안내
+app.use('/personal', personalHub); // 학과 개인 서비스 메뉴 선택
+app.use('/personal/service', personalService); // 학과 개인 서비스 안내
+app.use('/setting', setting); // 설정 메뉴 선택
+app.use('/setting/service', settingService); // 설정 안내
+app.use('/input/profile', profile); // 프로필 입력처리
+app.use('/input/credit', credit); // 학점 입력처리
+app.use('/input/credit-modify', creditModify); // 학점 수정처리
+app.use('/input/studentID-modify', studentIDModify); // 학번 수정처리
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
@@ -54,12 +54,12 @@ exports.middleWare = functions
 
 exports.notice = notice.notice; // 공지사항 크롤링 미들웨어
 exports.newNews = newNews.newNews; // 새소식 크롤링 미들웨어
-exports.facultyIntroduction = facultyIntroduction.facultyIntroduction; // 교수진소개 크롤링 미들웨어
 exports.freeBoard = freeBoard.freeBoard; // 자유게시판 크롤링 미들웨어
 exports.education = education.education; // 외부 IT행사 및 교육 크롤링 미들웨어
-exports.curriculum = curriculum.curriculum; // 교과과정 크롤링 미들웨어
 exports.engineering = engineering.engineering; // 공학인증자료실 크롤링 미들웨어
+exports.curriculum = curriculum.curriculum; // 교과과정 크롤링 미들웨어
 exports.completionSystem = completionSystem.completionSystem; // 이수체계도 크롤링 미들웨어
+exports.facultyIntroduction = facultyIntroduction.facultyIntroduction; // 교수진소개 크롤링 미들웨어
 
 exports.coldBreak = coldBreak.coldBreak; // cold start 이슈 개선의 미들웨어
 exports.countGrade = countGrade.countGrade; // 학년 값 자동증가의 미들웨어
