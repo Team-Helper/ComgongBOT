@@ -35,14 +35,14 @@ const createTestDB = require('./create-testDB');
 
 app.use(cors()); // cors 설정
 app.use(express.json()); // 모든 입력&출력은 JSON 포맷으로
-app.use('/public', publicHub); // 학과 공용 서비스 메뉴 선택
-app.use('/public/service', publicService); // 학과 공용 서비스 안내
-app.use('/private', privateHub); // 학과 전용 서비스 메뉴 선택
-app.use('/private/service', privateService); // 학과 전용 서비스 안내
-app.use('/personal', personalHub); // 학과 개인 서비스 메뉴 선택
-app.use('/personal/service', personalService); // 학과 개인 서비스 안내
-app.use('/setting', setting); // 설정 메뉴 선택
-app.use('/setting/service', settingService); // 설정 안내
+app.use('/public', publicHub); // 학과 공용 서비스 미들웨어
+app.use('/public/service', publicService); // 학과 공용 서비스 컨트롤러
+app.use('/private', privateHub); // 학과 전용 서비스 미들웨어
+app.use('/private/service', privateService); // 학과 전용 서비스 컨트롤러
+app.use('/personal', personalHub); // 학과 개인 서비스 미들웨어
+app.use('/personal/service', personalService); // 학과 개인 서비스 컨트롤러
+app.use('/setting', setting); // 설정 미들웨어
+app.use('/setting/service', settingService); // 설정 컨트롤러
 app.use('/input/profile', profile); // 프로필 입력처리
 app.use('/input/credit', credit); // 학점 입력처리
 app.use('/input/credit-modify', creditModify); // 학점 수정처리
@@ -50,7 +50,7 @@ app.use('/input/studentID-modify', studentIDModify); // 학번 수정처리
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
-    .onRequest(app); // ComgongBOT 기본 주소 미들웨어
+    .onRequest(app); // ComgongBOT 라우터 기본 주소
 
 exports.notice = notice.notice; // 공지사항 크롤링 미들웨어
 exports.newNews = newNews.newNews; // 새소식 크롤링 미들웨어
