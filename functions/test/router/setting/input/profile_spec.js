@@ -36,7 +36,7 @@ describe('POST /input/profile', () => { // 테스트 수트
                     expect(element)
                         .to
                         .be
-                        .an('object'); // 응답 블록이 오브젝트 타입인가
+                        .a('string'); // 응답 블록이 문자열 타입인가
                     expect(element)
                         .to
                         .be

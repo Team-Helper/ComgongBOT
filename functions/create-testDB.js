@@ -35,10 +35,6 @@ exports.createTestDB = functions // 함수 이름
                 .doc(thisYear);
             await docRef
                 .set(engineeringTestData) // DB set
-                .then((result) => {
-                    console.log('succeess! : ', result);
-                    res.sendStatus(201);
-                })
                 .catch(err => {
                     console.error('Error... : ', err);
                     res.sendStatus(400);
