@@ -10,11 +10,11 @@ exports.checkNumber = functions // 함수 이름
             console.log('yesNumber');
             res
                 .status(200)
-                .send({"status": "SUCCESS", "message": "this is a number"}); // 성공 전송
+                .send({"status": "SUCCESS"}); // 성공 전송
         } else { // 아닌 경우
             console.error('whyNumber');
             res
                 .status(400)
-                .send({"status": "FAIL", "message": "this is not a number!"}); // 실패 전송
+                .send({"status": "FAIL"}); // 실패 전송
         }
     });

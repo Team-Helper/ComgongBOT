@@ -16,15 +16,11 @@ exports.checkStudentID = functions // 함수 이름
             console.log('yesID');
             res
                 .status(200)
-                .send(
-                    {"status": "SUCCESS", "message": "this is a number and correct studentID"}
-                ); // 성공 전송
+                .send({"status": "SUCCESS"}); // 성공 전송
         } else { // 아닌 경우
             console.error('whyID');
             res
                 .status(400)
-                .send(
-                    {"status": "FAIL", "message": "this is not a number and incorrect studentID!"}
-                ); // 실패 전송
+                .send({"status": "FAIL"}); // 실패 전송
         }
     });

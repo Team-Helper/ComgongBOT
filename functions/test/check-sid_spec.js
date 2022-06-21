@@ -24,13 +24,6 @@ describe('POST /checkStudentID', () => { // 테스트 수트
                     expect(element.status)
                         .to
                         .equal('SUCCESS'); // 응답 결과의 상태 문자 내용이 작성한 텍스트와 완전일치 하는가
-                    expect(element.message)
-                        .to
-                        .be
-                        .a('string'); // 응답 결과의 메시지가 문자열 타입인가
-                    expect(element.message)
-                        .to
-                        .equal('this is a number and correct studentID'); // 응답 결과의 메시지 내용이 작성한 텍스트와 완전일치 하는가
 
                     done();
                 })
@@ -62,13 +55,6 @@ describe('POST /checkStudentID', () => { // 테스트 수트
                     expect(element.status)
                         .to
                         .equal('FAIL'); // 응답 결과의 상태 문자 내용이 작성한 텍스트와 완전일치 하는가
-                    expect(element.message)
-                        .to
-                        .be
-                        .a('string'); // 응답 결과의 메시지가 문자열 타입인가
-                    expect(element.message)
-                        .to
-                        .equal('this is not a number and incorrect studentID!'); // 응답 결과의 메시지 내용이 작성한 텍스트와 완전일치 하는가
 
                     done();
                 })
