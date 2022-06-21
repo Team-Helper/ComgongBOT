@@ -83,7 +83,7 @@ router.post('/', async function (req, res) {
                             "label": label[index]
                         });
                     });
-                    const gradeNumber = parseInt(userRequest.replace("학년", "")); // 사용자 입력 값에서 '학년' 글자는 제거
+                    const gradeNumber = parseInt(userRequest); // 사용자 입력 값에서 '학년' 글자는 제거
                     const userGrade = parseInt(userData.data().grade);
                     if (userGrade === gradeNumber) { // 입력한 학년이 기존의 학년 값과 같을 경우
                         responseBody = {
