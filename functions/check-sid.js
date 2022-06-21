@@ -10,18 +10,15 @@ exports.checkStudentID = functions // 함수 이름
             .toString()
             .substring(2);
         // console.log(thisYear, typeof thisYear);
-        const studentID = Number(req.body.utterance); // 사용자가 입력한 학점 값
+        const studentID = parseInt(req.body.utterance); // 사용자가 입력한 학점 값
         // console.log(studentID, typeof studentID);
-        if (isNaN(studentID) && (studentID < parseInt('08') && studentID > parseInt(thisYear))) { // 입력값이 문자열이며 지원하는 학번 값이 아닌 경우
-            res
-                .status(400)
-                .send({"status": "FAIL"}); // 실패 전송
+        if (!isNaN(studentID) && (studentID >= parseInt('08') && studentID <= parseInt(thisYear))) { // 숫자형 타입이며 최소, 최대 학번 값을 준수한 입력인 경우
             res
                 .status(200)
                 .send({"status": "SUCCESS"}); // 성공 전송
         } else { // 아닌 경우
             res
-                .status(200)
-                .send({"status": "SUCCESS"}); // 성공 전송
+                .status(400)
+                .send({"status": "FAIL"}); // 실패 전송
         }
     });
