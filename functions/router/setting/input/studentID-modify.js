@@ -8,7 +8,7 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams; // 사용자 입력 데이터
     // console.log(userRequest);
-    const studentID = Number(userRequest.studentID.value); // 입력한 학번 값
+    const studentID = parseInt(userRequest.studentID.value); // 입력한 학번 값
     // console.log(studentID);
     let responseBody; // 응답 블록 구조
     let quickReplies = []; // 바로가기 그룹
@@ -20,7 +20,7 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
-    const userStudentID = Number(userData.data().studentID);
+    const userStudentID = parseInt(userData.data().studentID);
 
     if (userStudentID === studentID) { // 입력한 학번 값이 기존의 학번 값과 같은 경우
         /* 바로가기 작성*/

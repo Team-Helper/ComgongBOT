@@ -285,7 +285,7 @@ router.post('/', async function (req, res) {
                         title.forEach((value, index) => {
                             itemList.push({'title': value, 'description': credits[index]});
                         });
-                        if (Number(userStudentID) < 2015) {
+                        if (parseInt(userStudentID) < 2015) {
                             itemSet.push(itemList);
                         } else {
                             itemSet.push(itemList, completionSystem);

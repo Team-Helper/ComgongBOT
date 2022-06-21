@@ -7,11 +7,11 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams; // 사용자 입력 데이터
     // console.log(userRequest);
-    const majorA = Number(userRequest.majorA.value); // 입력한 전공필수
-    const majorB = Number(userRequest.majorB.value); // 입력한 전공선택
-    const geA = Number(userRequest.geA.value); // 입력한 교양필수
-    const geB = Number(userRequest.geB.value); // 입력한 교양선택
-    const total = Number(userRequest.total.value); // 입력한 총 학점
+    const majorA = parseInt(userRequest.majorA.value); // 입력한 전공필수
+    const majorB = parseInt(userRequest.majorB.value); // 입력한 전공선택
+    const geA = parseInt(userRequest.geA.value); // 입력한 교양필수
+    const geB = parseInt(userRequest.geB.value); // 입력한 교양선택
+    const total = parseInt(userRequest.total.value); // 입력한 총 학점
     // console.log(majorA, majorB, geA, geB, total);
     /* 사용자 프로필 DB 조회*/
     const firestore = admin.firestore();
