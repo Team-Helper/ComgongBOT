@@ -5,12 +5,14 @@ exports.checkNumber = functions // 함수 이름
     .https
     .onRequest(async (req, res) => {
         const isNumber = parseInt(req.body.utterance); // 사용자가 입력한 학점 값
-        console.log(isNumber);
+        console.log(isNumber, typeof isNumber);
         if (!isNaN(isNumber)) { // 숫자형 타입인 경우
+            console.log('yesNumber');
             res
                 .status(200)
                 .send({"status": "SUCCESS", "message": "this is a number"}); // 성공 전송
         } else { // 아닌 경우
+            console.error('whyNumber');
             res
                 .status(400)
                 .send({"status": "FAIL", "message": "this is not a number!"}); // 실패 전송

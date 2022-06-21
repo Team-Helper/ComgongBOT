@@ -11,14 +11,16 @@ exports.checkStudentID = functions // 함수 이름
             .substring(2);
         // console.log(thisYear, typeof thisYear);
         const studentID = parseInt(req.body.utterance); // 사용자가 입력한 학점 값
-        console.log(studentID);
+        console.log(studentID, typeof studentID);
         if (!isNaN(studentID) && (studentID > parseInt('08') && studentID <= parseInt(thisYear))) { // 숫자형 타입이며 최소, 최대 학번 값을 준수한 입력인 경우
+            console.log('yesID');
             res
                 .status(200)
                 .send(
                     {"status": "SUCCESS", "message": "this is a number and correct studentID"}
                 ); // 성공 전송
         } else { // 아닌 경우
+            console.error('whyID');
             res
                 .status(400)
                 .send(
