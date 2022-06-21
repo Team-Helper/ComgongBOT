@@ -9,7 +9,7 @@ router.post('/', async function (req, res) {
     const userRequest = req.body.action.detailParams; // 사용자 입력 데이터
     // console.log(userRequest);
     const menuType = userRequest.menu.value; // 입력한 교과목
-    const credit = parseInt(userRequest.credit.value); // 입력한 학점 값
+    const credit = Number(userRequest.credit.value); // 입력한 학점 값
     // console.log(credit, typeof credit);
     let responseBody; // 응답 블록 구조
     let quickReplies = []; // 바로가기 그룹
@@ -21,7 +21,7 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
-    const userCredit = parseInt(userData.data().credits[menuType]); // 사용자 현재 학점 값
+    const userCredit = Number(userData.data().credits[menuType]); // 사용자 현재 학점 값
     // console.log(userCredit, typeof userCredit);
 
     if (userCredit === credit) { // 입력한 학점이 기존의 학점 값과 같을 경우

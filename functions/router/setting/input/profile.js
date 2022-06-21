@@ -8,8 +8,8 @@ router.post('/', async function (req, res) {
     // console.log(req.body);
     const userRequest = req.body.Data; // 입력한 사용자의 데이터 조회
     const email = userRequest.email; // 입력한 이메일
-    const grade = parseInt(userRequest.grade); // 입력한 학년
-    const studentID = parseInt(userRequest.studentID); // 입력한 학번
+    const grade = Number(userRequest.grade); // 입력한 학년
+    const studentID = Number(userRequest.studentID); // 입력한 학번
     /* 사용자 카카오채널 id값 복호화*/
     const bytes = CryptoJS
         .AES
