@@ -6,7 +6,7 @@ describe('POST /checkStudentID', () => { // 테스트 수트
     it(
         'responds check parameter is a number and correct studentID',
         done => { // 테스트 단위 : 파라미터 검증이 올바를 때
-            const utterance = 16;
+            const utterance = 22;
 
             request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
                 .post('/checkStudentID') // 주소의 엔드포인트
