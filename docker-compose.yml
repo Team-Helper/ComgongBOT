@@ -1,0 +1,6 @@
+version: '3'
+services:
+  comgongBOT:
+    build: .
+    container_name: comgongbot-container
+    image: comgongbot-image
