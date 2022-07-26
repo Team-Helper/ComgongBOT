@@ -4,3 +4,12 @@ services:
     build: .
     container_name: comgongbot-container
     image: comgongbot-image
+    volumes:
+      - .:/app
+    restart: always
+    ports:
+      - 8080:8080
+      - 5000:5000
+      - 9000:9000
+      - 9099:9099
+      - 4000:4000
