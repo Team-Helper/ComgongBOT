@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-WORKDIR /app
+WORKDIR /app/functions
 COPY package*.json ./
 RUN apk add openjdk11
 RUN npm install && npm install -g firebase-tools
