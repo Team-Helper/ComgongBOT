@@ -15,7 +15,9 @@
     
     Heroku Scheduler & Advanced Scheduler
 # Get start
-    > npm install
+    > cd functions
+    > npm install 
+    > npm run config
     > npm start
 # Open-source libraries
 https://github.com/axios/axios
