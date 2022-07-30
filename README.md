@@ -1,7 +1,7 @@
 # ComgongBOT
 ![서비스 안내 이미지](https://user-images.githubusercontent.com/33346331/172302432-c375b605-adf3-4fd7-8fc3-c0da474d0fef.png)
 
-성결대학교 팀 HELPER 졸업작품 컴공과 전용 챗봇 프로젝트
+    성결대학교 팀 HELPER 졸업작품 컴공과 전용 챗봇 프로젝트
 # Prerequisites
     nodeJS V16
     
