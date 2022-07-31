@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-WORKDIR /app/functions
+WORKDIR /app
 COPY package*.json ./
 RUN apk add --no-cache \
       chromium \

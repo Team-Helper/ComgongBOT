@@ -6,6 +6,7 @@ services:
     image: comgongbot-image
     volumes:
       - .:/app
+      - /app/fucntions/node_modules
     restart: always
     ports:
       - 4000:4000
