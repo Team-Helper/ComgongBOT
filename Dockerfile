@@ -1,6 +1,6 @@
-FROM node:lts-alpine
+FROM node:16-alpine
 WORKDIR /app/functions
-COPY package*.json ./
+COPY functions/package*.json ./
 RUN apk add --no-cache \
       chromium \
       nss \
@@ -13,4 +13,5 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 RUN apk add openjdk11 && npm install && npm install -g firebase-tools
 COPY . .
 EXPOSE 4000 5000 8080 9000 9099
-CMD [ "npm", "start" ]
+WORKDIR /app/functions/node_modules
+CMD [ "ls", "-al" ]
