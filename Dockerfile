@@ -13,5 +13,4 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 RUN apk add openjdk11 && npm install && npm install -g firebase-tools
 COPY . .
 EXPOSE 4000 5000 8080 9000 9099
-WORKDIR /app/functions/node_modules
-CMD [ "ls", "-al" ]
+CMD [ "npm", "start" ]
