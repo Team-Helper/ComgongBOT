@@ -2,14 +2,7 @@
     "name": "comgongbot",
     "version": "1.0.0",
     "description": "성결대학교 졸업작품 컴공과 챗봇 프로젝트",
-    "scripts": {
-        "start": "firebase emulators:start",
-        "config": "cd functions && npm run config",
-        "test_crawling": "cd functions && npm run test_crawling",
-        "test_profile": "cd functions && npm run test_createProfile && npm run test_createCredit",
-        "test": "cd functions && npm run test",
-        "lint": "eslint . --fix"
-    },
+    "scripts": {},
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Team-Helper/ComgongBOT.git"
@@ -19,11 +12,5 @@
     "bugs": {
         "url": "https://github.com/Team-Helper/ComgongBOT/issues"
     },
-    "homepage": "https://github.com/Team-Helper/ComgongBOT#readme",
-    "dependencies": {
-        "express": "^4.17.2"
-    },
-    "devDependencies": {
-        "eslint": "^8.13.0"
-    }
+    "homepage": "https://github.com/Team-Helper/ComgongBOT#readme"
 }

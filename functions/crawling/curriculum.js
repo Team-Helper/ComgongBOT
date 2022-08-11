@@ -17,7 +17,7 @@ exports.curriculum = functions // 크롤링 함수 이름
             try {
                 const browser = await puppeteer.launch({
                     // headless : false
-                    args: ['--no-sandbox', '--disable-setuid-sandbox'] // Firebase cli 환경에서 돌아가기 위한 조건 설정
+                    args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-gpu", "--disable-dev-shm-usage"] // Firebase cli 환경에서 돌아가기 위한 조건 설정
                 });
                 const page = await browser.newPage();
                 await page.setDefaultNavigationTimeout(0);
