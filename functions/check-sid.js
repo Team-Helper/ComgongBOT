@@ -1,4 +1,5 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
 exports.checkStudentID = functions // 함수 이름
     .region('asia-northeast1')
@@ -12,7 +13,16 @@ exports.checkStudentID = functions // 함수 이름
         // console.log(thisYear, typeof thisYear);
         const studentID = parseInt(req.body.utterance); // 사용자가 입력한 학점 값
         // console.log(studentID, typeof studentID);
-        if (!isNaN(studentID) && (studentID >= parseInt('08') && studentID <= parseInt(thisYear))) { // 숫자형 타입이며 최소, 최대 학번 값을 준수한 입력인 경우
+
+        let firestore = admin.firestore();
+        const creditIDs = await firestore
+            .collection('engineeringCredits')
+            .get();
+        
+        const firstCreditId = parseInt(creditIDs.docs[0].id.substring(2));
+        console.log(firstCreditId);
+
+        if (!isNaN(studentID) && (studentID >= firstCreditId && studentID <= parseInt(thisYear))) { // 숫자형 타입이며 최소, 최대 학번 값을 준수한 입력인 경우
             res
                 .status(200)
                 .send({"status": "SUCCESS"}); // 성공 전송
