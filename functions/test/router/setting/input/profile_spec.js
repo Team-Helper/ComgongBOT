@@ -20,7 +20,6 @@ describe('POST /input/profile', () => { // 테스트 수트
                 .toString();
             const Data = { // 인증하려는 사용자의 기본 정보 시나리오
                 'email': 'test@sungkyul.ac.kr',
-                'grade': 1,
                 'studentID': 22,
                 'userKey': encrypted
             };

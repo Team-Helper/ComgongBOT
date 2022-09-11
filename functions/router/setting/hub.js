@@ -111,16 +111,14 @@ router.post('/', async function (req, res) {
             });
         }
         /* 사용자 학점 입력 값 배열 처리*/
-        const title = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
+        const title = ["이메일", "학번", "학적상태", "공학인증", "학점입력"];
         const description = [
             userData
                 .data()
                 .email,
             userData
                 .data()
-                .grade + '/' + userData
-                .data()
-                .studentID, // 학년과 학번은 하나의 문자열로 처리
+                .studentID,
             /* 사용자의 재학, 공학인증, 학점 입력 상태에 따라 문자열을 표기하는 삼항연산자 작성*/
             userData
                 .data()

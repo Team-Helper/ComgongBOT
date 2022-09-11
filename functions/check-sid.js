@@ -20,7 +20,7 @@ exports.checkStudentID = functions // 함수 이름
             .get();
         
         const firstCreditId = parseInt(creditIDs.docs[0].id.substring(2));
-        console.log(firstCreditId);
+        // console.log(firstCreditId, typeof firstCreditId);
 
         if (!isNaN(studentID) && (studentID >= firstCreditId && studentID <= parseInt(thisYear))) { // 숫자형 타입이며 최소, 최대 학번 값을 준수한 입력인 경우
             res

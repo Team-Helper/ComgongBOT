@@ -28,7 +28,6 @@ const completionSystem = require('./crawling/completion-system');
 const facultyIntroduction = require('./crawling/faculty-introduction');
 
 const coldBreak = require('./cold-break');
-const countGrade = require('./count-grade');
 const checkNumber = require('./check-number');
 const checkStudentID = require('./check-sid');
 const createTestDB = require('./create-testDB');
@@ -62,7 +61,6 @@ exports.completionSystem = completionSystem.completionSystem; // 이수체계도
 exports.facultyIntroduction = facultyIntroduction.facultyIntroduction; // 교수진소개 크롤링 미들웨어
 
 exports.coldBreak = coldBreak.coldBreak; // cold start 이슈 개선의 미들웨어
-exports.countGrade = countGrade.countGrade; // 학년 값 자동증가의 미들웨어
 exports.checkNumber = checkNumber.checkNumber; // 숫자 값 입력 검증 API 미들웨어
 exports.checkStudentID = checkStudentID.checkStudentID; // 학번 수정 검증 API 미들웨어
 exports.createTestDB = createTestDB.createTestDB; // 테스트 학번-최저이수DB 작성 미들웨어
