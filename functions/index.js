@@ -7,8 +7,6 @@ const app = express();
 
 const publicHub = require('./router/public/hub');
 const publicService = require('./router/public/service');
-const privateHub = require('./router/private/hub');
-const privateService = require('./router/private/service');
 const personalHub = require('./router/personal/hub');
 const personalService = require('./router/personal/service');
 const setting = require('./router/setting/hub');
@@ -38,8 +36,6 @@ app.use(cors()); // cors 설정
 app.use(express.json()); // 모든 입력&출력은 JSON 포맷으로
 app.use('/public', publicHub); // 학과 공용 서비스 미들웨어
 app.use('/public/service', publicService); // 학과 공용 서비스 컨트롤러
-app.use('/private', privateHub); // 학과 전용 서비스 미들웨어
-app.use('/private/service', privateService); // 학과 전용 서비스 컨트롤러
 app.use('/personal', personalHub); // 학과 개인 서비스 미들웨어
 app.use('/personal/service', personalService); // 학과 개인 서비스 컨트롤러
 app.use('/setting', setting); // 설정 미들웨어

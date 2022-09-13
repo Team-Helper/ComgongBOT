@@ -23,7 +23,7 @@ describe('GET /officeInfo', () => { // 테스트 수트
                     .an('object'); // 응답 결과가 오브젝트 타입인가
                 expect(Object.keys(res.body).length)
                     .to
-                    .equal(1); // 응답 결과의 갯수가 지정한 값 만큼인가
+                    .equal(2); // 응답 결과의 갯수가 지정한 값 만큼인가
                 expect(res.body)
                     .to
                     .have

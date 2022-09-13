@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
-const functions = require('firebase-functions');
 const startAuth = require('./start-auth');
 
 router.post('/', async function (req, res) {
@@ -17,10 +16,7 @@ router.post('/', async function (req, res) {
     if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
         [address, tel] = await getData('officeInfo'); // DB로부터 해당 게시물의 데이터 get
         /* 리스트 카드 뷰 본문 작성*/
-        items.push({
-            "address": address,
-            "tel": tel
-        });
+        items.push({"address": address, "tel": tel});
         // console.log(items);
         responseBody = {
             version: "2.0",
@@ -41,7 +37,7 @@ router.post('/', async function (req, res) {
                             ]
                         }
                     }
-                ],
+                ]
             }
         };
     } else {
@@ -57,8 +53,12 @@ router.post('/', async function (req, res) {
             .ref(params)
             .once('value')
             .then(snapshot => {
-                address = snapshot.val().address;
-                tel = snapshot.val().tel;
+                address = snapshot
+                    .val()
+                    .address;
+                tel = snapshot
+                    .val()
+                    .tel;
             })
             .catch(err => {
                 console.error('Error from officeInfo_service getData :', err);
