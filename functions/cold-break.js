@@ -151,7 +151,7 @@ exports.coldBreak = functions // 함수 이름
 
         }
 
-        function officeInfoCold() { // 학번 검증API coldBreak
+        function officeInfoCold() { // 학과 사무실 안내 서비스 coldBreak
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
