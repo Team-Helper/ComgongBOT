@@ -40,40 +40,6 @@ exports.coldBreak = functions // 함수 이름
                 });
         }
 
-        function privateCold() { // 학과 전용 서비스 coldBreak
-            const data = JSON.stringify({
-                "userRequest": {
-                    "user": {
-                        "properties": {
-                            "plusfriendUserKey": functions
-                                .config()
-                                .service_key
-                                .testID,
-                            "isFriend": true
-                        }
-                    }
-                }
-            });
-
-            const config = {
-                method: 'post',
-                url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/private',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: data
-            };
-
-            return axios(config)
-                .then(function (response) {
-                    console.log(JSON.stringify(response.data));
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-
-        }
-
         function personalCold() { // 학과 개인 서비스 coldBreak
             const data = JSON.stringify({
                 "userRequest": {
@@ -185,14 +151,48 @@ exports.coldBreak = functions // 함수 이름
 
         }
 
+        function officeInfoCold() { // 학번 검증API coldBreak
+            const data = JSON.stringify({
+                "userRequest": {
+                    "user": {
+                        "properties": {
+                            "plusfriendUserKey": functions
+                                .config()
+                                .service_key
+                                .testID,
+                            "isFriend": true
+                        }
+                    }
+                }
+            });
+
+            const config = {
+                method: 'post',
+                url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/middleWare/officeInfo',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+            return axios(config)
+                .then(function (response) {
+                    console.log(JSON.stringify(response.data));
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        }
+
         axios
             .all([
                 publicCold(),
-                privateCold(),
                 personalCold(),
                 settingCold(),
                 checkNumberCold(),
-                checkSidCold()
+                checkSidCold(),
+                officeInfoCold()
             ]) // 순차적으로 함수 실행
             .then(axios.spread(() => {
                 console.log('Break!');
