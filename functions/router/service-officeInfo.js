@@ -27,7 +27,7 @@ router.post('/', async function (req, res) {
                             "header": {
                                 "title": "학과 사무실 정보"
                             },
-                            "items": items,
+                            "itemList": items,
                             "buttons": [
                                 { // 해당 페이지 바로이동 관련 하단 버튼 생성
                                     "label": "학과 홈페이지",

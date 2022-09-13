@@ -17,7 +17,7 @@ describe('POST /service-officeInfo', () => { // 테스트 수트
         };
 
         request(functions.config().test_url.app) // 테스트 하려는 기본 주소
-            .post('/service-officeInfo') // 주소의 엔드포인트
+            .post('/officeInfo') // 주소의 엔드포인트
             .set('Accept', 'application/json')
             .type('application/json')
             .send({userRequest}) // body 데이터 전송
@@ -28,7 +28,7 @@ describe('POST /service-officeInfo', () => { // 테스트 수트
                     .template
                     .outputs[0]
                     .itemCard;
-                // console.log(element);
+                console.log(element);
                 expect(element)
                     .to
                     .be
@@ -53,7 +53,7 @@ describe('POST /service-officeInfo', () => { // 테스트 수트
                     .be
                     .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
 
-                const elementItem = element.items[0];
+                const elementItem = element.itemList[0];
                 expect(elementItem.address)
                     .to
                     .be
