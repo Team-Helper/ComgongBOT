@@ -1,0 +1,20 @@
+version: '3'
+services:
+  comgongBOT:
+    build: .
+    container_name: comgongbot-container
+    image: comgongbot-image
+    volumes:
+      - .:/app
+      - /app/functions/node_modules
+    restart: always
+    ports:
+      - 4000:4000
+      - 5000:5000
+      - 8080:8080
+      - 9000:9000
+      - 9099:9099
+    environment:
+      - FIREBASE_PROJECT=${project}
+      - FIREBASE_TOKEN=${token}
+      - CHOKIDAR_USEPOLLING=true

@@ -111,38 +111,31 @@ router.post('/', async function (req, res) {
             });
         }
         /* 사용자 학점 입력 값 배열 처리*/
-        const title = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
+        const title = ["이메일", "학번", "학적상태", "공학인증", "학점입력"];
         const description = [
             userData
                 .data()
                 .email,
             userData
                 .data()
-                .grade + '/' + userData
-                .data()
-                .studentID, // 학년과 학번은 하나의 문자열로 처리
+                .studentID,
+            /* 사용자의 재학, 공학인증, 학점 입력 상태에 따라 문자열을 표기하는 삼항연산자 작성*/
             userData
                 .data()
-                .status,
+                .status = (userData.data().status === true)
+                    ? '재학'
+                    : '휴학',
             userData
                 .data()
-                .engineeringStatus,
+                .engineeringStatus = (userData.data().engineeringStatus === true)
+                    ? 'O'
+                    : 'X',
             userData
                 .data()
-                .credits
+                .credits = (!userData.data().credits)
+                    ? '미입력'
+                    : '입력'
         ];
-        description[description.length - 3] = ( // 사용자 재학 상태 값을 T/F로 나누어 재학/휴학으로 처리
-                description[description.length - 3] === true)
-            ? '재학'
-            : '휴학';
-        description[description.length - 2] = ( // 사용자 공학인증 상태 값을 T/F로 나누어 O/X로 처리
-                description[description.length - 2] === true)
-            ? 'O'
-            : 'X';
-        description[description.length - 1] = ( // 사용자 학점 입력 상태에 따른 미입력/입력으로 처리
-                !description[description.length - 1])
-            ? '미입력'
-            : '입력';
         /* 아이템 카드 뷰 본문 작성*/
         const itemList = [];
         title.forEach((value, index) => {
@@ -157,7 +150,8 @@ router.post('/', async function (req, res) {
                         itemCard: { // 아이템 카드 뷰 블록으로 출력
                             imageTitle: { // 설정 서비스 경우 사용자의 프로필을 첫번째로 출력
                                 "title": "프로필 설정",
-                                "imageUrl": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                "imageUrl": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_96" +
+                                    "0_720.png"
                             },
                             itemList: itemList
                         }

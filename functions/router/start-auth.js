@@ -41,7 +41,7 @@ async function checkAuth(req) {
                 )
                 .toString();
             // console.log(encrypted);
-            const url = 'https://comgong-bot.web.app/email?variable=';
+            const url = 'https://comgong-bot.web.app/#/email-auth?variable=';
             const newURL = new URL(url);
             newURL
                 .searchParams
