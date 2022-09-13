@@ -44,7 +44,7 @@ app.use('/input/profile', profile); // 프로필 입력처리
 app.use('/input/credit', credit); // 학점 입력처리
 app.use('/input/credit-modify', creditModify); // 학점 수정처리
 app.use('/input/studentID-modify', studentIDModify); // 학번 수정처리
-app.use('/service-officeInfo', serviceOfficeInfo); // 학과 사무실 서비스 컨트롤러
+app.use('/officeInfo', serviceOfficeInfo); // 학과 사무실 서비스 컨트롤러
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
