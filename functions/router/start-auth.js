@@ -13,7 +13,7 @@ async function checkAuth(req) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요.!" // 텍스트 뷰 블록으로 출력
+                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요!" // 텍스트 뷰 블록으로 출력
                         }
                     }
                 ]
