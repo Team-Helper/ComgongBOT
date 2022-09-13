@@ -17,6 +17,7 @@ const profile = require('./router/setting/input/profile');
 const credit = require('./router/setting/input/credit');
 const creditModify = require('./router/setting/input/credit-modify');
 const studentIDModify = require('./router/setting/input/studentID-modify');
+const serviceOfficeInfo = require('./router/service-officeInfo');
 
 const notice = require('./crawling/notice');
 const newNews = require('./crawling/new-news');
@@ -26,6 +27,7 @@ const engineering = require('./crawling/engineering');
 const curriculum = require('./crawling/curriculum');
 const completionSystem = require('./crawling/completion-system');
 const facultyIntroduction = require('./crawling/faculty-introduction');
+const officeInfo = require('./crawling/office-info');
 
 const coldBreak = require('./cold-break');
 const checkNumber = require('./check-number');
@@ -46,6 +48,7 @@ app.use('/input/profile', profile); // 프로필 입력처리
 app.use('/input/credit', credit); // 학점 입력처리
 app.use('/input/credit-modify', creditModify); // 학점 수정처리
 app.use('/input/studentID-modify', studentIDModify); // 학번 수정처리
+app.use('/service-officeInfo', serviceOfficeInfo); // 학과 사무실 서비스 컨트롤러
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
@@ -59,6 +62,7 @@ exports.engineering = engineering.engineering; // 공학인증자료실 크롤�
 exports.curriculum = curriculum.curriculum; // 교과과정 크롤링 미들웨어
 exports.completionSystem = completionSystem.completionSystem; // 이수체계도 크롤링 미들웨어
 exports.facultyIntroduction = facultyIntroduction.facultyIntroduction; // 교수진소개 크롤링 미들웨어
+exports.officeInfo = officeInfo.officeInfo; // 학과사무실정보 크롤링 미들웨어
 
 exports.coldBreak = coldBreak.coldBreak; // cold start 이슈 개선의 미들웨어
 exports.checkNumber = checkNumber.checkNumber; // 숫자 값 입력 검증 API 미들웨어
