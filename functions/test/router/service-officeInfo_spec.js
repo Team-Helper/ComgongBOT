@@ -27,19 +27,41 @@ describe('POST /service-officeInfo', () => { // 테스트 수트
                     .body
                     .template
                     .outputs[0]
-                    .simpleText;
-                // console.log(element);
+                    .itemCard;
+                console.log(element);
                 expect(element)
                     .to
                     .be
                     .an('object'); // 응답 블록의 구조가 아이템 카드 구조인가
-                expect(element.text)
+                const headTitle = element.header.title;
+                const button = element.buttons[0];
+                expect(headTitle)
                     .to
                     .be
-                    .a('string'); // 응답 블록의 내용이 문자열 타입인가
-                expect(element.text)
+                    .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
+                expect(headTitle)
                     .to
-                    .includes("학과 사무실 주소", "학과 사무실 연락처"); // 응답 블록의 내용이 작성한 텍스트 내용을 포함하는가
+                    .include('학과 사무실 정보'); // 응답 블록희 헤더 제목 내용이 작성한 텍스트 내용을 포함하는가
+                expect(button.label)
+                    .to
+                    .equal('학과 홈페이지'); // 응답 블록 하단 버튼명이 작성한 텍스트 내용과 완전 일치하는가
+                expect(button.action)
+                    .to
+                    .equal('webLink'); // 응답 블록 하단 버튼 구조가 웹 링크연결 구조인가
+                expect(button.webLinkUrl)
+                    .to
+                    .be
+                    .a('string'); // 응답 블록 하단 버튼 링크가 문자열 타입인가
+
+                const elementItem = element.itemList[0];
+                expect(elementItem.address)
+                    .to
+                    .be
+                    .a('string'); // 응답 블록 본문 주소 내용이 문자형 타입인가
+                expect(elementItem.tel)
+                    .to
+                    .be
+                    .a('string'); // 응답 블록 본문 전화번호 내용이 문자형 타입인가
                 done();
             })
             .catch(err => {
