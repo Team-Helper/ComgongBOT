@@ -42,7 +42,7 @@ router.post('/', async function (req, res) {
                             .credit,
                         "label": value
                     });
-                } else if (index === 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
+                } else if (index === 1) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -83,7 +83,7 @@ router.post('/', async function (req, res) {
                             .credit_modify,
                         "label": value
                     });
-                } else if (index === 2) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
+                } else if (index === 1) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
