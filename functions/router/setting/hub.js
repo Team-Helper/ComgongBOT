@@ -27,11 +27,10 @@ router.post('/', async function (req, res) {
             messageText.push(
                 "나의 학점을 입력할게",
                 "나의 학번을 변경할게",
-                "나의 학적상태를 변경할게",
                 "나의 공학인증여부를 변경할게",
                 "설정을 초기화 해줘"
             );
-            label.push("학점 입력", "학번 변경", "학적상태 변경", "공학인증 변경", "설정 초기화");
+            label.push("학점 입력", "학번 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
                 if (index === 0) { // 학점 입력 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
@@ -69,11 +68,10 @@ router.post('/', async function (req, res) {
             messageText.push(
                 "나의 학점을 수정할게",
                 "나의 학번을 변경할게",
-                "나의 학적상태를 변경할게",
                 "나의 공학인증여부를 변경할게",
                 "설정을 초기화 해줘"
             );
-            label.push("학점 수정", "학번 변경", "학적상태 변경", "공학인증 변경", "설정 초기화");
+            label.push("학점 수정", "학번 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
                 if (index === 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로 설정
                     quickReplies.push({
@@ -109,7 +107,7 @@ router.post('/', async function (req, res) {
             });
         }
         /* 사용자 학점 입력 값 배열 처리*/
-        const title = ["이메일", "학번", "학적상태", "공학인증", "학점입력"];
+        const title = ["이메일", "학번", "공학인증", "학점입력"];
         const description = [
             userData
                 .data()
@@ -117,12 +115,7 @@ router.post('/', async function (req, res) {
             userData
                 .data()
                 .studentID,
-            /* 사용자의 재학, 공학인증, 학점 입력 상태에 따라 문자열을 표기하는 삼항연산자 작성*/
-            userData
-                .data()
-                .status = (userData.data().status === true)
-                    ? '재학'
-                    : '휴학',
+            /* 사용자의 공학인증, 학점 입력 상태에 따라 문자열을 표기하는 삼항연산자 작성*/
             userData
                 .data()
                 .engineeringStatus = (userData.data().engineeringStatus === true)
