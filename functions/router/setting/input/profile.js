@@ -23,7 +23,7 @@ router.post('/', async function (req, res) {
         .doc(decrypted);
     await docRef
         .set(
-            {email: email, studentID: studentID, status: true, engineeringStatus: true} // 프로필 DB에 기본 데이터 생성 (재학상태와 공학인증여부는 기본적으로 '재학')
+            {email: email, studentID: studentID, engineeringStatus: true} // 프로필 DB에 기본 데이터 생성 (재학상태와 공학인증여부는 기본적으로 '재학')
         )
         .then(() => {
             res
