@@ -57,7 +57,7 @@ router.post('/', async function (req, res) {
 
     res
         .status(201)
-        .send(responseBody); // 응답 상태 코드와 내용 전송}
+        .send(responseBody); // 응답 상태 코드와 내용 전송
 });
 
 module.exports = router;
