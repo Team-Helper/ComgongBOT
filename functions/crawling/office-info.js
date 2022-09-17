@@ -20,6 +20,7 @@ exports.officeInfo = functions // 크롤링 함수 이름
                             'body > footer > div.footer_info > div > div > address > span:nth-child(1)'
                         )
                             .text()
+                            .replace('[14097] 경기도 안양시 만안구 성결대학로53', '')
                             .trim(),
                         'tel': $(
                             'body > footer > div.footer_info > div > div > address > span:nth-child(3)'
