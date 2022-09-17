@@ -21,8 +21,7 @@ router.post('/', async function (req, res) {
                 outputs: [
                     {
                         simpleText: {
-                            text: `학과 사무실 주소: ${address}
-                            학과 사무실 연락처: ${tel}`
+                            text: `학과 사무실은 ${address}에 있으며 연락처는 ${tel} 입니다.`
                         }
                     }
                 ]
