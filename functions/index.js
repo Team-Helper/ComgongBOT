@@ -34,33 +34,43 @@ const createTestDB = require('./create-testDB');
 
 app.use(cors()); // cors 설정
 app.use(express.json()); // 모든 입력&출력은 JSON 포맷으로
-app.use('/public', publicHub); // 학과 공용 서비스 미들웨어
-app.use('/public/service', publicService); // 학과 공용 서비스 컨트롤러
-app.use('/personal', personalHub); // 학과 개인 서비스 미들웨어
-app.use('/personal/service', personalService); // 학과 개인 서비스 컨트롤러
-app.use('/setting', setting); // 설정 미들웨어
-app.use('/setting/service', settingService); // 설정 컨트롤러
-app.use('/input/profile', profile); // 프로필 입력처리
-app.use('/input/credit', credit); // 학점 입력처리
-app.use('/input/credit-modify', creditModify); // 학점 수정처리
-app.use('/input/studentID-modify', studentIDModify); // 학번 수정처리
-app.use('/officeInfo', serviceOfficeInfo); // 학과 사무실 안내 서비스 컨트롤러
+
+/* 서비스 선택 관련 미들웨어/컨트롤러 */
+app.use('/public', publicHub);
+app.use('/public/service', publicService);
+app.use('/personal', personalHub);
+app.use('/personal/service', personalService);
+app.use('/setting', setting);
+app.use('/setting/service', settingService);
+app.use('/input/profile', profile);
+app.use('/input/credit', credit);
+app.use('/input/credit-modify', creditModify);
+app.use('/input/studentID-modify', studentIDModify);
+app.use('/officeInfo', serviceOfficeInfo);
 exports.middleWare = functions
     .region('asia-northeast1')
     .https
-    .onRequest(app); // ComgongBOT 라우터 기본 주소
+    .onRequest(app);
 
-exports.notice = notice.notice; // 공지사항 크롤링 미들웨어
-exports.newNews = newNews.newNews; // 새소식 크롤링 미들웨어
-exports.freeBoard = freeBoard.freeBoard; // 자유게시판 크롤링 미들웨어
-exports.education = education.education; // 외부 IT행사 및 교육 크롤링 미들웨어
-exports.engineering = engineering.engineering; // 공학인증자료실 크롤링 미들웨어
-exports.curriculum = curriculum.curriculum; // 교과과정 크롤링 미들웨어
-exports.completionSystem = completionSystem.completionSystem; // 이수체계도 크롤링 미들웨어
-exports.facultyIntroduction = facultyIntroduction.facultyIntroduction; // 교수진소개 크롤링 미들웨어
-exports.officeInfo = officeInfo.officeInfo; // 학과사무실정보 크롤링 미들웨어
+/* 크롤링 미들웨어 */
+exports.notice = notice.notice;
+exports.newNews = newNews.newNews;
+exports.freeBoard = freeBoard.freeBoard;
+exports.education = education.education;
+exports.engineering = engineering.engineering;
+exports.curriculum = curriculum.curriculum;
+exports.completionSystem = completionSystem.completionSystem;
+exports.facultyIntroduction = facultyIntroduction.facultyIntroduction;
+exports.officeInfo = officeInfo.officeInfo;
 
-exports.coldBreak = coldBreak.coldBreak; // cold start 이슈 개선의 미들웨어
-exports.checkNumber = checkNumber.checkNumber; // 숫자 값 입력 검증 API 미들웨어
-exports.checkStudentID = checkStudentID.checkStudentID; // 학번 수정 검증 API 미들웨어
-exports.createTestDB = createTestDB.createTestDB; // 테스트 학번-최저이수DB 작성 미들웨어
+/* cold start 이슈 개선, 입력 값 검증 API, 테스트 단위 사용자 작성 미들웨어 */
+exports.coldBreak = coldBreak.coldBreak;
+exports.checkNumber = checkNumber.checkNumber;
+exports.checkStudentID = checkStudentID.checkStudentID;
+exports.createTestDB = createTestDB.createTestDB;
+
+process.env.NODE_ENV = (
+    process.env.NODE_ENV && (process.env.NODE_ENV).trim().toLowerCase() == 'production'
+)
+    ? 'production'
+    : 'development'; // 개발/배포 모드 구분을 위한 환경변수 지정

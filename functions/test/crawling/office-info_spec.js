@@ -2,11 +2,11 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('GET /officeInfo', () => { // 테스트 수트
-    it('responds crawling type', done => { // 테스트 단위 : 크롤링 결과 확인
-        request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
-            .post('/officeInfo') // 주소의 엔드포인트
-            .expect(201) // 응답 상태코드
+describe('GET /officeInfo', () => {
+    it('responds crawling type', done => {
+        request(functions.config().test_url.crawling)
+            .post('/officeInfo')
+            .expect(201)
             .set('Accept', 'application/json')
             .type('application/json')
             .send({
@@ -17,26 +17,28 @@ describe('GET /officeInfo', () => { // 테스트 수트
             }) // 어드민 인증 key 전송
             .then(res => {
                 // console.log(res);
+                /* 응답 결과 구조가 지정한 데이터 타입, 개수인지를 테스트 */
                 expect(res.body)
                     .to
                     .be
-                    .an('object'); // 응답 결과가 오브젝트 타입인가
+                    .an('object');
                 expect(Object.keys(res.body).length)
                     .to
-                    .equal(2); // 응답 결과의 갯수가 지정한 값 만큼인가
+                    .equal(2);
+                /* 응답 결과 내용이 지정한 key 값, 데이터 타입인지를 테스트 */
                 expect(res.body)
                     .to
                     .have
                     .all
-                    .keys('address', 'tel'); // 응답 결과가 지정한 key 값을 지니고 있는가
+                    .keys('address', 'tel');
                 expect(res.body.address)
                     .to
                     .be
-                    .a('string'); // 응답 결과인 주소가 문자열 타입인가
+                    .a('string');
                 expect(res.body.tel)
                     .to
                     .be
-                    .a('string'); // 응답 결과인 전화번호가 문자열 타입인가
+                    .a('string');
                 done();
             })
             .catch(err => {

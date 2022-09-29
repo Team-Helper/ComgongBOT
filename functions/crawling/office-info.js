@@ -8,13 +8,14 @@ exports.officeInfo = functions // 크롤링 함수 이름
     .https
     .onRequest((req, res) => {
         // console.log(req.body.admin);
-        if (req.body.admin === functions.config().service_key.admin) { // 크롤링 실행에 앞서 특정 key 값이 있는 요청인 경우
+        /* 어드민 인증 key 값이 있는지 요청 상태 인지를 확인해 크롤링 실행 혹은 미실행 */
+        if (req.body.admin === functions.config().service_key.admin) {
             axios
                 .get('https://www.sungkyul.ac.kr/sites/computer/index.do') // 학과 메인 페이지 주소
                 .then(async (html) => {
                     // eslint-disable-next-line id-length
                     const $ = cheerio.load(html.data);
-                    /* 학과 사무실 위치, 전화번호를 각각 추출 및 오브젝트 변수에 저장*/
+                    /* 학과 사무실 위치, 전화번호를 각각 추출 및 DB에 저장*/
                     const tableCrawling = {
                         'address': $(
                             'body > footer > div.footer_info > div > div > address > span:nth-child(1)'
@@ -32,16 +33,23 @@ exports.officeInfo = functions // 크롤링 함수 이름
                     await admin
                         .database()
                         .ref('officeInfo/')
-                        .set(tableCrawling); // 오브젝트 변수를 DB에 저장
+                        .set(tableCrawling);
                     console.log('officeInfo DB input Success');
-                    // res.status(201).send(tableCrawling);
-                    res.sendStatus(201); // 성공 코드 전송
+                    /* 개발 모드에는 mocha 테스트 코드 실행을 위해 결과 값을 함께 전송 */
+                    /* 배포 모드에는 성공 상태 코드만 전송 */
+                    if (process.env.NODE_ENV === 'development') {
+                        res
+                            .status(201)
+                            .send(tableCrawling);
+                    } else {
+                        res.sendStatus(201);
+                    }
                 })
                 .catch(err => {
                     console.error('Error from officeInfo : ', err);
-                    res.sendStatus(err.response.status); // 에러 코드 전송
+                    res.sendStatus(err.response.status);
                 });
-        } else { // 특정 key 값이 없는 요청인 경우
+        } else {
             console.error('No have key');
             res.sendStatus(400);
         }

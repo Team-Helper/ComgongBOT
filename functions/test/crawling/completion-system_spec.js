@@ -2,11 +2,11 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('GET /completionSystem', () => { // 테스트 수트
-    it('responds crawling result', done => { // 테스트 단위 : 크롤링 결과 확인
-        request(functions.config().test_url.crawling) // 테스트 하려는 기본 주소
-            .get('/completionSystem') // 주소의 엔드포인트
-            .expect(201) // 응답 상태코드
+describe('GET /completionSystem', () => {
+    it('responds crawling result', done => {
+        request(functions.config().test_url.crawling)
+            .post('/completionSystem')
+            .expect(201)
             .set('Accept', 'application/json')
             .type('application/json')
             .send({
@@ -18,34 +18,36 @@ describe('GET /completionSystem', () => { // 테스트 수트
             .then(res => {
                 const element = res.body;
                 // console.log(element);
+                /* 응답 결과 구조가 지정한 데이터 타입, 개수인지를 테스트 */
                 expect(element)
                     .to
                     .be
-                    .an('object'); // 응답 결과가 오브젝트 타입인가
+                    .an('object');
                 expect(Object.keys(element).length)
                     .to
-                    .equal(2); // 응답 결과의 갯수가 지정한 값 만큼인가
+                    .equal(2);
+                /* 응답 결과 내용이 지정한 key 값, 데이터 타입, 내용인지를 테스트 */
                 for (let index = 0; index < Object.keys(element).length; index++) {
                     const thisYear = new Date().getFullYear();
                     expect(element[index])
                         .to
                         .have
                         .all
-                        .keys('imgAlt', 'imgURL'); // 응답 결과가 지정한 key 값을 지니고 있는가
+                        .keys('imgAlt', 'imgURL');
                     expect(element[index].imgURL)
                         .to
                         .be
-                        .a('string'); // 응답 결과인 이미지 주소가 문자열 타입인가
+                        .a('string');
                     expect(element[index].imgURL)
                         .to
-                        .include('jpg'); // 응답 결과인 이미지가 jpg 인가
+                        .include('jpg');
                     expect(element[index].imgURL)
                         .to
-                        .include(thisYear); // 응답 결과인 이미지 주소가 올해 날짜가 적힌 내용인가
+                        .include(thisYear);
                     expect(element[index].imgAlt)
                         .to
                         .be
-                        .a('string'); // 응답 결과인 이미지 설명문이 문자열 타입인가
+                        .a('string');
                 }
                 done();
             })
