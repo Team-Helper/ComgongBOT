@@ -1,5 +1,5 @@
 # ComgongBOT
-![서비스 안내 이미지](https://user-images.githubusercontent.com/33346331/172302432-c375b605-adf3-4fd7-8fc3-c0da474d0fef.png)
+![unknown](https://user-images.githubusercontent.com/33346331/193051492-797f42ea-431e-4e79-bb70-6cd676393c56.png)
 
     성결대학교 컴퓨터공학과 팀 HELPER 졸업작품인 학과 전용 카카오 챗봇 프로젝트
 # Prerequisites
