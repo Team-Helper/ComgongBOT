@@ -1,13 +1,14 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
 
-exports.coldBreak = functions // 함수 이름
+exports.coldBreak = functions
     .region('asia-northeast1')
     .pubsub
-    .schedule('*/3 * * * *') // 3분 단위로 작동
+    .schedule('*/3 * * * *')
     .timeZone('Asia/Seoul')
     .onRun(() => {
-        function publicCold() { // 학과 공용 서비스 coldBreak
+        function publicCold() {
+            /* 카카오 채널 친구 추가 상태와 테스트 단위 사용자 명시 */
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -40,7 +41,7 @@ exports.coldBreak = functions // 함수 이름
                 });
         }
 
-        function personalCold() { // 학과 개인 서비스 coldBreak
+        function personalCold() {
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -73,7 +74,7 @@ exports.coldBreak = functions // 함수 이름
                 });
         }
 
-        function settingCold() { // 설정 coldBreak
+        function settingCold() {
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -107,7 +108,7 @@ exports.coldBreak = functions // 함수 이름
 
         }
 
-        function checkNumberCold() { // 숫자 검증API coldBreak
+        function checkNumberCold() {
             const data = JSON.stringify({"utterance": 15});
 
             const config = {
@@ -129,7 +130,7 @@ exports.coldBreak = functions // 함수 이름
 
         }
 
-        function checkSidCold() { // 학번 검증API coldBreak
+        function checkSidCold() {
             const data = JSON.stringify({"utterance": 22});
 
             const config = {
@@ -151,7 +152,7 @@ exports.coldBreak = functions // 함수 이름
 
         }
 
-        function officeInfoCold() { // 학과 사무실 안내 서비스 coldBreak
+        function officeInfoCold() {
             const data = JSON.stringify({
                 "userRequest": {
                     "user": {
@@ -185,6 +186,7 @@ exports.coldBreak = functions // 함수 이름
 
         }
 
+        /* 순차적으로 3분 단위로 각 서비스 함수 호출 */
         axios
             .all([
                 publicCold(),
@@ -193,7 +195,7 @@ exports.coldBreak = functions // 함수 이름
                 checkNumberCold(),
                 checkSidCold(),
                 officeInfoCold()
-            ]) // 순차적으로 함수 실행
+            ])
             .then(axios.spread(() => {
                 console.log('Break!');
             }));

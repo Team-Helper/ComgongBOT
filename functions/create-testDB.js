@@ -1,16 +1,18 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-exports.createTestDB = functions // 함수 이름
+exports.createTestDB = functions
     .region('asia-northeast1')
     .https
     .onRequest(async (req, res) => {
         // console.log(req.body.admin);
-        if (req.body.admin === functions.config().service_key.admin) { // 모듈 실행에 앞서 특정 key 값이 있는 요청인 경우
+        /* 어드민 인증 key 값이 있는지 요청 상태 인지를 확인해 테스트 단위 DB 생성 실행 혹은 미실행 */
+        if (req.body.admin === functions.config().service_key.admin) {
             const thisYear = new Date()
                 .getFullYear()
                 .toString();
             // console.log(thisYear);
+            /* 공학 인증 DB 데이터 생성 */
             const engineeringTestData = {
                 'majorA': 39,
                 'majorB': 24,
@@ -28,18 +30,19 @@ exports.createTestDB = functions // 함수 이름
                         'imgURL': "https://www.sungkyul.ac.kr/sites/computer/images/2022_1.jpg"
                     }
                 }
-            }; // 테스트 단위 공학 인증 DB 데이터 생성
+            };
             const firestore = admin.firestore();
             let docRef = firestore
                 .collection('engineeringCredits')
                 .doc(thisYear);
             await docRef
-                .set(engineeringTestData) // DB set
+                .set(engineeringTestData)
                 .catch(err => {
                     console.error('Error... : ', err);
                     res.sendStatus(400);
                 });
 
+            /* 일반 인증 DB 데이터 생성 */
             const creditsTestData = {
                 'majorA': 39,
                 'majorB': 3,
@@ -47,13 +50,13 @@ exports.createTestDB = functions // 함수 이름
                 'geB': 20,
                 'total': 123,
                 'chapel': 6
-            }; // 테스트 단위 일반 인증 DB 데이터 생성
+            };
             docRef = firestore
                 .collection('credits')
                 .doc(thisYear);
             await docRef
                 .set(creditsTestData)
-                .then((result) => { // DB set
+                .then((result) => {
                     console.log('succeess! : ', result);
                     res.sendStatus(201);
                 })
@@ -61,7 +64,7 @@ exports.createTestDB = functions // 함수 이름
                     console.error('Error... : ', err);
                     res.sendStatus(400);
                 });
-        } else { // 특정 key 값이 없는 요청인 경우
+        } else {
             console.error('No have key');
             res.sendStatus(400);
         }

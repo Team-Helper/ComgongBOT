@@ -6,28 +6,30 @@ async function checkAuth(req) {
     // console.log(req);
     let responseBody;
 
-    if (req.isFriend === undefined) { // 채널을 추가하지 않은 경우
+    /* 사용자의 카카오 채널 추가 상태를 획인해 사용자 인증 검증 진행 혹은 경고문 출력 */
+    if (req.isFriend === undefined) {
         responseBody = {
             version: "2.0",
             template: {
                 outputs: [
                     {
                         simpleText: {
-                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요!" // 텍스트 뷰 블록으로 출력
+                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요!"
                         }
                     }
                 ]
             }
         };
     } else {
-        /* 사용자 프로필 DB 조회*/
+        /* 인증된 사용자의 프로필 DB 조회*/
         const firestore = admin.firestore();
         const userSelect = firestore
             .collection('users')
             .doc(req.plusfriendUserKey);
         const userData = await userSelect.get();
 
-        if (!userData.exists) { // 채널은 추가 했으나 프로필 DB가 없는 경우
+        /* 채널은 추가 했으나 프로필 DB가 없는 경우엔 관련 경고문 출력 */
+        if (!userData.exists) {
             console.log('No such user!');
             const title = ["이메일", "학년/학번"];
             const description = "❌ 미설정";
@@ -41,12 +43,13 @@ async function checkAuth(req) {
                 )
                 .toString();
             // console.log(encrypted);
+            /* 암호화 값을 파라미터에 포함해 이메일 인증 입력 페이지로 이동 */
             const url = 'https://comgong-bot.web.app/#/email-auth?variable=';
             const newURL = new URL(url);
             newURL
                 .searchParams
                 .set('variable', encrypted);
-            const webLink = newURL.href; // 연결 페이지 주소에 파라미터로 저장
+            const webLink = newURL.href; 
             // console.log(webLink);
 
             title.forEach(value => {
@@ -57,7 +60,7 @@ async function checkAuth(req) {
                 template: {
                     outputs: [
                         {
-                            itemCard: { // 아이템 카드 뷰 블록으로 출력
+                            itemCard: {
                                 "head": {
                                     "title": "⚠ 누락된 설정이 있습니다."
                                 },
@@ -75,12 +78,12 @@ async function checkAuth(req) {
                     ]
                 }
             };
-        } else { // 프로필 DB가 존재하는 경우
+        } else { // 인증, 프로필 DB까지 조회된 사용자인 경우엔 true 값으로 리턴하여 관련 서비스 이용을 허용
             // console.log('user data:', userData.data());
-            return true; // 참 값을 반환
+            return true;
         }
     }
-    return responseBody; // 작성된 누락 설정 관련 내용 리턴
+    return responseBody;
 }
 
 module.exports = checkAuth;
