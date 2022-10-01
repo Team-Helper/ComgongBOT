@@ -4,14 +4,15 @@ const startAuth = require('../start-auth');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
+    /* 사용자의 카카오 채널 추가 상태와 이메일 인증 여부를 통해 메뉴 바로가기 혹은 경고문 출력 */
+    const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
+    const checkAuth = await startAuth(userAbout);
     // console.log(checkAuth);
-    
-    let responseBody; // 응답 블록 구조
-    const quickReplies = []; // 바로가기 그룹
-    const messageText = [ // 바로가기 요청문
+
+    let responseBody;
+    const quickReplies = [];
+    const messageText = [
         "공지사항 게시판을 조회해줘",
         "새소식 게시판을 조회해줘",
         "자유게시판을 조회해줘",
@@ -21,7 +22,7 @@ router.post('/', async function (req, res) {
         "올해 이수체계도를 조회해줘",
         "교수진소개 게시판을 조회해줘"
     ];
-    const label = [ // 바로가기 버튼명
+    const label = [
         "공지사항",
         "새소식",
         "자유게시판",
@@ -32,8 +33,8 @@ router.post('/', async function (req, res) {
         "교수진소개"
     ];
 
-    if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
-        /* 바로가기 작성*/
+    if (checkAuth === true) {
+        /* 바로가기 내용 작성 및 출력*/
         label.forEach((value, index) => {
             quickReplies.push({
                 "messageText": messageText[index],
@@ -52,19 +53,19 @@ router.post('/', async function (req, res) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "💬 원하시는 학과 메뉴를 선택해주세요." // 텍스트 뷰 블록으로 출력
+                            text: "💬 원하시는 학과 메뉴를 선택해주세요."
                         }
                     }
                 ],
-                quickReplies: quickReplies // 바로가기 출력
+                quickReplies: quickReplies
             }
         };
     } else {
-        responseBody = checkAuth; // 프로필 설정이 안되었다면 누락 설정 블록으로
+        responseBody = checkAuth;
     }
     res
         .status(201)
-        .send(responseBody); // 응답 상태 코드와 내용 전송
+        .send(responseBody);
 });
 
 module.exports = router;

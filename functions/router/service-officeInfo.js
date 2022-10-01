@@ -4,16 +4,16 @@ const admin = require('firebase-admin');
 const startAuth = require('./start-auth');
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
+    /* 사용자의 카카오 채널 추가 상태와 이메일 인증 여부를 통해 사용자가 요청한 학과 사무실 안내 데이터 혹은 경고문 출력 */
+    const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
-    let responseBody; // 응답 블록 구조
-    /* 각 게시물 값 저장*/
+    const checkAuth = await startAuth(userAbout);
+    let responseBody;
     let address,
-        tel; // 교수진 소개 정보와 이름 저장
+        tel;
 
-    if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
-        [address, tel] = await getData('officeInfo'); // DB로부터 해당 게시물의 데이터 get
+    if (checkAuth === true) {
+        [address, tel] = await getData('officeInfo');
 
         responseBody = {
             version: "2.0",
@@ -28,10 +28,11 @@ router.post('/', async function (req, res) {
             }
         };
     } else {
-        responseBody = checkAuth; // 프로필 설정이 안되었다면 누락 설정 블록으로
+        responseBody = checkAuth;
     }
 
-    async function getData(params) { // 게시판 DB 검색 쿼리문 처리 함수
+    /* 학과 사무실 안내 DB 조회 */
+    async function getData(params) {
         let address = '';
         let tel = '';
 
@@ -56,7 +57,7 @@ router.post('/', async function (req, res) {
 
     res
         .status(201)
-        .send(responseBody); // 응답 상태 코드와 내용 전송
+        .send(responseBody);
 });
 
 module.exports = router;

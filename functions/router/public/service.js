@@ -5,22 +5,22 @@ const functions = require('firebase-functions');
 const startAuth = require('../start-auth');
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
+    /* 사용자의 카카오 채널 추가 상태와 이메일 인증 여부를 통해 사용자가 요청한 학과 공용 서비스 데이터 혹은 경고문 출력 */
+    const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const userRequest = req.body.userRequest.utterance; // 사용자 요청문
-    const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
-    let responseBody; // 응답 블록 구조
-    /* 각 게시물 값 저장*/
+    const userRequest = req.body.userRequest.utterance;
+    const checkAuth = await startAuth(userAbout);
+    let responseBody;
     let titleResult,
         dateResult,
         urlResult;
-    let image; // 이미지 링크 저장
+    let image;
     let info,
-        name; // 교수진 소개 정보와 이름 저장
-    let items = []; // 게시판 별 value 저장
+        name;
+    let items = [];
+    /* 뒤로가기 작성 */
     const quickReplies = [
         {
-            // 바로가기 작성
             "messageText": "뒤로 돌아갈래",
             "action": "block",
             "blockId": functions
@@ -31,11 +31,11 @@ router.post('/', async function (req, res) {
         }
     ];
 
-    if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
-        switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
+    if (checkAuth === true) {
+        /* 각 공지사항별 DB 처리 된 형태에 맞춰 응답블록을 작성 및 출력 */
+        switch (userRequest) {
             case "공지사항 게시판을 조회해줘":
-                [titleResult, dateResult, urlResult] = await getData('notice'); // DB로부터 해당 게시물의 데이터 get
-                /* 리스트 카드 뷰 본문 작성*/
+                [titleResult, dateResult, urlResult] = await getData('notice');
                 titleResult.forEach((value, index) => {
                     items.push({
                         "title": value,
@@ -51,13 +51,13 @@ router.post('/', async function (req, res) {
                     template: {
                         outputs: [
                             {
-                                listCard: { // 리스트 카드 뷰 블록으로 출력
+                                listCard: {
                                     "header": {
                                         "title": "학과 공지사항"
                                     },
                                     "items": items,
                                     "buttons": [
-                                        { // 해당 페이지 바로이동 관련 하단 버튼 생성
+                                        {
                                             "label": "학과 공지사항 페이지",
                                             "action": "webLink",
                                             "webLinkUrl": "https://www.sungkyul.ac.kr/computer/4101/subview.do"
@@ -66,7 +66,7 @@ router.post('/', async function (req, res) {
                                 }
                             }
                         ],
-                        quickReplies: quickReplies // 바로가기 출력
+                        quickReplies: quickReplies
                     }
                 };
                 break;
@@ -220,14 +220,14 @@ router.post('/', async function (req, res) {
                 break;
 
             case "교과과정을 조회해줘":
-                image = await getImg('curriculum', null); // DB로 부터 해당 게시물 이미지 데이터 get
+                image = await getImg('curriculum', null);
                 // console.log(image);
                 responseBody = {
                     version: "2.0",
                     template: {
                         outputs: [
                             {
-                                simpleImage: { // 이미지 뷰 블록으로 출력
+                                simpleImage: {
                                     "imageUrl": image,
                                     "altText": "교과과정"
                                 }
@@ -255,7 +255,6 @@ router.post('/', async function (req, res) {
                     responseBody = {
                         version: "2.0",
                         template: {
-                            /* 뷰 및 바로가기 출력*/
                             outputs: items,
                             quickReplies: quickReplies
                         }
@@ -263,12 +262,13 @@ router.post('/', async function (req, res) {
                     break;
                 }
 
+                /* 교수진소개 경우 이미지를 포함해 다양한 내용이 출력되야하기에 DB 조회 내용을 따로 작성*/
             case "교수진소개 게시판을 조회해줘":
                 {
                     image = new Array();
                     info = new Array();
                     name = new Array();
-                    /* 교수진 소개 관련 DB 쿼리문 처리*/
+
                     await admin
                         .database()
                         .ref('facultyIntroduction')
@@ -281,7 +281,7 @@ router.post('/', async function (req, res) {
                             });
                         });
                     // console.log(image, info, name);
-                    /* 응답 횟수만큼 기본 카드 뷰를 생성*/
+                    /* DB 데이터 개수 만큼 기본 카드 뷰를 작성 */
                     let data = [];
                     image.forEach((value, index) => {
                         data.push({
@@ -299,9 +299,10 @@ router.post('/', async function (req, res) {
                                 }
                             ]
                         });
-                        if (data.length === 10 || index === info.length - 1) { // 케러셀이 지원하는 최대 개수만큼 혹은 DB value 값 만큼 반복되었다면
+                        /* 캐러셀 구조로 출력하는데 응답 한번에 최대 출력 횟수가 10인만큼 응답 횟수를 늘려 데이터 전체 출력 */
+                        if (data.length === 10 || index === info.length - 1) {
                             items.push({
-                                carousel: { // 캐러셀 구조의 기본 카드형 응답 블록으로 본문 작성
+                                carousel: {
                                     "type": "basicCard",
                                     "items": data
                                 }
@@ -324,10 +325,11 @@ router.post('/', async function (req, res) {
                 break;
         }
     } else {
-        responseBody = checkAuth; // 프로필 설정이 안되었다면 누락 설정 블록으로
+        responseBody = checkAuth;
     }
 
-    async function getData(params) { // 게시판 DB 검색 쿼리문 처리 함수
+    /* 요청한 게시판 DB 조회 */
+    async function getData(params) {
         let title = new Array();
         let date = new Array();
         let url = new Array();
@@ -350,7 +352,9 @@ router.post('/', async function (req, res) {
         return [title, date, url];
     }
 
-    async function getImg(params, index) { // 이미지 DB 검색 쿼리문 처리 함수
+    /* 교과과정, 이수체계도 이미지 DB 조회 */
+    /* 단일 혹은 여러 이미지 출력이 요청될 수 있기에 인덱스 값의 파라미터를 추가로 지정 */
+    async function getImg(params, index) {
         let imageData;
         // console.log(params, index);
 
@@ -386,7 +390,7 @@ router.post('/', async function (req, res) {
 
     res
         .status(201)
-        .send(responseBody); // 응답 상태 코드와 내용 전송
+        .send(responseBody);
 });
 
 module.exports = router;
