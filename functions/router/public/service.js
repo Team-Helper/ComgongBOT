@@ -36,6 +36,7 @@ router.post('/', async function (req, res) {
         switch (userRequest) {
             case "공지사항 게시판을 조회해줘":
                 [titleResult, dateResult, urlResult] = await getData('notice');
+                /* 리스트 뷰 블록 본문 내용으로 작성 */
                 titleResult.forEach((value, index) => {
                     items.push({
                         "title": value,
@@ -73,6 +74,7 @@ router.post('/', async function (req, res) {
 
             case "새소식 게시판을 조회해줘":
                 [titleResult, dateResult, urlResult] = await getData('newNews');
+                /* 리스트 뷰 블록 본문 내용으로 작성 */
                 titleResult.forEach((value, index) => {
                     items.push({
                         "title": value,
@@ -110,6 +112,7 @@ router.post('/', async function (req, res) {
 
             case "자유게시판을 조회해줘":
                 [titleResult, dateResult, urlResult] = await getData('freeBoard');
+                /* 리스트 뷰 블록 본문 내용으로 작성 */
                 titleResult.forEach((value, index) => {
                     items.push({
                         "title": value,
@@ -147,6 +150,7 @@ router.post('/', async function (req, res) {
 
             case "외부IT행사 및 교육 게시판을 조회해줘":
                 [titleResult, dateResult, urlResult] = await getData('education');
+                /* 리스트 뷰 블록 본문 내용으로 작성 */
                 titleResult.forEach((value, index) => {
                     items.push({
                         "title": value,
@@ -184,6 +188,7 @@ router.post('/', async function (req, res) {
 
             case "공학인증자료실 게시판을 조회해줘":
                 [titleResult, dateResult, urlResult] = await getData('engineering');
+                /* 리스트 뷰 블록 본문 내용으로 작성 */
                 titleResult.forEach((value, index) => {
                     items.push({
                         "title": value,
@@ -222,6 +227,7 @@ router.post('/', async function (req, res) {
             case "교과과정을 조회해줘":
                 image = await getImg('curriculum', null);
                 // console.log(image);
+                /* 이미지 뷰 블록 내용으로 작성 및 출력 */
                 responseBody = {
                     version: "2.0",
                     template: {
@@ -242,7 +248,7 @@ router.post('/', async function (req, res) {
                 {
                     image = await getImg('completionSystem');
                     // console.log(image);
-                    /* 응답 횟수만큼 이미지 블록 뷰를 생성*/
+                    /* 응답 횟수만큼 이미지 뷰 블록을 작성 및 출력*/
                     image.forEach((value) => {
                         items.push({
                             simpleImage: {
@@ -262,7 +268,7 @@ router.post('/', async function (req, res) {
                     break;
                 }
 
-                /* 교수진소개 경우 이미지를 포함해 다양한 내용이 출력되야하기에 DB 조회 내용을 따로 작성*/
+            /* 교수진소개 경우 이미지를 포함해 다양한 내용이 출력되야하기에 DB 조회 내용을 따로 작성*/
             case "교수진소개 게시판을 조회해줘":
                 {
                     image = new Array();
@@ -281,7 +287,7 @@ router.post('/', async function (req, res) {
                             });
                         });
                     // console.log(image, info, name);
-                    /* DB 데이터 개수 만큼 기본 카드 뷰를 작성 */
+                    /* DB 데이터 개수 만큼 기본 카드 뷰 블록을 작성 */
                     let data = [];
                     image.forEach((value, index) => {
                         data.push({

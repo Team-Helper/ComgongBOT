@@ -43,7 +43,7 @@ router.post('/', async function (req, res) {
                 outputs: [
                     {
                         simpleText: {
-                            text: "🚫 이미 같은 학번 이예요!" // 텍스트 뷰 응답 블록으로 출력
+                            text: "🚫 이미 같은 학번 이예요!" // 텍스트 뷰 블록 응답 블록으로 출력
                         }
                     }
                 ],
@@ -62,7 +62,7 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "🔄 입력하신 학번으로 변경이 완료되었습니다." // 텍스트 뷰 응답 블록으로 출력
+                                    text: "🔄 입력하신 학번으로 변경이 완료되었습니다." // 텍스트 뷰 블록 응답 블록으로 출력
                                 }
                             }
                         ]

@@ -127,7 +127,7 @@ router.post('/', async function (req, res) {
                     ? '미입력'
                     : '입력'
         ];
-        /* 아이템 카드 뷰 본문 작성*/
+        /* 아이템 카드 뷰 블록 본문 작성*/
         const itemList = [];
         title.forEach((value, index) => {
             itemList.push({"title": value, "description": description[index]});
@@ -138,7 +138,7 @@ router.post('/', async function (req, res) {
             template: {
                 outputs: [
                     {
-                        itemCard: { // 아이템 카드 뷰 블록으로 출력
+                        itemCard: { // 아이템 카드 뷰 블록 블록으로 출력
                             imageTitle: { // 설정 서비스 경우 사용자의 프로필을 첫번째로 출력
                                 "title": "프로필 설정",
                                 "imageUrl": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_96" +

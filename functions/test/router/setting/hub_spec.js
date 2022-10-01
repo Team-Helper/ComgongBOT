@@ -186,11 +186,11 @@ describe('POST /setting', () => { // 테스트 수트
                     // console.log(element.itemList[index].description)
                     expect(element.itemList[index].title)
                         .to
-                        .equal(items[index]); // 아이템 카드 뷰 본문의 제목이 지정한 배열의 내용과 완전 일치하는가
+                        .equal(items[index]); // 아이템 카드 뷰 블록 본문의 제목이 지정한 배열의 내용과 완전 일치하는가
                     expect(element.itemList[index].description)
                         .to
                         .be
-                        .a('string'); // 아이템 카드 뷰 본문의 내용이 문자열 타입인가
+                        .a('string'); // 아이템 카드 뷰 블록 본문의 내용이 문자열 타입인가
                 }
 
                 const elementQuick = res.body.template.quickReplies;
@@ -271,11 +271,11 @@ describe('POST /setting', () => { // 테스트 수트
                 for (let index = 0; index < itemLength; index++) {
                     expect(element.itemList[index].title)
                         .to
-                        .equal(items[index]); // 아이템 카드 뷰 본문의 제목이 지정한 배열의 내용과 완전 일치하는가
+                        .equal(items[index]); // 아이템 카드 뷰 블록 본문의 제목이 지정한 배열의 내용과 완전 일치하는가
                     expect(element.itemList[index].description)
                         .to
                         .be
-                        .a('string'); // 아이템 카드 뷰 본문의 내용이 문자열 타입인가
+                        .a('string'); // 아이템 카드 뷰 블록 본문의 내용이 문자열 타입인가
                 }
 
                 const elementQuick = res.body.template.quickReplies;
