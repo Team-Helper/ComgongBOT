@@ -5,8 +5,8 @@ const functions = require('firebase-functions');
 describe('POST /personal/service', () => {
     /* 테스트 단위 : 학점 조회 바로가기를 눌렀을 때 */
     it('responds check credits', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {

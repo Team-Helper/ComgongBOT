@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 describe('POST /service-officeInfo', () => {
     /* 테스트 단위 : 선택한 메뉴의 응답 데이터가 출력되는가 */
     it('responds service-officeInfo', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
         const userRequest = {
             user: {
                 "properties": {

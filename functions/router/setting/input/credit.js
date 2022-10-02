@@ -3,15 +3,15 @@ const router = express.Router();
 const admin = require('firebase-admin');
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
+    const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const userRequest = req.body.action.detailParams; // 사용자 입력 데이터
+    const userRequest = req.body.action.detailParams;
     // console.log(userRequest);
-    const majorA = parseInt(userRequest.majorA.value); // 입력한 전공필수
-    const majorB = parseInt(userRequest.majorB.value); // 입력한 전공선택
-    const geA = parseInt(userRequest.geA.value); // 입력한 교양필수
-    const geB = parseInt(userRequest.geB.value); // 입력한 교양선택
-    const total = parseInt(userRequest.total.value); // 입력한 총 학점
+    const majorA = parseInt(userRequest.majorA.value);
+    const majorB = parseInt(userRequest.majorB.value);
+    const geA = parseInt(userRequest.geA.value);
+    const geB = parseInt(userRequest.geB.value);
+    const total = parseInt(userRequest.total.value);
     // console.log(majorA, majorB, geA, geB, total);
     /* 사용자 프로필 DB 조회*/
     const firestore = admin.firestore();
@@ -19,9 +19,10 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
 
+    /* 사용자 프로필 DB에 입력된 학점 값을 학점 이름의 MAP으로 생성 */
     await userSelect
         .update({
-            'credits': { // 사용자 프로필 DB에 학점 관련 key와 Values로 데이터 MAP 생성
+            'credits': {
                 'majorA': majorA,
                 'majorB': majorB,
                 'geA': geA,
@@ -36,7 +37,7 @@ router.post('/', async function (req, res) {
                     outputs: [
                         {
                             simpleText: {
-                                text: "✅ 학점 입력이 완료되었습니다!\n이제 학과 개인 서비스도 이용하실 수 있습니다." // 텍스트 뷰 블록 블록으로 출력
+                                text: "✅ 학점 입력이 완료되었습니다!\n이제 학과 개인 서비스도 이용하실 수 있습니다."
                             }
                         }
                     ]
@@ -44,11 +45,11 @@ router.post('/', async function (req, res) {
             };
             res
                 .status(201)
-                .send(responseBody); // 응답 상태 코드와 내용 전송
+                .send(responseBody);
         })
         .catch(err => {
             console.error('Error from set credit into DB:', err);
-            res.sendStatus(err.response.status); // 에러 코드 전송
+            res.sendStatus(err.response.status);
         });
 });
 

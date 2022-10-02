@@ -5,8 +5,8 @@ const functions = require('firebase-functions');
 describe('POST /public/service', () => {
     /* 테스트 단위 : 공지사항 바로가기를 눌렀을 때 */
     it('responds resultNotice', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {
@@ -111,8 +111,8 @@ describe('POST /public/service', () => {
 
     /* 테스트 단위 : 새소식 바로가기를 눌렀을 때 */
     it('responds resultNotice', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {
@@ -217,8 +217,8 @@ describe('POST /public/service', () => {
 
     /* 테스트 단위 : 자유게시판 바로가기를 눌렀을 때 */
     it('responds resultNotice', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {
@@ -323,8 +323,8 @@ describe('POST /public/service', () => {
 
     /* 테스트 단위 : 외부IT행사 및 교육 게시판 바로가기를 눌렀을 때 */
     it('responds resultNotice', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {
@@ -429,8 +429,8 @@ describe('POST /public/service', () => {
 
     /* 테스트 단위 : 공학인증자료실 바로가기를 눌렀을 때 */
     it('responds resultNotice', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {
@@ -535,8 +535,8 @@ describe('POST /public/service', () => {
 
     /* 테스트 단위 : 교과과정 바로가기를 눌렀을 때 */
     it('responds resultCurriculum', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {
@@ -604,8 +604,8 @@ describe('POST /public/service', () => {
 
     /* 테스트 단위 : 올해 이수체계도 바로가기를 눌렀을 때 */
     it('responds resultCompletionSystem', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {
@@ -680,8 +680,8 @@ describe('POST /public/service', () => {
 
     /* 테스트 단위 : 교수진소개 바로가기를 눌렀을 때 */
     it('responds resultFacultyIntroduction', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
-        /* 또한, 테스트 사용자 요청 발화문도 추가 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
+        /* 또한, 테스트 사용자의 요청 발화문도 추가 */
         const userRequest = {
             user: {
                 "properties": {

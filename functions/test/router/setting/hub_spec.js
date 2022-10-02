@@ -5,7 +5,7 @@ const functions = require('firebase-functions');
 describe('POST /setting', () => {
     /* 테스트 단위 : 채널 추가가 안되어있을 때 */
     it('responds about isFriend is false', done => {
-        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
+        /* 테스트 사용자의 채널추가, 프로필 정보 명시 */
         const userRequest = {
             user: {
                 "properties": {
@@ -30,7 +30,7 @@ describe('POST /setting', () => {
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
-                /* 응답 결과가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
@@ -76,7 +76,7 @@ describe('POST /setting', () => {
                     .outputs[0]
                     .itemCard;
                 // console.log(element);
-                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과 구조가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
@@ -167,7 +167,7 @@ describe('POST /setting', () => {
                     .outputs[0]
                     .itemCard;
                 // console.log(element);
-                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과 구조가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
@@ -257,7 +257,7 @@ describe('POST /setting', () => {
                     .outputs[0]
                     .itemCard;
                 // console.log(element);
-                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과 구조가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be

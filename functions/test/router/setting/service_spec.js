@@ -30,7 +30,7 @@ describe('POST /setting/service', () => {
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
-                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과 구조가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
@@ -89,7 +89,7 @@ describe('POST /setting/service', () => {
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
-                /* 응답 결과가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
@@ -135,7 +135,7 @@ describe('POST /setting/service', () => {
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
-                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과 구조가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
@@ -198,7 +198,7 @@ describe('POST /setting/service', () => {
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
-                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과 구조가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
@@ -257,7 +257,7 @@ describe('POST /setting/service', () => {
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
-                /* 응답 결과가 지정한 데이터 타입이자 내용인지를 테스트 */
+                /* 응답 결과가 지정한 데이터 타입, 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
