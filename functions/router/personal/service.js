@@ -18,9 +18,9 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     let userData;
+    /* 뒤로가기 작성 */
     const quickReplies = [
         {
-            // 뒤로가기 작성
             "messageText": "뒤로 돌아갈래",
             "action": "block",
             "blockId": functions
@@ -90,7 +90,7 @@ router.post('/', async function (req, res) {
             case "졸업까지 남은 학점을 계산해줘":
                 {
                     userData = await userSelect.get();
-                    /* 사용자 학번을 추출하고 현재년도 앞의 2자리를 추출해 전체이름으로 설정*/
+                    /* 사용자 프로필 DB에 학번 값이 입학년도 2글자로 되어 있기에 올해 연도 앞의 2글자를 추출해 전체연도로 설정 */
                     const thisYear = new Date()
                         .getFullYear()
                         .toString()
@@ -99,7 +99,7 @@ router.post('/', async function (req, res) {
                         .data()
                         .studentID;
                     // console.log(userStudentID);
-                    /* 프로필 DB의 사용자 학점 값 전체 조회 및 배열처리 */
+                    /* 사용자 프로필 DB의 학점 값 전체 조회 및 배열처리 */
                     title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
                     let majorA,
                         majorB,
@@ -129,7 +129,7 @@ router.post('/', async function (req, res) {
                         .total;
                     const user_creditList = [user_majorA, user_majorB, user_geA, user_geB, user_total];
 
-                    /* 공학/일반인증 사용자를 구분지어 해당 인증 관련 학점 계산 수행 */
+                    /* 공학/일반인증 사용자를 구분지어 해당 인증 관련 졸업 학점 계산 수행 */
                     if (userData.data().engineeringStatus === true) {
                         /* 사용자 학번의 공학인증 DB 조회 및 최저이수학점 데이터를 추출*/
                         const engineerCreditsData = await firestore
@@ -188,7 +188,7 @@ router.post('/', async function (req, res) {
                         const credits_total = creditsData
                             .data()
                             .total;
-                        const credits_crditList = [credits_majorA, credits_majorB, credits_geA, credits_geB, credits_total]; // 일반인증 이수학점 리스트
+                        const credits_crditList = [credits_majorA, credits_majorB, credits_geA, credits_geB, credits_total]; 
 
                         /* 사용자 학점을 토대로 졸업 학점 계산 처리 */
                         /* 마찬가지로 사용자 학점 값이 최저이수요구 값보다 큰 경우엔 연산 결과 값을 0으로 치환 */
@@ -237,7 +237,7 @@ router.post('/', async function (req, res) {
                         "총 학점",
                         "채플 횟수"
                     ];
-                    /* 사용자 학번을 추출하고 현재년도 앞의 2자리를 추출해 전체이름으로 설정*/
+                    /* 사용자 프로필 DB에 학번 값이 입학년도 2글자로 되어 있기에 올해 연도 앞의 2글자를 추출해 전체연도로 설정 */
                     const thisYear = new Date()
                         .getFullYear()
                         .toString()
@@ -299,7 +299,7 @@ router.post('/', async function (req, res) {
                             itemSet.push(itemList, completionSystem);
                         }
                         // console.log(itemSet);
-                        /* 작성한 내용 개수만큼 응답 횟수와 블록을 생성 */
+                        /* 작성한 구조만큼 응답 횟수와 블록을 생성 */
                         /* 순서는 아이템 카드 뷰, 이미지 뷰 블록 순으로 처리 */
                         itemSet.forEach((value, index) => {
                             if (index === 0) {

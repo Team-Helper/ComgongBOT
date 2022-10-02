@@ -291,26 +291,27 @@ describe('POST /personal/service', () => {
                 } else {
                     for (let index = 0; index < elements.length; index++) {
                         const element = elements[index].itemCard;
+                        /* 응답 결과 구조가 지정한 데이터 타입, 내용인지를 테스트 */
                         expect(element)
                             .to
                             .be
-                            .an('object'); // 응답 결과가 오브젝트 타입인가
+                            .an('object');
                         const headTitle = element.head.title;
                         const elementTitle = element.title;
                         expect(headTitle)
                             .to
                             .be
-                            .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
+                            .a('string');
                         expect(headTitle)
                             .to
-                            .include('최저이수요구 학점표'); // 응답 블록의 헤더 제목이 작성한 텍스트 내용을 포함하는가
+                            .include('최저이수요구 학점표');
                         expect(elementTitle)
                             .to
                             .be
-                            .a('string'); // 응답 블록의 설명 제목이 문자열 타입인가
+                            .a('string');
                         expect(elementTitle)
                             .to
-                            .include('일반인증 최저이수요구 학점표 입니다.'); // 응답 블록의 설명 제목이 작성한 텍스트 내용을 포함하는가
+                            .include('일반인증 최저이수요구 학점표 입니다.');
 
                         const elementItems = element.itemList;
                         const title = [
@@ -321,17 +322,18 @@ describe('POST /personal/service', () => {
                             "총 학점",
                             "채플 횟수"
                         ];
+                        /* 본문 내용 응답 결과가 지정한 내용, 데이터 타입인지를 테스트 */
                         for (let index = 0; index < elementItems.length; index++) {
                             const itemTitle = elementItems[index].title;
                             const itemDescription = elementItems[index].description;
                             // console.log(itemTitle, itemDescription);
                             expect(itemTitle)
                                 .to
-                                .equal(title[index]); // 응답 블록의 본문 목차가 지정한 배열 내용과 완전일치 하는가
+                                .equal(title[index]);
                             expect(itemDescription)
                                 .to
                                 .be
-                                .a('number'); // 응답 블록의 본문이 숫자형 타입인가
+                                .a('number');
                         }
                     }
                 }
