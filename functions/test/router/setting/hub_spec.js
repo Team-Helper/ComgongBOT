@@ -2,25 +2,27 @@ const request = require('supertest');
 const {expect} = require('chai');
 const functions = require('firebase-functions');
 
-describe('POST /setting', () => { // 테스트 수트
-    it('responds about isFriend is false', done => { // 테스트 단위 : 채널 추가가 안되어있을 때
-        const userRequest = { // 기본 사용자 정보 시나리오
+describe('POST /setting', () => {
+    /* 테스트 단위 : 채널 추가가 안되어있을 때 */
+    it('responds about isFriend is false', done => {
+        /* 테스트 사용자 채널추가, 프로필 정보 명시 */
+        const userRequest = {
             user: {
                 "properties": {
                     "plusfriendUserKey": functions
                         .config()
                         .service_key
-                        .testID, // 사용자 카카오 채널 아이디
-                    "isFriend": undefined // 채널 추가 상태
+                        .testID,
+                    "isFriend": undefined
                 }
             }
         };
-        request(functions.config().test_url.app) // 테스트 하려는 기본 주소
-            .post('/setting') // 주소의 엔드포인트
+        request(functions.config().test_url.app)
+            .post('/setting')
             .set('Accept', 'application/json')
             .type('application/json')
-            .send({userRequest}) // body 데이터 전송
-            .expect(201) // 응답 상태코드
+            .send({userRequest})
+            .expect(201)
             .then(res => {
                 const element = res
                     .body
@@ -28,17 +30,18 @@ describe('POST /setting', () => { // 테스트 수트
                     .outputs[0]
                     .simpleText;
                 // console.log(element);
+                /* 응답 결과가 지정한 데이터 타입이자 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
-                    .an('object'); // 응답 블록이 오브젝트 타입인가
+                    .an('object');
                 expect(element.text)
                     .to
                     .be
-                    .a('string'); // 응답 결과의 내용이 문자열 타입인가
+                    .a('string');
                 expect(element.text)
                     .to
-                    .include("컴공봇 채널 추가부터"); // 응답 결과가 작성한 텍스트 내용을 포함하는가
+                    .include("컴공봇 채널 추가부터");
                 done();
             })
             .catch(err => {
@@ -47,97 +50,8 @@ describe('POST /setting', () => { // 테스트 수트
             });
     });
 
-    it(
-        'responds isFriend is true but auth fail',
-        done => { // 채널은 추가되었으나 프로필 인증이 안되어있을 때
-            const userRequest = {
-                user: {
-                    "properties": {
-                        "plusfriendUserKey": functions
-                            .config()
-                            .service_key
-                            .testID,
-                        "isFriend": true
-                    }
-                }
-            };
-            request(functions.config().test_url.app)
-                .post('/setting')
-                .set('Accept', 'application/json')
-                .type('application/json')
-                .send({userRequest})
-                .expect(201)
-                .then(res => {
-                    const element = res
-                        .body
-                        .template
-                        .outputs[0]
-                        .itemCard;
-                    // console.log(element);
-                    expect(element)
-                        .to
-                        .be
-                        .an('object'); // 응답 블록이 오브젝트 타입인가
-                    expect(element.head.title)
-                        .to
-                        .be
-                        .a('string'); // 응답 블록의 헤더 제목이 문자열 타입인가
-                    expect(element.head.title)
-                        .to
-                        .include('누락된 설정이'); // 응답 블록의 제목 내용이 작성한 텍스트 내용을 포함하는가
-                    expect(element.title)
-                        .to
-                        .be
-                        .a('string'); // 응답 블록의 설명 제목이 문자열 타입인가
-                    expect(element.title)
-                        .to
-                        .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.'); // 응답 블록의 설명 제목이 작성한 텍스트 내용과 완전 일치하는가
-
-                    const elementItems = element.itemList;
-                    const title = ['이메일', '학년/학번'];
-                    expect(Object.keys(elementItems).length)
-                        .to
-                        .equal(title.length); // 응답 블록의 본문 내용 개수가 지정한 배열 내용 개수와 동일한가
-                    for (let index = 0; index < elementItems.length; index++) {
-                        const itemTitle = elementItems[index].title;
-                        const itemDescription = elementItems[index].description;
-
-                        expect(itemTitle)
-                            .to
-                            .equal(title[index]); // 응답 블록의 본문 목차 내용이 지정한 배열 내용과 완전 일치하는가
-                        expect(itemDescription)
-                            .to
-                            .include('미설정'); // 응답 블록의 본문 내용이 작성한 텍스트 내용을 포함하는가
-                    }
-
-                    // console.log(element.buttons[0]);
-                    expect(typeof element.buttons[0].label)
-                        .to
-                        .be
-                        .a('string'); // 응답 블록의 버튼명이 문자열 타입인가
-                    expect(element.buttons[0].label)
-                        .to
-                        .equal('이메일 인증'); // 응답 블록의 버튼 내용이 작성한 텍스트 내용과 완전일치 하는가
-                    expect(element.buttons[0].action)
-                        .to
-                        .equal('webLink'); // 응답 블록의 버튼 구조가 웹 링크 타입인가
-                    expect(element.buttons[0].webLinkUrl)
-                        .to
-                        .be
-                        .a('string'); // 응답 블록의 버튼 주소가 문자열 타입인가
-                    expect(element.buttons[0].webLinkUrl)
-                        .to
-                        .include('컴공봇'); // 응답 블록의 버튼 주소에 작성한 텍스트 내용이 포함되어 있는가
-                    done();
-                })
-                .catch(err => {
-                    console.error("Error >>", err);
-                    done(err);
-                });
-        }
-    );
-
-    it('responds not input credits', done => { // 프로필 인증은 되었으나 학점 입력이 이루어지지 않았을 때
+    /* 테스트 단위 : 채널은 추가되었으나 프로필 인증이 안되었을 때 */
+    it('responds isFriend is true but auth fail', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -162,35 +76,128 @@ describe('POST /setting', () => { // 테스트 수트
                     .outputs[0]
                     .itemCard;
                 // console.log(element);
+                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
-                    .an('object'); // 응답 블록이 오브젝트 타입인가
+                    .an('object');
+                expect(element.head.title)
+                    .to
+                    .be
+                    .a('string');
+                expect(element.head.title)
+                    .to
+                    .include('누락된 설정이');
+                expect(element.title)
+                    .to
+                    .be
+                    .a('string');
+                expect(element.title)
+                    .to
+                    .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.');
+
+                const elementItems = element.itemList;
+                const title = ['이메일', '학년/학번'];
+                /* 본문 내용 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
+                expect(Object.keys(elementItems).length)
+                    .to
+                    .equal(title.length);
+                for (let index = 0; index < elementItems.length; index++) {
+                    const itemTitle = elementItems[index].title;
+                    const itemDescription = elementItems[index].description;
+
+                    expect(itemTitle)
+                        .to
+                        .equal(title[index]);
+                    expect(itemDescription)
+                        .to
+                        .include('미설정');
+                }
+
+                // console.log(element.buttons[0]);
+                /* 버튼 응답 결과가 지정한 데이터 타입, 내용인지릍 테스트 */
+                expect(typeof element.buttons[0].label)
+                    .to
+                    .be
+                    .a('string');
+                expect(element.buttons[0].label)
+                    .to
+                    .equal('이메일 인증');
+                expect(element.buttons[0].action)
+                    .to
+                    .equal('webLink');
+                expect(element.buttons[0].webLinkUrl)
+                    .to
+                    .be
+                    .a('string');
+                expect(element.buttons[0].webLinkUrl)
+                    .to
+                    .include('컴공봇');
+                done();
+            })
+            .catch(err => {
+                console.error("Error >>", err);
+                done(err);
+            });
+    });
+
+    /* 프로필 인증은 되었으나 학점 값이 없을 때 */
+    it('responds not input credits', done => {
+        const userRequest = {
+            user: {
+                "properties": {
+                    "plusfriendUserKey": functions
+                        .config()
+                        .service_key
+                        .testID,
+                    "isFriend": true
+                }
+            }
+        };
+        request(functions.config().test_url.app)
+            .post('/setting')
+            .set('Accept', 'application/json')
+            .type('application/json')
+            .send({userRequest})
+            .expect(201)
+            .then(res => {
+                const element = res
+                    .body
+                    .template
+                    .outputs[0]
+                    .itemCard;
+                // console.log(element);
+                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
+                expect(element)
+                    .to
+                    .be
+                    .an('object');
                 expect(element.imageTitle.title)
                     .to
                     .be
-                    .a('string'); // 응답 블록의 이미지 제목이 문자열 타입인가
+                    .a('string');
                 expect(element.imageTitle.title)
                     .to
-                    .equal('프로필 설정'); // 응답 블록의 이미지 제목 내용이 작성한 텍스트 내용과 완전일치 하는가
+                    .equal('프로필 설정');
                 expect(element.imageTitle.imageUrl)
                     .to
-                    .include('png'); // 응답 블록의 이미지가 png 인가
+                    .include('png');
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
                 const items = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
+                /* 프로필 UI의 응답 결과가 지정한 개수, 내용, 데이터 타입인지를 테스트 */
                 expect(itemLength)
                     .to
-                    .equal(items.length); // 응답 블록의 본문 내용 개수가 지정한 배열 내용 개수와 동일한가
+                    .equal(items.length);
                 for (let index = 0; index < itemLength; index++) {
                     // console.log(element.itemList[index].description)
                     expect(element.itemList[index].title)
                         .to
-                        .equal(items[index]); // 아이템 카드 뷰 블록 본문의 제목이 지정한 배열의 내용과 완전 일치하는가
+                        .equal(items[index]);
                     expect(element.itemList[index].description)
                         .to
                         .be
-                        .a('string'); // 아이템 카드 뷰 블록 본문의 내용이 문자열 타입인가
+                        .a('string');
                 }
 
                 const elementQuick = res.body.template.quickReplies;
@@ -203,17 +210,18 @@ describe('POST /setting', () => { // 테스트 수트
                     '공학인증 변경',
                     '설정 초기화'
                 ];
+                /* 메뉴 바로가기 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(elementQuick)
                     .to
                     .have
-                    .lengthOf(array.length); // 응답 블록의 바로가기 개수가 지정한 배열 사이즈 만큼인가
+                    .lengthOf(array.length);
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].action)
                         .to
-                        .equal('block'); // 응답 블록의 바로가기가 블록 타입인가
+                        .equal('block');
                     expect(elementQuick[index].label)
                         .to
-                        .equal(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용과 완전 일치하는가
+                        .equal(array[index]);
                 }
                 done();
             })
@@ -223,7 +231,8 @@ describe('POST /setting', () => { // 테스트 수트
             });
     });
 
-    it('responds all success', done => { // 프로필 그리고 학점 인증까지 되었을 떄
+    /* 프로필 그리고 학점 값까지 있을 때 */
+    it('responds all success', done => {
         const userRequest = {
             user: {
                 "properties": {
@@ -248,34 +257,36 @@ describe('POST /setting', () => { // 테스트 수트
                     .outputs[0]
                     .itemCard;
                 // console.log(element);
+                /* 응답 결과 구조가 지정한 데이터 타입이자 내용인지를 테스트 */
                 expect(element)
                     .to
                     .be
-                    .an('object'); // 응답 블록이 오브젝트 타입인가
+                    .an('object');
                 expect(element.imageTitle.title)
                     .to
                     .be
-                    .a('string'); // 응답 블록의 이미지 제목이 문자열 타입인가
+                    .a('string');
                 expect(element.imageTitle.title)
                     .to
-                    .equal('프로필 설정'); // 응답 블록의 이미지 제목 내용이 작성한 텍스트 내용과 완전일치 하는가
+                    .equal('프로필 설정');
                 expect(element.imageTitle.imageUrl)
                     .to
-                    .include('png'); // 응답 블록의 이미지가 png 인가
+                    .include('png');
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
                 const items = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
+                /* 프로필 UI의 응답 결과가 지정한 개수, 내용, 데이터 타입인지를 테스트 */
                 expect(itemLength)
                     .to
                     .equal(items.length);
                 for (let index = 0; index < itemLength; index++) {
                     expect(element.itemList[index].title)
                         .to
-                        .equal(items[index]); // 아이템 카드 뷰 블록 본문의 제목이 지정한 배열의 내용과 완전 일치하는가
+                        .equal(items[index]);
                     expect(element.itemList[index].description)
                         .to
                         .be
-                        .a('string'); // 아이템 카드 뷰 블록 본문의 내용이 문자열 타입인가
+                        .a('string');
                 }
 
                 const elementQuick = res.body.template.quickReplies;
@@ -288,6 +299,7 @@ describe('POST /setting', () => { // 테스트 수트
                     '공학인증 변경',
                     '설정 초기화'
                 ];
+                /* 메뉴 바로가기 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(elementQuick)
                     .to
                     .have
@@ -295,10 +307,10 @@ describe('POST /setting', () => { // 테스트 수트
                 for (let index = 0; index < elementQuick.length; index++) {
                     expect(elementQuick[index].action)
                         .to
-                        .equal('block'); // 응답 블록의 바로가기가 블록 타입인가
+                        .equal('block');
                     expect(elementQuick[index].label)
                         .to
-                        .equal(array[index]); // 응답 블록의 바로가기 버튼명이 지정한 배열의 내용과 완전 일치하는가
+                        .equal(array[index]);
                 }
                 done();
             })

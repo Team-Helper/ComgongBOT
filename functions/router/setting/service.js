@@ -5,15 +5,16 @@ const functions = require('firebase-functions');
 const startAuth = require('../start-auth');
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
+    /* 사용자의 카카오 채널 추가 상태와 이메일 인증 여부를 통해 사용자가 요청한 설정 서비스 실행 혹은 경고문 출력 */
+    const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const userRequest = req.body.userRequest.utterance; // 사용자 요청문
-    const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
+    const userRequest = req.body.userRequest.utterance;
+    const checkAuth = await startAuth(userAbout);
     // console.log(userRequest);
-    let responseBody; // 응답 블록 구조
-    let quickReplies = []; // 바로가기 그룹
-    let items; // 바로가기 본문
-    let label; // 바로가기 버튼명
+    let responseBody;
+    let quickReplies = [];
+    let items;
+    let label;
     /* 사용자 프로필 DB 조회*/
     let firestore = admin.firestore();
     let userSelect = firestore
@@ -21,9 +22,11 @@ router.post('/', async function (req, res) {
         .doc(userAbout.plusfriendUserKey);
     let userData;
 
-    if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
-        switch (userRequest) { // 사용자 요청문 내용에 따른 개별 처리
+    if (checkAuth === true) {
+        switch (userRequest) {
             case "나의 공학인증여부를 변경할게":
+                /* 사용자의 공학인증 여부를 O/x 바로가기 버튼으로 처리하여 상태 값을 Flag 처리*/
+                /* 또한, 해당 상태 값의 중복 검사 역시 도입 */
                 items = ['공학인증 해요', '공학인증 안해요', '뒤로 돌아갈래'];
                 label = ['O', 'X', '↩ 뒤로가기'];
                 items.forEach((value, index) => {
@@ -155,6 +158,7 @@ router.post('/', async function (req, res) {
                 break;
 
             case "설정을 초기화 해줘":
+                /* 사용자의 요청에 따라 설정 초기화에는 사용자의 이메일 인증 값을 삭제하고 프로필 DB를 삭제 */
                 responseBody = {
                     version: "2.0",
                     template: {
@@ -192,13 +196,13 @@ router.post('/', async function (req, res) {
                     userData = await userSelect.get();
                     const getEmail = userData
                         .data()
-                        .email; // 사용자 AUTH의 이메일 주소 get
+                        .email;
                     const userUid = await admin
                         .auth()
                         .getUserByEmail(getEmail)
                         .then(userRecord => {
                             // console.log(userRecord);
-                            return userRecord.uid; // 사용자 이메일 주소를 통한 사용자의 udi 값 get
+                            return userRecord.uid;
                         })
                         .catch(err => {
                             console.error('Error get user uid:', err);
@@ -206,9 +210,9 @@ router.post('/', async function (req, res) {
                     // console.log(userUid);
                     await admin
                         .auth()
-                        .deleteUser(userUid) // 해당 uid 값으로 사용자 AUTH 삭제
+                        .deleteUser(userUid)
                         .then(() => {
-                            userSelect.delete(); // 마찬가지로 사용자 프로필 DB도 삭제 및 응답 블록 출력
+                            userSelect.delete();
                             // console.log('Successfully deleted user');
                             responseBody = {
                                 version: "2.0",
@@ -233,12 +237,12 @@ router.post('/', async function (req, res) {
                 break;
         }
     } else {
-        responseBody = checkAuth; // 프로필 설정이 안되었다면 누락 설정 블록으로
+        responseBody = checkAuth;
     }
 
     res
         .status(201)
-        .send(responseBody); // 응답 상태 코드와 내용 전송
+        .send(responseBody);
 });
 
 module.exports = router;

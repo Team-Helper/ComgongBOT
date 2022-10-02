@@ -5,16 +5,17 @@ const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    const userAbout = req.body.userRequest.user.properties; // 사용자 카카오 채널 정보
+    /* 사용자의 카카오 채널 추가 상태와 이메일 인증 여부를 통해 메뉴 바로가기 혹은 경고문 출력 */
+    const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const checkAuth = await startAuth(userAbout); // 이메일 인증을 통한 프로필 설정 확인
+    const checkAuth = await startAuth(userAbout);
     // console.log(checkAuth);
-    let responseBody; // 응답 블록 구조
-    const quickReplies = []; // 바로가기 그룹
-    let messageText = []; // 바로가기 요청문
-    let label = []; // 바로가기 버튼명
+    let responseBody;
+    const quickReplies = [];
+    let messageText = [];
+    let label = [];
 
-    if (checkAuth === true) { // 사용자가 프로필 설정이 되어있다면
+    if (checkAuth === true) {
         /* 사용자 프로필 DB 조회*/
         const firestore = admin.firestore();
         const userSelect = firestore
@@ -22,17 +23,13 @@ router.post('/', async function (req, res) {
             .doc(userAbout.plusfriendUserKey);
         const userData = await userSelect.get();
 
-        if (!userData.data().credits) { // 학점 값이 없는 사용자 일 경우
-            /* 바로가기 작성*/
-            messageText.push(
-                "나의 학점을 입력할게",
-                "나의 학번을 변경할게",
-                "나의 공학인증여부를 변경할게",
-                "설정을 초기화 해줘"
-            );
+        /* 학점 값 데이터 유무에 따라 메뉴 바로가기 내용 개별 구성 */
+        if (!userData.data().credits) {
+            messageText.push("나의 학점을 입력할게", "나의 학번을 변경할게", "나의 공학인증여부를 변경할게", "설정을 초기화 해줘");
             label.push("학점 입력", "학번 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
-                if (index === 0) { // 학점 입력 경우 파라미터를 사용한 블록 주소로 설정
+                /* 직접 입력과 버튼 입력 등 서로 다른 스타일의 설정 메뉴 버튼 블록 주소 개별 지정 */
+                if (index === 0) {
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -42,7 +39,7 @@ router.post('/', async function (req, res) {
                             .credit,
                         "label": value
                     });
-                } else if (index === 1) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
+                } else if (index === 1) {
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -64,16 +61,11 @@ router.post('/', async function (req, res) {
                     });
                 }
             });
-        } else { // 학점 값이 있는 사용자 경우
-            messageText.push(
-                "나의 학점을 수정할게",
-                "나의 학번을 변경할게",
-                "나의 공학인증여부를 변경할게",
-                "설정을 초기화 해줘"
-            );
+        } else {
+            messageText.push("나의 학점을 수정할게", "나의 학번을 변경할게", "나의 공학인증여부를 변경할게", "설정을 초기화 해줘");
             label.push("학점 수정", "학번 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
-                if (index === 0) { // 학점 수정 경우 파라미터를 사용한 블록 주소로 설정
+                if (index === 0) {
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -83,7 +75,7 @@ router.post('/', async function (req, res) {
                             .credit_modify,
                         "label": value
                     });
-                } else if (index === 1) { // 학번 변경 경우 파라미터를 사용한 블록 주소로 설정
+                } else if (index === 1) {
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
@@ -106,7 +98,8 @@ router.post('/', async function (req, res) {
                 }
             });
         }
-        /* 사용자 학점 입력 값 배열 처리*/
+
+        /* 사용자의 공학인증, 학점 입력 상태를 문자열로 표기하기 위해 삼항연산자로 해당 내용 작성*/
         const title = ["이메일", "학번", "공학인증", "학점입력"];
         const description = [
             userData
@@ -115,7 +108,6 @@ router.post('/', async function (req, res) {
             userData
                 .data()
                 .studentID,
-            /* 사용자의 공학인증, 학점 입력 상태에 따라 문자열을 표기하는 삼항연산자 작성*/
             userData
                 .data()
                 .engineeringStatus = (userData.data().engineeringStatus === true)
@@ -127,7 +119,7 @@ router.post('/', async function (req, res) {
                     ? '미입력'
                     : '입력'
         ];
-        /* 아이템 카드 뷰 블록 본문 작성*/
+        /* 아이템 카드 뷰 블록으로 본문 내용 작성 및 출력*/
         const itemList = [];
         title.forEach((value, index) => {
             itemList.push({"title": value, "description": description[index]});
@@ -138,8 +130,8 @@ router.post('/', async function (req, res) {
             template: {
                 outputs: [
                     {
-                        itemCard: { // 아이템 카드 뷰 블록 블록으로 출력
-                            imageTitle: { // 설정 서비스 경우 사용자의 프로필을 첫번째로 출력
+                        itemCard: {
+                            imageTitle: { // 사용자의 프로필 UI를 첫번째로 출력
                                 "title": "프로필 설정",
                                 "imageUrl": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_96" +
                                     "0_720.png"
@@ -148,15 +140,15 @@ router.post('/', async function (req, res) {
                         }
                     }
                 ],
-                quickReplies: quickReplies // 바로가기 출력
+                quickReplies: quickReplies
             }
         };
     } else {
-        responseBody = checkAuth; // 프로필 설정이 안되었다면 누락 설정 블록으로
+        responseBody = checkAuth;
     }
     res
         .status(201)
-        .send(responseBody); // 응답 상태 코드와 내용 전송
+        .send(responseBody);
 });
 
 module.exports = router;

@@ -98,7 +98,7 @@ describe('POST /personal', () => {
 
                 const elementItems = element.itemList;
                 const title = ['이메일', '학년/학번'];
-                /* 본문 내용 응답 결과가 지정한 데이터 타입, 내용인지를 테스트 */
+                /* 본문 내용 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(Object.keys(elementItems).length)
                     .to
                     .equal(title.length);
@@ -189,7 +189,7 @@ describe('POST /personal', () => {
 
                 const elementItems = element.itemList;
                 const title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
-                /* 본문 내용 응답 결과가 지정한 데이터 타입, 내용인지를 테스트 */
+                /* 본문 내용 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(Object.keys(elementItems).length)
                     .to
                     .equal(title.length);
