@@ -44,7 +44,7 @@ async function checkAuth(req) {
                 .toString();
             // console.log(encrypted);
             /* 암호화 값을 파라미터에 포함해 이메일 인증 입력 페이지로 이동 */
-            const url = 'https://comgong-bot.web.app/#/email-auth?variable=';
+            const url = 'https://comgong-bot.web.app/email-auth?variable=';
             const newURL = new URL(url);
             newURL
                 .searchParams
