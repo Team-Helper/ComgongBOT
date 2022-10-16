@@ -45,19 +45,19 @@ router.post('/', async function (req, res) {
                         userData
                             .data()
                             .credits
-                            .majorA,
+                            .majorMust,
                         userData
                             .data()
                             .credits
-                            .majorB,
+                            .majorChoice,
                         userData
                             .data()
                             .credits
-                            .geA,
+                            .electiveMust,
                         userData
                             .data()
                             .credits
-                            .geB,
+                            .electiveChoice,
                         userData
                             .data()
                             .credits
@@ -101,33 +101,33 @@ router.post('/', async function (req, res) {
                     // console.log(userStudentID);
                     /* 사용자 프로필 DB의 학점 값 전체 조회 및 배열처리 */
                     title = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점"];
-                    let majorA,
-                        majorB,
-                        geA,
-                        geB,
+                    let majorMust,
+                        majorChoice,
+                        electiveMust,
+                        electiveChoice,
                         total;
-                    const graduateCredits = [majorA, majorB, geA, geB, total];
-                    const user_geA = userData
+                    const graduateCredits = [majorMust, majorChoice, electiveMust, electiveChoice, total];
+                    const user_electiveMust = userData
                         .data()
                         .credits
-                        .geA;
-                    const user_geB = userData
+                        .electiveMust;
+                    const user_electiveChoice = userData
                         .data()
                         .credits
-                        .geB;
-                    const user_majorA = userData
+                        .electiveChoice;
+                    const user_majorMust = userData
                         .data()
                         .credits
-                        .majorA;
-                    const user_majorB = userData
+                        .majorMust;
+                    const user_majorChoice = userData
                         .data()
                         .credits
-                        .majorB;
+                        .majorChoice;
                     const user_total = userData
                         .data()
                         .credits
                         .total;
-                    const user_creditList = [user_majorA, user_majorB, user_geA, user_geB, user_total];
+                    const user_creditList = [user_majorMust, user_majorChoice, user_electiveMust, user_electiveChoice, user_total];
 
                     /* 공학/일반인증 사용자를 구분지어 해당 인증 관련 졸업 학점 계산 수행 */
                     if (userData.data().engineeringStatus === true) {
@@ -137,22 +137,22 @@ router.post('/', async function (req, res) {
                             .doc(userStudentID)
                             .get();
 
-                        const engineering_majorA = engineerCreditsData
+                        const engineering_majorMust = engineerCreditsData
                             .data()
-                            .majorA;
-                        const engineering_majorB = engineerCreditsData
+                            .majorMust;
+                        const engineering_majorChoice = engineerCreditsData
                             .data()
-                            .majorB;
-                        const engineering_geA = engineerCreditsData
+                            .majorChoice;
+                        const engineering_electiveMust = engineerCreditsData
                             .data()
-                            .geA;
-                        const engineering_geB = engineerCreditsData
+                            .electiveMust;
+                        const engineering_electiveChoice = engineerCreditsData
                             .data()
-                            .geB;
+                            .electiveChoice;
                         const engineering_total = engineerCreditsData
                             .data()
                             .total;
-                        const engineering_crditList = [engineering_majorA, engineering_majorB, engineering_geA, engineering_geB, engineering_total];
+                        const engineering_crditList = [engineering_majorMust, engineering_majorChoice, engineering_electiveMust, engineering_electiveChoice, engineering_total];
 
                         /* 사용자 학점을 토대로 졸업 학점 계산 처리 */
                         /* 또한, 사용자 학점 값이 최저이수요구 값보다 큰 경우엔 연산 결과 값을 0으로 치환 */
@@ -173,22 +173,22 @@ router.post('/', async function (req, res) {
                             .doc(userStudentID)
                             .get();
 
-                        const credits_majorA = creditsData
+                        const credits_majorMust = creditsData
                             .data()
-                            .majorA;
-                        const credits_majorB = creditsData
+                            .majorMust;
+                        const credits_majorChoice = creditsData
                             .data()
-                            .majorB;
-                        const credits_geA = creditsData
+                            .majorChoice;
+                        const credits_electiveMust = creditsData
                             .data()
-                            .geA;
-                        const credits_geB = creditsData
+                            .electiveMust;
+                        const credits_electiveChoice = creditsData
                             .data()
-                            .geB;
+                            .electiveChoice;
                         const credits_total = creditsData
                             .data()
                             .total;
-                        const credits_crditList = [credits_majorA, credits_majorB, credits_geA, credits_geB, credits_total]; 
+                        const credits_crditList = [credits_majorMust, credits_majorChoice, credits_electiveMust, credits_electiveChoice, credits_total]; 
 
                         /* 사용자 학점을 토대로 졸업 학점 계산 처리 */
                         /* 마찬가지로 사용자 학점 값이 최저이수요구 값보다 큰 경우엔 연산 결과 값을 0으로 치환 */
@@ -272,16 +272,16 @@ router.post('/', async function (req, res) {
                         const credits = [
                             engineerCreditsData
                                 .data()
-                                .majorA,
+                                .majorMust,
                             engineerCreditsData
                                 .data()
-                                .majorB,
+                                .majorChoice,
                             engineerCreditsData
                                 .data()
-                                .geA,
+                                .electiveMust,
                             engineerCreditsData
                                 .data()
-                                .geB,
+                                .electiveChoice,
                             engineerCreditsData
                                 .data()
                                 .total,
@@ -337,16 +337,16 @@ router.post('/', async function (req, res) {
                         const credits = [
                             creditsData
                                 .data()
-                                .majorA,
+                                .majorMust,
                             creditsData
                                 .data()
-                                .majorB,
+                                .majorChoice,
                             creditsData
                                 .data()
-                                .geA,
+                                .electiveMust,
                             creditsData
                                 .data()
-                                .geB,
+                                .electiveChoice,
                             creditsData
                                 .data()
                                 .total,

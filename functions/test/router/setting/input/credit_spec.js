@@ -20,22 +20,22 @@ describe('POST /input/credit', () => {
         /* 테스트 사용자의 학점 값 시나리오 */
         const action = {
             detailParams: {
-                majorA: {
+                majorMust: {
                     'groupName': '',
                     'origin': '12',
                     'value': '12'
                 },
-                majorB: {
+                majorChoice: {
                     'groupName': '',
                     'origin': '24',
                     'value': '24'
                 },
-                geA: {
+                electiveMust: {
                     'groupName': '',
                     'origin': '36',
                     'value': '36'
                 },
-                geB: {
+                electiveChoice: {
                     'groupName': '',
                     'origin': '48',
                     'value': '48'

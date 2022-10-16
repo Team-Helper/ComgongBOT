@@ -14,10 +14,10 @@ exports.createTestDB = functions
             // console.log(thisYear);
             /* 공학 인증 DB 데이터 생성 */
             const engineeringTestData = {
-                'majorA': 39,
-                'majorB': 24,
-                'geA': 14,
-                'geB': 20,
+                'majorMust': 39,
+                'majorChoice': 24,
+                'electiveMust': 14,
+                'electiveChoice': 20,
                 'total': 123,
                 'chapel': 6,
                 'completionSystem': {
@@ -44,10 +44,10 @@ exports.createTestDB = functions
 
             /* 일반 인증 DB 데이터 생성 */
             const creditsTestData = {
-                'majorA': 39,
-                'majorB': 3,
-                'geA': 14,
-                'geB': 20,
+                'majorMust': 39,
+                'majorChoice': 3,
+                'electiveMust': 14,
+                'electiveChoice': 20,
                 'total': 123,
                 'chapel': 6
             };
