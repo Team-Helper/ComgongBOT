@@ -3,7 +3,7 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /checkNumber', () => {
-    /* 테스트 단위 : 입력 값인 파라미터 값 검증이 올바를 떄 */
+    /* 테스트 단위 : 입력 값인 파라미터 값 검증이 올바를 때 */
     it('responds check parameter is a number', done => {
         const utterance = 12345;
         request(functions.config().test_url.crawling)
@@ -32,7 +32,7 @@ describe('POST /checkNumber', () => {
             });
     });
 
-    /* 테스트 단위 :  입력 값인 파라미터 값 검증이 올바르지 않을 떄  */
+    /* 테스트 단위 :  입력 값인 파라미터 값 검증이 올바르지 않을 때  */
     it('responds check parameter is not a number', done => {
         const utterance = 'testText';
 

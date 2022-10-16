@@ -3,7 +3,7 @@ const {expect} = require('chai');
 const functions = require('firebase-functions');
 
 describe('POST /checkStudentID', () => {
-    /* 테스트 단위 : 학번 값인 파라미터 값 검증이 올바를 떄 */
+    /* 테스트 단위 : 학번 값인 파라미터 값 검증이 올바를 때 */
     it('responds check parameter is a number and correct studentID', done => {
         const utterance = 16;
         request(functions.config().test_url.crawling)
@@ -32,7 +32,7 @@ describe('POST /checkStudentID', () => {
             });
     });
 
-    /* 테스트 단위 : 학번 값인 파라미터 값 검증이 올바르지 않을 떄 */
+    /* 테스트 단위 : 학번 값인 파라미터 값 검증이 올바르지 않을 때 */
     it('responds check parameter is not a number or incorrect studentID', done => {
         const utterance = 23;
         request(functions.config().test_url.crawling)
