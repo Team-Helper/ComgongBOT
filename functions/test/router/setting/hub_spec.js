@@ -94,10 +94,10 @@ describe('POST /setting', () => {
                     .a('string');
                 expect(element.title)
                     .to
-                    .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.');
+                    .equal('컴공봇 이용을 위해 이메일 인증과 학번 입력은 필수 입니다.');
 
                 const elementItems = element.itemList;
-                const title = ['이메일', '학년/학번'];
+                const title = ['이메일', '학번'];
                 /* 본문 내용 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(Object.keys(elementItems).length)
                     .to
@@ -184,7 +184,7 @@ describe('POST /setting', () => {
                     .include('png');
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
-                const items = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
+                const items = ["이메일", "학번", "공학인증", "학점입력"];
                 /* 프로필 UI의 응답 결과가 지정한 개수, 내용, 데이터 타입인지를 테스트 */
                 expect(itemLength)
                     .to
@@ -204,9 +204,7 @@ describe('POST /setting', () => {
                 // console.log(element);
                 const array = [
                     '학점 입력',
-                    '학년 변경',
                     '학번 변경',
-                    '학적상태 변경',
                     '공학인증 변경',
                     '설정 초기화'
                 ];
@@ -274,7 +272,7 @@ describe('POST /setting', () => {
                     .include('png');
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
-                const items = ["이메일", "학년/학번", "학적상태", "공학인증", "학점입력"];
+                const items = ["이메일", "학번", "공학인증", "학점입력"];
                 /* 프로필 UI의 응답 결과가 지정한 개수, 내용, 데이터 타입인지를 테스트 */
                 expect(itemLength)
                     .to
@@ -293,9 +291,7 @@ describe('POST /setting', () => {
                 // console.log(elementQuick);
                 const array = [
                     '학점 수정',
-                    '학년 변경',
                     '학번 변경',
-                    '학적상태 변경',
                     '공학인증 변경',
                     '설정 초기화'
                 ];

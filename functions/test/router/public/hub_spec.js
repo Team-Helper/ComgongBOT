@@ -94,10 +94,10 @@ describe('POST /public', () => {
                     .a('string');
                 expect(element.title)
                     .to
-                    .equal('컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.');
+                    .equal('컴공봇 이용을 위해 이메일 인증과 학번 입력은 필수 입니다.');
 
                 const elementItems = element.itemList;
-                const title = ['이메일', '학년/학번'];
+                const title = ['이메일', '학번'];
                 /* 본문 내용 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(Object.keys(elementItems).length)
                     .to

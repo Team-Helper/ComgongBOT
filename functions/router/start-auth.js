@@ -31,7 +31,7 @@ async function checkAuth(req) {
         /* 채널은 추가 했으나 프로필 DB가 없는 경우엔 관련 경고문 출력 */
         if (!userData.exists) {
             console.log('No such user!');
-            const title = ["이메일", "학년/학번"];
+            const title = ["이메일", "학번"];
             const description = "❌ 미설정";
             const itemList = [];
             /* 사용자 카카오채널 id값을 암호화 */
@@ -65,7 +65,7 @@ async function checkAuth(req) {
                                     "title": "⚠ 누락된 설정이 있습니다."
                                 },
                                 "itemList": itemList,
-                                "title": "컴공봇 이용을 위해 이메일 인증과 학년/학번 입력은 필수 입니다.",
+                                "title": "컴공봇 이용을 위해 이메일 인증과 학번 입력은 필수 입니다.",
                                 "buttons": [
                                     {
                                         "label": "이메일 인증",
