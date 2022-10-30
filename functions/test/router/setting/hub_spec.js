@@ -185,6 +185,7 @@ describe('POST /setting', () => {
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
                 const items = ["이메일", "학번", "공학인증", "학점입력"];
+                const itemsType = ["string", "number", "string", "string"];
                 /* 프로필 UI의 응답 결과가 지정한 개수, 내용, 데이터 타입인지를 테스트 */
                 expect(itemLength)
                     .to
@@ -197,17 +198,12 @@ describe('POST /setting', () => {
                     expect(element.itemList[index].description)
                         .to
                         .be
-                        .a('string');
+                        .a(itemsType[index]);
                 }
 
                 const elementQuick = res.body.template.quickReplies;
                 // console.log(element);
-                const array = [
-                    '학점 입력',
-                    '학번 변경',
-                    '공학인증 변경',
-                    '설정 초기화'
-                ];
+                const array = ['학점 입력', '학번 변경', '공학인증 변경', '설정 초기화'];
                 /* 메뉴 바로가기 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(elementQuick)
                     .to
@@ -273,6 +269,7 @@ describe('POST /setting', () => {
                 const itemLength = element.itemList.length;
                 // console.log(itemLength);
                 const items = ["이메일", "학번", "공학인증", "학점입력"];
+                const itemsType = ["string", "number", "string", "string"];
                 /* 프로필 UI의 응답 결과가 지정한 개수, 내용, 데이터 타입인지를 테스트 */
                 expect(itemLength)
                     .to
@@ -284,17 +281,12 @@ describe('POST /setting', () => {
                     expect(element.itemList[index].description)
                         .to
                         .be
-                        .a('string');
+                        .a(itemsType[index]);
                 }
 
                 const elementQuick = res.body.template.quickReplies;
                 // console.log(elementQuick);
-                const array = [
-                    '학점 수정',
-                    '학번 변경',
-                    '공학인증 변경',
-                    '설정 초기화'
-                ];
+                const array = ['학점 수정', '학번 변경', '공학인증 변경', '설정 초기화'];
                 /* 메뉴 바로가기 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(elementQuick)
                     .to
