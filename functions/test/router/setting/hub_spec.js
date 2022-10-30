@@ -286,7 +286,13 @@ describe('POST /setting', () => {
 
                 const elementQuick = res.body.template.quickReplies;
                 // console.log(elementQuick);
-                const array = ['학점 수정', '학번 변경', '공학인증 변경', '설정 초기화'];
+                const array = [
+                    '학점 수정',
+                    '전체 학점 삭제',
+                    '학번 변경',
+                    '공학인증 변경',
+                    '설정 초기화'
+                ];
                 /* 메뉴 바로가기 응답 결과가 지정한 개수, 데이터 타입, 내용인지를 테스트 */
                 expect(elementQuick)
                     .to
