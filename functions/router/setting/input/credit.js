@@ -7,11 +7,11 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams;
     // console.log(userRequest);
-    const majorMust = parseInt(userRequest.majorMust.value);
-    const majorChoice = parseInt(userRequest.majorChoice.value);
-    const electiveMust = parseInt(userRequest.electiveMust.value);
-    const electiveChoice = parseInt(userRequest.electiveChoice.value);
-    const total = parseInt(userRequest.total.value);
+    const majorMust = parseInt(userRequest.majorMust.origin);
+    const majorChoice = parseInt(userRequest.majorChoice.origin);
+    const electiveMust = parseInt(userRequest.electiveMust.origin);
+    const electiveChoice = parseInt(userRequest.electiveChoice.origin);
+    const total = parseInt(userRequest.total.origin);
     // console.log(majorMust, majorChoice, electiveMust, electiveChoice, total);
     /* 사용자 프로필 DB 조회*/
     const firestore = admin.firestore();
