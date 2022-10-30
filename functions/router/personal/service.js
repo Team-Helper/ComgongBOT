@@ -228,6 +228,7 @@ router.post('/', async function (req, res) {
             case "나의 졸업조건을 알려줘":
                 {
                     userData = await userSelect.get();
+                    let itemChoiceList = [];
                     let items = [];
                     title = [
                         "전공필수",
@@ -354,9 +355,31 @@ router.post('/', async function (req, res) {
                                 .data()
                                 .chapel
                         ];
+
                         /* 아이템 카드 뷰 블록 본문 내용으로 작성 */
                         title.forEach((value, index) => {
                             itemList.push({'title': value, 'description': credits[index]});
+                        });
+
+                        /* 전공 유형 title */
+                        const choiceTitle = ['전공심화', '부전공', '복수전공'];
+                        
+                        /* 전공 유형에 따른 최저이수요구학점 */
+                        const choiceCredits = [
+                            creditsData
+                                .data()
+                                .deepMajor,
+                            creditsData
+                                .data()
+                                .minorMajor,
+                            creditsData
+                                .data()
+                                .doubleMajor
+                        ];
+                        
+
+                        choiceTitle.forEach((value, index) => {
+                            itemChoiceList.push({'title': value, 'description': choiceCredits[index]});
                         });
 
                         items.push({
@@ -366,6 +389,16 @@ router.post('/', async function (req, res) {
                                 },
                                 "itemList": itemList,
                                 "title": `본인 학번의 ${userEngineeringStatus} 최저이수요구 학점표 입니다.`
+                            }
+                        });
+
+                        items.push({
+                            itemCard: {
+                                "head": {
+                                    "title": `☑ 전공 유형별 최저이수요구 학점표`
+                                },
+                                "itemList": itemChoiceList,
+                                "title": `본인 학번의 전공 유형별 최저이수요구 학점표 입니다.`
                             }
                         });
                     }
