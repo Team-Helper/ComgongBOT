@@ -9,7 +9,7 @@ router.post('/', async function (req, res) {
     const userRequest = req.body.action.detailParams;
     // console.log(userRequest);
     const menuType = userRequest.menu.value;
-    const credit = parseInt(userRequest.credit.value);
+    const credit = (userRequest.credit.value);
     // console.log(credit, typeof credit);
     let responseBody;
     let quickReplies = [];
@@ -21,7 +21,7 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
-    const userCredit = parseInt(userData.data().credits[menuType]);
+    const userCredit = (userData.data().credits[menuType]);
     // console.log(userCredit, typeof userCredit);
 
     /* 사용자의 기존 학점 값과 요청 값인 수정 학점 값의 중복 여부를 검증해 관련 응답 블록 출력과 수정 실행 */

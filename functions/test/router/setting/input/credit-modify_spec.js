@@ -27,7 +27,7 @@ describe('POST /input/credit-modify', () => {
                 credit: {
                     'groupName': '',
                     'origin': '12345',
-                    'value': '12345'
+                    'value': parseInt('12345')
                 }
             }
         };
@@ -88,7 +88,7 @@ describe('POST /input/credit-modify', () => {
                 credit: {
                     'groupName': '',
                     'origin': '12345',
-                    'value': '12345'
+                    'value': parseInt('12345')
                 }
             }
         };

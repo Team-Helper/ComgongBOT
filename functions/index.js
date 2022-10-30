@@ -28,8 +28,6 @@ const facultyIntroduction = require('./crawling/faculty-introduction');
 const officeInfo = require('./crawling/office-info');
 
 const coldBreak = require('./cold-break');
-const checkNumber = require('./check-number');
-const checkStudentID = require('./check-sid');
 const createTestDB = require('./create-testDB');
 
 app.use(cors()); // cors 설정
@@ -63,10 +61,8 @@ exports.completionSystem = completionSystem.completionSystem;
 exports.facultyIntroduction = facultyIntroduction.facultyIntroduction;
 exports.officeInfo = officeInfo.officeInfo;
 
-/* cold start 이슈 개선, 입력 값 검증 API, 테스트 단위 사용자 작성 미들웨어 */
+/* cold start 이슈 개선, 테스트 단위 사용자 작성 미들웨어 */
 exports.coldBreak = coldBreak.coldBreak;
-exports.checkNumber = checkNumber.checkNumber;
-exports.checkStudentID = checkStudentID.checkStudentID;
 exports.createTestDB = createTestDB.createTestDB;
 
 process.env.NODE_ENV = (
