@@ -21,7 +21,7 @@ describe('POST /input/studentID-modify', () => {
             detailParams: {
                 studentID: {
                     groupName: '',
-                    origin: '16',
+                    origin: parseInt('16'),
                     value: parseInt('16')
                 }
             }
@@ -76,7 +76,7 @@ describe('POST /input/studentID-modify', () => {
             detailParams: {
                 studentID: {
                     groupName: '',
-                    origin: '16',
+                    origin: parseInt('16'),
                     value: parseInt('16')
                 }
             }

@@ -7,8 +7,8 @@ router.post('/', async function (req, res) {
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams;
-    console.log(userRequest);
-    const studentID = (userRequest.studentID.value);
+    // console.log(userRequest);
+    const studentID = parseInt(userRequest.studentID.origin);
     // console.log(studentID);
     let responseBody;
     let quickReplies = [];

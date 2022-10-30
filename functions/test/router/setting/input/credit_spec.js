@@ -22,27 +22,27 @@ describe('POST /input/credit', () => {
             detailParams: {
                 majorMust: {
                     'groupName': '',
-                    'origin': '12',
+                    'origin': parseInt('12'),
                     'value': parseInt('12')
                 },
                 majorChoice: {
                     'groupName': '',
-                    'origin': '24',
+                    'origin': parseInt('24'),
                     'value': parseInt('24')
                 },
                 electiveMust: {
                     'groupName': '',
-                    'origin': '36',
+                    'origin': parseInt('36'),
                     'value': parseInt('36')
                 },
                 electiveChoice: {
                     'groupName': '',
-                    'origin': '48',
+                    'origin': parseInt('48'),
                     'value': parseInt('48')
                 },
                 total: {
                     'groupName': '',
-                    'origin': '123',
+                    'origin': parseInt('123'),
                     'value': parseInt('123')
                 }
             }

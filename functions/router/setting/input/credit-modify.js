@@ -9,7 +9,7 @@ router.post('/', async function (req, res) {
     const userRequest = req.body.action.detailParams;
     // console.log(userRequest);
     const menuType = userRequest.menu.value;
-    const credit = (userRequest.credit.value);
+    const credit = parseInt(userRequest.credit.origin);
     // console.log(credit, typeof credit);
     let responseBody;
     let quickReplies = [];
