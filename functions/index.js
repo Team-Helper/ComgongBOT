@@ -61,7 +61,7 @@ exports.completionSystem = completionSystem.completionSystem;
 exports.facultyIntroduction = facultyIntroduction.facultyIntroduction;
 exports.officeInfo = officeInfo.officeInfo;
 
-/* cold start 이슈 개선, 테스트 단위 사용자 작성 미들웨어 */
+/* cold start 이슈 개선, 테스트 단위 졸업 DB 작성 미들웨어 */
 exports.coldBreak = coldBreak.coldBreak;
 exports.createTestDB = createTestDB.createTestDB;
 
