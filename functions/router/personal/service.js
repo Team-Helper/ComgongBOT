@@ -361,10 +361,8 @@ router.post('/', async function (req, res) {
                             itemList.push({'title': value, 'description': credits[index]});
                         });
 
-                        /* 전공 유형 title */
+                        /* 전공 선택 유형 최저이수요구학점 데이터 조회 */
                         const choiceTitle = ['전공심화', '부전공', '복수전공'];
-                        
-                        /* 전공 유형에 따른 최저이수요구학점 */
                         const choiceCredits = [
                             creditsData
                                 .data()
@@ -376,8 +374,6 @@ router.post('/', async function (req, res) {
                                 .data()
                                 .doubleMajor
                         ];
-                        
-
                         choiceTitle.forEach((value, index) => {
                             itemChoiceList.push({'title': value, 'description': choiceCredits[index]});
                         });
@@ -391,14 +387,13 @@ router.post('/', async function (req, res) {
                                 "title": `본인 학번의 ${userEngineeringStatus} 최저이수요구 학점표 입니다.`
                             }
                         });
-
                         items.push({
                             itemCard: {
                                 "head": {
-                                    "title": `☑ 전공 유형별 최저이수요구 학점표`
+                                    "title": `☑ 전공 선택 유형별 최저이수요구 학점표`
                                 },
                                 "itemList": itemChoiceList,
-                                "title": `본인 학번의 전공 유형별 최저이수요구 학점표 입니다.`
+                                "title": `본인 학번의 전공 선택 유형별 최저이수요구 학점표 입니다.`
                             }
                         });
                     }

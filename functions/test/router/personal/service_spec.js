@@ -339,7 +339,7 @@ describe('POST /personal/service', () => {
                         } else {
                             expect(elementTitle)
                                 .to
-                                .include('전공 유형별 최저이수요구 학점표 입니다.');
+                                .include('전공 선택 유형별 최저이수요구 학점표 입니다.');
 
                             const elementItems = element.itemList;
                             const title = [
