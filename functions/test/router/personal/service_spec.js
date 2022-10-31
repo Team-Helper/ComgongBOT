@@ -220,7 +220,7 @@ describe('POST /personal/service', () => {
                 const elements = res.body.template.outputs;
                 // console.log(elements, elements.length);
                 /* 공학/일반인증 사용자 구분지어 테스트 시나리오 작성 */
-                if (elements.length > 1) {
+                if (elements.length > 2) {
                     for (let index = 0; index < elements.length; index++) {
                         /* 최저이수학점과 이수체계도 이미지를 나누어 테스트 진행 */
                         if (index === 0) {
@@ -293,47 +293,73 @@ describe('POST /personal/service', () => {
                         const element = elements[index].itemCard;
                         /* 응답 결과 구조가 지정한 데이터 타입, 내용인지를 테스트 */
                         expect(element)
-                            .to
-                            .be
-                            .an('object');
-                        const headTitle = element.head.title;
-                        const elementTitle = element.title;
-                        expect(headTitle)
-                            .to
-                            .be
-                            .a('string');
-                        expect(headTitle)
-                            .to
-                            .include('최저이수요구 학점표');
-                        expect(elementTitle)
-                            .to
-                            .be
-                            .a('string');
-                        expect(elementTitle)
-                            .to
-                            .include('일반인증 최저이수요구 학점표 입니다.');
-
-                        const elementItems = element.itemList;
-                        const title = [
-                            "전공필수",
-                            "전공선택",
-                            "교양필수",
-                            "교양선택",
-                            "총 학점",
-                            "채플 횟수"
-                        ];
-                        /* 본문 내용 응답 결과가 지정한 내용, 데이터 타입인지를 테스트 */
-                        for (let index = 0; index < elementItems.length; index++) {
-                            const itemTitle = elementItems[index].title;
-                            const itemDescription = elementItems[index].description;
-                            // console.log(itemTitle, itemDescription);
-                            expect(itemTitle)
-                                .to
-                                .equal(title[index]);
-                            expect(itemDescription)
                                 .to
                                 .be
-                                .a('number');
+                                .an('object');
+                            const headTitle = element.head.title;
+                            const elementTitle = element.title;
+                            expect(headTitle)
+                                .to
+                                .be
+                                .a('string');
+                            expect(headTitle)
+                                .to
+                                .include('최저이수요구 학점표');
+                            expect(elementTitle)
+                                .to
+                                .be
+                                .a('string');
+                        if(index === 0) {
+                            expect(elementTitle)
+                                .to
+                                .include('일반인증 최저이수요구 학점표 입니다.');
+
+                            const elementItems = element.itemList;
+                            const title = [
+                                "전공필수",
+                                "전공선택",
+                                "교양필수",
+                                "교양선택",
+                                "총 학점",
+                                "채플 횟수"
+                            ];
+                            /* 본문 내용 응답 결과가 지정한 내용, 데이터 타입인지를 테스트 */
+                            for (let index = 0; index < elementItems.length; index++) {
+                                const itemTitle = elementItems[index].title;
+                                const itemDescription = elementItems[index].description;
+                                // console.log(itemTitle, itemDescription);
+                                expect(itemTitle)
+                                    .to
+                                    .equal(title[index]);
+                                expect(itemDescription)
+                                    .to
+                                    .be
+                                    .a('number');
+                            }
+                        } else {
+                            expect(elementTitle)
+                                .to
+                                .include('전공 선택 유형별 최저이수요구 학점표 입니다.');
+
+                            const elementItems = element.itemList;
+                            const title = [
+                                "전공심화",
+                                "부전공",
+                                "복수전공"
+                            ];
+                            /* 본문 내용 응답 결과가 지정한 내용, 데이터 타입인지를 테스트 */
+                            for (let index = 0; index < elementItems.length; index++) {
+                                const itemTitle = elementItems[index].title;
+                                const itemDescription = elementItems[index].description;
+                                // console.log(itemTitle, itemDescription);
+                                expect(itemTitle)
+                                    .to
+                                    .equal(title[index]);
+                                expect(itemDescription)
+                                    .to
+                                    .be
+                                    .a('number');
+                            }
                         }
                     }
                 }
