@@ -74,29 +74,11 @@ router.post('/', async function (req, res) {
                         outputs: [
                             {
                                 simpleText: {
-                                    text: "전체 학점을 삭제합니다. 진행하시겠습니까?"
+                                    text: "수정하고자 하는 교과목을 선택해주세요"
                                 }
                             }
                         ],
-                        quickReplies: [
-                            {
-                                "messageText": "네, 삭제해주세요",
-                                "action": "block",
-                                "blockId": functions
-                                    .config()
-                                    .service_key
-                                    .setting,
-                                "label": "네"
-                            }, {
-                                "messageText": "아니오",
-                                "action": "block",
-                                "blockId": functions
-                                    .config()
-                                    .service_key
-                                    .setting_hub,
-                                "label": "아니오"
-                            }
-                        ]
+                        quickReplies: quickReplies
                     }
                 };
                 break;
