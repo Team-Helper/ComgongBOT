@@ -108,50 +108,6 @@ exports.coldBreak = functions
 
         }
 
-        function checkNumberCold() {
-            const data = JSON.stringify({"utterance": 15});
-
-            const config = {
-                method: 'post',
-                url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/checkNumber',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: data
-            };
-
-            return axios(config)
-                .then(function (response) {
-                    console.log(JSON.stringify(response.data));
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        }
-
-        function checkSidCold() {
-            const data = JSON.stringify({"utterance": 22});
-
-            const config = {
-                method: 'post',
-                url: 'https://asia-northeast1-comgong-bot.cloudfunctions.net/checkStudentID',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: data
-            };
-
-            return axios(config)
-                .then(function (response) {
-                    console.log(JSON.stringify(response.data));
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        }
-
         function officeInfoCold() {
             const data = JSON.stringify({
                 "userRequest": {
@@ -192,8 +148,6 @@ exports.coldBreak = functions
                 publicCold(),
                 personalCold(),
                 settingCold(),
-                checkNumberCold(),
-                checkSidCold(),
                 officeInfoCold()
             ])
             .then(axios.spread(() => {
