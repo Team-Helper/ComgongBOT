@@ -24,64 +24,6 @@ router.post('/', async function (req, res) {
 
     if (checkAuth === true) {
         switch (userRequest) {
-            case "나의 학점을 수정할게":
-                items = [
-                    '전공필수',
-                    '전공선택',
-                    '교양필수',
-                    '교양선택',
-                    '총 학점',
-                    '전체 학점',
-                    '입력 취소'
-                ];
-                label = [
-                    '전공필수',
-                    '전공선택',
-                    '교양필수',
-                    '교양선택',
-                    '총 학점',
-                    '전체 학점',
-                    '입력 취소'
-                ];
-                items.forEach((value, index) => {
-                    quickReplies.push({
-                        "messageText": value,
-                        "action": "block",
-                        "blockId": functions
-                            .config()
-                            .service_key
-                            .credit_modify,
-                        "label": label[index],
-                        "extra": {
-                            "version": "2.0",
-                            "context": {
-                                "values": [
-                                    {
-                                        "name": "creditMenu",
-                                        "lifeSpan": 3,
-                                        "params": {
-                                            "menu": value
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    });
-                });
-                responseBody = {
-                    version: "2.0",
-                    template: {
-                        outputs: [
-                            {
-                                simpleText: {
-                                    text: "수정하고자 하는 교과목을 선택해주세요"
-                                }
-                            }
-                        ],
-                        quickReplies: quickReplies
-                    }
-                };
-                break;
             case "전체 학점을 삭제할게":
                 responseBody = {
                     version: "2.0",
@@ -131,12 +73,7 @@ router.post('/', async function (req, res) {
                     });
                 });
                 if (userData.data().credits) {
-                    await userSelect.update({
-                        credits: admin
-                            .firestore
-                            .FieldValue
-                            .delete()
-                    });
+                    await userSelect.update({credits: admin.firestore.FieldValue.delete()});
                     responseBody = {
                         version: "2.0",
                         template: {
