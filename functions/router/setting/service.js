@@ -24,6 +24,84 @@ router.post('/', async function (req, res) {
 
     if (checkAuth === true) {
         switch (userRequest) {
+            case "전체 학점을 삭제할게":
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "전체 학점을 삭제합니다. 진행하시겠습니까?"
+                                }
+                            }
+                        ],
+                        quickReplies: [
+                            {
+                                "messageText": "네, 삭제해주세요",
+                                "action": "block",
+                                "blockId": functions
+                                    .config()
+                                    .service_key
+                                    .setting,
+                                "label": "네"
+                            }, {
+                                "messageText": "아니오",
+                                "action": "block",
+                                "blockId": functions
+                                    .config()
+                                    .service_key
+                                    .setting_hub,
+                                "label": "아니오"
+                            }
+                        ]
+                    }
+                };
+                break;
+            case "네, 삭제해주세요":
+                userData = await userSelect.get();
+                items = ["나의 학점을 입력할게"];
+                label = ["학점 입력"];
+                items.forEach((value, index) => {
+                    quickReplies.push({
+                        "messageText": value,
+                        "action": "block",
+                        "blockId": functions
+                            .config()
+                            .service_key
+                            .credit,
+                        "label": label[index]
+                    });
+                });
+                if (userData.data().credits) {
+                    await userSelect.update({credits: admin.firestore.FieldValue.delete()});
+                    responseBody = {
+                        version: "2.0",
+                        template: {
+                            outputs: [
+                                {
+                                    simpleText: {
+                                        text: "🔄 전체 학점이 삭제되었습니다."
+                                    }
+                                }
+                            ]
+                        }
+                    };
+                } else {
+                    responseBody = {
+                        version: "2.0",
+                        template: {
+                            outputs: [
+                                {
+                                    simpleText: {
+                                        text: "🚫 학점이 존재하지 않습니다."
+                                    }
+                                }
+                            ],
+                            quickReplies: quickReplies
+                        }
+                    };
+                }
+                break;
             case "나의 공학인증여부를 변경할게":
                 /* 사용자의 공학인증 여부를 O/x 바로가기 버튼으로 처리하여 상태 값을 Flag 처리*/
                 /* 또한, 해당 상태 값의 중복 검사 역시 도입 */
@@ -171,7 +249,7 @@ router.post('/', async function (req, res) {
                         ],
                         quickReplies: [
                             {
-                                "messageText": "네",
+                                "messageText": "네, 초기화해주세요",
                                 "action": "block",
                                 "blockId": functions
                                     .config()
@@ -191,7 +269,7 @@ router.post('/', async function (req, res) {
                     }
                 };
                 break;
-            case "네":
+            case "네, 초기화해주세요":
                 {
                     userData = await userSelect.get();
                     const getEmail = userData

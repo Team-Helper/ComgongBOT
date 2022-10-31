@@ -62,8 +62,8 @@ router.post('/', async function (req, res) {
                 }
             });
         } else {
-            messageText.push("나의 학점을 수정할게", "나의 학번을 변경할게", "나의 공학인증여부를 변경할게", "설정을 초기화 해줘");
-            label.push("학점 수정", "학번 변경", "공학인증 변경", "설정 초기화");
+            messageText.push("나의 학점을 수정할게", "전체 학점을 삭제할게", "나의 학번을 변경할게", "나의 공학인증여부를 변경할게", "설정을 초기화 해줘");
+            label.push("학점 수정", "전체 학점 삭제", "학번 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
                 if (index === 0) {
                     quickReplies.push({
@@ -75,7 +75,7 @@ router.post('/', async function (req, res) {
                             .credit_modify,
                         "label": value
                     });
-                } else if (index === 1) {
+                } else if (index === 2) {
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",

@@ -8,7 +8,7 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams;
     // console.log(userRequest);
-    const studentID = parseInt(userRequest.studentID.value);
+    const studentID = parseInt(userRequest.studentID.origin);
     // console.log(studentID);
     let responseBody;
     let quickReplies = [];
@@ -20,7 +20,7 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
-    const userStudentID = parseInt(userData.data().studentID);
+    const userStudentID = (userData.data().studentID);
 
     /* 사용자의 기존 학번 값과 요청 값인 수정 학번 값의 중복 여부를 검증해 관련 응답 블록 출력과 수정 실행 */
     if (userStudentID === studentID) {
