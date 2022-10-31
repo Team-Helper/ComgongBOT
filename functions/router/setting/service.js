@@ -37,13 +37,13 @@ router.post('/', async function (req, res) {
                         ],
                         quickReplies: [
                             {
-                                "messageText": "네",
+                                "messageText": "네, 삭제해주세요",
                                 "action": "block",
                                 "blockId": functions
                                     .config()
                                     .service_key
                                     .setting,
-                                "label": "전체 학점 삭제"
+                                "label": "네"
                             }, {
                                 "messageText": "아니오",
                                 "action": "block",
@@ -57,7 +57,7 @@ router.post('/', async function (req, res) {
                     }
                 };
                 break;
-            case "전체 학점 삭제":
+            case "네, 삭제해주세요":
                 userData = await userSelect.get();
                 items = ["나의 학점을 입력할게"];
                 label = ["학점 입력"];
@@ -249,7 +249,7 @@ router.post('/', async function (req, res) {
                         ],
                         quickReplies: [
                             {
-                                "messageText": "네",
+                                "messageText": "네, 초기화해주세요",
                                 "action": "block",
                                 "blockId": functions
                                     .config()
@@ -269,7 +269,7 @@ router.post('/', async function (req, res) {
                     }
                 };
                 break;
-            case "네":
+            case "네, 초기화해주세요":
                 {
                     userData = await userSelect.get();
                     const getEmail = userData
