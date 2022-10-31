@@ -390,7 +390,7 @@ router.post('/', async function (req, res) {
                         items.push({
                             itemCard: {
                                 "head": {
-                                    "title": `☑ 전공 선택 유형별 최저이수요구 학점표`
+                                    "title": `☑ 전공 선택 최저이수요구 학점표`
                                 },
                                 "itemList": itemChoiceList,
                                 "title": `본인 학번의 전공 선택 유형별 최저이수요구 학점표 입니다.`
