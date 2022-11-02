@@ -25,9 +25,9 @@ router.post('/', async function (req, res) {
     if (checkAuth === true) {
         switch (userRequest) {
             case "나의 학점을 수정할게":
-                label.push("전공필수", "전공선택", "교양필수", "교양선택", "총 학점", "전체 교과목", "입력 취소");
+                label = ["전공필수", "전공선택", "교양필수", "교양선택", "총 학점", "전체 교과목", "입력 취소"];
                 label.forEach((value, index) => {
-                    if (index === items.length - 2) {
+                    if (index === label.length - 2) {
                         quickReplies.push({
                             "messageText": value,
                             "action": "block",
