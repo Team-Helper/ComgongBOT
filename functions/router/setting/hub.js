@@ -71,17 +71,7 @@ router.post('/', async function (req, res) {
             );
             label.push("학점 수정", "전체 학점 삭제", "학번 변경", "공학인증 변경", "설정 초기화");
             label.forEach((value, index) => {
-                if (index === 0) {
-                    quickReplies.push({
-                        "messageText": messageText[index],
-                        "action": "block",
-                        "blockId": functions
-                            .config()
-                            .service_key
-                            .credit_modify,
-                        "label": value
-                    });
-                } else if (index === 2) {
+                if (index === 2) {
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",

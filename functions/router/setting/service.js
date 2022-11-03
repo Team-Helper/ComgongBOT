@@ -24,6 +24,54 @@ router.post('/', async function (req, res) {
 
     if (checkAuth === true) {
         switch (userRequest) {
+            case "나의 학점을 수정할게":
+                items = [
+                    '전공필수',
+                    '전공선택',
+                    '교양필수',
+                    '교양선택',
+                    '총 학점',
+                    '전체 교과목',
+                    '입력 취소'
+                ];
+                items.forEach((value, index) => {
+                    if (index === items.length - 2) {
+                        quickReplies.push({
+                            "messageText": value,
+                            "action": "block",
+                            "blockId": functions
+                                .config()
+                                .service_key
+                                .credit,
+                            "label": value
+                        });
+                    } else {
+                        quickReplies.push({
+                            "messageText": value,
+                            "action": "block",
+                            "blockId": functions
+                                .config()
+                                .service_key
+                                .credit_modify,
+                            "label": value
+                        });
+                    }
+                });
+                responseBody = {
+                    version: "2.0",
+                    template: {
+                        outputs: [
+                            {
+                                simpleText: {
+                                    text: "수정하고자 하는 교과목을 선택해주세요."
+                                }
+                            }
+                        ],
+                        quickReplies: quickReplies
+                    }
+                };
+                break;
+
             case "전체 학점을 삭제할게":
                 responseBody = {
                     version: "2.0",
@@ -107,6 +155,7 @@ router.post('/', async function (req, res) {
                     };
                 }
                 break;
+                
             case "나의 공학인증여부를 변경할게":
                 /* 사용자의 공학인증 여부를 O/x 바로가기 버튼으로 처리하여 상태 값을 Flag 처리*/
                 /* 또한, 해당 상태 값의 중복 검사 역시 도입 */
