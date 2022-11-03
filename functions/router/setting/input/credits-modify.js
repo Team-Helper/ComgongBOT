@@ -10,7 +10,7 @@ router.post('/', async function (req, res) {
         .collection('users')
         .doc(userAbout.plusfriendUserKey);
     const userData = await userSelect.get();
-    /* 사용자 입력 값을 조회 시 NaN 인 경우 적재된 기존의 학점 값으로 작성 */
+    /* 사용자 입력 값을 조회 시 0 인 경우 적재된 기존의 학점 값으로 작성 */
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams;
     // console.log(userRequest);
