@@ -14,27 +14,37 @@ router.post('/', async function (req, res) {
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
     const userRequest = req.body.action.detailParams;
     // console.log(userRequest);
-    const majorMust = parseInt(userRequest.majorMust.origin) || userData
-        .data()
-        .credits
-        .majorMust;
-    const majorChoice = parseInt(userRequest.majorChoice.origin) || userData
-        .data()
-        .credits
-        .majorChoice;
-    const electiveMust = parseInt(userRequest.electiveMust.origin) || userData
-        .data()
-        .credits
-        .electiveMust;
-    const electiveChoice = parseInt(userRequest.electiveChoice.origin) || userData
-        .data()
-        .credits
-        .electiveChoice;
-    const total = parseInt(userRequest.total.origin) || userData
-        .data()
-        .credits
-        .total;
-    console.log(majorMust, majorChoice, electiveMust, electiveChoice, total);
+    const majorMust = parseInt(userRequest.majorMust.origin) == 0
+        ? userData
+            .data()
+            .credits
+            .majorMust
+        : parseInt(userRequest.majorMust.origin);
+    const majorChoice = parseInt(userRequest.majorChoice.origin) == 0
+        ? userData
+            .data()
+            .credits
+            .majorChoice
+        : parseInt(userRequest.majorChoice.origin);
+    const electiveMust = parseInt(userRequest.electiveMust.origin) == 0
+        ? userData
+            .data()
+            .credits
+            .electiveMust
+        : parseInt(userRequest.electiveMust.origin);
+    const electiveChoice = parseInt(userRequest.electiveChoice.origin) == 0
+        ? userData
+            .data()
+            .credits
+            .electiveChoice
+        : parseInt(userRequest.electiveChoice.origin);
+    const total = parseInt(userRequest.total.origin) == 0
+        ? userData
+            .data()
+            .credits
+            .total
+        : parseInt(userRequest.total.origin);
+    // console.log(majorMust, majorChoice, electiveMust, electiveChoice, total);
 
     /* 사용자 프로필 DB에 입력된 학점 값을 학점 이름의 MAP으로 생성 */
     await userSelect
