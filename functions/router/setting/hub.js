@@ -92,7 +92,7 @@ router.post('/', async function (req, res) {
                             .credits,
                         "label": value
                     });
-                } else if (index === 2) {
+                } else if (index === 3) {
                     quickReplies.push({
                         "messageText": messageText[index],
                         "action": "block",
