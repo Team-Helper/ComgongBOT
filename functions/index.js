@@ -14,6 +14,7 @@ const settingService = require('./router/setting/service');
 const profile = require('./router/setting/input/profile');
 const credit = require('./router/setting/input/credit');
 const creditModify = require('./router/setting/input/credit-modify');
+const creditsModify = require('./router/setting/input/credits-modify');
 const studentIDModify = require('./router/setting/input/studentID-modify');
 const serviceOfficeInfo = require('./router/service-officeInfo');
 
@@ -43,6 +44,7 @@ app.use('/setting/service', settingService);
 app.use('/input/profile', profile);
 app.use('/input/credit', credit);
 app.use('/input/credit-modify', creditModify);
+app.use('/input/credits-modify', creditsModify);
 app.use('/input/studentID-modify', studentIDModify);
 app.use('/officeInfo', serviceOfficeInfo);
 exports.middleWare = functions
