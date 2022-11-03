@@ -24,7 +24,7 @@ router.post('/', async function (req, res) {
 
     if (checkAuth === true) {
         switch (userRequest) {
-            case "전체 학점을 삭제할게":
+            case "나의 전체 학점을 삭제할게":
                 responseBody = {
                     version: "2.0",
                     template: {
@@ -107,6 +107,7 @@ router.post('/', async function (req, res) {
                     };
                 }
                 break;
+
             case "나의 공학인증여부를 변경할게":
                 /* 사용자의 공학인증 여부를 O/x 바로가기 버튼으로 처리하여 상태 값을 Flag 처리*/
                 /* 또한, 해당 상태 값의 중복 검사 역시 도입 */
