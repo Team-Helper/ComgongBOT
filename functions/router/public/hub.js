@@ -1,15 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const startAuth = require('../start-auth');
 const functions = require('firebase-functions');
 
 router.post('/', async function (req, res) {
-    /* 사용자의 카카오 채널 추가 상태와 이메일 인증 여부를 통해 메뉴 바로가기 혹은 경고문 출력 */
+    /* 사용자의 카카오 채널 추가 상태 여부를 통해 메뉴 바로가기 혹은 경고문 출력 */
     const userAbout = req.body.userRequest.user.properties;
     // console.log(userAbout.plusfriendUserKey, userAbout.isFriend);
-    const checkAuth = await startAuth(userAbout);
-    // console.log(checkAuth);
-
     let responseBody;
     const quickReplies = [];
     const messageText = [
@@ -33,7 +29,7 @@ router.post('/', async function (req, res) {
         "교수진소개"
     ];
 
-    if (checkAuth === true) {
+    if (userAbout.isFriend === true) {
         /* 메뉴 바로가기 내용 작성 및 출력*/
         label.forEach((value, index) => {
             quickReplies.push({
@@ -61,7 +57,18 @@ router.post('/', async function (req, res) {
             }
         };
     } else {
-        responseBody = checkAuth;
+        responseBody = {
+            version: "2.0",
+            template: {
+                outputs: [
+                    {
+                        simpleText: {
+                            text: "🔕 컴공봇 채널 추가부터 하셔야 이용이 가능해요!"
+                        }
+                    }
+                ]
+            }
+        };
     }
     res
         .status(201)
