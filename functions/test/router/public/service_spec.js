@@ -365,7 +365,7 @@ describe('POST /public/service', () => {
                     .a('string');
                 expect(headerString)
                     .to
-                    .equal('외부IT행사 및 교육 게시판');
+                    .equal('외부IT행사 및 교육');
 
                 const items = element.items;
                 /* 본문 내용의 응답 결과가 지정한 개수, 데이터 타입인지를 테스트 */
@@ -395,7 +395,7 @@ describe('POST /public/service', () => {
                 /* 페이지 바로가기 버튼 응답 결과가 지정한 내용, 데이터 타입인지를 테스트 */
                 expect(button.label)
                     .to
-                    .equal('외부IT행사 및 교육 게시판 페이지');
+                    .equal('외부IT행사&교육 페이지');
                 expect(button.action)
                     .to
                     .equal('webLink');
