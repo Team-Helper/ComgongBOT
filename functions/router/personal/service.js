@@ -355,13 +355,12 @@ router.post('/', async function (req, res) {
                                 .data()
                                 .chapel
                         ];
-
                         /* 아이템 카드 뷰 블록 본문 내용으로 작성 */
                         title.forEach((value, index) => {
                             itemList.push({'title': value, 'description': credits[index]});
                         });
 
-                        /* 전공 선택 유형 최저이수요구학점 데이터 조회 */
+                        /* 해당 DB에 전공 선택 유형 최저이수요구학점 데이터를 추출*/
                         const choiceTitle = ['전공심화', '부전공', '복수전공'];
                         const choiceCredits = [
                             creditsData
@@ -374,10 +373,12 @@ router.post('/', async function (req, res) {
                                 .data()
                                 .doubleMajor
                         ];
+                        /* 아이템 카드 뷰 블록 본문 내용으로 작성 */
                         choiceTitle.forEach((value, index) => {
                             itemChoiceList.push({'title': value, 'description': choiceCredits[index]});
                         });
 
+                        /* 응답 횟수 별로 작성한 블록 개별 출력 */
                         items.push({
                             itemCard: {
                                 "head": {

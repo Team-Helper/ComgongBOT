@@ -288,6 +288,7 @@ describe('POST /setting', () => {
                 // console.log(elementQuick);
                 const array = [
                     '학점 수정',
+                    '전체 학점 수정',
                     '전체 학점 삭제',
                     '학번 변경',
                     '공학인증 변경',

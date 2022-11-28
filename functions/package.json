@@ -7,7 +7,7 @@
         "config": "firebase functions:config:get > .runtimeconfig.json",
         "test_crawling": "mocha test/crawling/*.js -t 10000",
         "test_profile": "mocha test/router/setting/input/profile_spec -t 10000 && mocha test/router/setting/input/credit_spec -t 10000",
-        "test": "mocha test/router/public/service_spec -t 10000",
+        "test": "mocha test/router/setting/service_spec -t 10000",
         "lint": "eslint . --fix"
     },
     "engines": {

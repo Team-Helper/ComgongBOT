@@ -15,7 +15,7 @@ describe('POST /setting/service', () => {
                     "isFriend": true
                 }
             },
-            utterance: "전체 학점을 삭제할게"
+            utterance: "나의 전체 학점을 삭제할게"
         };
         request(functions.config().test_url.app)
             .post('/setting/service')
@@ -44,7 +44,7 @@ describe('POST /setting/service', () => {
                     .include("전체 학점을 삭제합니다.");
 
                 const elementQuick = res.body.template.quickReplies;
-                const array = ['전체 학점 삭제', '아니오'];
+                const array = ['네', '아니오'];
                 // console.log(elementQuick);
                 /* 관련 바로가기 응답 결과가 지정한 개수, 내용인지를 테스트 */
                 expect(Object.keys(elementQuick).length)
@@ -74,7 +74,7 @@ describe('POST /setting/service', () => {
                     "isFriend": true
                 }
             },
-            utterance: "전체 학점 삭제"
+            utterance: "네, 삭제해주세요"
         };
         request(functions.config().test_url.app)
             .post('/setting/service')
@@ -108,7 +108,7 @@ describe('POST /setting/service', () => {
                 done(err);
             });
     });
-    /* 테스트 단위 : 공학인증 여부 변경이 실패했을 때 */
+    /* 테스트 단위 : 전체 학점 삭제를 실패했을 때 */
     it('responds delete user credits data fail', done => {
         const userRequest = {
             user: {
@@ -120,7 +120,7 @@ describe('POST /setting/service', () => {
                     "isFriend": true
                 }
             },
-            utterance: "전체 학점 삭제"
+            utterance: "네, 삭제해주세요"
         };
         request(functions.config().test_url.app)
             .post('/setting/service')
@@ -410,7 +410,7 @@ describe('POST /setting/service', () => {
                     "isFriend": true
                 }
             },
-            utterance: "네"
+            utterance: "네, 초기화해주세요"
         };
         request(functions.config().test_url.app)
             .post('/setting/service')
