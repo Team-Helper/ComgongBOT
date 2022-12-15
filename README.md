@@ -13,7 +13,7 @@
     
     mocha V9.1.4
     
-    Heroku Scheduler & Advanced Scheduler
+    pipedream Scheduler
 # Get start
     > cd functions
     > npm install 
